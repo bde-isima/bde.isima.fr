@@ -1,0 +1,31 @@
+import Link from "next/link"
+import Button from "@material-ui/core/Button"
+
+import config from "./config"
+import { useCustomRouter } from "app/hooks/useCustomRouter"
+
+export default function Desktop() {
+  const { router } = useCustomRouter()
+
+  return (
+    <>
+      {config.map((obj) => {
+        const isActive = obj.isActive(router.asPath, window.location.hash)
+
+        return (
+          <Link key={obj.to} href={obj.to}>
+            <Button
+              className={`p-2 h-16 rounded-none ${
+                isActive && "border-b border-solid border-primary"
+              }`}
+              aria-label={obj.text}
+            >
+              {obj.icon}
+              <div className={`m-2 ${isActive ? "bold" : "normal"}`}>{obj.text}</div>
+            </Button>
+          </Link>
+        )
+      })}
+    </>
+  )
+}

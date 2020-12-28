@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --------------------------------------
+
+enum PaymentMethod {
+  BDE
+  LYDIA
+  CASH
+}
+
+enum State {
+  WAITING_APPROVAL
+  ACCEPTED
+  CHECKED_OUT
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+model Event {
+    id                        String    @id @default(cuid())
+
+    name                      String
+    description               String
+
+    takes_place_at            DateTime
+    subscriptions_end_at      DateTime
+
+    status                    State
+    max_subscribers           Int?
+
+    club                      Club      @relation(name: "EventClub", fields: [clubId], references: [id])
+    clubId                    String
+
+    products                  Json[]
+
+    createdAt                 DateTime  @default(now())
+    updatedAt                 DateTime  @updatedAt
+}
+
+model EventSubscription {
+    id                        String    @id @default(cuid())
+
+    event                     Event     @relation(name: "SubscriptionEvent", fields: [eventId], references: [id])
+    eventId                   String
+
+    user                      User      @relation(name: "SubscriptionUser", fields: [userId], references: [id])
+    userId                    String
+
+    payment_method            PaymentMethod
+    cart                      Json[]
+
+    createdAt                 DateTime  @default(now())
+    updatedAt                 DateTime  @updatedAt
+}
+
+model Transaction {
+    id                      String    @id @default(cuid())
+
+    amount                  Float
+    description             String?
+    type                    TransactionType
+
+    emitter                 User?     @relation(name: "TransactionEmitter", fields: [emitterId], references: [id])
+    emitterId               String?
+
+    user                    User      @relation(name: "TransactionUser", fields: [userId], references: [id])
+    userId                  String
+    prevBalance             Float
+
+    article                 Article?  @relation(name: "TransactionArticle", fields: [articleId], references: [id])
+    articleId               String?
+
+    createdAt               DateTime  @default(now())
+    updatedAt               DateTime  @updatedAt
+}
+
+model Article {
+    id             String    @id @default(cuid())
+
+    name           String
+    price          Float
+    member_price   Float
+    image          String?
+    is_enabled     Boolean   @default(true)
+
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+}
+
+model Club {
+    id             String    @id @default(cuid())
+
+    name           String    @unique
+    email          String?
+    description    String?
+    image          String?
+
+    facebookURL    String?
+    twitterURL     String?
+    instagramURL   String?
+    customURL      String?
+
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+}
+
+model Partner {
+    id             String    @id @default(cuid())
+
+    name           String
+    description    String?
+    image          String?
+
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+}
+
+model Promotion {
+    id             String    @id @default(cuid())
+
+    year           Int
+    fb_group_id    Int?
+    list_email     String?
+
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+}
+
+model User {
+    id                      String    @id @default(cuid())
+
+    lastname                String
+    firstname               String
+    nickname                String?
+
+    email                   String    @unique
+    card                    Int       @unique
+    balance                 Float
+
+    password                String?
+    roles                   String[]
+    sessions                Session[]
+    resetPasswordToken      String?   @unique
+
+    promotion               Promotion @relation(fields: [promotionId], references: [id])
+    promotionId             String
+
+    transactions            Transaction[] @relation("TransactionUser")
+
+    image                   String?
+    is_member               Boolean   @default(false)
+    is_enabled              Boolean   @default(true)
+
+    createdAt               DateTime  @default(now())
+    updatedAt               DateTime  @updatedAt
+}
+
+model Session {
+    id                 String    @id @default(cuid())
+
+    user               User?     @relation(fields: [userId], references: [id])
+    userId             String?
+    handle             String    @unique
+
+    hashedSessionToken String?
+    antiCSRFToken      String?
+    expiresAt          DateTime?
+
+    publicData         String?
+    privateData        String?
+
+    createdAt          DateTime  @default(now())
+    updatedAt          DateTime  @updatedAt
+}

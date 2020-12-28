@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  bde_nginx: 
+    container_name: bde_nginx
+    image: nginx:latest
+    volumes:
+      - ./logs:/var/log/nginx
+      - ./conf:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443

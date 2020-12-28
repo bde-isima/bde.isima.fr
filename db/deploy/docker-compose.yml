@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  bde_postgres: 
+    container_name: bde_postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    volumes:
+      - bde_data:/var/lib/postgresql/data/
+
+  bde_pgadmin:
+    container_name: bde_pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    env_file:
+      - .env
+    volumes:
+      - bde_pgadmin:/root/.pgadmin
+
+volumes:
+  bde_data:
+  bde_pgadmin:

@@ -1,0 +1,11 @@
+/* TEAM */
+
+Jamstack developer: Adrien Lenoir
+Email: adrien.lenoir42440@gmail.com                          
+Location: Clermont-Ferrand, France
+						
+/* SITE */
+                            
+Last update: 2020/12/14                    
+Standards: HTML5, CSS3                      
+Components: BlitzJS, Material-UI                  
