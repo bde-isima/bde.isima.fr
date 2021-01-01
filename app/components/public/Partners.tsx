@@ -14,7 +14,7 @@ export default function Partners() {
   return (
     <Container className="min-h-screen">
       <div className="px-2 py-8 md:p-8">
-        <a id="partners" />
+        <a id="partners" href="#partners" />
 
         <Typography variant="h3" gutterBottom>
           <b>LES PARTENAIRES DU BDE</b>

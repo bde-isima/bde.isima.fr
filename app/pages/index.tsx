@@ -16,7 +16,7 @@ const Index: BlitzPage = () => {
   return (
     <SuspenseList revealOrder="forwards">
       {/** The anchor link is put here so it scrolls all way to the very top */}
-      <a id="landing" />
+      <a id="landing" href="#landing" />
       <Landing />
       <School />
       <Clubs />

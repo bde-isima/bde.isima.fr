@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { format } from "date-fns"
+import { CsvBuilder } from 'filefy'
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
 
@@ -48,6 +49,39 @@ export default function EventsTable({ club }) {
     setSelected(rowData)
   }
 
+  const exportCsv = rowData => {
+    new CsvBuilder(`${rowData.name}.csv`)
+      //Default delimiter
+      .setDelimeter(',')
+      //We add the distinct columns to the CSV for readability considerations
+      .setColumns(['Moyen de paiement', 'Carte', 'Nom', 'Prénom', ...rowData.products.map(x => x.name), 'Total'])
+      //Then we add on the rows the corresponding information 
+      .addRows(rowData.EventSubscription.map(sub => {
+          return [
+              sub.payment_method,
+              sub.user.card,
+              sub.user.lastname,
+              sub.user.firstname,
+              ...rowData.products.reduce((acc, curr) => {
+                  const items = sub.cart.filter(item => item.name === curr.name)
+                  if (items.length) {
+                    return [
+                        ...acc, 
+                        items.map(x => `x${x.quantity} - ${x.name} ${x.options.map(x => x.name).join(', ')} ${x.comment ? `(${x.comment})` : ''}`.trim()).join('\n')
+                    ]
+                  }
+                  return acc.concat('')
+              }, []),
+              sub.cart.reduce((acc, cartItem) => {
+                return acc + cartItem.quantity * (cartItem.price + cartItem.options.reduce((acc, o) => {
+                  return  acc + o.price
+                }, 0))
+              }, 0).toFixed(2)
+          ]
+      }))
+      .exportFile()
+  }
+
   const onClose = () => setOpen(false) 
 
   return (
@@ -58,10 +92,15 @@ export default function EventsTable({ club }) {
         variant="outlined"
         queryKey="events"
         getQuery={getEvents}
-        queryArgs={{ where: { clubId: club.id } }}
+        queryArgs={{ 
+          where: { clubId: club.id }, 
+          include: { EventSubscription: { include: { user: true } } },
+        }}
         upsertQuery={upsertEvent}
         deleteQuery={deleteManyEvents}
         FormComponent={EventForm}
+        allowCopy
+        onExport={exportCsv}
         actions={[
           (rowData) => ({
             icon: <ViewDashboardVariant />,

@@ -8,10 +8,11 @@ import IconButton from "@material-ui/core/IconButton"
 import Magnify from "mdi-material-ui/Magnify"
 import DeleteOutline from "mdi-material-ui/DeleteOutline"
 import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
+import ContentSaveMoveOutline from "mdi-material-ui/ContentSaveMoveOutline"
 
 import TableDeleteConfirm from "./TableDeleteConfirm"
 
-export default function TableToolbar({ title, numSelected, onAdd, onDelete, onSearch }) {
+export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport, onSearch }) {
   const [open, setOpen] = useState(false)
 
   const handleClickOpen = (value) => () => setOpen(value)
@@ -31,11 +32,21 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onSe
       <TableDeleteConfirm open={open} onConfirm={onDelete} onClose={handleClickOpen(false)} />
 
       {numSelected > 0 ? (
-        <Tooltip title="Supprimer">
-          <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)}>
-            <DeleteOutline />
-          </IconButton>
-        </Tooltip>
+        <div className="flex ml-4 items-center">
+          {onExport && (
+            <Tooltip title="Exporter en CSV">
+              <IconButton aria-label="Exporter en CSV" onClick={onExport}>
+                <ContentSaveMoveOutline />
+              </IconButton>
+            </Tooltip>
+          )}
+
+          <Tooltip title="Supprimer">
+            <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)}>
+              <DeleteOutline />
+            </IconButton>
+          </Tooltip>
+        </div>
       ) : (
         <div className="flex ml-4 items-center">
           <Magnify />

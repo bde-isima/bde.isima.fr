@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton"
 import TableContainer from "@material-ui/core/TableContainer"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
+import ContentCopy from "mdi-material-ui/ContentCopy"
 import CircleEditOutline from "mdi-material-ui/CircleEditOutline"
 
 import TableHead from "./TableHead"
@@ -22,6 +23,7 @@ type TableCoreProps = {
   isFetching: boolean
   tableProps: any
   handleCustomAction: (onClick: any) => (e: any) => Promise<void>
+  allowCopy: boolean
   actions: any[]
 }
 
@@ -33,6 +35,7 @@ export default function TableCore({
   isFetching,
   tableProps,
   handleCustomAction,
+  allowCopy,
   actions,
 }: TableCoreProps) {
   const { order, orderBy, rowsPerPage } = tableProps
@@ -78,6 +81,12 @@ export default function TableCore({
   const editClick = (row) => (e) => {
     e.stopPropagation()
     onEdit(row)
+  }
+
+  const copyClick = (row) => (e) => {
+    const { id, ...rest } = row
+    e.stopPropagation()
+    onEdit({ ...rest })
   }
 
   return (
@@ -147,6 +156,16 @@ export default function TableCore({
                       </TableCell>
                     )
                   })}
+
+                  {allowCopy && (
+                    <TableCell align="right">
+                      <Tooltip title="Copier">
+                        <IconButton aria-label="Copier" onClick={copyClick(row)}>
+                          <ContentCopy />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  )}
 
                   <TableCell align="right">
                     <Tooltip title="Éditer">

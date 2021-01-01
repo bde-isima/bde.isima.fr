@@ -9,6 +9,7 @@ import { TextField, Switches, Select } from "mui-rff"
 import IconButton from "@material-ui/core/IconButton"
 import { SyntheticEvent, useMemo, useState } from "react"
 import InputAdornment from "@material-ui/core/InputAdornment"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 import OpenInNew from "mdi-material-ui/OpenInNew"
 
@@ -26,7 +27,7 @@ type UserFormProps = {
 }
 
 export default function UserForm(props: UserFormProps) {
-  const { promotions } = usePromotions()
+  const [result, { isFetching }] = usePromotions({}, { suspense: false })
   const [value, setValue] = useState("0")
 
   const handleChange = (event: SyntheticEvent, newValue: string) => setValue(newValue)
@@ -122,9 +123,13 @@ export default function UserForm(props: UserFormProps) {
           <Divider className="m-2" />
 
           <Select name="promotion" label="Promotion" formControlProps={{ margin: "normal" }}>
-            {promotions.map((p) => (
-              <MenuItem key={p.id} value={p.id}>{p.year}</MenuItem>
-            ))}
+            {(isFetching || !result) ? (
+              <CircularProgress className="m-2" size={20} color="primary" />
+            ) : (
+              result.promotions.map((p) => (
+                <MenuItem key={p.id} value={p.id}>{p.year}</MenuItem>
+              ))
+            )}
           </Select>
 
           <Switches

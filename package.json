@@ -46,6 +46,7 @@
     "blitz": "0.28.0-canary.1",
     "cuid": "2.1.8",
     "date-fns": "2.16.1",
+    "filefy": "0.1.10",
     "final-form": "4.20.1",
     "final-form-arrays": "3.0.2",
     "formidable": "1.2.2",

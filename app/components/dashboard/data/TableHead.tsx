@@ -37,9 +37,6 @@ export default function TableHead({
               onClick={createSortHandler(col.id)}
             >
               {col.headerName}
-              {orderBy === col.id ? (
-                <span>{order === "desc" ? "sorted descending" : "sorted ascending"}</span>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}

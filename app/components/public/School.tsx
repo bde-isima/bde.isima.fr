@@ -10,7 +10,7 @@ export default function School() {
   return (
     <Container className="min-h-screen">
       <div className="px-2 py-8 md:p-8">
-        <a id="school" />
+        <a id="school" href="#school" />
 
         <Typography variant="h3" gutterBottom>
           <b>L'ISIMA</b>

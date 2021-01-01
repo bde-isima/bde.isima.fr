@@ -139,6 +139,28 @@ model Promotion {
     updatedAt      DateTime  @updatedAt
 }
 
+model Analytic {
+    id                      String    @id @default(cuid())
+
+    tag                     String    @unique
+    data                    Json
+
+    createdAt               DateTime  @default(now())
+    updatedAt               DateTime  @updatedAt
+}
+
+model UserStats {
+    id                      String    @id @default(cuid())
+
+    user                    User      @relation(fields: [userId], references: [id])
+    userId                  String
+
+    articlesStats           Json
+
+    createdAt               DateTime  @default(now())
+    updatedAt               DateTime  @updatedAt
+}
+
 model User {
     id                      String    @id @default(cuid())
 
@@ -159,6 +181,7 @@ model User {
     promotionId             String
 
     transactions            Transaction[] @relation("TransactionUser")
+    userStats               UserStats?
 
     image                   String?
     is_member               Boolean   @default(false)

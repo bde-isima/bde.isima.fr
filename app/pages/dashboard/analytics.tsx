@@ -1,12 +1,14 @@
 import { BlitzPage } from "blitz"
 import Layout from "app/layouts/Layout"
 
-const Analytics: BlitzPage = () => {
+import Analytics from 'app/components/dashboard/analytics/Analytics'
+
+const AnalyticsIndex: BlitzPage = () => {
   return (
-    <div />
+    <Analytics />
   )
 }
 
-Analytics.getLayout = (page) => <Layout title="Aperçu des stats">{page}</Layout>
+AnalyticsIndex.getLayout = (page) => <Layout title="Statistiques">{page}</Layout>
 
-export default Analytics
+export default AnalyticsIndex

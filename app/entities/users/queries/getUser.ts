@@ -2,9 +2,9 @@ import { Ctx, NotFoundError } from "blitz"
 
 import db, { Prisma } from "db"
 
-type FinduniqueUserInput = Pick<Prisma.FindUniqueUserArgs, "where">
+type FindUniqueUserInput = Pick<Prisma.FindUniqueUserArgs, "where">
 
-export default async function getUser({ where }: FinduniqueUserInput, ctx: Ctx) {
+export default async function getUser({ where }: FindUniqueUserInput, ctx: Ctx) {
   ctx.session.authorize()
 
   const user = await db.user.findFirst({ 

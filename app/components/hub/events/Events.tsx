@@ -9,6 +9,7 @@ import getEvents from "app/entities/events/queries/getEvents"
 export default function Events() {
   const [{ events }, { isFetching }] = useQuery(getEvents, {
     include: { club: true },
+    orderBy: { takes_place_at: 'asc' },
   })
 
   return (

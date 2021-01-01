@@ -12,6 +12,7 @@ import * as gtag from "integrations/gtag"
 import "react-multi-carousel/lib/styles.css"
 import packageJson from "../..//package.json"
 import getNav from "app/components/nav/getNav"
+import Splash from "app/components/common/Splash"
 import LoginFallback from "app/auth/components/LoginFallback"
 import useCustomTheme from "app/styles/useCustomTheme"
 
@@ -55,7 +56,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
           </Head>
 
-          <Suspense fallback={null}>
+          <Suspense fallback={<Splash />}>
             {getNav(router, getLayout(<Component {...pageProps} />))}
           </Suspense>
         </ErrorBoundary>

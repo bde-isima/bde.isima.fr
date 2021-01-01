@@ -1,13 +1,18 @@
 import { Ctx } from "blitz"
 
-import db from "db"
+import db, { Prisma } from "db"
 
-export default async function getCurrentUser(_ = null, ctx: Ctx) {
+type GetCurrentUserInput = Pick<Prisma.FindUniqueUserArgs, "include">
+
+export default async function getCurrentUser({ include }: GetCurrentUserInput, ctx: Ctx) {
   ctx.session.authorize() //Custom addition to ensure all pages that use this query are authorized
 
   if (!ctx.session.userId) {
     return null
   }
 
-  return db.user.findUnique({ where: { id: ctx.session.userId } })
+  return db.user.findUnique({ 
+    where: { id: ctx.session.userId },
+    include,
+  })
 }

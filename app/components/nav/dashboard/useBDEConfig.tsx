@@ -11,59 +11,51 @@ import { useCurrentUser } from "app/hooks/useCurrentUser"
 
 const config = [
   {
-    icon: <Finance />,
-    text: "ANALYTICS",
-    to: "/dashboard/analytics",
-    role: "bde",
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/analytics",
-  },
-  {
     icon: <ClipboardText />,
     text: "EVENTS",
     to: "/dashboard/events",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/events",
+  },
+  {
+    icon: <Finance />,
+    text: "STATISTIQUES",
+    to: "/dashboard/analytics",
+    isActive: (pathname: String, hash: String) => pathname === "/dashboard/analytics",
   },
   {
     icon: <AccountGroupOutline />,
     text: "CLUBS",
     to: "/dashboard/clubs",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/clubs",
   },
   {
     icon: <Store />,
     text: "MARCHÉ",
     to: "/dashboard/articles",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/articles",
   },
   {
     icon: <AccountDetails />,
     text: "MEMBRES",
     to: "/dashboard/users",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/users",
   },
   {
     icon: <Earth />,
     text: "PARTENAIRES",
     to: "/dashboard/partners",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/partners",
   },
   {
     icon: <CalendarToday />,
     text: "PLANNING",
     to: "/dashboard/planning",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/planning",
   },
   {
     icon: <BookOpenVariant />,
     text: "PROMOTIONS",
     to: "/dashboard/promotions",
-    role: "bde",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/promotions",
   },
 ]

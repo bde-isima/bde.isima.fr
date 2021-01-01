@@ -36,7 +36,7 @@ export default function Contact() {
     <Paper className="bg-primary min-h-screen">
       <Container className="min-h-screen">
         <div className="px-2 py-8 md:p-8">
-          <a id="contact" />
+          <a id="contact" href="#contact" />
 
           <Typography variant="h3" align="right" color="secondary" gutterBottom>
             <b>CONTACT</b>

@@ -18,6 +18,8 @@ type TableProps = {
   queryArgs?: any
   upsertQuery: any
   deleteQuery: any
+  allowCopy?: boolean
+  onExport?: (rowData: any) => void
   FormComponent: ReactNode
   actions?: any[]
 }
@@ -31,6 +33,8 @@ export default function Table({
   queryArgs = {},
   upsertQuery,
   deleteQuery,
+  allowCopy = false,
+  onExport = undefined,
   FormComponent,
   actions = [],
 }: TableProps) {
@@ -103,6 +107,8 @@ export default function Table({
     refetch()
   }
 
+  const handleExportAllClick = onExport ? async () => selected.forEach(x => onExport(rows.find(r => r.id === x))) : undefined
+
   const onPageChange = (event, newPage) => page.set(newPage)
 
   const onAdd = () => {
@@ -133,6 +139,7 @@ export default function Table({
         numSelected={selected.length}
         onAdd={onAdd}
         onDelete={handleDeleteAllClick}
+        onExport={handleExportAllClick}
         onSearch={onSearch}
       />
 
@@ -149,6 +156,7 @@ export default function Table({
         }}
         handleCustomAction={handleCustomAction}
         actions={actions}
+        allowCopy={allowCopy}
       />
 
       <TablePagination

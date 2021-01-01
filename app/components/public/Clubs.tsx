@@ -14,7 +14,7 @@ export default function Clubs() {
     <Paper className="bg-primary min-h-screen">
       <Container className="min-h-screen">
         <div className="px-2 py-8 md:p-8">
-          <a id="clubs" />
+          <a id="clubs" href="#clubs" />
 
           <Typography variant="h3" align="right" color="secondary" gutterBottom>
             <b>LES CLUBS DU BDE</b>
