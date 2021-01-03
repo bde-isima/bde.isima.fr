@@ -1,15 +1,19 @@
 import { Ctx } from "blitz"
 import db, { Prisma } from "db"
 
-type GetArticlesInput = Pick<Prisma.FindManyArticleArgs, "where" | "orderBy" | "skip" | "take">
+type GetArticlesInput = Pick<
+  Prisma.FindManyArticleArgs,
+  "include" | "where" | "orderBy" | "skip" | "take"
+>
 
 export default async function getArticles(
-  { where, orderBy, skip = 0, take }: GetArticlesInput,
+  { include, where, orderBy, skip = 0, take }: GetArticlesInput,
   ctx: Ctx
 ) {
   ctx.session.authorize()
 
   const articles = await db.article.findMany({
+    include,
     where,
     orderBy,
     take,

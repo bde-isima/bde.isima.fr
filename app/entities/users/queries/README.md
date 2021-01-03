@@ -1,5 +1,9 @@
 ## SECURITY CONCERNS
 
+# getAggregatedBalance
+
+- Can be performed by \* or BDE role only
+
 # getCurrentUser
 
 - Can be performed by any connected user who has an active session
@@ -11,7 +15,7 @@
 
 # getUsers
 
-- Can be performed by * or BDE role only
+- Can be performed by \* or BDE role only
 
 # getUsersPublicData
 

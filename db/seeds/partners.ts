@@ -1,7 +1,6 @@
-import db from "../index"
 import faker from "faker"
 
-const partners = async () => {
+const partners = async (db) => {
   for (let i = 0; i < 5; ++i) {
     await db.partner.create({
       data: {

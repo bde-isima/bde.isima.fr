@@ -1,8 +1,14 @@
-import db from "../index"
 import faker from "faker"
-import { hashPassword } from "app/auth/auth-utils"
+import SecurePassword from "secure-password"
 
-const users = async () => {
+const SP = () => new SecurePassword()
+
+export const hashPassword = async (password: string) => {
+  const hashedBuffer = await SP().hash(Buffer.from(password))
+  return hashedBuffer.toString("base64")
+}
+
+const users = async (db) => {
   const promotion = await db.promotion.findFirst()
   const password = await hashPassword("123")
 

@@ -19,7 +19,7 @@ export default function LoginForm(props: LoginFormProps) {
       await props.onSuccess()
     } catch (error) {
       if (error.name === "AuthenticationError") {
-        return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
+        return { [FORM_ERROR]: "Identifiants incorrects" }
       } else {
         return {
           [FORM_ERROR]:
@@ -36,8 +36,14 @@ export default function LoginForm(props: LoginFormProps) {
       initialValues={{ identifier: undefined, password: undefined }}
       onSubmit={onSubmit}
     >
-      <TextField type="text" name="identifier" label="Email ou n° de carte" autoFocus />
-      <TextField type="password" name="password" label="Password" />
+      <TextField
+        type="text"
+        name="identifier"
+        label="Email ou n° de carte"
+        autoComplete="username"
+        autoFocus
+      />
+      <TextField type="password" name="password" label="Password" autoComplete="current-password" />
     </Form>
   )
 }

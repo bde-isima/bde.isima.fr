@@ -1,7 +1,6 @@
-import db from "../index"
 import faker from "faker"
 
-const events = async () => {
+const events = async (db) => {
   const club = await db.club.findFirst()
   const today = new Date(new Date().setHours(0, 0, 0, 0))
 

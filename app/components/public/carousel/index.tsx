@@ -38,7 +38,7 @@ export default function Carousel({ getQuery, queryKey }) {
   const [isMoving, setIsMoving] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  const [result] = useQuery(getQuery, {})
+  const [result] = useQuery(getQuery, {}, { refetchOnWindowFocus: false })
 
   const stopPropagation = (e) => {
     e.stopPropagation()

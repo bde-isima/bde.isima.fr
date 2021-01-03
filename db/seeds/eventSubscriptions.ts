@@ -1,6 +1,4 @@
-import db from "../index"
-
-const eventSubscriptions = async () => {
+const eventSubscriptions = async (db) => {
   const events = await db.event.findMany({ take: 2 })
 
   await Promise.all(

@@ -1,7 +1,6 @@
-import db from "../index"
 import faker from "faker"
 
-const transactions = async () => {
+const transactions = async (db) => {
   let prevBalance = 0
   const article = await db.article.findFirst()
   const emitter = await db.user.findFirst()
