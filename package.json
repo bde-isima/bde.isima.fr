@@ -5,7 +5,7 @@
   "version": "4.0.0",
   "scripts": {
     "start": "npx blitz start --production",
-    "build": "npx prisma db push && npx blitz build",
+    "build": "npx prisma db push --preview-feature && npx blitz build",
     "dev": "npx blitz start",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest --passWithNoTests",
