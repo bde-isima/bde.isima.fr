@@ -1,39 +1,35 @@
 import Link from "next/link"
 import { useState } from "react"
-import { useMutation } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Avatar from "@material-ui/core/Avatar"
 import Divider from "@material-ui/core/Divider"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
+import { signOut, useSession } from "next-auth/client"
 
 import Logout from "mdi-material-ui/Logout"
 import CogOutline from "mdi-material-ui/CogOutline"
 import MessageAlertOutline from "mdi-material-ui/MessageAlertOutline"
 
-import logout from "app/auth/mutations/logout"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-
 export default function ModulesMenu() {
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
-  const [user] = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
+  const [session] = useSession()
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
 
   const handleClose = () => setAnchorEl(null)
 
   const onLogout = () => {
-    logoutMutation()
+    signOut()
   }
 
   return (
     <>
       <Avatar
         className="mx-2"
-        src={user?.image ?? undefined}
+        src={session?.user?.image ?? undefined}
         onClick={handleOpen}
         alt="Photo de profil"
       />
@@ -56,7 +52,7 @@ export default function ModulesMenu() {
         disableAutoFocusItem
       >
         <Typography className="pt-4 pl-4 pr-4" variant="subtitle1" noWrap>
-          {user?.nickname || `${user?.firstname} ${user?.lastname}`}
+          {session?.user?.nickname || `${session?.user?.firstname} ${session?.user?.lastname}`}
         </Typography>
 
         <Divider className="m-3" />

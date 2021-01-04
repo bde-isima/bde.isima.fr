@@ -1,16 +1,14 @@
-import { Ctx } from "blitz"
-
 import { mail } from "app/mailers"
 
-type FeedbackInput = { 
+type FeedbackInput = {
   subject: string
   message: string
   from: string
 }
 
-export default async function feedback({ subject, message, from }: FeedbackInput, ctx: Ctx) {
-  ctx.session.authorize()
-  
+export default async function feedback({ subject, message, from }: FeedbackInput) {
+  //TODO ctx.session.authorize()
+
   try {
     mail.send({
       subject: from,
@@ -21,8 +19,7 @@ export default async function feedback({ subject, message, from }: FeedbackInput
         from,
       },
     })
-  }
-  catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }

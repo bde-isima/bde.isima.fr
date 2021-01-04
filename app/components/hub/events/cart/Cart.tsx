@@ -1,7 +1,8 @@
 import cuid from "cuid"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import Hidden from "@material-ui/core/Hidden"
-import { useMutation, useRouter } from "blitz"
-import { useState, useEffect, SyntheticEvent } from "react"
+import { useMutation, useQueryClient } from "react-query"
 
 import { Event } from "db"
 import Mobile from "./Mobile"
@@ -19,12 +20,13 @@ type CartProps = {
 
 export default function Cart({ event }: CartProps) {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [total, setTotal] = useState<number>(0)
-  const { open, message, severity } = useSnackbar()
-  const { eventSubscription, setQueryData } = useEventSubscription()
+  const { open, message, severity, onShow, onClose } = useSnackbar()
+  const { eventSubscription } = useEventSubscription()
 
-  const [upsertEventSub, { isLoading: subscribing }] = useMutation(upsertEventSubscription)
-  const [deleteEventSub, { isLoading: unsubscribing }] = useMutation(deleteEventSubscription)
+  const upsertEventSub = useMutation(upsertEventSubscription)
+  const deleteEventSub = useMutation(deleteEventSubscription)
 
   const onSubscribe = () => {
     const { eventId, userId, ...restEventSub } = eventSubscription
@@ -35,27 +37,21 @@ export default function Cart({ event }: CartProps) {
       user: { connect: { id: userId } },
     } as any
 
-    upsertEventSub({
-      where: { id: eventSubscription.id ?? cuid() },
-      update: args,
-      create: args,
-    })
-      .then(() => router.push("/hub/events"))
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-        open.set(true)
+    return upsertEventSub
+      .mutateAsync({
+        where: { id: eventSubscription.id ?? cuid() },
+        update: args,
+        create: args,
       })
+      .then(() => router.push("/hub/events"))
+      .catch((err) => onShow("error", err.message))
   }
 
   const onUnsubscribe = () => {
-    deleteEventSub({ where: { id: eventSubscription.id } })
+    return deleteEventSub
+      .mutateAsync({ where: { id: eventSubscription.id } })
       .then(() => router.push("/hub/events"))
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-        open.set(true)
-      })
+      .catch((err) => onShow("error", err.message))
   }
 
   const onQuantityChange = (cartItem: CartItem, value: number) => () => {
@@ -68,15 +64,10 @@ export default function Cart({ event }: CartProps) {
       ]
     }
 
-    setQueryData((oldData) => ({
+    queryClient.setQueryData("getEventSubscription", (oldData) => ({
       ...(oldData as EventSubscriptionWithTypedCart),
       cart,
     }))
-  }
-
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    open.set(false)
   }
 
   useEffect(() => {
@@ -97,9 +88,9 @@ export default function Cart({ event }: CartProps) {
         <Desktop
           event={event}
           total={total}
-          subscribing={subscribing}
+          subscribing={upsertEventSub.isLoading}
           onSubscribe={onSubscribe}
-          unsubscribing={unsubscribing}
+          unsubscribing={deleteEventSub.isLoading}
           onUnsubscribe={onUnsubscribe}
           onQuantityChange={onQuantityChange}
         />
@@ -109,20 +100,15 @@ export default function Cart({ event }: CartProps) {
         <Mobile
           event={event}
           total={total}
-          subscribing={subscribing}
+          subscribing={upsertEventSub.isLoading}
           onSubscribe={onSubscribe}
-          unsubscribing={unsubscribing}
+          unsubscribing={deleteEventSub.isLoading}
           onUnsubscribe={onUnsubscribe}
           onQuantityChange={onQuantityChange}
         />
       </Hidden>
 
-      <Snackbar
-        open={open.value}
-        message={message.value}
-        severity={severity.value}
-        onClose={onSnackClose}
-      />
+      <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>
   )
 }

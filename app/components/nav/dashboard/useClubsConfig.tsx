@@ -1,7 +1,8 @@
+import { useQuery } from "react-query"
+import { useSession } from "next-auth/client"
 import Avatar from "@material-ui/core/Avatar"
 
-import { useClubs } from "app/hooks/useClubs"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
+import getClubs from "app/entities/clubs/queries/getClubs"
 
 function createConfig(clubs, user) {
   return clubs
@@ -17,10 +18,10 @@ function createConfig(clubs, user) {
 }
 
 export function useClubsConfig() {
-  const { clubs } = useClubs()
-  const [user] = useCurrentUser()
+  const { data } = useQuery("clubs", () => getClubs())
+  const [session] = useSession()
 
-  return createConfig(clubs, user)
+  return createConfig(data?.clubs, session)
 }
 
 export function getClubsConfigServerSide(clubs, user) {

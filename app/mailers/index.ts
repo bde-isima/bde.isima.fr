@@ -1,55 +1,29 @@
-import { log } from "@blitzjs/display"
+import nodemailer from "nodemailer"
 
-import { smtpDriver } from "./drivers/smtp"
 import { compileView } from "./templates/views"
 
-const mailDrivers = {
-  SMTP: smtpDriver,
-}
-
-if (!mailDrivers[process.env.MAIL_DRIVER as keyof typeof mailDrivers]) {
-  const allowedDriversLabel = Object.keys(mailDrivers).join(", ")
-
-  const errorMessage = `Invalid MAIL_DRIVER environment variable. Must be one of: ${allowedDriversLabel}`
-
-  log.error(errorMessage)
-
-  throw new Error(errorMessage)
-}
-
-const mailDriver = mailDrivers[process.env.MAIL_DRIVER as keyof typeof mailDrivers]()
-
-export type MailDriver = () => {
-  send: (options: {
-    from: {
-      email: string
-      name: string
-    }
-    to: string
-    subject: string
-    html: string
-  }) => Promise<any>
+type MailParams = {
+  subject: string
+  to: string
+  view: string
+  variables: object
 }
 
 export const mail = {
-  send: async ({
-    subject,
-    to,
-    view,
-    variables,
-  }: {
-    subject: string
-    to: string
-    view: string
-    variables: object
-  }) => {
+  send: async ({ subject, to, view, variables }: MailParams) => {
+    const mailTransport = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    })
+
     try {
-      return await mailDriver.send({
-        from: {
-          email: process.env.MAIL_FROM_EMAIL!,
-          name: process.env.MAIL_FROM_NAME!,
-        },
+      return mailTransport.sendMail({
         to,
+        from: process.env.SMTP_FROM,
         subject,
         html: compileView({
           subject,

@@ -8,4 +8,4 @@ Location: Clermont-Ferrand, France
                             
 Last update: 2020/12/14                    
 Standards: HTML5, CSS3                      
-Components: BlitzJS, Material-UI                  
+Components: NextJS, Material-UI                  

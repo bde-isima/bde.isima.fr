@@ -1,12 +1,8 @@
-import { Ctx } from "blitz"
 import db, { Prisma } from "db"
 
 type GetClubsInput = Pick<Prisma.FindManyClubArgs, "where" | "orderBy" | "skip" | "take">
 
-export default async function getClubs(
-  { where, orderBy, skip = 0, take }: GetClubsInput,
-  ctx: Ctx
-) {
+export default async function getClubs({ where, orderBy, skip = 0, take }: GetClubsInput = {}) {
   //ctx.session.authorize()
 
   const clubs = await db.club.findMany({

@@ -1,4 +1,4 @@
-import { useRouter } from "blitz"
+import { useRouter } from "next"
 
 export const useCustomRouter = () => {
   const router = useRouter()

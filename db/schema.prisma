@@ -161,6 +161,26 @@ model UserStats {
     updatedAt               DateTime  @updatedAt
 }
 
+model Account {
+  id                 String    @id @default(cuid())
+  compoundId         String    @unique @map(name: "compound_id")
+  userId             String    @map(name: "user_id")
+  providerType       String    @map(name: "provider_type")
+  providerId         String    @map(name: "provider_id")
+  providerAccountId  String    @map(name: "provider_account_id")
+  refreshToken       String?   @map(name: "refresh_token")
+  accessToken        String?   @map(name: "access_token")
+  accessTokenExpires DateTime? @map(name: "access_token_expires")
+  createdAt          DateTime  @default(now()) @map(name: "created_at")
+  updatedAt          DateTime  @default(now()) @map(name: "updated_at")
+
+  @@index([providerAccountId], name: "providerAccountId")
+  @@index([providerId], name: "providerId")
+  @@index([userId], name: "userId")
+
+  @@map(name: "accounts")
+}
+
 model User {
     id                      String    @id @default(cuid())
 
@@ -169,13 +189,12 @@ model User {
     nickname                String?
 
     email                   String    @unique
+    emailVerified           DateTime? @map(name: "email_verified")
     card                    Int       @unique
     balance                 Float
 
-    password                String?
     roles                   String[]
     sessions                Session[]
-    resetPasswordToken      String?   @unique
 
     promotion               Promotion @relation(fields: [promotionId], references: [id])
     promotionId             String
@@ -187,24 +206,31 @@ model User {
     is_member               Boolean   @default(false)
     is_enabled              Boolean   @default(true)
 
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+    createdAt               DateTime  @default(now()) @map(name: "created_at")
+    updatedAt               DateTime  @updatedAt @map(name: "updated_at")
+
+    @@map(name: "users")
 }
 
 model Session {
-    id                 String    @id @default(cuid())
+  id           String     @id @default(cuid())
+  userId       Int        @map(name: "user_id")
+  expires      DateTime
+  sessionToken String     @unique @map(name: "session_token")
+  accessToken  String     @unique @map(name: "access_token")
+  createdAt    DateTime   @default(now()) @map(name: "created_at")
+  updatedAt    DateTime   @default(now()) @map(name: "updated_at")
 
-    user               User?     @relation(fields: [userId], references: [id])
-    userId             String?
-    handle             String    @unique
+  @@map(name: "sessions")
+}
 
-    hashedSessionToken String?
-    antiCSRFToken      String?
-    expiresAt          DateTime?
+model VerificationRequest {
+  id         String     @id @default(cuid())
+  identifier String
+  token      String     @unique
+  expires    DateTime
+  createdAt  DateTime   @default(now()) @map(name: "created_at")
+  updatedAt  DateTime   @default(now()) @map(name: "updated_at")
 
-    publicData         String?
-    privateData        String?
-
-    createdAt          DateTime  @default(now())
-    updatedAt          DateTime  @updatedAt
+  @@map(name: "verification_requests")
 }

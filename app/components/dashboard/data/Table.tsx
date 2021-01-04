@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react"
 import Paper from "@material-ui/core/Paper"
+import { useQuery, useMutation } from "react-query"
 import TablePagination from "@material-ui/core/TablePagination"
-import { usePaginatedQuery, useMutation, useRouter } from 'blitz'
 
 import TableCore from "./TableCore"
 import TableDialog from "./TableDialog"
@@ -69,45 +69,42 @@ export default function Table({
       }))
   }
 
-  const router = useRouter()
-  const [result, { refetch, isFetching }] = usePaginatedQuery(getQuery, inputArgs, {
-    suspense: false,
-  })
-  const [deleteMutation] = useMutation(deleteQuery)
+  const { data, isLoading }: { data: any; isLoading: boolean } = useQuery(
+    ["table-query", page.value],
+    () => getQuery(inputArgs),
+    { suspense: false }
+  )
+  const deleteMutation = useMutation(deleteQuery)
 
+  const snackbar = useSnackbar()
   const [open, setOpen] = useState(false)
   const [values, setValues] = useState<Object | null>(null)
   const [selected, setSelected] = useState<string[]>([])
-  const { open: snackOpen, message, severity } = useSnackbar()
 
-  const rows = result ? result[queryKey] : []
-  const count = result ? result["count"] : -1
+  const rows = data ? data[queryKey] : []
+  const count = data ? data["count"] : -1
 
   const handleCustomAction = (onClick) => async (e) => {
     e.stopPropagation()
     await onClick()
-    refetch()
     setSelected([])
+    // TODO Refetch query
   }
 
   const handleDeleteAllClick = async () => {
-    await deleteMutation({ where: { id: { in: selected } } } as any)
+    await deleteMutation
+      .mutateAsync({ where: { id: { in: selected } } } as any)
       .then(() => {
-        message.set("Supprimé(s)")
-        severity.set("success")
         setSelected([])
+        snackbar.onShow("success", "Supprimé(s)")
+        // TODO Refetch query
       })
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-      })
-      .finally(() => {
-        snackOpen.set(true)
-      })
-    refetch()
+      .catch((err) => snackbar.onShow("error", err.message))
   }
 
-  const handleExportAllClick = onExport ? async () => selected.forEach(x => onExport(rows.find(r => r.id === x))) : undefined
+  const handleExportAllClick = onExport
+    ? async () => selected.forEach((x) => onExport(rows.find((r) => r.id === x)))
+    : undefined
 
   const onPageChange = (event, newPage) => page.set(newPage)
 
@@ -121,7 +118,7 @@ export default function Table({
     setOpen(true)
   }
 
-  const onClose = () => {
+  const onDialogClose = () => {
     setValues(null)
     setOpen(false)
   }
@@ -148,7 +145,7 @@ export default function Table({
         columns={columns}
         selected={{ value: selected, set: setSelected }}
         onEdit={onEdit}
-        isFetching={isFetching || router.isFallback}
+        isFetching={isLoading}
         tableProps={{
           order,
           orderBy,
@@ -172,10 +169,9 @@ export default function Table({
         open={open}
         values={values}
         columns={columns}
-        onClose={onClose}
+        onClose={onDialogClose}
         upsertQuery={upsertQuery}
-        refetch={refetch}
-        snackbar={{ snackOpen, message, severity }}
+        snackbar={snackbar}
         FormComponent={FormComponent}
       />
     </Paper>

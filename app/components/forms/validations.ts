@@ -1,25 +1,8 @@
 import * as z from "zod"
-import { State, PaymentMethod } from 'db'
-
-export const InitOrResetPasswordInput = z
-  .object({
-    password: z.string().max(255),
-    confirmPassword: z.string().max(255),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
-  })
-export type InitOrResetPasswordInputType = z.infer<typeof InitOrResetPasswordInput>
-
-export const ForgotPasswordInput = z.object({
-  email: z.string().email().max(255),
-})
-export type ForgotPasswordInputType = z.infer<typeof ForgotPasswordInput>
+import { State, PaymentMethod } from "db"
 
 export const LoginInput = z.object({
   identifier: z.string(),
-  password: z.string(),
 })
 export type LoginInputType = z.infer<typeof LoginInput>
 
@@ -42,7 +25,9 @@ export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
   amount: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Montant invalide" }),
-  recipient: z.string().regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
+  recipient: z
+    .string()
+    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
 })
 export type TopUpInputType = z.infer<typeof TopUpInput>
 
@@ -63,13 +48,7 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    password: z.string().max(255).optional().nullable(),
-    confirmPassword: z.string().max(255).optional(),
     image: z.string().optional().nullable(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
   })
   .nonstrict()
 export type SettingsInputType = z.infer<typeof SettingsInput>
@@ -153,20 +132,28 @@ export const EventInput = z
       }),
     }),
     max_subscribers: z.number().min(0).optional().nullable(),
-    products: z.array(z.object({
-      name: z.string().max(255),
-      price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      description: z.string().max(3000).optional().nullable(),
-      groupOptions: z.array(z.object({
+    products: z.array(
+      z.object({
         name: z.string().max(255),
-        type: z.enum(['exclusive', 'combinable']),
-        options: z.array(z.object({
-          name: z.string().max(255),
-          price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-          description: z.string().max(3000).optional().nullable(),
-        })),
-      })),
-    })),
+        price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
+        description: z.string().max(3000).optional().nullable(),
+        groupOptions: z.array(
+          z.object({
+            name: z.string().max(255),
+            type: z.enum(["exclusive", "combinable"]),
+            options: z.array(
+              z.object({
+                name: z.string().max(255),
+                price: z
+                  .string()
+                  .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
+                description: z.string().max(3000).optional().nullable(),
+              })
+            ),
+          })
+        ),
+      })
+    ),
   })
   .nonstrict()
 export type EventInputType = z.infer<typeof EventInput>
@@ -174,18 +161,22 @@ export type EventInputType = z.infer<typeof EventInput>
 export const EventSubscriptionInput = z
   .object({
     payment_method: z.nativeEnum(PaymentMethod),
-    cart: z.array(z.object({
-      name: z.string().max(255),
-      description: z.string().max(500).optional().nullable(),
-      price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      quantity: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Quantité invalide" }),
-      comment: z.string().nullable(),
-      options: z.array(z.object({
+    cart: z.array(
+      z.object({
         name: z.string().max(255),
         description: z.string().max(500).optional().nullable(),
         price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      }))
-    })),
+        quantity: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Quantité invalide" }),
+        comment: z.string().nullable(),
+        options: z.array(
+          z.object({
+            name: z.string().max(255),
+            description: z.string().max(500).optional().nullable(),
+            price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
+          })
+        ),
+      })
+    ),
   })
   .nonstrict()
 export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>

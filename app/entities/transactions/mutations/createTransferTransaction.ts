@@ -1,13 +1,15 @@
-import { Ctx } from "blitz"
+import { getSession } from "next-auth/client"
 
 import db, { Prisma } from "db"
 
 type CreateTransactionInput = { data: Omit<Prisma.TransactionCreateInput, "type" | "prevBalance"> }
 
-export default async function createTransferTransaction({ data }: CreateTransactionInput, ctx: Ctx) {
-  ctx.session.authorize()
+export default async function createTransferTransaction({ data }: CreateTransactionInput) {
+  const session = await getSession()
 
-  if (ctx.session.userId !== data?.emitter?.connect?.id) {
+  //TODO ctx.session.authorize()
+
+  if (session?.userId !== data?.emitter?.connect?.id) {
     throw new Error("Vous n'êtes pas l'émetteur")
   }
 
@@ -20,11 +22,11 @@ export default async function createTransferTransaction({ data }: CreateTransact
   }
 
   const user = await db.user.findUnique({ where: { id: data?.user?.connect?.id } })
-  
+
   if (!user) {
     throw new Error("Receveur introuvable")
   }
-  
+
   const emitter = await db.user.findUnique({ where: { id: data?.emitter?.connect?.id } })
 
   if (!emitter) {
@@ -33,19 +35,19 @@ export default async function createTransferTransaction({ data }: CreateTransact
 
   const transactionsAndUsers = await Promise.all([
     // Create CREDIT transaction for receiver
-    db.transaction.create({ 
-      data: { 
+    db.transaction.create({
+      data: {
         ...data,
-        type: 'CREDIT',
+        type: "CREDIT",
         prevBalance: user.balance,
-      }, 
+      },
     }),
 
     // Create DEBIT transaction for the emitter
     db.transaction.create({
       data: {
         ...data,
-        type: 'DEBIT',
+        type: "DEBIT",
         user: { connect: { id: emitter.id } },
         prevBalance: emitter.balance,
       },
@@ -54,13 +56,13 @@ export default async function createTransferTransaction({ data }: CreateTransact
     // Update balance of the receiver
     db.user.update({
       data: { balance: { increment: data.amount } },
-      where: { id: data?.user?.connect?.id }
+      where: { id: data?.user?.connect?.id },
     }),
 
     // Update balance of the emitter
     db.user.update({
       data: { balance: { decrement: data.amount } },
-      where: { id: data?.emitter?.connect?.id }
+      where: { id: data?.emitter?.connect?.id },
     }),
   ])
 

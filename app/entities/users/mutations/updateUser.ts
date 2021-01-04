@@ -1,21 +1,18 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
-import { hashPassword } from "app/auth/auth-utils"
+import { getSession } from "next-auth/client"
 
-type UpdateUserInput = { 
+import db, { Prisma } from "db"
+
+type UpdateUserInput = {
   data: Pick<Prisma.UserUpdateInput, "id" | "nickname" | "password" | "email">
   where: Prisma.UserWhereUniqueInput
 }
 
-export default async function updateUser({ where, data }: UpdateUserInput, ctx: Ctx) {
-  ctx.session.authorize()
+export default async function updateUser({ where, data }: UpdateUserInput) {
+  //TODO ctx.session.authorize()
+  const session = await getSession()
 
-  if (ctx.session.userId !== data?.id) {
+  if (session?.user?.id !== data?.id) {
     throw new Error("Non autorisé")
-  }
-
-  if (data.password) {
-    data.password = await hashPassword(data.password as string)
   }
 
   const user = await db.user.update({ where, data })

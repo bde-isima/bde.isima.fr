@@ -3,8 +3,8 @@ import Skeleton from "@material-ui/core/Skeleton"
 import CardHeader from "@material-ui/core/CardHeader"
 import Typography from "@material-ui/core/Typography"
 
-import AutoSkeleton from "utils/AutoSkeleton"
 import Avatar from "@material-ui/core/Avatar"
+import AutoSkeleton from "app/utils/AutoSkeleton"
 
 export default function Header({ event, isFetching }) {
   return (

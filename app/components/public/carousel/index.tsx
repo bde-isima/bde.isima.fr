@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery } from "blitz"
+import { useQuery } from "react-query"
 import Card from "@material-ui/core/Card"
 import Earth from "mdi-material-ui/Earth"
 import Twitter from "mdi-material-ui/Twitter"
@@ -38,7 +38,7 @@ export default function Carousel({ getQuery, queryKey }) {
   const [isMoving, setIsMoving] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  const [result] = useQuery(getQuery, {}, { refetchOnWindowFocus: false })
+  const { data }: { data: any } = useQuery(queryKey, getQuery, { refetchOnWindowFocus: false })
 
   const stopPropagation = (e) => {
     e.stopPropagation()
@@ -72,7 +72,7 @@ export default function Carousel({ getQuery, queryKey }) {
       beforeChange={handleChange(true)}
       afterChange={handleChange(false)}
     >
-      {result[queryKey].map((item) => (
+      {data[queryKey].map((item) => (
         <Card key={item.id} className="mx-2 h-full">
           <CardActionArea className="flex flex-col" onClick={handleSelectionChange(item, true)}>
             <div className="h-40 flex justify-center align-center">

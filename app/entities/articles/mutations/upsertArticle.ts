@@ -1,14 +1,10 @@
-import { Ctx } from "blitz"
-
 import db, { Prisma } from "db"
-import { assertPositive, assertIsNumber } from "utils/assert"
+import { assertPositive, assertIsNumber } from "app/utils/assert"
 
 type UpsertArticleInput = Pick<Prisma.ArticleUpsertArgs, "where" | "create" | "update">
-export default async function upsertArticle(
-  { where, create, update }: UpsertArticleInput,
-  ctx: Ctx
-) {
-  ctx.session.authorize(['*', 'bde'])
+
+export default async function upsertArticle({ where, create, update }: UpsertArticleInput) {
+  //TODO ctx.session.authorize(['*', 'bde'])
 
   assertIsNumber("price", create.price)
   assertIsNumber("price", update.price)

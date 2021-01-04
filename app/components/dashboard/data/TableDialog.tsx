@@ -1,6 +1,5 @@
 import cuid from "cuid"
-import { useMutation } from "blitz"
-import { SyntheticEvent } from "react"
+import { useMutation } from "react-query"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
 
@@ -13,13 +12,12 @@ export default function TableDialog({
   columns,
   onClose,
   upsertQuery,
-  refetch,
   snackbar,
   FormComponent,
 }) {
-  const { snackOpen, message, severity } = snackbar
+  const { snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
 
-  const [upsertMutation] = useMutation(upsertQuery)
+  const upsertMutation = useMutation(upsertQuery)
 
   const formatData = (data) => {
     const formattedData = { ...data }
@@ -40,34 +38,23 @@ export default function TableDialog({
   }
 
   const onSuccess = async (data) => {
-    await upsertMutation({
-      where: { id: values.id ?? cuid() },
-      update: formatData(data),
-      create: formatData(data),
-    } as any)
+    await upsertMutation
+      .mutateAsync({
+        where: { id: values.id ?? cuid() },
+        update: formatData(data),
+        create: formatData(data),
+      } as any)
       .then(() => {
-        message.set("Sauvegardé")
-        severity.set("success")
+        onShow("success", "Sauvegardé")
         onClose()
       })
       .catch((err) => {
         if (err.code === "P2002") {
-          message.set(`${err.meta.target[0]} n'est pas unique`)
+          onShow("error", `${err.meta.target[0]} n'est pas unique`)
         } else {
-          message.set(err.message)
+          onShow("error", err.message)
         }
-        severity.set("error")
       })
-      .finally(() => {
-        snackOpen.set(true)
-      })
-
-    refetch()
-  }
-
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    snackOpen.set(false)
   }
 
   return (
@@ -84,12 +71,7 @@ export default function TableDialog({
         <FormComponent initialValues={values} onSuccess={onSuccess} onClose={onClose} />
       </Dialog>
 
-      <Snackbar
-        open={snackOpen.value}
-        message={message.value}
-        severity={severity.value}
-        onClose={onSnackClose}
-      />
+      <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
   )
 }

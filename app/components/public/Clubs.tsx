@@ -1,4 +1,4 @@
-import { Image } from "blitz"
+import Image from "next/image"
 import { Suspense } from "react"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"

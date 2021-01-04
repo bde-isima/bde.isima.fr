@@ -1,4 +1,4 @@
-import { useQuery } from "blitz"
+import { useQuery } from "react-query"
 import Skeleton from "@material-ui/core/Skeleton"
 
 import { useCurrentUser } from "app/hooks/useCurrentUser"
@@ -6,21 +6,27 @@ import TransactionRow from "app/components/hub/transactions/display/TransactionR
 import getTransactions from "app/entities/transactions/queries/getTransactions"
 
 export default function RecentTransactions() {
-  const [user] = useCurrentUser()
+  const { data: user } = useCurrentUser()
 
-  const [{ transactions }, { isFetching, failureCount }] = useQuery(getTransactions, {
-    where: { userId: user?.id },
-    take: 10,
-    orderBy: { createdAt: "desc" },
-  })
+  const { data: transactionsResults, isFetching } = useQuery("currentUserTransactions", () =>
+    getTransactions({
+      where: { userId: user?.id },
+      take: 10,
+      orderBy: { createdAt: "desc" },
+    })
+  )
 
   return (
     <>
-      {(isFetching || failureCount > 3) &&
+      {isFetching &&
         [...Array(10).keys()].map((x) => (
           <Skeleton className="m-1" key={x} height={24} width="80%" />
         ))}
-      {!isFetching && transactions.map((x) => <TransactionRow key={x.id} values={x} dense />)}
+
+      {!isFetching &&
+        transactionsResults?.transactions.map((x) => (
+          <TransactionRow key={x.id} values={x} dense />
+        ))}
     </>
   )
 }

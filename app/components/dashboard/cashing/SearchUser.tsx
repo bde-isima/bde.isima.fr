@@ -1,12 +1,12 @@
-import { useQuery } from "blitz"
+import { useQuery } from "react-query"
 import { Autocomplete } from "mui-rff"
-import TextField from '@material-ui/core/TextField'
-import { useState, Dispatch, SetStateAction } from 'react'
+import { useSession } from "next-auth/client"
+import TextField from "@material-ui/core/TextField"
+import { useState, Dispatch, SetStateAction } from "react"
 import MuiAutocomplete from "@material-ui/core/Autocomplete"
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 import { User } from "db"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
 
 type SearchUserProps = {
   className?: string
@@ -21,16 +21,31 @@ type SearchUserProps = {
   withForm?: boolean
 }
 
-export default function SearchUser({ className = "", name, label, value, open, setOpen, onSelection, getQuery, disableSelf = false, withForm = false }: SearchUserProps) {
-  const [user] = useCurrentUser()
+export default function SearchUser({
+  className = "",
+  name,
+  label,
+  value,
+  open,
+  setOpen,
+  onSelection,
+  getQuery,
+  disableSelf = false,
+  withForm = false,
+}: SearchUserProps) {
+  const [session] = useSession()
   const [options, setOptions] = useState<User[]>([])
   const loading = open && options.length === 0
 
-  const toggleOpen = value => () => setOpen(value)
+  const toggleOpen = (value) => () => setOpen(value)
 
   const onSuccess = ({ users }) => setOptions(users)
 
-  useQuery(getQuery, { where: { is_enabled: true } }, { suspense: false, onSuccess, enabled: loading })
+  useQuery(
+    getQuery,
+    { where: { is_enabled: true } },
+    { suspense: false, onSuccess, enabled: loading }
+  )
 
   const props = {
     className,
@@ -41,9 +56,10 @@ export default function SearchUser({ className = "", name, label, value, open, s
     onChange: onSelection,
     onOpen: toggleOpen(true),
     onClose: toggleOpen(false),
-    getOptionDisabled: (option: User) => disableSelf && option.id === user?.id,
+    getOptionDisabled: (option: User) => disableSelf && option.id === session?.user?.id,
     getOptionSelected: (option: User, value: User) => option.id === value.id,
-    getOptionLabel: (option: User) => option ? `${option.card} - ${option.lastname} ${option.firstname} (${option.nickname})` : "",
+    getOptionLabel: (option: User) =>
+      option ? `${option.card} - ${option.lastname} ${option.firstname} (${option.nickname})` : "",
     renderInput: (params) => (
       <TextField
         {...params}
@@ -58,14 +74,12 @@ export default function SearchUser({ className = "", name, label, value, open, s
           ),
         }}
       />
-    )
+    ),
   }
 
   if (withForm) {
     return <Autocomplete name={name} label={label} {...props} />
   }
 
-  return (
-    <MuiAutocomplete value={value} {...props} />
-  )
+  return <MuiAutocomplete value={value} {...props} />
 }

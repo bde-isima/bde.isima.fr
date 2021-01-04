@@ -1,18 +1,16 @@
-import { Ctx } from "blitz"
+import { getSession } from "next-auth/client"
 
 import db, { Prisma } from "db"
 
 type GetCurrentUserInput = Pick<Prisma.FindUniqueUserArgs, "include">
 
-export default async function getCurrentUser({ include }: GetCurrentUserInput, ctx: Ctx) {
-  ctx.session.authorize() //Custom addition to ensure all pages that use this query are authorized
+export default async function getCurrentUser({ include }: GetCurrentUserInput) {
+  const session = await getSession()
 
-  if (!ctx.session.userId) {
-    return null
-  }
+  //TODO ctx.session.authorize()
 
-  return db.user.findUnique({ 
-    where: { id: ctx.session.userId },
+  return db.user.findUnique({
+    where: { id: session?.user?.id },
     include,
   })
 }

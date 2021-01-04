@@ -1,22 +1,20 @@
 import cuid from "cuid"
-import { Ctx } from "blitz"
 
 import db, { Prisma } from "db"
 import { mail } from "app/mailers"
-import { assertIsNumber } from "utils/assert"
-import { hashPassword } from "app/auth/auth-utils"
+import { assertIsNumber } from "app/utils/assert"
 
 type UpsertUserInput = Pick<Prisma.UserUpsertArgs, "where" | "create" | "update">
 
-export default async function upsertUser({ where, create, update }: UpsertUserInput, ctx: Ctx) {
-  ctx.session.authorize(['*', 'bde'])
+export default async function upsertUser({ where, create, update }: UpsertUserInput) {
+  //TODO ctx.session.authorize(['*', 'bde'])
 
   assertIsNumber("card", create.card)
   assertIsNumber("card", update.card)
 
   const user = await db.user.findUnique({ where })
 
-  if (!user) {
+  /*if (!user) {
     create.password = await hashPassword(Math.random().toString(36).slice(-8))
     create.resetPasswordToken = cuid()
 
@@ -51,5 +49,5 @@ export default async function upsertUser({ where, create, update }: UpsertUserIn
       newUser,
       sessions,
     }
-  }
+  }*/
 }

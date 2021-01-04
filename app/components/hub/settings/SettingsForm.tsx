@@ -1,5 +1,10 @@
 import { TextField } from "mui-rff"
 import Divider from "@material-ui/core/Divider"
+import Typography from "@material-ui/core/Typography"
+import IconButton from "@material-ui/core/IconButton"
+import InputAdornment from "@material-ui/core/InputAdornment"
+
+import OpenInNew from "mdi-material-ui/OpenInNew"
 
 import { User } from "db"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
@@ -13,7 +18,6 @@ type SettingsFormProps = {
 export default function SettingsForm(props: SettingsFormProps) {
   const onSubmit = async (values) => {
     try {
-      delete values.confirmPassword
       await props.onSuccess(values)
     } catch (error) {
       return {
@@ -27,30 +31,43 @@ export default function SettingsForm(props: SettingsFormProps) {
       submitText="Sauvegarder"
       schema={SettingsInput}
       initialValues={{
-        lastname: props.initialValues?.lastname,
-        firstname: props.initialValues?.firstname,
         nickname: props.initialValues?.nickname,
         email: props.initialValues?.email,
-        password: undefined,
-        confirmPassword: undefined,
-        card: props.initialValues?.card,
+        image: props.initialValues?.image,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="text" name="lastname" label="Nom" disabled />
-      <TextField type="text" name="firstname" label="Prénom" disabled />
+      <Typography>{props.initialValues?.lastname}</Typography>
+      <Typography>{props.initialValues?.firstname}</Typography>
       <TextField type="text" name="nickname" label="Surnom" />
 
       <Divider className="m-2" />
 
       <TextField type="email" name="email" label="Adresse email" />
-      <TextField type="password" name="password" label="Changer de mot de passe" />
-      <TextField type="password" name="confirmPassword" label="Confirmer le nouveau mot de passe" />
+      <Typography>{props.initialValues?.card}</Typography>
 
       <Divider className="m-2" />
 
-      <TextField type="text" name="card" label="N° de carte" disabled />
+      <TextField
+        type="text"
+        name="image"
+        label="URL de l'image de l'article"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                href="https://imgur.com/upload"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ouvrir Imgur"
+              >
+                <OpenInNew />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
     </Form>
   )
 }

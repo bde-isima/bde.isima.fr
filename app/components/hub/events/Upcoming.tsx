@@ -1,7 +1,8 @@
+import { useQuery } from "react-query"
 import Grid from "@material-ui/core/Grid"
 import Chip from "@material-ui/core/Chip"
 import Paper from "@material-ui/core/Paper"
-import { useQuery, useSession } from "blitz"
+import { useSession } from "next-auth/client"
 import Avatar from "@material-ui/core/Avatar"
 import { parseISO, isSameDay } from "date-fns"
 import Tooltip from "@material-ui/core/Tooltip"
@@ -21,31 +22,37 @@ const today = new Date(new Date().setHours(0, 0, 0, 0))
 
 export default function Upcoming() {
   const { pushRoute } = useCustomRouter()
-  const session = useSession()
+  const [session, isLoading] = useSession()
 
-  const [results, { isFetching }] = useQuery(
-    getEvents,
-    {
-      where: {
-        AND: [
-          { takes_place_at: { gte: today } },
-          { takes_place_at: { lte: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7) } },
-        ],
-      },
-      include: { club: true },
-    },
+  const { data: eventsResults, isFetching: isFetchingEvents } = useQuery(
+    "getEvents",
+    () =>
+      getEvents({
+        where: {
+          AND: [
+            { takes_place_at: { gte: today } },
+            {
+              takes_place_at: {
+                lte: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7),
+              },
+            },
+          ],
+        },
+        include: { club: true },
+      }),
     { suspense: false }
   )
 
-  const [subResults, { isFetching: isFetchingSub }] = useQuery(
-    getEventSubscriptions,
-    {
-      where: {
-        userId: session.userId,
-        eventId: { in: results ? results.events.map((x) => x.id) : [] },
-      },
-    },
-    { suspense: false, enabled: !session.isLoading && results }
+  const { data: subResults, isFetching: isFetchingSub } = useQuery(
+    "getEventSubscriptions",
+    () =>
+      getEventSubscriptions({
+        where: {
+          userId: session?.user?.id,
+          eventId: { in: eventsResults ? eventsResults.events.map((x) => x.id) : [] },
+        },
+      }),
+    { suspense: false, enabled: !isLoading && Boolean(eventsResults) }
   )
 
   const getNextSevenDays = () =>
@@ -84,13 +91,13 @@ export default function Upcoming() {
                 </Typography>
               </Grid>
 
-              {(isFetching || isFetchingSub) && <Skeleton height="40" width="60%" />}
+              {(isFetchingEvents || isFetchingSub) && <Skeleton height="40" width="60%" />}
 
-              {!isFetching &&
+              {!isFetchingEvents &&
                 !isFetchingSub &&
-                results &&
+                eventsResults &&
                 subResults &&
-                results.events.map((event: any, eventIdx) => {
+                eventsResults.events.map((event: any, eventIdx) => {
                   const hasASubToThisEvent = subResults.eventSubscriptions.some(
                     (x) => x.eventId === event.id
                   )

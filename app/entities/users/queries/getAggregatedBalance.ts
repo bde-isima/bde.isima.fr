@@ -1,9 +1,7 @@
-import { Ctx } from "blitz"
-
 import db from "db"
 
-export default async function getAggregatedBalance(_, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+export default async function getAggregatedBalance() {
+  //TODO ctx.session.authorize(["*", "bde"])
 
   const [negatives, positives] = await Promise.all([
     await db.user.count({

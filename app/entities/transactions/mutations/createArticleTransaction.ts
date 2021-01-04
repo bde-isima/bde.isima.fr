@@ -1,19 +1,17 @@
 import cuid from "cuid"
-import { Ctx } from "blitz"
 
 import db, { JsonObject, Prisma } from "db"
 
-type CreateTransactionInput = { data: Omit<Prisma.TransactionCreateInput, "type" | "amount" | "prevBalance"> }
+type CreateTransactionInput = {
+  data: Omit<Prisma.TransactionCreateInput, "type" | "amount" | "prevBalance">
+}
 
-export default async function createArticleTransaction(
-  { data }: CreateTransactionInput,
-  ctx: Ctx
-) {
-  ctx.session.authorize(['*', 'bde'])
+export default async function createArticleTransaction({ data }: CreateTransactionInput) {
+  //TODO ctx.session.authorize(['*', 'bde'])
 
-  const user = await db.user.findUnique({ 
+  const user = await db.user.findUnique({
     where: { id: data.user.connect?.id },
-    include: { userStats: true }, 
+    include: { userStats: true },
   })
 
   if (!user) {
@@ -28,10 +26,13 @@ export default async function createArticleTransaction(
 
   const amount = Math.abs(user?.is_member ? article?.member_price : article?.price)
 
-  const newStat = user.userStats?.articlesStats && user.userStats?.articlesStats[article.id] ? user.userStats?.articlesStats[article.id] + 1 : 1
-  const upsertData = { 
+  const newStat =
+    user.userStats?.articlesStats && user.userStats?.articlesStats[article.id]
+      ? user.userStats?.articlesStats[article.id] + 1
+      : 1
+  const upsertData = {
     articlesStats: {
-      ...(user.userStats?.articlesStats as JsonObject ?? {}),
+      ...((user.userStats?.articlesStats as JsonObject) ?? {}),
       [article.id]: newStat,
     },
   }
@@ -57,12 +58,12 @@ export default async function createArticleTransaction(
     db.userStats.upsert({
       create: {
         ...upsertData,
-        user: { connect: { id: user.id }},
+        user: { connect: { id: user.id } },
       },
       update: upsertData,
-      where: { id: user.userStats?.id ?? cuid() }
+      where: { id: user.userStats?.id ?? cuid() },
     }),
   ])
 
-  return transactionAndUser 
+  return transactionAndUser
 }
