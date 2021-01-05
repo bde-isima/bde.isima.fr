@@ -1,4 +1,4 @@
-import { useRouter } from "next"
+import { useRouter } from "next/router"
 
 export const useCustomRouter = () => {
   const router = useRouter()

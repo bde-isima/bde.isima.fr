@@ -15,7 +15,7 @@ const users = async (db) => {
       card: 941,
       balance: 0,
       roles: "*",
-      promotion: { connect: { id: promotion?.id } },
+      promotion: { connect: { id: promotion.id } },
     },
   })
 
@@ -29,7 +29,7 @@ const users = async (db) => {
         email: faker.internet.email(),
         card: faker.random.number(),
         balance: parseFloat(faker.finance.amount()),
-        promotion: { connect: { id: promotion?.id } },
+        promotion: { connect: { id: promotion.id } },
       },
     })
   }
