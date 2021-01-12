@@ -2,6 +2,9 @@ const withPWA = require("next-pwa")
 const { sessionMiddleware, simpleRolesIsAuthorized } = require("@blitzjs/server")
 
 module.exports = withPWA({
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname,
+  },
   middleware: [
     sessionMiddleware({
       isAuthorized: simpleRolesIsAuthorized,

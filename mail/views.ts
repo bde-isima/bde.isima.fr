@@ -1,5 +1,6 @@
 import fs from "fs"
 import path from "path"
+import getConfig from "next/config"
 import Handlebars from "handlebars"
 
 const resolveView = (viewPath: string) => {
@@ -21,8 +22,10 @@ export const compileView = ({
   view: string
   variables: object
 }) => {
+  const { serverRuntimeConfig } = getConfig()
+
   const publicPath = path.join(
-    process.cwd(),
+    serverRuntimeConfig.PROJECT_ROOT,
     process.env.NODE_ENV === "development" ? "public" : ""
   )
   const content = resolveView(path.join(publicPath, `mails/${view}`))
