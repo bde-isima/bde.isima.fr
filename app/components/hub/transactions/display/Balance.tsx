@@ -7,8 +7,8 @@ import Typography, {
 
 type BalanceProps = {
   getQuery: any
-  queryArgs: any
-  variant: OverridableStringUnion<TypographyVariantDefaults, TypographyPropsVariantOverrides>
+  queryArgs?: any
+  variant?: OverridableStringUnion<TypographyVariantDefaults, TypographyPropsVariantOverrides>
 }
 
 export default function Balance({ getQuery, queryArgs = {}, variant = "h3" }: BalanceProps) {
