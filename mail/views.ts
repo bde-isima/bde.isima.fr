@@ -22,11 +22,9 @@ export const compileView = ({
   view: string
   variables: object
 }) => {
-  const { serverRuntimeConfig } = getConfig()
-
-  const publicPath = path.join(serverRuntimeConfig.PROJECT_ROOT, "public")
-  const content = resolveView(path.join(publicPath, `mails/${view}`))
-  const layout = resolveView(path.join(publicPath, "mails/layout.html"))
+  const { publicRuntimeConfig } = getConfig()
+  const content = resolveView(path.join(publicRuntimeConfig.staticFolder, `mails/${view}`))
+  const layout = resolveView(path.join(publicRuntimeConfig.staticFolder, "mails/layout.html"))
 
   const formattedContent = Handlebars.compile(content)(variables)
 
