@@ -21,7 +21,7 @@ export default function Transfer({ onClose }: TransferProps) {
   const onSuccess = (data: TransferInputType) => {
     return createTransaction({
       data: {
-        amount: parseFloat(data.amount),
+        amount: data.amount,
         description: data.description,
         user: { connect: { id: data.receiver.id } },
         emitter: { connect: { id: session?.userId } },

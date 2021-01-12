@@ -24,10 +24,9 @@ export default function AdminTransfer({ user, onComplete }: AdminTransferProps) 
 
   const onSuccess = async (data: AdminTransferInputType) => {
     if (user?.id) {
-      const amount = parseFloat(data.amount)
       await createTransaction({
         data: {
-          amount,
+          amount: data.amount,
           description: data.description,
           user: { connect: { id: user.id } },
         },
