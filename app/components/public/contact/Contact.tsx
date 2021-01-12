@@ -1,4 +1,4 @@
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 import Paper from "@material-ui/core/Paper"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
@@ -10,12 +10,12 @@ import { ContactInputType } from "app/components/forms/validations"
 import ContactForm from "app/components/public/contact/ContactForm"
 
 export default function Contact() {
-  const sendContact = useMutation(contact)
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
+  const [sendContact] = useMutation(contact)
+
   const onSuccess = async (data: ContactInputType) => {
-    await sendContact
-      .mutateAsync(data)
+    await sendContact(data)
       .then(() => onShow("success", "Envoyé"))
       .catch((err) => onShow("error", err.message))
   }

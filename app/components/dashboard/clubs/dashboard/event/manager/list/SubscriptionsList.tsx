@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { useState } from "react"
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -20,10 +20,7 @@ import updateEventSubscription from "app/entities/eventSubscriptions/mutations/u
 import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
 import SubscriptionForm from "app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm"
 
-export default function SubscriptionsList({
-  event,
-  eventSubscriptionsQueryResult: [{ eventSubscriptions }, { isFetching }],
-}) {
+export default function SubscriptionsList({ event, result: [data, { isFetching }] }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selected, setSelected] = useState<any>(null)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -31,22 +28,21 @@ export default function SubscriptionsList({
 
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
-  const createSub = useMutation(createEventSubscription)
-  const updateSub = useMutation(updateEventSubscription)
-  const deleteSub = useMutation(deleteEventSubscription)
+  const [createSub] = useMutation(createEventSubscription)
+  const [updateSub] = useMutation(updateEventSubscription)
+  const [deleteSub] = useMutation(deleteEventSubscription)
 
   const onAdd = () => setIsAddSubscriptionOpen(true)
 
   const onAddSuccess = async (data: AddSubscriptionInputType) => {
-    await createSub
-      .mutateAsync({
-        data: {
-          payment_method: "BDE",
-          cart: [],
-          event: { connect: { id: event?.id } },
-          user: { connect: { id: data.subscriber.id } },
-        },
-      })
+    await createSub({
+      data: {
+        payment_method: "BDE",
+        cart: [],
+        event: { connect: { id: event?.id } },
+        user: { connect: { id: data.subscriber.id } },
+      },
+    })
       .then(() => {
         //TODO Refetch subscriptions
         onShow("success", "Ajoutée")
@@ -120,7 +116,7 @@ export default function SubscriptionsList({
         Ajouter
       </Button>
 
-      {!isFetching && eventSubscriptions.length === 0 && (
+      {!isFetching && data.eventSubscriptions.length === 0 && (
         <div className="flex flex-col justify-center items-center">
           <Image
             src="/static/images/illustrations/NoData.svg"
@@ -135,12 +131,12 @@ export default function SubscriptionsList({
       )}
 
       <Grid container justifyContent="flex-start" spacing={4}>
-        {(isFetching ? [...Array(6).keys()] : eventSubscriptions).map((x, key) =>
+        {(isFetching ? [...Array(6).keys()] : data.eventSubscriptions).map((x, key) =>
           isEditMode && x.id === selected?.id ? (
             <SubscriptionForm
               key={key}
               subscription={x}
-              isLoading={isFetching}
+              isFetching={isFetching}
               onStopEdit={onStopEdit}
               onSuccess={onEditSuccess}
             />
@@ -148,7 +144,7 @@ export default function SubscriptionsList({
             <SubscriptionCard
               key={key}
               subscription={x}
-              isLoading={isFetching}
+              isFetching={isFetching}
               onMenuClick={onMenuClick}
             />
           )

@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import DialogActions from "@material-ui/core/DialogActions"
 import BottomNavigation from "@material-ui/core/BottomNavigation"
+import CircularProgress from "@material-ui/core/CircularProgress"
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
 import { lazy, Suspense, unstable_SuspenseList, useState, SyntheticEvent } from "react"
 
@@ -78,20 +79,20 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
         <DialogContent className="flex flex-col p-0">
           <SuspenseList revealOrder="forwards">
-            <Suspense fallback={null}>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
               <TabPanel className="h-full" value="0">
                 <Catalog user={user} updateBalance={updateBalance} />
               </TabPanel>
             </Suspense>
 
-            <Suspense fallback={null}>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
               <TabPanel value="1">
                 <HistoryHeader />
                 <History userId={user?.id} />
               </TabPanel>
             </Suspense>
 
-            <Suspense fallback={null}>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
               <TabPanel value="2">
                 <AdminTransfer user={user} updateBalance={updateBalance} />
               </TabPanel>

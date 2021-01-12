@@ -1,11 +1,11 @@
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
+import { useSession } from "blitz"
 import Menu from "@material-ui/core/Menu"
-import Avatar from "@material-ui/core/Avatar"
 import Divider from "@material-ui/core/Divider"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
-import { signOut, useSession } from "next-auth/client"
 
 import Logout from "mdi-material-ui/Logout"
 import CogOutline from "mdi-material-ui/CogOutline"
@@ -15,22 +15,24 @@ export default function ModulesMenu() {
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
-  const [session] = useSession()
+  const session = useSession()
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
 
   const handleClose = () => setAnchorEl(null)
 
   const onLogout = () => {
-    signOut()
+    //signOut()
   }
 
   return (
-    <>
-      <Avatar
-        className="mx-2"
-        src={session?.user?.image ?? undefined}
+    <div className="flex mx-2">
+      <Image
+        className="rounded-full"
+        src={session?.image ?? "//:0"}
         onClick={handleOpen}
+        width={40}
+        height={40}
         alt="Photo de profil"
       />
 
@@ -52,7 +54,7 @@ export default function ModulesMenu() {
         disableAutoFocusItem
       >
         <Typography className="pt-4 pl-4 pr-4" variant="subtitle1" noWrap>
-          {session?.user?.nickname || `${session?.user?.firstname} ${session?.user?.lastname}`}
+          {session?.nickname || `${session?.firstname} ${session?.lastname}`}
         </Typography>
 
         <Divider className="m-3" />
@@ -97,6 +99,6 @@ export default function ModulesMenu() {
           </Typography>
         </MenuItem>
       </Menu>
-    </>
+    </div>
   )
 }

@@ -1,5 +1,5 @@
 import cuid from "cuid"
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
 
@@ -17,7 +17,7 @@ export default function TableDialog({
 }) {
   const { snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
 
-  const upsertMutation = useMutation(upsertQuery)
+  const [upsertMutation] = useMutation(upsertQuery)
 
   const formatData = (data) => {
     const formattedData = { ...data }
@@ -38,12 +38,11 @@ export default function TableDialog({
   }
 
   const onSuccess = async (data) => {
-    await upsertMutation
-      .mutateAsync({
-        where: { id: values.id ?? cuid() },
-        update: formatData(data),
-        create: formatData(data),
-      } as any)
+    await upsertMutation({
+      where: { id: values.id ?? cuid() },
+      update: formatData(data),
+      create: formatData(data),
+    } as any)
       .then(() => {
         onShow("success", "Sauvegardé")
         onClose()

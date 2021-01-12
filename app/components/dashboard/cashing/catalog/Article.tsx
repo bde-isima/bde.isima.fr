@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 import Skeleton from "@material-ui/core/Skeleton"
 import ButtonBase from "@material-ui/core/ButtonBase"
 import Typography from "@material-ui/core/Typography"
@@ -9,12 +9,12 @@ import createArticleTransaction from "app/entities/transactions/mutations/create
 const GUTTER_SIZE = 16
 
 export default function Article({ user, article, isFetching, onClick, style }) {
-  const createTransaction = useMutation(createArticleTransaction)
+  const [createTransaction] = useMutation(createArticleTransaction)
 
   const onTransaction = () => {
     onClick(
       () =>
-        createTransaction.mutateAsync({
+        createTransaction({
           data: {
             description: `Achat ${article?.name}`,
             article: { connect: { id: article?.id } },

@@ -1,4 +1,4 @@
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 import { useTheme } from "@material-ui/core"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 
@@ -20,19 +20,18 @@ export default function AdminTransfer({ user, updateBalance }: AdminTransferProp
 
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
-  const createTransaction = useMutation(createAdminTransaction)
+  const [createTransaction] = useMutation(createAdminTransaction)
 
   const onSuccess = async (data: AdminTransferInputType) => {
     if (user?.id) {
       const amount = parseFloat(data.amount)
-      await createTransaction
-        .mutateAsync({
-          data: {
-            amount,
-            description: data.description,
-            user: { connect: { id: user.id } },
-          },
-        })
+      await createTransaction({
+        data: {
+          amount,
+          description: data.description,
+          user: { connect: { id: user.id } },
+        },
+      })
         .then(() => {
           onShow("success", "Envoyé")
           updateBalance(amount)

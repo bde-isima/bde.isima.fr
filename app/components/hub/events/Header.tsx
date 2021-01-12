@@ -1,10 +1,8 @@
+import Image from "next/image"
 import { format } from "date-fns"
 import Skeleton from "@material-ui/core/Skeleton"
 import CardHeader from "@material-ui/core/CardHeader"
 import Typography from "@material-ui/core/Typography"
-
-import Avatar from "@material-ui/core/Avatar"
-import AutoSkeleton from "app/utils/AutoSkeleton"
 
 export default function Header({ event, isFetching }) {
   return (
@@ -15,9 +13,13 @@ export default function Header({ event, isFetching }) {
         content: "w-full",
       }}
       avatar={
-        <AutoSkeleton loading={isFetching}>
-          <Avatar className="w-24 h-24" src={event?.club.image} alt={`Logo ${event?.club.name}`} />
-        </AutoSkeleton>
+        <Image
+          className="rounded-full"
+          src={event?.club.image ?? "//:0"}
+          width={100}
+          height={100}
+          alt={`Logo ${event?.club.name}`}
+        />
       }
       title={
         <>

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import Divider from "@material-ui/core/Divider"
-import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next"
 
 import db from "db"
 import Header from "app/components/hub/events/Header"
@@ -9,9 +8,13 @@ import ProductsList from "app/components/hub/events/product/ProductsList"
 import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
 import { EventSubscriptionProvider } from "app/components/hub/events/subscription/EventSubscription"
 
-export default function Event({ event }: InferGetStaticPropsType<typeof getStaticProps>) {
+type EventProps = {
+  event: Event
+}
+
+export default function Event({ event }: EventProps) {
   const router = useRouter()
-  const evt = convertStringsToDate(event) as any
+  const evt = convertStringsToDate(event)
 
   return (
     <div
@@ -33,7 +36,7 @@ export default function Event({ event }: InferGetStaticPropsType<typeof getStati
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const events = await db.event.findMany()
 
   return {
@@ -42,7 +45,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const event = await db.event.findUnique({
     where: { id: params?.id as string },
     include: { club: true },

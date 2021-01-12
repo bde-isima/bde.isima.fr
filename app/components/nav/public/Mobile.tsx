@@ -1,9 +1,9 @@
 import Link from "next/link"
+import Image from "next/image"
+import { useSession } from "blitz"
 import { cloneElement } from "react"
 import Fab from "@material-ui/core/Fab"
 import List from "@material-ui/core/List"
-import { useSession } from "next-auth/client"
-import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
@@ -17,7 +17,7 @@ import config from "./config"
 import { useCustomRouter } from "app/hooks/useCustomRouter"
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
-  const [session] = useSession()
+  const session = useSession()
   const { router, pushRoute } = useCustomRouter()
 
   const iOS = typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -66,9 +66,11 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         <List>
           <ListItem>
             <ListItemIcon>
-              <Avatar
-                className="m-2 mr-4"
+              <Image
+                className="m-2 mr-4 rounded-full"
                 src="/static/images/logos/logo.svg"
+                width={40}
+                height={40}
                 alt="Logo BDE ISIMA"
               />
             </ListItemIcon>
@@ -79,7 +81,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
           <ItemsList />
 
           <div className="m-3 flex justify-center">
-            {session?.user?.id ? (
+            {session?.userId ? (
               <Fab
                 variant="extended"
                 onClick={pushRoute("/hub")}

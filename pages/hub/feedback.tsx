@@ -1,7 +1,6 @@
-import { useMutation } from "react-query"
 import Paper from "@material-ui/core/Paper"
 import NoSsr from "@material-ui/core/NoSsr"
-import { useSession } from "next-auth/client"
+import { useMutation, useSession } from "blitz"
 import Typography from "@material-ui/core/Typography"
 
 import Snackbar from "app/layouts/Snackbar"
@@ -12,16 +11,16 @@ import FeedbackForm from "app/components/hub/feedback/FeedbackForm"
 import { FeedbackInputType } from "app/components/forms/validations"
 
 export default function Feedback() {
-  const [session] = useSession()
-  const sendFeedback = useMutation(feedback)
+  const session = useSession()
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
+  const [sendFeedback] = useMutation(feedback)
+
   const onSuccess = (data: FeedbackInputType) => {
-    return sendFeedback
-      .mutateAsync({
-        ...data,
-        from: `${session?.user?.lastname} ${session?.user?.firstname} (${session?.user?.email})`,
-      })
+    return sendFeedback({
+      ...data,
+      from: `${session?.lastname} ${session?.firstname} (${session?.email})`,
+    })
       .then(() => onShow("success", "Envoyé"))
       .catch((err) => onShow("error", err.message))
   }

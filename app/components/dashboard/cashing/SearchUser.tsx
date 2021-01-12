@@ -1,6 +1,5 @@
-import { useQuery } from "react-query"
 import { Autocomplete } from "mui-rff"
-import { useSession } from "next-auth/client"
+import { useQuery, useSession } from "blitz"
 import TextField from "@material-ui/core/TextField"
 import { useState, Dispatch, SetStateAction } from "react"
 import MuiAutocomplete from "@material-ui/core/Autocomplete"
@@ -33,7 +32,7 @@ export default function SearchUser({
   disableSelf = false,
   withForm = false,
 }: SearchUserProps) {
-  const [session] = useSession()
+  const session = useSession()
   const [options, setOptions] = useState<User[]>([])
   const loading = open && options.length === 0
 
@@ -56,7 +55,7 @@ export default function SearchUser({
     onChange: onSelection,
     onOpen: toggleOpen(true),
     onClose: toggleOpen(false),
-    getOptionDisabled: (option: User) => disableSelf && option.id === session?.user?.id,
+    getOptionDisabled: (option: User) => disableSelf && option.id === session?.userId,
     getOptionSelected: (option: User, value: User) => option.id === value.id,
     getOptionLabel: (option: User) =>
       option ? `${option.card} - ${option.lastname} ${option.firstname} (${option.nickname})` : "",

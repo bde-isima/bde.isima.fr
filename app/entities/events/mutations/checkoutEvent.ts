@@ -1,15 +1,17 @@
+import { Ctx, NotFoundError } from "blitz"
+
 import db, { Prisma } from "db"
 import { CartItem, Option } from "types"
 
 type UpdateEventInput = Pick<Prisma.EventUpdateArgs, "where">
 
-export default async function checkoutEvent({ where }: UpdateEventInput) {
-  //TODO ctx.session.authorize(['*', 'bde'])
+export default async function checkoutEvent({ where }: UpdateEventInput, ctx: Ctx) {
+  ctx.session.authorize(["*", "bde"])
 
   const event = await db.event.findUnique({ where })
 
   if (!event) {
-    throw new Error("Événement introuvable")
+    throw new NotFoundError("Événement introuvable")
   }
 
   const eventSubscriptions = await db.eventSubscription.findMany({

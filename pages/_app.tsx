@@ -1,16 +1,19 @@
+import "app/styles/index.css"
+
 import Head from "next/head"
 import NProgress from "nprogress"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
-import { Provider } from "next-auth/client"
+import { queryCache } from "react-query"
+import createCache from "@emotion/cache"
+import { CacheProvider } from "@emotion/react"
 import { MuiThemeProvider } from "@material-ui/core"
 import { StrictMode, Suspense, useEffect } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import { QueryClient, QueryClientProvider } from "react-query"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
+import { ErrorComponent, AuthenticationError, AuthorizationError } from "blitz"
 
-import "app/styles/index.css"
-import packageJson from "..//package.json"
+import packageJson from "../package.json"
 import * as gtag from "app/integrations/gtag"
 import getNav from "app/components/nav/getNav"
 import Splash from "app/components/common/Splash"
@@ -21,15 +24,18 @@ globalThis.appName = packageJson.appName
 globalThis.website = packageJson.website
 globalThis.appVersion = packageJson.version
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { suspense: true },
-  },
-})
+export const cache = createCache({ key: "css", prepend: true })
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const theme = useCustomTheme()
+
+  useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side")
+    if (jssStyles) {
+      jssStyles.parentElement?.removeChild(jssStyles)
+    }
+  }, [])
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start()
@@ -50,37 +56,48 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <StrictMode>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
+      <CacheProvider value={cache}>
+        <Head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          />
+        </Head>
 
-        <ErrorBoundary
-          FallbackComponent={RootErrorFallback}
-          resetKeys={[router.asPath]}
-          //onReset={() => queryCache.resetErrorBoundaries()}
-        >
-          <QueryClientProvider client={queryClient}>
-            <Provider session={pageProps.session}>
-              <Head>
-                <meta
-                  name="viewport"
-                  content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-                />
-              </Head>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
 
-              <Suspense fallback={<Splash />}>
-                {getNav(router, <Component {...pageProps} />)}
-              </Suspense>
-            </Provider>
-          </QueryClientProvider>
-        </ErrorBoundary>
-      </MuiThemeProvider>
+          <ErrorBoundary
+            FallbackComponent={RootErrorFallback}
+            resetKeys={[router.asPath]}
+            onReset={() => queryCache.resetErrorBoundaries()}
+          >
+            <Suspense fallback={<Splash />}>
+              {getNav(router, <Component {...pageProps} />)}
+            </Suspense>
+          </ErrorBoundary>
+        </MuiThemeProvider>
+      </CacheProvider>
     </StrictMode>
   )
 }
 
-function RootErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  if (error?.name === "AuthenticationError") {
-    return <LoginFallback onSuccess={resetErrorBoundary} />
+function RootErrorFallback({ error }: FallbackProps) {
+  if (error instanceof AuthenticationError) {
+    return <LoginFallback />
+  } else if (error instanceof AuthorizationError) {
+    return (
+      <ErrorComponent
+        statusCode={(error as any).statusCode}
+        title={error.message ?? "Sorry, you are not authorized to access this"}
+      />
+    )
+  } else {
+    return (
+      <ErrorComponent
+        statusCode={(error as any)?.statusCode || 400}
+        title={error?.message || error?.name}
+      />
+    )
   }
-  return null
 }

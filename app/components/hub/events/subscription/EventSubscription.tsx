@@ -1,5 +1,4 @@
-import { useQuery } from "react-query"
-import { useSession } from "next-auth/client"
+import { useQuery, useSession } from "blitz"
 import { createContext, useContext } from "react"
 
 import { EventSubscriptionWithTypedCart } from "types"
@@ -8,6 +7,7 @@ import getEventSubscription from "app/entities/eventSubscriptions/queries/getEve
 interface EventSubscriptionContextType {
   isFetching: Boolean
   eventSubscription: EventSubscriptionWithTypedCart
+  setQueryData: any
 }
 
 const EventSubscriptionContext = createContext<EventSubscriptionContextType>({} as any)
@@ -17,29 +17,24 @@ export const useEventSubscription = () => {
 }
 
 export function EventSubscriptionProvider({ eventId, children }) {
-  const [session, isLoading] = useSession()
+  const session = useSession()
 
-  const { data, isFetching } = useQuery(
-    "getEventSubscription",
-    () =>
-      getEventSubscription({
-        where: {
-          eventId,
-          userId: session?.id,
-        },
-      }),
-    {
-      enabled: Boolean(eventId) && isLoading,
-      refetchOnWindowFocus: false,
-      suspense: false,
-    }
-  )
+  const inputArgs = { where: { eventId, userId: session?.userId } }
+
+  const [data, { isFetching, setQueryData }] = useQuery(getEventSubscription, inputArgs, {
+    enabled: Boolean(eventId) && !session.isLoading,
+    refetchOnWindowFocus: false,
+    suspense: false,
+  })
+
+  console.log(data)
 
   return (
     <EventSubscriptionContext.Provider
       value={{
-        isFetching,
+        isFetching: session.isLoading || isFetching,
         eventSubscription: data as any,
+        setQueryData,
       }}
     >
       {children}

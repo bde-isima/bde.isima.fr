@@ -1,4 +1,4 @@
-import Avatar from "@material-ui/core/Avatar"
+import Image from "next/image"
 import Checkbox from "@material-ui/core/Checkbox"
 
 import PageTitle from "app/layouts/PageTitle"
@@ -32,9 +32,11 @@ const columns = [
     id: "image",
     headerName: "Photo",
     render: (row) => (
-      <Avatar
-        className="ml-auto"
+      <Image
+        className="ml-auto rounded-full"
         src={row.image}
+        width={40}
+        height={40}
         alt={`Photo de ${row.lastname} ${row.firstname}`}
       />
     ),

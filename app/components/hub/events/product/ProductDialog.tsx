@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useQueryClient } from "react-query"
 import Button from "@material-ui/core/Button"
 import Dialog from "@material-ui/core/Dialog"
 import IconButton from "@material-ui/core/IconButton"
@@ -26,11 +25,10 @@ type ProductGroupOptionProps = {
 const types = ["exclusive", "combinable"]
 
 export default function ProductDialog({ product, onClose }: ProductGroupOptionProps) {
-  const queryClient = useQueryClient()
   const [total, setTotal] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [comment, setComment] = useState(null)
-  const { eventSubscription } = useEventSubscription()
+  const { eventSubscription, setQueryData } = useEventSubscription()
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const theme = useTheme()
@@ -57,7 +55,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const handleAddProduct = () => {
     const { groupOptions, ...restProduct } = product
 
-    queryClient.setQueryData("getEventSubscription", (oldData) => ({
+    setQueryData((oldData) => ({
       ...(oldData as EventSubscriptionWithTypedCart),
       cart: [
         ...eventSubscription.cart,

@@ -24,6 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "strictNullChecks": true,
+    "downlevelIteration": true,
     "incremental": true
   },
   "exclude": ["node_modules"],

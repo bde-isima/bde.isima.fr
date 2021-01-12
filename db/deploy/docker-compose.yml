@@ -1,9 +1,10 @@
-version: '3.5'
+version: "3.5"
 
 services:
-  bde_postgres: 
+  bde_postgres:
     container_name: bde_postgres
     image: postgres
+    restart: always
     ports:
       - 5432:5432
     env_file:
@@ -14,6 +15,7 @@ services:
   bde_pgadmin:
     container_name: bde_pgadmin
     image: dpage/pgadmin4
+    restart: always
     ports:
       - 8080:80
     env_file:

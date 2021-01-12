@@ -1,5 +1,12 @@
 ## SECURITY CONCERNS
 
+# initPassword
+
+- Can be performed by any user
+- Should check that the passwords are not empty or undefined
+- Should check that the passwords given match
+- Should check that the given token is linked to a user
+
 # feedback
 
 - Can be performed by any connected user
@@ -18,7 +25,7 @@
 - Can be performed by \* or BDE role only
 - card has to be a _number_
 - Should update sessions public data to reflect potential update in roles
-- (Create) Should send an activation email for any new user created
+- (Create) Should set a default random password and send an activation email for any new user created
 
 # deleteManyUsers
 

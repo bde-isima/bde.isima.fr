@@ -1,10 +1,15 @@
 import * as z from "zod"
-import { State, PaymentMethod } from "db"
 
 export const LoginInput = z.object({
   identifier: z.string(),
 })
 export type LoginInputType = z.infer<typeof LoginInput>
+
+export const LoginWithCallbackInput = z.object({
+  identifier: z.string(),
+  callbackUrl: z.string().url(),
+})
+export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>
 
 export const TransferInput = z.object({
   amount: z.string().regex(/^-?\d+\.?\d*$/, { message: "Montant invalide" }),
@@ -125,7 +130,7 @@ export const EventInput = z
     description: z.string().max(3000).optional().nullable(),
     takes_place_at: z.date(),
     subscriptions_end_at: z.date(),
-    status: z.nativeEnum(State),
+    status: z.enum(["WAITING_APPROVAL", "ACCEPTED", "CHECKED_OUT"]),
     club: z.object({
       connect: z.object({
         name: z.string(),
@@ -160,7 +165,7 @@ export type EventInputType = z.infer<typeof EventInput>
 
 export const EventSubscriptionInput = z
   .object({
-    payment_method: z.nativeEnum(PaymentMethod),
+    payment_method: z.enum(["BDE", "LYDIA", "CASH"]),
     cart: z.array(
       z.object({
         name: z.string().max(255),

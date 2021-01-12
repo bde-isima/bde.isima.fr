@@ -1,3 +1,5 @@
+import { Ctx } from "blitz"
+
 import { mail } from "app/mailers"
 
 type FeedbackInput = {
@@ -6,8 +8,8 @@ type FeedbackInput = {
   from: string
 }
 
-export default async function feedback({ subject, message, from }: FeedbackInput) {
-  //TODO ctx.session.authorize()
+export default async function feedback({ subject, message, from }: FeedbackInput, ctx: Ctx) {
+  ctx.session.authorize()
 
   try {
     mail.send({

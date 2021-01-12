@@ -1,6 +1,5 @@
-import { useQuery } from "react-query"
-import { useSession } from "next-auth/client"
-import Avatar from "@material-ui/core/Avatar"
+import Image from "next/image"
+import { useQuery, useSession } from "blitz"
 
 import getClubs from "app/entities/clubs/queries/getClubs"
 
@@ -8,7 +7,7 @@ function createConfig(clubs, user) {
   return clubs
     .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === "*"))
     .map((x) => ({
-      icon: <Avatar className="w-6 h-6" src={x.image!} alt={`Logo ${x.name}`} />,
+      icon: <Image src={x.image ?? "//:0"} width={40} height={40} alt={`Logo ${x.name}`} />,
       text: x.name.toUpperCase(),
       to: `/dashboard/${x.name.toLowerCase()}`,
       role: x.name,
@@ -18,10 +17,10 @@ function createConfig(clubs, user) {
 }
 
 export function useClubsConfig() {
-  const { data } = useQuery("clubs", () => getClubs())
-  const [session] = useSession()
+  const session = useSession()
+  const [{ clubs }] = useQuery(getClubs, {})
 
-  return createConfig(data?.clubs, session)
+  return createConfig(clubs, session)
 }
 
 export function getClubsConfigServerSide(clubs, user) {

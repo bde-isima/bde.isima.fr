@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { TextField } from "mui-rff"
 import Divider from "@material-ui/core/Divider"
 import Typography from "@material-ui/core/Typography"
@@ -6,16 +7,17 @@ import InputAdornment from "@material-ui/core/InputAdornment"
 
 import OpenInNew from "mdi-material-ui/OpenInNew"
 
-import { User } from "db"
+import { useCurrentUser } from "app/hooks/useCurrentUser"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { SettingsInput, SettingsInputType } from "app/components/forms/validations"
 
 type SettingsFormProps = {
-  initialValues: User | null
   onSuccess: (values: SettingsInputType) => void
 }
 
 export default function SettingsForm(props: SettingsFormProps) {
+  const [user] = useCurrentUser()
+
   const onSubmit = async (values) => {
     try {
       await props.onSuccess(values)
@@ -31,23 +33,33 @@ export default function SettingsForm(props: SettingsFormProps) {
       submitText="Sauvegarder"
       schema={SettingsInput}
       initialValues={{
-        nickname: props.initialValues?.nickname,
-        email: props.initialValues?.email,
-        image: props.initialValues?.image,
+        nickname: user?.nickname,
+        email: user?.email,
+        image: user?.image,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <Typography>{props.initialValues?.lastname}</Typography>
-      <Typography>{props.initialValues?.firstname}</Typography>
+      <Typography variant="h6" color="textSecondary">
+        {user?.lastname} {user?.firstname} (n° {user?.card})
+      </Typography>
+
+      <Divider className="m-2" />
+
       <TextField type="text" name="nickname" label="Surnom" />
-
-      <Divider className="m-2" />
-
       <TextField type="email" name="email" label="Adresse email" />
-      <Typography>{props.initialValues?.card}</Typography>
 
       <Divider className="m-2" />
+
+      <div className="mx-auto">
+        <Image
+          className="rounded-full"
+          src={user?.image ?? "//:0"}
+          width={100}
+          height={100}
+          alt="Image de profil"
+        />
+      </div>
 
       <TextField
         type="text"

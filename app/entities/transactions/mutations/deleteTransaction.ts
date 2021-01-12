@@ -1,9 +1,10 @@
-import db, { Prisma } from "db"
+import { Ctx } from "blitz"
+import db, { TransactionDeleteArgs } from "db"
 
-type DeleteTransactionInput = Pick<Prisma.TransactionDeleteArgs, "where">
+type DeleteTransactionInput = Pick<TransactionDeleteArgs, "where">
 
-export default async function deleteTransaction({ where }: DeleteTransactionInput) {
-  //TODO ctx.session.authorize(['*', 'bde'])
+export default async function deleteTransaction({ where }: DeleteTransactionInput, ctx: Ctx) {
+  ctx.session.authorize(["*", "bde"])
 
   const transaction = await db.transaction.delete({ where })
 

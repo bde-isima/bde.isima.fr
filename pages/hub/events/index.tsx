@@ -3,17 +3,22 @@ import addDays from "date-fns/addDays"
 import Grid from "@material-ui/core/Grid"
 import Divider from "@material-ui/core/Divider"
 import Typography from "@material-ui/core/Typography"
-import { GetStaticProps, InferGetStaticPropsType } from "next"
 
-import db from "db"
+import db, { Event } from "db"
 import PageTitle from "app/layouts/PageTitle"
 import Card from "app/components/hub/events/Card"
 import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
 
+type EventWithClubImage = Event & { club: { image: string | null } }
+
+type EventsProps = {
+  events: EventWithClubImage[]
+}
+
 const today = new Date(new Date().setHours(0, 0, 0, 0))
 
-export default function Events({ events }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const evts = events.map((e) => convertStringsToDate(e) as any)
+export default function Events({ events }: EventsProps) {
+  const evts: EventWithClubImage[] = events.map((e) => convertStringsToDate(e))
 
   return (
     <>
@@ -51,13 +56,20 @@ export default function Events({ events }: InferGetStaticPropsType<typeof getSta
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async () => {
   const events = await db.event.findMany({
     where: {
       AND: [{ takes_place_at: { gte: today } }, { takes_place_at: { lte: addDays(today, 7) } }],
     },
-    include: { club: true },
     orderBy: { takes_place_at: "asc" },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      takes_place_at: true,
+      subscriptions_end_at: true,
+      club: { select: { image: true } },
+    },
   })
 
   return {

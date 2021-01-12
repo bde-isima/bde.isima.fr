@@ -1,15 +1,16 @@
-import { getSession } from "next-auth/client"
+import { Ctx } from "blitz"
 
 import db, { Prisma } from "db"
 
 type CreateTransactionInput = { data: Omit<Prisma.TransactionCreateInput, "type" | "prevBalance"> }
 
-export default async function createTransferTransaction({ data }: CreateTransactionInput) {
-  const session = await getSession()
+export default async function createTransferTransaction(
+  { data }: CreateTransactionInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize()
 
-  //TODO ctx.session.authorize()
-
-  if (session?.userId !== data?.emitter?.connect?.id) {
+  if (ctx.session.userId !== data?.emitter?.connect?.id) {
     throw new Error("Vous n'êtes pas l'émetteur")
   }
 

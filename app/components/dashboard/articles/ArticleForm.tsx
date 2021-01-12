@@ -1,5 +1,5 @@
+import Image from "next/image"
 import { TextField, Switches } from "mui-rff"
-import Avatar from "@material-ui/core/Avatar"
 import IconButton from "@material-ui/core/IconButton"
 import InputAdornment from "@material-ui/core/InputAdornment"
 
@@ -43,13 +43,18 @@ export default function ArticleForm(props: ArticleFormProps) {
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      {props.initialValues?.id && (
-        <Avatar
-          className="mx-auto w-32 h-32"
-          src={props.initialValues?.image || undefined}
-          alt={`Image de ${props.initialValues?.name}`}
-        />
-      )}
+      <div className="mx-auto">
+        {props.initialValues?.id && (
+          <Image
+            className="rounded-full"
+            src={props.initialValues?.image ?? "//:0"}
+            width={100}
+            height={100}
+            alt={`Image de ${props.initialValues?.name}`}
+          />
+        )}
+      </div>
+
       <TextField
         type="text"
         name="image"
@@ -72,7 +77,12 @@ export default function ArticleForm(props: ArticleFormProps) {
 
       <TextField type="text" name="name" label="Nom" />
       <TextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
-      <TextField type="number" name="member_price" label="Prix adhérent" inputProps={{ step: 0.01 }} />
+      <TextField
+        type="number"
+        name="member_price"
+        label="Prix adhérent"
+        inputProps={{ step: 0.01 }}
+      />
 
       <Switches name="is_enabled" data={{ label: "Activé", value: "is_enabled" }} color="primary" />
     </Form>

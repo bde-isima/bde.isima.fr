@@ -1,4 +1,4 @@
-import { useQuery } from "react-query"
+import { useQuery } from "blitz"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
 import { useState, SyntheticEvent } from "react"
@@ -30,17 +30,10 @@ export default function Manager({ open, event, onClose }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
-  const eventSubscriptionsQueryResult = useQuery(
-    "getEventSubscriptions",
-    () =>
-      getEventSubscriptions({
-        where: { eventId: event?.id },
-        include: { user: true },
-      }),
-    {
-      refetchOnWindowFocus: false,
-      enabled: Boolean(event?.id),
-    }
+  const result = useQuery(
+    getEventSubscriptions,
+    { where: { eventId: event?.id }, include: { user: true } },
+    { enabled: Boolean(event?.id), refetchOnWindowFocus: false }
   )
 
   const onChange = (event: SyntheticEvent, newValue: number) => setValue(newValue)
@@ -68,20 +61,15 @@ export default function Manager({ open, event, onClose }) {
         <DialogContent>
           <TabContext value={value.toString()}>
             <TabPanel value="0">
-              <SubscriptionsAnalytics
-                eventSubscriptionsQueryResult={eventSubscriptionsQueryResult}
-              />
+              <SubscriptionsAnalytics result={result} />
             </TabPanel>
 
             <TabPanel value="1">
-              <SubscriptionsList
-                event={event}
-                eventSubscriptionsQueryResult={eventSubscriptionsQueryResult}
-              />
+              <SubscriptionsList event={event} result={result} />
             </TabPanel>
 
             <TabPanel value="2">
-              <SubscriptionRecap eventSubscriptionsQueryResult={eventSubscriptionsQueryResult} />
+              <SubscriptionRecap result={result} />
             </TabPanel>
           </TabContext>
         </DialogContent>

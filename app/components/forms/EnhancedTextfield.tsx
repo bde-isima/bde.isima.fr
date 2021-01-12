@@ -1,34 +1,33 @@
-import { TextField } from "mui-rff"
-import { useField } from "react-final-form"
-import { PropsWithoutRef, forwardRef } from "react"
+import { useField, FieldProps } from "react-final-form"
+import { ShowErrorFunc, showErrorOnChange } from "mui-rff"
+import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@material-ui/core"
 
-export interface EnhancedTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+export type EnhancedTextFieldProps = Partial<Omit<MuiTextFieldProps, "type" | "onChange">> & {
   name: string
-  label: string
   type?: "text" | "password" | "email" | "number"
+  fieldProps?: Partial<FieldProps<any, any>>
+  showError?: ShowErrorFunc
 }
 
-export default function EnhancedTextField() {
-  return forwardRef<HTMLInputElement, EnhancedTextFieldProps>(({ name, label, ...props }, ref) => {
-    const {
-      input,
-      meta: { error, submitError, submitting },
-    } = useField(name, {
-      parse: props.type === "number" ? Number : undefined,
-    })
+export default function EnhancedTextField(props: EnhancedTextFieldProps) {
+  const { name, type, fieldProps, required, inputProps, helperText, ...rest } = props
 
-    const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
-
-    return (
-      <TextField
-        name={name}
-        inputRef={ref}
-        {...input}
-        label={label}
-        disabled={submitting}
-        error={normalizedError}
-        {...props}
-      />
-    )
+  const { input, meta } = useField(name, {
+    parse: props.type === "number" ? Number : undefined,
   })
+
+  const { error, submitError } = meta
+  const isError = showErrorOnChange({ meta })
+
+  return (
+    <MuiTextField
+      fullWidth
+      error={isError}
+      required={required}
+      inputProps={{ required, ...inputProps }}
+      helperText={isError ? error || submitError : helperText}
+      {...input}
+      {...rest}
+    />
+  )
 }

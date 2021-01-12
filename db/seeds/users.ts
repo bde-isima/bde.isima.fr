@@ -7,11 +7,11 @@ const users = async (db) => {
   await db.user.create({
     data: {
       id: "123456789",
-      lastname: faker.name.lastName(),
-      firstname: faker.name.firstName(),
+      lastname: "Lenoir",
+      firstname: "Adrien",
       nickname: faker.name.findName(),
       image: faker.image.imageUrl(),
-      email: faker.internet.email(),
+      email: "adrien.lenoir42440@gmail.com",
       card: 941,
       balance: 0,
       roles: "*",

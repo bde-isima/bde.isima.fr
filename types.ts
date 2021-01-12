@@ -1,4 +1,21 @@
-import { Event, EventSubscription } from "db"
+import { DefaultCtx, SessionContext, DefaultPublicData } from "blitz"
+
+import { User, Event, EventSubscription } from "db"
+
+declare module "blitz" {
+  export interface Ctx extends DefaultCtx {
+    session: SessionContext
+  }
+  export interface PublicData extends DefaultPublicData {
+    userId: User["id"]
+    firstname: string
+    lastname: string
+    nickname: string | null
+    image: string | null
+    email: string
+    card: number
+  }
+}
 
 export interface Item {
   name: string

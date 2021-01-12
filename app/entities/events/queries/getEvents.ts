@@ -1,3 +1,4 @@
+import { Ctx } from "blitz"
 import db, { Prisma } from "db"
 
 type GetEventsInput = Pick<
@@ -5,14 +6,11 @@ type GetEventsInput = Pick<
   "where" | "include" | "orderBy" | "skip" | "take"
 >
 
-export default async function getEvents({
-  where,
-  orderBy,
-  include,
-  skip = 0,
-  take,
-}: GetEventsInput) {
-  //TODO ctx.session.authorize()
+export default async function getEvents(
+  { where, orderBy, include, skip = 0, take }: GetEventsInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize()
 
   const events = await db.event.findMany({
     where,

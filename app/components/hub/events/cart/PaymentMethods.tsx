@@ -1,4 +1,3 @@
-import { useQueryClient } from "react-query"
 import Button from "@material-ui/core/Button"
 import Tooltip from "@material-ui/core/Tooltip"
 import Typography from "@material-ui/core/Typography"
@@ -12,11 +11,10 @@ import { EventSubscriptionWithTypedCart } from "types"
 import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
 
 export default function PaymentMethods() {
-  const queryClient = useQueryClient()
-  const { eventSubscription } = useEventSubscription()
+  const { eventSubscription, setQueryData } = useEventSubscription()
 
   const onPaymentMethodChange = (payment_method) => () => {
-    queryClient.setQueryData("getEventSubscription", (oldData) => ({
+    setQueryData((oldData) => ({
       ...(oldData as EventSubscriptionWithTypedCart),
       payment_method,
     }))

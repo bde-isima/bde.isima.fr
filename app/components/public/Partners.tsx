@@ -48,7 +48,7 @@ export default function Partners() {
           </Grid>
         </Grid>
 
-        <Suspense fallback={<CircularProgress size={25} />}>
+        <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
           <Carousel getQuery={getPartners} queryKey="partners" />
         </Suspense>
       </div>

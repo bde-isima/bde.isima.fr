@@ -1,4 +1,4 @@
-import { useQuery } from "react-query"
+import { useQuery } from "blitz"
 import { useTheme } from "@material-ui/core"
 import { VariableSizeGrid } from "react-window"
 import TextField from "@material-ui/core/TextField"
@@ -49,10 +49,10 @@ export default function Catalog({ user, updateBalance }) {
   const [searchArticleInput, setSearchArticleInput] = useState("")
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
-  const { data, isLoading } = useQuery(
-    () => getArticles(),
+  const [data, { isFetching }] = useQuery(
+    getArticles,
     { where: { is_enabled: true } },
-    { suspense: false, refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false }
   )
 
   const articles = data?.articles ?? []
@@ -67,7 +67,10 @@ export default function Catalog({ user, updateBalance }) {
       onShow("info", "Vente en cours ...")
 
       await mutation()
-        .then(() => onShow("info", "Vente en cours ..."))
+        .then(() => {
+          onShow("success", "Article vendu")
+          updateBalance(user.is_member ? article.member_price : article.price)
+        })
         .catch((err) => onShow("error", err.message))
         .finally(() => setLoading(false))
     }
@@ -86,7 +89,7 @@ export default function Catalog({ user, updateBalance }) {
         user={user}
         article={article}
         onClick={onTransaction}
-        isFetching={isLoading}
+        isFetching={isFetching}
         style={style}
       />
     )

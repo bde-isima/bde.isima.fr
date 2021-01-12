@@ -1,6 +1,6 @@
 import { useState, ReactNode } from "react"
 import Paper from "@material-ui/core/Paper"
-import { useQuery, useMutation } from "react-query"
+import { useQuery, useMutation } from "blitz"
 import TablePagination from "@material-ui/core/TablePagination"
 
 import TableCore from "./TableCore"
@@ -69,12 +69,9 @@ export default function Table({
       }))
   }
 
-  const { data, isLoading }: { data: any; isLoading: boolean } = useQuery(
-    ["table-query", page.value],
-    () => getQuery(inputArgs),
-    { suspense: false }
-  )
-  const deleteMutation = useMutation(deleteQuery)
+  const [data, { isFetching }] = useQuery(getQuery, inputArgs, { suspense: false })
+
+  const [deleteMutation] = useMutation(deleteQuery)
 
   const snackbar = useSnackbar()
   const [open, setOpen] = useState(false)
@@ -92,8 +89,7 @@ export default function Table({
   }
 
   const handleDeleteAllClick = async () => {
-    await deleteMutation
-      .mutateAsync({ where: { id: { in: selected } } } as any)
+    await deleteMutation({ where: { id: { in: selected } } } as any)
       .then(() => {
         setSelected([])
         snackbar.onShow("success", "Supprimé(s)")
@@ -145,7 +141,7 @@ export default function Table({
         columns={columns}
         selected={{ value: selected, set: setSelected }}
         onEdit={onEdit}
-        isFetching={isLoading}
+        isFetching={isFetching}
         tableProps={{
           order,
           orderBy,

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next"
-import { getSession } from "next-auth/client"
+import { getSessionContext } from "@blitzjs/server"
 
 import db from "db"
 import { getBDEConfigServerSide } from "app/components/nav/dashboard/useBDEConfig"
@@ -9,9 +9,9 @@ export default function DashboardIndex() {
   return null
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const clubs = await db.club.findMany()
-  const session = await getSession({ req })
+  const session = await getSessionContext(req, res)
   const user = await db.user.findUnique({ where: { id: session?.userId! } })
 
   const bdeConfig = getBDEConfigServerSide(user)

@@ -1,7 +1,7 @@
-import { useQuery } from "react-query"
+import { useQuery } from "blitz"
 
 import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 
-export const useCurrentUser = (queryArgs = {}) => {
-  return useQuery("currentUser", () => getCurrentUser(queryArgs))
+export const useCurrentUser = (inputArgs = {}, queryArgs = {}) => {
+  return useQuery(getCurrentUser, inputArgs, queryArgs)
 }

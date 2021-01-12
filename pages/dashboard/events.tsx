@@ -1,5 +1,5 @@
 import { format } from "date-fns"
-import { useMutation } from "react-query"
+import { useMutation } from "blitz"
 
 import Check from "mdi-material-ui/Check"
 import CurrencyUsd from "mdi-material-ui/CurrencyUsd"
@@ -10,8 +10,8 @@ import useSnackbar from "app/hooks/useSnackbar"
 import Table from "app/components/dashboard/data/Table"
 import getEvents from "app/entities/events/queries/getEvents"
 import EventForm from "app/components/dashboard/events/EventForm"
-import updateEvent from "app/entities/events/mutations/updateEvent"
 import upsertEvent from "app/entities/events/mutations/upsertEvent"
+import updateEvent from "app/entities/events/mutations/updateEvent"
 import EventStatus from "app/components/dashboard/events/EventStatus"
 import checkoutEvent from "app/entities/events/mutations/checkoutEvent"
 import deleteManyEvents from "app/entities/events/mutations/deleteManyEvents"
@@ -19,24 +19,19 @@ import deleteManyEvents from "app/entities/events/mutations/deleteManyEvents"
 const today = new Date(new Date().setHours(0, 0, 0, 0))
 
 export default function Events() {
-  const updateEvnt = useMutation(updateEvent)
-  const checkoutEvnt = useMutation(checkoutEvent)
-
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
+  const [updateEvnt] = useMutation(updateEvent)
+  const [checkoutEvnt] = useMutation(checkoutEvent)
+
   const approve = (rowData) => () => {
-    return updateEvnt
-      .mutateAsync({
-        where: { id: rowData.id },
-        data: { status: "ACCEPTED" },
-      })
+    return updateEvnt({ where: { id: rowData.id }, data: { status: "ACCEPTED" } })
       .then(() => onShow("success", "Approuvé"))
       .catch((err) => onShow("error", err.message))
   }
 
   const checkout = (rowData) => () => {
-    return checkoutEvnt
-      .mutateAsync({ where: { id: rowData.id } })
+    return checkoutEvnt({ where: { id: rowData.id } })
       .then(() => onShow("success", "Encaissé"))
       .catch((err) => onShow("error", err.message))
   }

@@ -2,27 +2,27 @@ import List from "@material-ui/core/List"
 import Grid from "@material-ui/core/Grid"
 import MuiCard from "@material-ui/core/Card"
 import Skeleton from "@material-ui/lab/Skeleton"
-import ListItem from '@material-ui/core/ListItem'
-import IconButton from '@material-ui/core/IconButton'
+import ListItem from "@material-ui/core/ListItem"
+import IconButton from "@material-ui/core/IconButton"
 import CardHeader from "@material-ui/core/CardHeader"
-import Typography from '@material-ui/core/Typography'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Typography from "@material-ui/core/Typography"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
 
-import DotsVertical from 'mdi-material-ui/DotsVertical'
+import DotsVertical from "mdi-material-ui/DotsVertical"
 
 import { User } from "db"
-import { EventSubscriptionWithTypedCart, Option } from 'types'
+import { EventSubscriptionWithTypedCart, Option } from "types"
 
 type CardProps = {
   subscription: EventSubscriptionWithTypedCart & { user: User }
-  isLoading: boolean
+  isFetching: boolean
   onMenuClick: (target, subscription) => void
 }
 
-export default function Card({ subscription, isLoading, onMenuClick }: CardProps) {
-  const onPopupMenu = event => {
+export default function Card({ subscription, isFetching, onMenuClick }: CardProps) {
+  const onPopupMenu = (event) => {
     onMenuClick(event.currentTarget, subscription)
   }
 
@@ -33,7 +33,7 @@ export default function Card({ subscription, isLoading, onMenuClick }: CardProps
           className="items-start"
           classes={{ content: "flex flex-col" }}
           title={
-            isLoading ? (
+            isFetching ? (
               <Skeleton className="mb-4" animation="wave" height={10} width="80%" />
             ) : (
               `${subscription.user.firstname} ${subscription.user.lastname}`
@@ -41,35 +41,41 @@ export default function Card({ subscription, isLoading, onMenuClick }: CardProps
           }
           titleTypographyProps={{ variant: "subtitle2" }}
           subheader={
-            isLoading ? (
+            isFetching ? (
               <Skeleton animation="wave" height={10} width="40%" />
             ) : (
               `Paiement par ${subscription.payment_method}`
             )
           }
           subheaderTypographyProps={{ variant: "caption" }}
-          action={!isLoading && (
-            <IconButton aria-label="Options" onClick={onPopupMenu}>
-              <DotsVertical />
-            </IconButton>
-          )}
+          action={
+            !isFetching && (
+              <IconButton aria-label="Options" onClick={onPopupMenu}>
+                <DotsVertical />
+              </IconButton>
+            )
+          }
         />
 
-        {isLoading ? (
+        {isFetching ? (
           <Skeleton className="h-20" animation="wave" variant="rectangular" />
         ) : (
           <List>
             {subscription.cart.map((cartItem, idx) => {
-              const price = cartItem.quantity * (cartItem.price + cartItem.options.reduce((acc: number, o: Option) => acc + o.price, 0))
+              const price =
+                cartItem.quantity *
+                (cartItem.price +
+                  cartItem.options.reduce((acc: number, o: Option) => acc + o.price, 0))
               return (
                 <ListItem key={idx} dense>
                   <ListItemIcon>
-                    <Typography variant="overline">
-                      x{cartItem.quantity}
-                    </Typography>
+                    <Typography variant="overline">x{cartItem.quantity}</Typography>
                   </ListItemIcon>
 
-                  <ListItemText primary={cartItem.name} secondary={cartItem.options.map(x => x.name).join(', ')} />
+                  <ListItemText
+                    primary={cartItem.name}
+                    secondary={cartItem.options.map((x) => x.name).join(", ")}
+                  />
 
                   <ListItemSecondaryAction>
                     <ListItemText primary={`${price} €`} />

@@ -1,6 +1,6 @@
 import { useState } from "react"
+import { useQuery } from "blitz"
 import { subDays } from "date-fns"
-import { useQuery } from "react-query"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
@@ -13,12 +13,10 @@ const now = new Date()
 export default function ArticlesStats() {
   const [period, setPeriod] = useState(31)
 
-  const { data } = useQuery("articles", () =>
-    getArticles({
-      include: { Transaction: true },
-      where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
-    })
-  )
+  const [data] = useQuery(getArticles, {
+    include: { Transaction: true },
+    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
+  })
 
   const handleChange = (event) => setPeriod(event.target.value)
 

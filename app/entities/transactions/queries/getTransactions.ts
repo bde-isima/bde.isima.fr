@@ -1,3 +1,5 @@
+import { Ctx } from "blitz"
+
 import db, { Prisma } from "db"
 
 type GetTransactionsInput = Pick<
@@ -5,17 +7,15 @@ type GetTransactionsInput = Pick<
   "where" | "orderBy" | "skip" | "take"
 >
 
-export default async function getTransactions({
-  where,
-  orderBy,
-  skip = 0,
-  take,
-}: GetTransactionsInput) {
-  //TODO ctx.session.authorize()
+export default async function getTransactions(
+  { where, orderBy, skip = 0, take }: GetTransactionsInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize()
 
-  /*if (session.userId !== where?.userId) {
-    session.authorize(['*', 'bde'])
-  }*/
+  if (ctx.session.userId !== where?.userId) {
+    ctx.session.authorize(["*", "bde"])
+  }
 
   const transactions = await db.transaction.findMany({
     where,

@@ -1,3 +1,4 @@
+import { Ctx } from "blitz"
 import db, { Prisma } from "db"
 
 type GetUsersInput = Pick<
@@ -5,14 +6,11 @@ type GetUsersInput = Pick<
   "where" | "orderBy" | "skip" | "take" | "include"
 >
 
-export default async function getUsersPublicData({
-  where,
-  orderBy,
-  skip = 0,
-  take,
-  include,
-}: GetUsersInput) {
-  //TODO ctx.session.authorize()
+export default async function getUsersPublicData(
+  { where, orderBy, skip = 0, take, include }: GetUsersInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize()
 
   const users = await db.user.findMany({
     include,

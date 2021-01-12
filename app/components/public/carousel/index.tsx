@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "blitz"
 import Card from "@material-ui/core/Card"
 import Earth from "mdi-material-ui/Earth"
 import Twitter from "mdi-material-ui/Twitter"
@@ -38,7 +38,7 @@ export default function Carousel({ getQuery, queryKey }) {
   const [isMoving, setIsMoving] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  const { data }: { data: any } = useQuery(queryKey, getQuery, { refetchOnWindowFocus: false })
+  const [data] = useQuery(getQuery, {}, { refetchOnWindowFocus: false })
 
   const stopPropagation = (e) => {
     e.stopPropagation()

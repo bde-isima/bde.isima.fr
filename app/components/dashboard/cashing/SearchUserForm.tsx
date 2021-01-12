@@ -1,5 +1,5 @@
+import { useSession } from "blitz"
 import Paper from "@material-ui/core/Paper"
-import { useSession } from "next-auth/client"
 import { useState, lazy, Suspense } from "react"
 
 import { User } from "db"
@@ -10,7 +10,7 @@ import SearchUser from "app/components/dashboard/cashing/SearchUser"
 const CashingDialog = lazy(() => import("./CashingDialog"))
 
 export default function SearchUserForm() {
-  const [session] = useSession()
+  const session = useSession()
   const [selected, setSelected] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
 

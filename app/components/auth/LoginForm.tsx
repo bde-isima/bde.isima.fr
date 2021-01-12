@@ -1,23 +1,34 @@
+import { useState } from "react"
 import { TextField } from "mui-rff"
+import { useRouter } from "next/router"
+import Typography from "@material-ui/core/Typography"
+import { useMutation, AuthenticationError } from "blitz"
 
+import login from "app/entities/auth/mutations/login"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { LoginInput, LoginInputType } from "app/components/forms/validations"
 
-type LoginFormProps = {
-  onSuccess: () => void
-}
+export default function LoginForm() {
+  const router = useRouter()
+  const [signIn] = useMutation(login)
+  const [message, setMessage] = useState("")
 
-export default function LoginForm(props: LoginFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess()
+      console.log(router)
+      signIn({
+        ...values,
+        callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${
+          router.route === "/login" ? "/hub" : router.asPath
+        }`,
+      }).then((res) => setMessage(res))
     } catch (error) {
-      if (error.name === "AuthenticationError") {
+      if (error instanceof AuthenticationError) {
         return { [FORM_ERROR]: "Identifiants incorrects" }
       } else {
         return {
           [FORM_ERROR]:
-            "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+            "Sorry, we had an unexpected error. Please try again. - " + JSON.stringify(error),
         }
       }
     }
@@ -38,6 +49,14 @@ export default function LoginForm(props: LoginFormProps) {
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
+
+      <Typography
+        className="m-2"
+        variant={router.query.invalid && !message ? "error" : "success"}
+        align="center"
+      >
+        <b>{message || (router.query.invalid ? "Jeton invalide" : "")}</b>
+      </Typography>
     </Form>
   )
 }

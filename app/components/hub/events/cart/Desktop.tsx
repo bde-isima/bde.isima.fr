@@ -84,7 +84,7 @@ export default function Desktop({
 
         <CardContent>
           <List>
-            {eventSubscription.cart.map((cartItem: CartItem, idx: number) => {
+            {eventSubscription?.cart.map((cartItem: CartItem, idx: number) => {
               const price =
                 cartItem.quantity *
                 (cartItem.price +

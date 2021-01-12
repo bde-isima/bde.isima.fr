@@ -1,11 +1,11 @@
-import { useQuery } from "react-query"
+import { useQuery } from "blitz"
 import Typography from "@material-ui/core/Typography"
 import { VictoryChart, VictoryPie, VictoryTheme } from "victory"
 
 import getAggregatedBalance from "app/entities/users/queries/getAggregatedBalance"
 
 export default function GlobalBalance() {
-  const { data } = useQuery("getAggregatedBalance", getAggregatedBalance)
+  const [data] = useQuery(getAggregatedBalance, {})
 
   const [negatives, positives] = [data?.negatives || 0, data?.positives || 0]
 

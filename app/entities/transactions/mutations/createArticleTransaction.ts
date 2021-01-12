@@ -1,4 +1,5 @@
 import cuid from "cuid"
+import { Ctx } from "blitz"
 
 import db, { JsonObject, Prisma } from "db"
 
@@ -6,8 +7,8 @@ type CreateTransactionInput = {
   data: Omit<Prisma.TransactionCreateInput, "type" | "amount" | "prevBalance">
 }
 
-export default async function createArticleTransaction({ data }: CreateTransactionInput) {
-  //TODO ctx.session.authorize(['*', 'bde'])
+export default async function createArticleTransaction({ data }: CreateTransactionInput, ctx: Ctx) {
+  ctx.session.authorize(["*", "bde"])
 
   const user = await db.user.findUnique({
     where: { id: data.user.connect?.id },

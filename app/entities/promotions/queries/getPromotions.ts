@@ -1,14 +1,14 @@
+import { Ctx } from "blitz"
+
 import db, { Prisma } from "db"
 
 type GetPromotionsInput = Pick<Prisma.FindManyPromotionArgs, "where" | "orderBy" | "skip" | "take">
 
-export default async function getPromotions({
-  where,
-  orderBy,
-  skip = 0,
-  take,
-}: GetPromotionsInput) {
-  //TODO ctx.session.authorize(['*', 'bde'])
+export default async function getPromotions(
+  { where, orderBy, skip = 0, take }: GetPromotionsInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize(["*", "bde"])
 
   const promotions = await db.promotion.findMany({
     where,

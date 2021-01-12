@@ -1,3 +1,5 @@
+import { Ctx } from "blitz"
+
 import db, { Prisma } from "db"
 import { assertArrayNonEmpty } from "app/utils/assert"
 
@@ -6,14 +8,13 @@ type upsertEventSubscriptionInput = Pick<
   "where" | "create" | "update"
 >
 
-export default async function upsertEventSubscription({
-  where,
-  create,
-  update,
-}: upsertEventSubscriptionInput) {
-  //TODO ctx.session.authorize()
+export default async function upsertEventSubscription(
+  { where, create, update }: upsertEventSubscriptionInput,
+  ctx: Ctx
+) {
+  ctx.session.authorize()
 
-  const event = await db.event.findUnique({ where: { id: create.event.connect?.id } })
+  const event = await db.event.findUnique({ where: { id: create.event?.connect?.id } })
 
   if (!event) {
     throw new Error("Événement introuvable")
@@ -25,8 +26,8 @@ export default async function upsertEventSubscription({
 
   const eventSubscriptions = await db.eventSubscription.count({
     where: {
-      eventId: create.event.connect?.id,
-      userId: { not: create.user.connect?.id },
+      eventId: create.event?.connect?.id,
+      userId: { not: create.user?.connect?.id },
     },
   })
 

@@ -1,8 +1,9 @@
 import { Fragment } from "react"
+import { useInfiniteQuery } from "blitz"
 import Button from "@material-ui/core/Button"
-import { useInfiniteQuery } from "react-query"
 
 import TransactionRow from "../../display/TransactionRow"
+import getTransactions from "app/entities/transactions/queries/getTransactions"
 
 type HistoryProps = {
   userId?: string
@@ -13,7 +14,6 @@ export default function History({ userId }: HistoryProps) {
     groupedTransactions,
     { isFetching, isFetchingMore, fetchMore, canFetchMore },
   ] = useInfiniteQuery(
-    "history",
     getTransactions,
     (
       page = {

@@ -1,8 +1,8 @@
 import cuid from "cuid"
+import { useMutation } from "blitz"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import Hidden from "@material-ui/core/Hidden"
-import { useMutation, useQueryClient } from "react-query"
 
 import { Event } from "db"
 import Mobile from "./Mobile"
@@ -20,13 +20,12 @@ type CartProps = {
 
 export default function Cart({ event }: CartProps) {
   const router = useRouter()
-  const queryClient = useQueryClient()
   const [total, setTotal] = useState<number>(0)
   const { open, message, severity, onShow, onClose } = useSnackbar()
-  const { eventSubscription } = useEventSubscription()
+  const { eventSubscription, setQueryData } = useEventSubscription()
 
-  const upsertEventSub = useMutation(upsertEventSubscription)
-  const deleteEventSub = useMutation(deleteEventSubscription)
+  const [upsertEventSub, { isLoading: subscribing }] = useMutation(upsertEventSubscription)
+  const [deleteEventSub, { isLoading: unsubscribing }] = useMutation(deleteEventSubscription)
 
   const onSubscribe = () => {
     const { eventId, userId, ...restEventSub } = eventSubscription
@@ -37,19 +36,17 @@ export default function Cart({ event }: CartProps) {
       user: { connect: { id: userId } },
     } as any
 
-    return upsertEventSub
-      .mutateAsync({
-        where: { id: eventSubscription.id ?? cuid() },
-        update: args,
-        create: args,
-      })
+    return upsertEventSub({
+      where: { id: eventSubscription.id ?? cuid() },
+      update: args,
+      create: args,
+    })
       .then(() => router.push("/hub/events"))
       .catch((err) => onShow("error", err.message))
   }
 
   const onUnsubscribe = () => {
-    return deleteEventSub
-      .mutateAsync({ where: { id: eventSubscription.id } })
+    return deleteEventSub({ where: { id: eventSubscription.id } })
       .then(() => router.push("/hub/events"))
       .catch((err) => onShow("error", err.message))
   }
@@ -64,7 +61,7 @@ export default function Cart({ event }: CartProps) {
       ]
     }
 
-    queryClient.setQueryData("getEventSubscription", (oldData) => ({
+    setQueryData((oldData) => ({
       ...(oldData as EventSubscriptionWithTypedCart),
       cart,
     }))
@@ -72,15 +69,15 @@ export default function Cart({ event }: CartProps) {
 
   useEffect(() => {
     setTotal(
-      eventSubscription.cart.reduce(
+      eventSubscription?.cart.reduce(
         (acc: number, x: CartItem) =>
           acc +
           x.quantity *
             (x.price + x.options.reduce((acc: number, val: Option) => acc + val.price, 0)),
         0
-      )
+      ) || 0
     )
-  }, [eventSubscription.cart])
+  }, [eventSubscription?.cart])
 
   return (
     <>
@@ -88,9 +85,9 @@ export default function Cart({ event }: CartProps) {
         <Desktop
           event={event}
           total={total}
-          subscribing={upsertEventSub.isLoading}
+          subscribing={subscribing}
           onSubscribe={onSubscribe}
-          unsubscribing={deleteEventSub.isLoading}
+          unsubscribing={unsubscribing}
           onUnsubscribe={onUnsubscribe}
           onQuantityChange={onQuantityChange}
         />
@@ -100,9 +97,9 @@ export default function Cart({ event }: CartProps) {
         <Mobile
           event={event}
           total={total}
-          subscribing={upsertEventSub.isLoading}
+          subscribing={subscribing}
           onSubscribe={onSubscribe}
-          unsubscribing={deleteEventSub.isLoading}
+          unsubscribing={unsubscribing}
           onUnsubscribe={onUnsubscribe}
           onQuantityChange={onQuantityChange}
         />

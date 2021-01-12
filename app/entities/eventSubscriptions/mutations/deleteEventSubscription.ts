@@ -1,23 +1,27 @@
+import { Ctx } from "blitz"
+
 import db, { Prisma } from "db"
 
 type DeleteEventSubscriptionInput = Pick<Prisma.EventSubscriptionDeleteArgs, "where">
 
-export default async function deleteEventSubscription({ where }: DeleteEventSubscriptionInput) {
+export default async function deleteEventSubscription(
+  { where }: DeleteEventSubscriptionInput,
+  ctx: Ctx
+) {
   const eventSubscription = await db.eventSubscription.findUnique({
     where,
     include: { event: { include: { club: true } } },
   })
 
   if (eventSubscription) {
-    //TODO
     // If the request is done by another person than the subscriber, check for admin rights
-    /*if(session?.userId !== eventSubscription.userId) {
-      session?.authorize(['*', 'bde', eventSubscription.event.club.name])
+    if (ctx.session.userId !== eventSubscription.userId) {
+      ctx.session.authorize(["*", "bde", eventSubscription.event.club.name])
     }
     // The user tries to unsubscribe
     else {
-      session?.authorize()
-    }*/
+      ctx.session.authorize()
+    }
 
     const newEventSubscription = await db.eventSubscription.delete({ where })
 

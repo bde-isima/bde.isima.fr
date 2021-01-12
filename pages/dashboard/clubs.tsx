@@ -1,4 +1,4 @@
-import Avatar from "@material-ui/core/Avatar"
+import Image from "next/image"
 
 import PageTitle from "app/layouts/PageTitle"
 import Table from "app/components/dashboard/data/Table"
@@ -29,7 +29,15 @@ const columns = [
   {
     id: "image",
     headerName: "Logo",
-    render: (row) => <Avatar src={row.image} alt={`Logo du ${row.name}`} />,
+    render: (row) => (
+      <Image
+        className="ml-auto rounded-full"
+        src={row.image}
+        width={40}
+        height={40}
+        alt={`Photo de ${row.name}`}
+      />
+    ),
   },
   {
     id: "name",

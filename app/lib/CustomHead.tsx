@@ -7,8 +7,17 @@ export default function CustomHead() {
   return (
     <Head>
       <meta charSet="utf-8" />
+      <meta name="description" content="Site du BDE ISIMA" />
 
-      <meta name="description" content="Site du BDE ISIMA" key="description" />
+      <link
+        rel="preload"
+        href="/fonts/Montserrat.ttf"
+        as="font"
+        type="font/ttf"
+        crossOrigin="anonymous"
+      />
+      <link href="/static/nprogress.css" rel="stylesheet" />
+      <link rel="manifest" href="/manifest.json" />
 
       <link
         rel="apple-touch-icon"
@@ -32,13 +41,9 @@ export default function CustomHead() {
         href="/static/images/favicons/safari-pinned-tab.svg"
         color={theme.palette.primary.main}
       />
-      <link rel="manifest" href="/manifest.json" />
 
       <meta name="msapplication-TileColor" content={theme.palette.primary.main} />
       <meta name="theme-color" content={theme.palette.primary.main} />
-
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
-      <link href="/static/nprogress.css" rel="stylesheet" />
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:url" content={process.env.NEXT_PUBLIC_FRONTEND_URL} />

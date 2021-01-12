@@ -1,27 +1,25 @@
-import { useMutation } from "react-query"
+import { Suspense } from "react"
 import Paper from "@material-ui/core/Paper"
+import { useMutation, useSession } from "blitz"
 import Typography from "@material-ui/core/Typography"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 import Snackbar from "app/layouts/Snackbar"
 import PageTitle from "app/layouts/PageTitle"
 import useSnackbar from "app/hooks/useSnackbar"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
 import updateUser from "app/entities/users/mutations/updateUser"
 import SettingsForm from "app/components/hub/settings/SettingsForm"
 import { SettingsInputType } from "app/components/forms/validations"
 
 export default function Settings() {
-  const { data: user } = useCurrentUser()
-  const updtUser = useMutation(updateUser)
+  const session = useSession()
+
+  const [updtUser] = useMutation(updateUser)
 
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
   const onSuccess = (data: SettingsInputType) => {
-    return updtUser
-      .mutateAsync({
-        where: { id: user?.id },
-        data,
-      })
+    return updtUser({ where: { id: session?.userId }, data })
       .then(() => onShow("success", "Sauvegardé"))
       .catch((err) => onShow("error", err.message))
   }
@@ -35,7 +33,9 @@ export default function Settings() {
           Paramètres
         </Typography>
 
-        <SettingsForm initialValues={user} onSuccess={onSuccess} />
+        <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+          <SettingsForm onSuccess={onSuccess} />
+        </Suspense>
 
         <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
       </Paper>

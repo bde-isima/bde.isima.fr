@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/client"
+import { useSession } from "blitz"
 
 import Earth from "mdi-material-ui/Earth"
 import Store from "mdi-material-ui/Store"
@@ -61,7 +61,7 @@ const config = [
 ]
 
 export function useBDEConfig() {
-  const [session] = useSession()
+  const session = useSession()
   return session?.roles.findIndex((x) => x === "*" || x.toLowerCase() === "bde") !== -1
     ? config
     : []

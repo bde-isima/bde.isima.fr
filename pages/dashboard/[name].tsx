@@ -5,6 +5,8 @@ import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next"
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
 
+import db from "db"
+import Layout from "app/layouts/PageTitle"
 import Table from "app/components/dashboard/data/Table"
 import getEvents from "app/entities/events/queries/getEvents"
 import upsertEvent from "app/entities/events/mutations/upsertEvent"
@@ -12,9 +14,6 @@ import EventStatus from "app/components/dashboard/events/EventStatus"
 import deleteManyEvents from "app/entities/events/mutations/deleteManyEvents"
 import EventForm from "app/components/dashboard/clubs/dashboard/event/EventForm"
 import Manager from "app/components/dashboard/clubs/dashboard/event/manager/Manager"
-
-import db from "db"
-import Layout from "app/layouts/PageTitle"
 import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
 
 export default function ClubDashboard({ club }: InferGetStaticPropsType<typeof getStaticProps>) {

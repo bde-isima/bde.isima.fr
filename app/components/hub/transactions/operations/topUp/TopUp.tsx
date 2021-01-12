@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSession } from "next-auth/client"
+import { useSession } from "blitz"
 
 import TopUpForm from "./TopUpForm"
 import Snackbar from "app/layouts/Snackbar"
@@ -9,13 +9,11 @@ import { TopUpInputType } from "app/components/forms/validations"
 export type PaymentMethod = "cb" | "lydia"
 
 export default function TopUp() {
-  const [session] = useSession()
+  const session = useSession()
   const { open, message, severity, onShow, onClose } = useSnackbar()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cb")
 
-  const beforeSubmit = (paymentMethod: PaymentMethod) => () => {
-    setPaymentMethod(paymentMethod)
-  }
+  const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod)
 
   const onSuccess = (data: TopUpInputType) => {
     const body = new FormData()
@@ -27,10 +25,10 @@ export default function TopUp() {
     body.append("message", `Recharge compte BDE +${data.amount} €`)
     body.append("currency", "EUR")
     body.append("type", "phone")
-    body.append("order_ref", `${session?.user?.id}-${new Date().toISOString()}`)
+    body.append("order_ref", `${session?.userId}-${new Date().toISOString()}`)
     body.append(
       "confirm_url",
-      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.user?.id}`
+      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.userId}`
     )
 
     return fetch(`${process.env.NEXT_PUBLIC_LYDIA_API_URL}/api/request/do.json`, {
