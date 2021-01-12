@@ -27,8 +27,6 @@ export function EventSubscriptionProvider({ eventId, children }) {
     suspense: false,
   })
 
-  console.log(data)
-
   return (
     <EventSubscriptionContext.Provider
       value={{

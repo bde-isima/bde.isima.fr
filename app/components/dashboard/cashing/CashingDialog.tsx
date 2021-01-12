@@ -1,6 +1,7 @@
 import { useTheme } from "@material-ui/core"
 import Dialog from "@material-ui/core/Dialog"
 import { useSwipeable } from "react-swipeable"
+import Skeleton from "@material-ui/core/Skeleton"
 import TabContext from "@material-ui/lab/TabContext"
 import DialogContent from "@material-ui/core/DialogContent"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
@@ -15,6 +16,7 @@ import CurrencyEur from "mdi-material-ui/CurrencyEur"
 import CartOutline from "mdi-material-ui/CartOutline"
 
 import TabPanel from "app/layouts/TabPanel"
+import getUser from "app/entities/users/queries/getUser"
 import getUsers from "app/entities/users/queries/getUsers"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
 import Balance from "app/components/hub/transactions/display/Balance"
@@ -74,7 +76,9 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             setOpen={setOpen}
           />
 
-          {user && <Balance balance={user?.balance || 0} variant="h6" />}
+          <Suspense fallback={<Skeleton width="60%" height={55} />}>
+            <Balance getQuery={getUser} queryArgs={{ where: { id: user?.id } }} variant="h6" />
+          </Suspense>
         </DialogActions>
 
         <DialogContent className="flex flex-col p-0">

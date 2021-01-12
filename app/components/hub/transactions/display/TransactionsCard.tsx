@@ -12,6 +12,7 @@ import CubeSend from "mdi-material-ui/CubeSend"
 import HistoryIcon from "mdi-material-ui/History"
 
 import Balance from "app/components/hub/transactions/display/Balance"
+import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 import RecentTransactions from "app/components/hub/transactions/display/RecentTransactions"
 
 export default function TransactionsCard({ openTransfer, openHistory, openTopUp }) {
@@ -25,7 +26,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
     <Card className="py-6 mb-4 px-4">
       <div className="flex flex-col justify-center items-center">
         <Suspense fallback={<Skeleton width="60%" height={55} />}>
-          <Balance />
+          <Balance getQuery={getCurrentUser} />
         </Suspense>
 
         <Typography className="my-2" variant="subtitle2" color="textSecondary" gutterBottom>

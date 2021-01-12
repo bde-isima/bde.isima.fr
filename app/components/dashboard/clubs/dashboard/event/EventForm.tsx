@@ -54,7 +54,7 @@ export default function EventForm(props: EventFormProps) {
       subscriptions_end_at: new Date(props.initialValues?.subscriptions_end_at ?? new Date()),
       status: props.initialValues?.status || "WAITING_APPROVAL",
       max_subscribers: props.initialValues?.max_subscribers,
-      club: { connect: { name: `${router.params.name}` } },
+      club: { connect: { name: `${router.query.name}` } },
       products: props.initialValues?.products
         ? (props.initialValues?.products as any[]).map((i) => ({
             name: i.name,
