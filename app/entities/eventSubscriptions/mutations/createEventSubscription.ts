@@ -9,7 +9,7 @@ export default async function createEventSubscription(
   ctx: Ctx
 ) {
   const event = await db.event.findUnique({
-    where: { id: data.event.connect?.id },
+    where: { id: data.event?.connect?.id },
     include: { club: true },
   })
 
@@ -19,7 +19,7 @@ export default async function createEventSubscription(
 
   ctx.session.authorize(["*", "bde", event.club.name])
 
-  const user = await db.user.findUnique({ where: { id: data.user.connect?.id } })
+  const user = await db.user.findUnique({ where: { id: data.user?.connect?.id } })
 
   if (!user) {
     throw new NotFoundError("Utilisateur introuvable")
@@ -27,8 +27,8 @@ export default async function createEventSubscription(
 
   const existingSub = await db.eventSubscription.findFirst({
     where: {
-      eventId: data.event.connect?.id,
-      userId: data.user.connect?.id,
+      eventId: data.event?.connect?.id,
+      userId: data.user?.connect?.id,
     },
   })
 

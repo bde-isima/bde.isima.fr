@@ -58,11 +58,10 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
   }
 
   const onEditSuccess = async (data) => {
-    await updateSub
-      .mutateAsync({
-        where: { id: selected?.id },
-        data,
-      })
+    await updateSub({
+      where: { id: selected?.id },
+      data,
+    })
       .then(() => {
         //TODO Refetch subscriptions
         setSelected(null)
@@ -79,8 +78,7 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
 
   const onDelete = async () => {
     setAnchorEl(null)
-    await deleteSub
-      .mutateAsync({ where: { id: selected?.id } })
+    await deleteSub({ where: { id: selected?.id } })
       .then(() => {
         //TODO Refetch subscriptions
         setSelected(null)
