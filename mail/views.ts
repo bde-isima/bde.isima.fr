@@ -24,10 +24,7 @@ export const compileView = ({
 }) => {
   const { serverRuntimeConfig } = getConfig()
 
-  const publicPath = path.join(
-    serverRuntimeConfig.PROJECT_ROOT,
-    process.env.NODE_ENV === "development" ? "public" : ""
-  )
+  const publicPath = path.join(serverRuntimeConfig.PROJECT_ROOT, "public")
   const content = resolveView(path.join(publicPath, `mails/${view}`))
   const layout = resolveView(path.join(publicPath, "mails/layout.html"))
 
