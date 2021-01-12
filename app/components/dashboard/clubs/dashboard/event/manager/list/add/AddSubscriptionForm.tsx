@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState } from "react"
 
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
-import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
+import getUsersPublicData from "app/entities/users/queries/getUsersPublicData"
 import { AddSubscriptionInput, AddSubscriptionInputType } from "app/components/forms/validations"
 
 type AddSubscriptionFormProps = {
@@ -34,12 +34,13 @@ export default function AddSubscriptionForm(props: AddSubscriptionFormProps) {
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <SearchUser 
-        name="subscriber" 
-        label="Rechercher un membre" 
+      <SearchUser
+        name="subscriber"
+        label="Rechercher un membre"
         open={open}
         setOpen={setOpen}
         getQuery={getUsersPublicData}
+        withForm
       />
     </Form>
   )

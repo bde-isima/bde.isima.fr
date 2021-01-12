@@ -1,40 +1,44 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import { useSession } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Divider from "@material-ui/core/Divider"
+import { useSession, useMutation } from "blitz"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 
 import Logout from "mdi-material-ui/Logout"
 import CogOutline from "mdi-material-ui/CogOutline"
 import MessageAlertOutline from "mdi-material-ui/MessageAlertOutline"
+import logout from "app/entities/auth/mutations/logout"
 
 export default function ModulesMenu() {
+  const session = useSession()
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
-  const session = useSession()
+  const [signOut] = useMutation(logout)
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
 
   const handleClose = () => setAnchorEl(null)
 
   const onLogout = () => {
-    //signOut()
+    signOut()
   }
 
   return (
     <div className="flex mx-2">
-      <Image
-        className="rounded-full"
-        src={session?.image ?? "//:0"}
-        onClick={handleOpen}
-        width={40}
-        height={40}
-        alt="Photo de profil"
-      />
+      {session?.image && (
+        <Image
+          className="rounded-full"
+          src={session.image}
+          onClick={handleOpen}
+          width={40}
+          height={40}
+          alt="Photo de profil"
+        />
+      )}
 
       <Menu
         id="avatar-menu"

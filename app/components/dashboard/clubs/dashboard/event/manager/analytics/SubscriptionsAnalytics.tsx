@@ -1,12 +1,17 @@
 import Card from "@material-ui/core/Card"
 import Divider from "@material-ui/core/Divider"
-import Skeleton from "@material-ui/core/Skeleton"
 import Typography from "@material-ui/core/Typography"
 
-import { Option, EventSubscriptionWithTypedCart, CartItem } from "types"
+import { EventSubscriptionWithTypedCart, Option, CartItem } from "types"
 
-export default function SubscriptionsAnalytics({ result: [data, { isFetching }] }) {
-  const revenues = data.eventSubscriptions.reduce((acc, sub: EventSubscriptionWithTypedCart) => {
+type SubscriptionsAnalyticsProps = {
+  eventSubscriptions: EventSubscriptionWithTypedCart[]
+}
+
+export default function SubscriptionsAnalytics({
+  eventSubscriptions = [],
+}: SubscriptionsAnalyticsProps) {
+  const revenues = (eventSubscriptions as any).reduce((acc, sub) => {
     return (
       acc +
       sub.cart.reduce((acc: number, cartItem: CartItem) => {
@@ -14,9 +19,9 @@ export default function SubscriptionsAnalytics({ result: [data, { isFetching }] 
           acc +
           cartItem.quantity *
             (cartItem.price +
-              cartItem.options.reduce((acc: number, o: Option) => {
+              cartItem.options?.reduce((acc: number, o: Option) => {
                 return acc + o.price
-              }, 0))
+              }, 0) || 0)
         )
       }, 0)
     )
@@ -36,11 +41,7 @@ export default function SubscriptionsAnalytics({ result: [data, { isFetching }] 
             Audience engagée
           </Typography>
           <Typography variant="h6" color="inherit" gutterBottom>
-            {isFetching ? (
-              <Skeleton animation="wave" width="20%" />
-            ) : (
-              `${data.eventSubscriptions.length} inscrit(s)`
-            )}
+            {`${eventSubscriptions.length} inscrit(s)`}
           </Typography>
         </Card>
 
@@ -49,7 +50,7 @@ export default function SubscriptionsAnalytics({ result: [data, { isFetching }] 
             Recettes actuelles
           </Typography>
           <Typography variant="h6" color="inherit" gutterBottom>
-            {isFetching ? <Skeleton animation="wave" width="20%" /> : `${revenues.toFixed(2)} €`}
+            {`${revenues.toFixed(2)} €`}
           </Typography>
         </Card>
       </div>

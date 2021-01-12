@@ -1,16 +1,16 @@
-version: "3.5"
+version: "3.7"
 
 services:
   bde_postgres:
     container_name: bde_postgres
-    image: postgres
+    image: postgres:latest
     restart: always
     ports:
       - 5432:5432
     env_file:
       - .env
     volumes:
-      - bde_data:/var/lib/postgresql/data/
+      - bde_data:/var/lib/postgresql/data
 
   bde_pgadmin:
     container_name: bde_pgadmin

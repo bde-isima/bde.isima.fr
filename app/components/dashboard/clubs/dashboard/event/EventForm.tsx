@@ -19,6 +19,7 @@ import ProductsForm from "./ProductsForm"
 import TabPanel from "app/layouts/TabPanel"
 import GroupOptionsForm from "./GroupOptionsForm"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import { EventInput, EventInputType } from "app/components/forms/validations"
 
 type EventFormProps = {
@@ -59,14 +60,14 @@ export default function EventForm(props: EventFormProps) {
         ? (props.initialValues?.products as any[]).map((i) => ({
             name: i.name,
             description: i.description,
-            price: i.price.toString(),
+            price: i.price,
             groupOptions: i.groupOptions.map((go) => ({
               name: go.name,
               type: go.type,
-              options: go.options.map((o) => ({
+              options: go.options?.map((o) => ({
                 name: o.name,
                 description: o.description,
-                price: o.price.toString(),
+                price: o.price,
               })),
             })),
           }))
@@ -105,7 +106,7 @@ export default function EventForm(props: EventFormProps) {
         <TabPanel value="0">
           <TextField type="text" name="name" label="Nom" />
           <TextField type="text" name="description" label="Description" multiline rows={5} />
-          <TextField type="number" name="max_subscribers" label="Limite de participants" />
+          <EnhancedTextField type="number" name="max_subscribers" label="Limite de participants" />
 
           <Divider className="m-2" />
 

@@ -1,13 +1,13 @@
 import Image from "next/image"
 import { Suspense } from "react"
 import Tab from "@material-ui/core/Tab"
+import { useMemo, useState } from "react"
 import { TextField, Switches } from "mui-rff"
 import AppBar from "@material-ui/core/AppBar"
 import Divider from "@material-ui/core/Divider"
 import TabList from "@material-ui/lab/TabList"
 import TabContext from "@material-ui/lab/TabContext"
 import IconButton from "@material-ui/core/IconButton"
-import { SyntheticEvent, useMemo, useState } from "react"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
@@ -17,6 +17,7 @@ import { User } from "db"
 import TabPanel from "app/layouts/TabPanel"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import RolesForm from "app/components/dashboard/users/RolesForm"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import PromotionsForm from "app/components/dashboard/users/PromotionsForm"
 import { UserInput, UserInputType } from "app/components/forms/validations"
 
@@ -29,9 +30,9 @@ type UserFormProps = {
 export default function UserForm(props: UserFormProps) {
   const [value, setValue] = useState("0")
 
-  const handleChange = (event: SyntheticEvent, newValue: string) => setValue(newValue)
+  const handleChange = (_, newValue: string) => setValue(newValue)
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: UserInputType) => {
     try {
       await props.onSuccess(values)
     } catch (error) {
@@ -44,27 +45,15 @@ export default function UserForm(props: UserFormProps) {
   const initialValues = useMemo(
     () => ({
       id: props.initialValues?.id,
-      lastname:
-        props.initialValues?.lastname || process.env.NODE_ENV === "development"
-          ? "Hello"
-          : undefined,
-      firstname:
-        props.initialValues?.firstname || process.env.NODE_ENV === "development"
-          ? "Hello"
-          : undefined,
+      lastname: props.initialValues?.lastname,
+      firstname: props.initialValues?.firstname,
       nickname: props.initialValues?.nickname,
       image: props.initialValues?.image,
-      email:
-        props.initialValues?.email || process.env.NODE_ENV === "development"
-          ? "adrien.lenoir42440@gmail.com"
-          : undefined,
-      card:
-        props.initialValues?.card?.toString() || process.env.NODE_ENV === "development"
-          ? "900"
-          : undefined,
-      balance: props.initialValues?.balance?.toString() || "0",
+      email: props.initialValues?.email,
+      card: props.initialValues?.card,
+      balance: props.initialValues?.balance || 0,
       roles: props.initialValues?.roles || [],
-      promotion: props.initialValues?.promotionId,
+      promotionId: props.initialValues?.promotionId,
       is_member: props.initialValues?.is_member || false,
       is_enabled: props.initialValues?.is_enabled || true,
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,11 +86,11 @@ export default function UserForm(props: UserFormProps) {
         </AppBar>
 
         <TabPanel value="0">
-          <div className="mx-auto">
-            {props.initialValues?.id && (
+          <div className="mx-auto text-center">
+            {props.initialValues?.id && props.initialValues?.image && (
               <Image
                 className="rounded-full"
-                src={props.initialValues?.image ?? "//:0"}
+                src={props.initialValues.image}
                 width={100}
                 height={100}
                 alt={`Image de ${props.initialValues?.lastname} ${props.initialValues?.firstname}`}
@@ -135,9 +124,16 @@ export default function UserForm(props: UserFormProps) {
 
           <Divider className="m-2" />
 
+          {props.initialValues?.id && (
+            <EnhancedTextField type="number" name="card" label="N° de carte" />
+          )}
           <TextField type="email" name="email" label="Email" />
-          <TextField type="number" name="card" label="N° de carte" />
-          <TextField type="number" name="balance" label="Solde" inputProps={{ step: 0.01 }} />
+          <EnhancedTextField
+            type="number"
+            name="balance"
+            label="Solde"
+            inputProps={{ step: 0.01 }}
+          />
 
           <Divider className="m-2" />
 

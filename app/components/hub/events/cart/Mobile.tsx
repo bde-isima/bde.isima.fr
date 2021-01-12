@@ -132,7 +132,7 @@ export default function Mobile({
               const price =
                 cartItem.quantity *
                 (cartItem.price +
-                  cartItem.options.reduce((acc: number, o: Option) => acc + o.price, 0))
+                  (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
               return (
                 <ListItem key={idx} dense>
                   <ListItemIcon>
@@ -156,10 +156,10 @@ export default function Mobile({
                   <ListItemText
                     className="text-center"
                     primary={cartItem.name}
-                    secondary={cartItem.options.map((o) => o.name).join(", ")}
+                    secondary={cartItem.options?.map((o) => o.name).join(", ")}
                   />
 
-                  <ListItemText className="text-right" primary={`${price.toFixed()} €`} />
+                  <ListItemText className="text-right" primary={`${price.toFixed(2)} €`} />
                 </ListItem>
               )
             })}
@@ -177,7 +177,7 @@ export default function Mobile({
 
             <ListItem>
               <ListItemText primary="Total" />
-              <ListItemText className="text-center" primary={`${total} €`} />
+              <ListItemText className="text-center" primary={`${total.toFixed(2)} €`} />
             </ListItem>
 
             <Divider className="m-2" />

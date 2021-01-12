@@ -1,6 +1,6 @@
-import { useState } from "react"
 import { format } from "date-fns"
 import { CsvBuilder } from "filefy"
+import { useState, Suspense } from "react"
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next"
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
@@ -55,7 +55,7 @@ export default function ClubDashboard({ club }: InferGetStaticPropsType<typeof g
                   ...acc,
                   items
                     .map((x) =>
-                      `x${x.quantity} - ${x.name} ${x.options.map((x) => x.name).join(", ")} ${
+                      `x${x.quantity} - ${x.name} ${x.options?.map((x) => x.name).join(", ")} ${
                         x.comment ? `(${x.comment})` : ""
                       }`.trim()
                     )
@@ -70,9 +70,9 @@ export default function ClubDashboard({ club }: InferGetStaticPropsType<typeof g
                   acc +
                   cartItem.quantity *
                     (cartItem.price +
-                      cartItem.options.reduce((acc, o) => {
+                      (cartItem.options?.reduce((acc, o) => {
                         return acc + o.price
-                      }, 0))
+                      }, 0) || 0))
                 )
               }, 0)
               .toFixed(2),
@@ -112,7 +112,9 @@ export default function ClubDashboard({ club }: InferGetStaticPropsType<typeof g
         ]}
       />
 
-      <Manager open={open} event={selected} onClose={onClose} />
+      <Suspense fallback={null}>
+        <Manager open={open} event={selected} onClose={onClose} />
+      </Suspense>
     </>
   )
 }

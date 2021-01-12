@@ -18,7 +18,7 @@ export default function TopUp() {
   const onSuccess = (data: TopUpInputType) => {
     const body = new FormData()
 
-    body.append("amount", data.amount)
+    body.append("amount", data.amount.toString())
     body.append("paymentMethod", paymentMethod)
     body.append("vendor_token", `${process.env.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN}`)
     body.append("recipient", data.recipient)

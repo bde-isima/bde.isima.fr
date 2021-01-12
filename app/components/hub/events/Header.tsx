@@ -13,13 +13,15 @@ export default function Header({ event, isFetching }) {
         content: "w-full",
       }}
       avatar={
-        <Image
-          className="rounded-full"
-          src={event?.club.image ?? "//:0"}
-          width={100}
-          height={100}
-          alt={`Logo ${event?.club.name}`}
-        />
+        event?.club?.image && (
+          <Image
+            className="rounded-full"
+            src={event?.club.image}
+            width={100}
+            height={100}
+            alt={`Logo ${event?.club.name}`}
+          />
+        )
       }
       title={
         <>

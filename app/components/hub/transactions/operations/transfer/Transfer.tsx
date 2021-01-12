@@ -5,6 +5,7 @@ import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
 import { TransferInputType } from "app/components/forms/validations"
 import getCurrentUser from "app/entities/users/queries/getCurrentUser"
+import getTransactions from "app/entities/transactions/queries/getTransactions"
 import createTransferTransaction from "app/entities/transactions/mutations/createTransferTransaction"
 
 type TransferProps = {
@@ -29,6 +30,7 @@ export default function Transfer({ onClose }: TransferProps) {
       .then(() => {
         onShow("success", "Envoyé")
         invalidateQuery(getCurrentUser)
+        invalidateQuery(getTransactions)
       })
       .catch((err) => onShow("error", err.message))
   }

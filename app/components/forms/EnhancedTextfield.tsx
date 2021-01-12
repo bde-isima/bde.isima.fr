@@ -13,6 +13,7 @@ export default function EnhancedTextField(props: EnhancedTextFieldProps) {
   const { name, type, fieldProps, required, inputProps, helperText, ...rest } = props
 
   const { input, meta } = useField(name, {
+    formatOnBlur: true,
     parse: props.type === "number" ? Number : undefined,
   })
 
@@ -22,6 +23,7 @@ export default function EnhancedTextField(props: EnhancedTextFieldProps) {
   return (
     <MuiTextField
       fullWidth
+      type={props.type}
       error={isError}
       required={required}
       inputProps={{ required, ...inputProps }}

@@ -8,20 +8,18 @@ import createArticleTransaction from "app/entities/transactions/mutations/create
 
 const GUTTER_SIZE = 16
 
-export default function Article({ user, article, isFetching, onClick, style }) {
+export default function Article({ user, article, onClick, style }) {
   const [createTransaction] = useMutation(createArticleTransaction)
 
   const onTransaction = () => {
-    onClick(
-      () =>
-        createTransaction({
-          data: {
-            description: `Achat ${article?.name}`,
-            article: { connect: { id: article?.id } },
-            user: { connect: { id: user?.id } },
-          },
-        }),
-      article
+    onClick(() =>
+      createTransaction({
+        data: {
+          description: `Achat ${article?.name}`,
+          article: { connect: { id: article?.id } },
+          user: { connect: { id: user?.id } },
+        },
+      })
     )
   }
 
@@ -34,20 +32,16 @@ export default function Article({ user, article, isFetching, onClick, style }) {
       }}
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
-        {isFetching ? (
-          <Skeleton variant="rectangular" animation="wave" width={50} height={50} />
+        {article.image ? (
+          <Image src={article.image} width={50} height={50} alt={`Photo ${article?.name}`} />
         ) : (
-          <Image src={article?.image} width={50} height={50} alt={`Photo ${article?.name}`} />
+          <Skeleton variant="rectangular" width={50} height={50} animation={false} />
         )}
         <Typography variant="caption" color="inherit" noWrap>
-          {isFetching ? <Skeleton animation="wave" width={50} /> : article?.name}
+          {article?.name}
         </Typography>
         <Typography variant="caption" color="inherit" noWrap>
-          {isFetching ? (
-            <Skeleton animation="wave" width={50} />
-          ) : (
-            `${user?.is_member ? article?.member_price : article?.price} €`
-          )}
+          {`${user?.is_member ? article?.member_price : article?.price} €`}
         </Typography>
       </ButtonBase>
     </div>

@@ -48,10 +48,10 @@ export default function ClubForm(props: ClubFormProps) {
       autoComplete="off"
     >
       <div className="mx-auto">
-        {props.initialValues?.id && (
+        {props.initialValues?.id && props.initialValues?.image && (
           <Image
             className="rounded-full"
-            src={props.initialValues?.image ?? "//:0"}
+            src={props.initialValues.image}
             width={100}
             height={100}
             alt={`Image de ${props.initialValues?.name}`}

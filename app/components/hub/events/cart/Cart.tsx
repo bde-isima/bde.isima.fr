@@ -61,10 +61,13 @@ export default function Cart({ event }: CartProps) {
       ]
     }
 
-    setQueryData((oldData) => ({
-      ...(oldData as EventSubscriptionWithTypedCart),
-      cart,
-    }))
+    setQueryData(
+      (oldData) => ({
+        ...(oldData as EventSubscriptionWithTypedCart),
+        cart,
+      }),
+      { refetch: false }
+    )
   }
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export default function Cart({ event }: CartProps) {
         (acc: number, x: CartItem) =>
           acc +
           x.quantity *
-            (x.price + x.options.reduce((acc: number, val: Option) => acc + val.price, 0)),
+            (x.price + (x.options?.reduce((acc: number, val: Option) => acc + val.price, 0) || 0)),
         0
       ) || 0
     )

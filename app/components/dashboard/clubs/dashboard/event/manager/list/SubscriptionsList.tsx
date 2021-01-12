@@ -1,26 +1,37 @@
 import Image from "next/image"
 import { useState } from "react"
-import { useMutation } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import Divider from "@material-ui/core/Divider"
 import MenuItem from "@material-ui/core/MenuItem"
+import { useMutation, invalidateQuery } from "blitz"
 import Typography from "@material-ui/core/Typography"
 
 import Plus from "mdi-material-ui/Plus"
 
+import { Event } from "db"
 import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
 import SubscriptionCard from "./SubscriptionCard"
+import { EventSubscriptionWithTypedCart } from "types"
 import AddSubscriptionDialog from "./add/AddSubscriptionDialog"
 import { AddSubscriptionInputType } from "app/components/forms/validations"
+import getEventSubscriptions from "app/entities/eventSubscriptions/queries/getEventSubscriptions"
 import createEventSubscription from "app/entities/eventSubscriptions/mutations/createEventSubscription"
 import updateEventSubscription from "app/entities/eventSubscriptions/mutations/updateEventSubscription"
 import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
 import SubscriptionForm from "app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm"
 
-export default function SubscriptionsList({ event, result: [data, { isFetching }] }) {
+type SubscriptionsListProps = {
+  event: Event
+  eventSubscriptions: EventSubscriptionWithTypedCart[]
+}
+
+export default function SubscriptionsList({
+  event,
+  eventSubscriptions = [],
+}: SubscriptionsListProps) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selected, setSelected] = useState<any>(null)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -44,8 +55,8 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
       },
     })
       .then(() => {
-        //TODO Refetch subscriptions
         onShow("success", "Ajoutée")
+        invalidateQuery(getEventSubscriptions)
       })
       .catch((err) => onShow("error", err.message))
   }
@@ -63,10 +74,10 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
       data,
     })
       .then(() => {
-        //TODO Refetch subscriptions
         setSelected(null)
         setIsEditMode(false)
         onShow("success", "Sauvegardée")
+        invalidateQuery(getEventSubscriptions)
       })
       .catch((err) => onShow("error", err.message))
   }
@@ -80,9 +91,9 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
     setAnchorEl(null)
     await deleteSub({ where: { id: selected?.id } })
       .then(() => {
-        //TODO Refetch subscriptions
         setSelected(null)
         onShow("success", "Supprimée")
+        invalidateQuery(getEventSubscriptions)
       })
       .catch((err) => onShow("error", err.message))
   }
@@ -114,7 +125,7 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
         Ajouter
       </Button>
 
-      {!isFetching && data.eventSubscriptions.length === 0 && (
+      {eventSubscriptions.length === 0 && (
         <div className="flex flex-col justify-center items-center">
           <Image
             src="/static/images/illustrations/NoData.svg"
@@ -129,22 +140,16 @@ export default function SubscriptionsList({ event, result: [data, { isFetching }
       )}
 
       <Grid container justifyContent="flex-start" spacing={4}>
-        {(isFetching ? [...Array(6).keys()] : data.eventSubscriptions).map((x, key) =>
+        {eventSubscriptions.map((x, key) =>
           isEditMode && x.id === selected?.id ? (
             <SubscriptionForm
               key={key}
               subscription={x}
-              isFetching={isFetching}
               onStopEdit={onStopEdit}
               onSuccess={onEditSuccess}
             />
           ) : (
-            <SubscriptionCard
-              key={key}
-              subscription={x}
-              isFetching={isFetching}
-              onMenuClick={onMenuClick}
-            />
+            <SubscriptionCard key={key} subscription={x} onMenuClick={onMenuClick} />
           )
         )}
       </Grid>

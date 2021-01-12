@@ -28,12 +28,10 @@ const columns = [
     id: "year",
     headerName: "Année",
     searchCriteria: "equals",
-    format: (value) => parseInt(value),
   },
   {
     id: "fb_group_id",
     headerName: "ID groupe Facebook",
-    format: (value) => parseInt(value),
   },
   {
     id: "list_email",

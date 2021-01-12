@@ -88,7 +88,7 @@ export default function Desktop({
               const price =
                 cartItem.quantity *
                 (cartItem.price +
-                  cartItem.options.reduce((acc: number, o: Option) => acc + o.price, 0))
+                  (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
               return (
                 <Grow key={idx} in={!isFetching}>
                   <ListItem dense disableGutters>
@@ -113,10 +113,10 @@ export default function Desktop({
                     <ListItemText
                       className="text-right m-4"
                       primary={cartItem.name}
-                      secondary={cartItem.options.map((o) => o.name).join(", ")}
+                      secondary={cartItem.options?.map((o) => o.name).join(", ")}
                     />
 
-                    <ListItemText className="text-right m-4" primary={`${price.toFixed()} €`} />
+                    <ListItemText className="text-right m-4" primary={`${price.toFixed(2)} €`} />
                   </ListItem>
                 </Grow>
               )

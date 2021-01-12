@@ -29,15 +29,16 @@ const columns = [
   {
     id: "image",
     headerName: "Logo",
-    render: (row) => (
-      <Image
-        className="ml-auto rounded-full"
-        src={row.image}
-        width={40}
-        height={40}
-        alt={`Photo de ${row.name}`}
-      />
-    ),
+    render: (row) =>
+      row.image && (
+        <Image
+          className="ml-auto rounded-full"
+          src={row.image}
+          width={40}
+          height={40}
+          alt={`Photo de ${row.name}`}
+        />
+      ),
   },
   {
     id: "name",

@@ -8,7 +8,7 @@ export default function PromotionsForm() {
   const [{ promotions }] = useQuery(getPromotions, {})
 
   return (
-    <Select name="promotion" label="Promotion" formControlProps={{ margin: "normal" }}>
+    <Select name="promotionId" label="Promotion" formControlProps={{ margin: "normal" }}>
       {promotions.map((p) => (
         <MenuItem key={p.id} value={p.id}>
           {p.year}

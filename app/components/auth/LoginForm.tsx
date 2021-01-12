@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   const onSubmit = async (values) => {
     try {
-      signIn({
+      return signIn({
         ...values,
         callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${
           router.route === "/login" ? "/hub" : router.asPath

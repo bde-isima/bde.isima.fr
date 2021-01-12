@@ -2,6 +2,7 @@ import { TextField } from "mui-rff"
 
 import { Promotion } from "db"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import { PromotionInput, PromotionInputType } from "app/components/forms/validations"
 
 type PromotionFormProps = {
@@ -29,15 +30,15 @@ export default function PromotionForm(props: PromotionFormProps) {
       schema={PromotionInput}
       initialValues={{
         id: props.initialValues?.id,
-        year: props.initialValues?.year?.toString(),
-        fb_group_id: props.initialValues?.fb_group_id?.toString(),
+        year: props.initialValues?.year,
+        fb_group_id: props.initialValues?.fb_group_id,
         list_email: props.initialValues?.list_email,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="text" name="year" label="Année" />
-      <TextField type="text" name="fb_group_id" label="ID du groupe Facebook" />
+      <EnhancedTextField type="number" name="year" label="Année" />
+      <EnhancedTextField type="number" name="fb_group_id" label="ID du groupe Facebook" />
       <TextField type="text" name="list_email" label="Liste de diffusion" />
     </Form>
   )

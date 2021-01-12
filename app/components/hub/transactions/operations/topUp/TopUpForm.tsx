@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography"
 import { PaymentMethod } from "./TopUp"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { TopUpInput, TopUpInputType } from "app/components/forms/validations"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void
@@ -29,13 +30,13 @@ export default function TopUpForm(props: TopUpFormProps) {
       variant="dialog"
       schema={TopUpInput}
       initialValues={{
-        amount: "5",
+        amount: 5,
         recipient: process.env.NODE_ENV === "development" ? "+33621491838" : undefined,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField
+      <EnhancedTextField
         type="number"
         name="amount"
         label="Montant"

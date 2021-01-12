@@ -29,7 +29,8 @@ export default async function checkoutEvent({ where }: UpdateEventInput, ctx: Ct
           return (
             acc +
             val.quantity *
-              (val.price + val.options.reduce((acc: number, val: Option) => acc + val.price, 0))
+              (val.price +
+                (val.options?.reduce((acc: number, val: Option) => acc + val.price, 0) || 0))
           )
         }, 0)
 

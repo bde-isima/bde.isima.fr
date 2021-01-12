@@ -15,7 +15,7 @@ export default async function createTransferTransaction(
   }
 
   if (data.amount < 0) {
-    throw new Error("Pas de transaction négative")
+    throw new Error("Montant incorrect")
   }
 
   if (data.user.connect?.id === data?.emitter?.connect?.id) {
@@ -32,6 +32,10 @@ export default async function createTransferTransaction(
 
   if (!emitter) {
     throw new Error("Émetteur introuvable")
+  }
+
+  if (data.amount > emitter.balance) {
+    throw new Error("Solde insuffisant")
   }
 
   const transactionsAndUsers = await Promise.all([

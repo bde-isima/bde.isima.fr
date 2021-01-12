@@ -20,7 +20,7 @@ export default function Error({ statusCode }) {
 
       <div className="flex flex-col min-h-main justify-center items-center">
         <Image
-          src="/static/images/illustrations/NotFound.svg"
+          src="/static/images/illustrations/ServerError.svg"
           alt={title}
           width={500}
           height={500}
@@ -33,7 +33,7 @@ export default function Error({ statusCode }) {
         </Typography>
 
         <Typography className="mb-4" variant="h6">
-          T'étais pas censé être là pour être ici !
+          T'étais pas censé être là pour être ici ! Désolé !
         </Typography>
 
         <Link href="/">

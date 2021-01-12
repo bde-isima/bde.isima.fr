@@ -25,13 +25,15 @@ export default function Card({ event }: CardProps) {
         <CardHeader
           classes={{ content: "overflow-hidden" }}
           avatar={
-            <Image
-              className="rounded-full"
-              src={event.club?.image ?? "//:0"}
-              width={40}
-              height={40}
-              alt="Club organisateur"
-            />
+            event.club?.image && (
+              <Image
+                className="rounded-full"
+                src={event.club.image}
+                width={40}
+                height={40}
+                alt="Club organisateur"
+              />
+            )
           }
           title={event.name}
           titleTypographyProps={{ variant: "subtitle2", noWrap: true }}

@@ -1,7 +1,7 @@
 import cuid from "cuid"
-import { useMutation } from "blitz"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
+import { useMutation, invalidateQuery } from "blitz"
 
 import Snackbar from "app/layouts/Snackbar"
 import SlideTransition from "app/layouts/SlideTransition"
@@ -11,6 +11,7 @@ export default function TableDialog({
   values,
   columns,
   onClose,
+  getQuery,
   upsertQuery,
   snackbar,
   FormComponent,
@@ -45,6 +46,7 @@ export default function TableDialog({
     } as any)
       .then(() => {
         onShow("success", "Sauvegardé")
+        invalidateQuery(getQuery)
         onClose()
       })
       .catch((err) => {

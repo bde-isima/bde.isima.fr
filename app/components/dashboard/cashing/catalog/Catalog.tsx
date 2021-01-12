@@ -41,7 +41,7 @@ const innerElementType = forwardRef(
   )
 )
 
-export default function Catalog({ user, updateBalance }) {
+export default function Catalog({ user, onComplete }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
@@ -49,19 +49,18 @@ export default function Catalog({ user, updateBalance }) {
   const [searchArticleInput, setSearchArticleInput] = useState("")
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
-  const [data, { isFetching }] = useQuery(
+  const [{ articles }] = useQuery(
     getArticles,
     { where: { is_enabled: true } },
     { refetchOnWindowFocus: false }
   )
 
-  const articles = data?.articles ?? []
   const itemsPerRow = 4
   const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput))
 
   const onChange = (event) => setSearchArticleInput(event.target.value)
 
-  const onTransaction = async (mutation, article) => {
+  const onTransaction = async (mutation) => {
     if (!loading) {
       setLoading(true)
       onShow("info", "Vente en cours ...")
@@ -69,7 +68,7 @@ export default function Catalog({ user, updateBalance }) {
       await mutation()
         .then(() => {
           onShow("success", "Article vendu")
-          updateBalance(user.is_member ? article.member_price : article.price)
+          onComplete()
         })
         .catch((err) => onShow("error", err.message))
         .finally(() => setLoading(false))
@@ -83,16 +82,7 @@ export default function Catalog({ user, updateBalance }) {
       return null
     }
 
-    return (
-      <Article
-        key={key}
-        user={user}
-        article={article}
-        onClick={onTransaction}
-        isFetching={isFetching}
-        style={style}
-      />
-    )
+    return <Article key={key} user={user} article={article} onClick={onTransaction} style={style} />
   }
 
   return (

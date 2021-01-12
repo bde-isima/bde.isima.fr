@@ -12,7 +12,7 @@ export const LoginWithCallbackInput = z.object({
 export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>
 
 export const TransferInput = z.object({
-  amount: z.string().regex(/^-?\d+\.?\d*$/, { message: "Montant invalide" }),
+  amount: z.number().positive(),
   description: z.string().max(255).optional().nullable(),
   receiver: z
     .object({
@@ -23,13 +23,13 @@ export const TransferInput = z.object({
 export type TransferInputType = z.infer<typeof TransferInput>
 
 export const AdminTransferInput = z.object({
-  amount: z.string().regex(/^-?\d+\.?\d*$/, { message: "Montant invalide" }),
+  amount: z.number().positive(),
   description: z.string().max(255).optional().nullable(),
 })
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
-  amount: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Montant invalide" }),
+  amount: z.number().min(5).max(1000),
   recipient: z
     .string()
     .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
@@ -76,10 +76,9 @@ export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
     image: z.string().optional().nullable(),
-    name: z.string().max(255),
-    price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-    member_price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-    is_enabled: z.boolean(),
+    price: z.number().positive(),
+    member_price: z.number().positive(),
+    is_enabled: z.boolean().optional(),
   })
   .nonstrict()
 export type ArticleInputType = z.infer<typeof ArticleInput>
@@ -97,8 +96,8 @@ export type PartnerInputType = z.infer<typeof PartnerInput>
 export const PromotionInput = z
   .object({
     id: z.string().optional().nullable(),
-    year: z.string(),
-    fb_group_id: z.string().max(255).optional().nullable(),
+    year: z.number().min(1996),
+    fb_group_id: z.number().optional().nullable(),
     list_email: z.string().max(255).optional().nullable(),
   })
   .nonstrict()
@@ -112,10 +111,10 @@ export const UserInput = z
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    card: z.string(),
-    balance: z.string(),
+    card: z.number().optional().nullable(),
+    balance: z.number(),
     roles: z.array(z.string()),
-    promotionId: z.string().optional(),
+    promotionId: z.string(),
     is_member: z.boolean(),
     is_enabled: z.boolean(),
   })
@@ -140,7 +139,7 @@ export const EventInput = z
     products: z.array(
       z.object({
         name: z.string().max(255),
-        price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
+        price: z.number().positive(),
         description: z.string().max(3000).optional().nullable(),
         groupOptions: z.array(
           z.object({
@@ -149,9 +148,7 @@ export const EventInput = z
             options: z.array(
               z.object({
                 name: z.string().max(255),
-                price: z
-                  .string()
-                  .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
+                price: z.number().positive(),
                 description: z.string().max(3000).optional().nullable(),
               })
             ),
@@ -170,16 +167,19 @@ export const EventSubscriptionInput = z
       z.object({
         name: z.string().max(255),
         description: z.string().max(500).optional().nullable(),
-        price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-        quantity: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Quantité invalide" }),
-        comment: z.string().nullable(),
-        options: z.array(
-          z.object({
-            name: z.string().max(255),
-            description: z.string().max(500).optional().nullable(),
-            price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-          })
-        ),
+        price: z.number().positive(),
+        quantity: z.number().positive(),
+        comment: z.string().optional().nullable(),
+        options: z
+          .array(
+            z.object({
+              name: z.string().max(255),
+              description: z.string().max(500).optional().nullable(),
+              price: z.number().positive(),
+            })
+          )
+          .optional()
+          .nullable(),
       })
     ),
   })
@@ -187,10 +187,6 @@ export const EventSubscriptionInput = z
 export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>
 
 export const AddSubscriptionInput = z.object({
-  subscriber: z
-    .object({
-      id: z.string(),
-    })
-    .nonstrict(),
+  subscriber: z.object({ id: z.string() }).nonstrict(),
 })
 export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>

@@ -2,7 +2,7 @@ import cuid from "cuid"
 import { Ctx } from "blitz"
 
 import db from "db"
-import { mail } from "app/mailers"
+import { mail } from "mail"
 import {
   LoginWithCallbackInput,
   LoginWithCallbackInputType,

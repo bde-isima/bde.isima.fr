@@ -1,7 +1,6 @@
 import List from "@material-ui/core/List"
 import Grid from "@material-ui/core/Grid"
 import MuiCard from "@material-ui/core/Card"
-import Skeleton from "@material-ui/lab/Skeleton"
 import ListItem from "@material-ui/core/ListItem"
 import IconButton from "@material-ui/core/IconButton"
 import CardHeader from "@material-ui/core/CardHeader"
@@ -16,12 +15,11 @@ import { User } from "db"
 import { EventSubscriptionWithTypedCart, Option } from "types"
 
 type CardProps = {
-  subscription: EventSubscriptionWithTypedCart & { user: User }
-  isFetching: boolean
+  subscription: any
   onMenuClick: (target, subscription) => void
 }
 
-export default function Card({ subscription, isFetching, onMenuClick }: CardProps) {
+export default function SubscriptionCard({ subscription, onMenuClick }: CardProps) {
   const onPopupMenu = (event) => {
     onMenuClick(event.currentTarget, subscription)
   }
@@ -32,40 +30,24 @@ export default function Card({ subscription, isFetching, onMenuClick }: CardProp
         <CardHeader
           className="items-start"
           classes={{ content: "flex flex-col" }}
-          title={
-            isFetching ? (
-              <Skeleton className="mb-4" animation="wave" height={10} width="80%" />
-            ) : (
-              `${subscription.user.firstname} ${subscription.user.lastname}`
-            )
-          }
+          title={`${subscription.user.firstname} ${subscription.user.lastname}`}
           titleTypographyProps={{ variant: "subtitle2" }}
-          subheader={
-            isFetching ? (
-              <Skeleton animation="wave" height={10} width="40%" />
-            ) : (
-              `Paiement par ${subscription.payment_method}`
-            )
-          }
+          subheader={`Paiement par ${subscription.payment_method}`}
           subheaderTypographyProps={{ variant: "caption" }}
           action={
-            !isFetching && (
-              <IconButton aria-label="Options" onClick={onPopupMenu}>
-                <DotsVertical />
-              </IconButton>
-            )
+            <IconButton aria-label="Options" onClick={onPopupMenu}>
+              <DotsVertical />
+            </IconButton>
           }
         />
 
-        {isFetching ? (
-          <Skeleton className="h-20" animation="wave" variant="rectangular" />
-        ) : (
-          <List>
-            {subscription.cart.map((cartItem, idx) => {
+        <List>
+          {(subscription as EventSubscriptionWithTypedCart & { user: User }).cart.map(
+            (cartItem, idx) => {
               const price =
                 cartItem.quantity *
                 (cartItem.price +
-                  cartItem.options.reduce((acc: number, o: Option) => acc + o.price, 0))
+                  (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
               return (
                 <ListItem key={idx} dense>
                   <ListItemIcon>
@@ -74,7 +56,7 @@ export default function Card({ subscription, isFetching, onMenuClick }: CardProp
 
                   <ListItemText
                     primary={cartItem.name}
-                    secondary={cartItem.options.map((x) => x.name).join(", ")}
+                    secondary={cartItem.options?.map((x) => x.name).join(", ")}
                   />
 
                   <ListItemSecondaryAction>
@@ -82,9 +64,9 @@ export default function Card({ subscription, isFetching, onMenuClick }: CardProp
                   </ListItemSecondaryAction>
                 </ListItem>
               )
-            })}
-          </List>
-        )}
+            }
+          )}
+        </List>
       </MuiCard>
     </Grid>
   )

@@ -66,13 +66,15 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         <List>
           <ListItem>
             <ListItemIcon>
-              <Image
-                className="m-2 mr-4 rounded-full"
-                src="/static/images/logos/logo.svg"
-                width={40}
-                height={40}
-                alt="Logo BDE ISIMA"
-              />
+              <div className="m-2 mr-4">
+                <Image
+                  className="rounded-full"
+                  src="/static/images/logos/logo.svg"
+                  width={40}
+                  height={40}
+                  alt="Logo BDE ISIMA"
+                />
+              </div>
             </ListItemIcon>
 
             <ListItemText primary="BDE ISIMA" />

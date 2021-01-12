@@ -52,13 +52,15 @@ export default function SettingsForm(props: SettingsFormProps) {
       <Divider className="m-2" />
 
       <div className="mx-auto">
-        <Image
-          className="rounded-full"
-          src={user?.image ?? "//:0"}
-          width={100}
-          height={100}
-          alt="Image de profil"
-        />
+        {user?.image && (
+          <Image
+            className="rounded-full"
+            src={user.image}
+            width={100}
+            height={100}
+            alt="Image de profil"
+          />
+        )}
       </div>
 
       <TextField

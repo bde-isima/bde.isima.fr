@@ -61,7 +61,7 @@ export default function Nav() {
           />
 
           <Hidden mdUp>
-            <div className="flex flex-grow justify-start">
+            <div className="flex md:flex-grow justify-start">
               <IconButton
                 aria-label="Menu"
                 onClick={toggleDrawer(setIsMobileMenuOpen, true)}
@@ -72,30 +72,31 @@ export default function Nav() {
             </div>
           </Hidden>
 
-          <div className="h-full w-full flex items-center justify-center md:justify-end">
-            <Link href="/" passHref>
-              <div className="mx-auto md:ml-0">
-                <Image
-                  className="rounded-full"
-                  src="/static/images/logos/logo.svg"
-                  width={40}
-                  height={40}
-                  alt="Logo BDE ISIMA"
-                />
-              </div>
-            </Link>
+          <Link href="/" passHref>
+            <div className="mx-auto md:ml-0">
+              <Image
+                className="rounded-full"
+                src="/static/images/logos/logo.svg"
+                width={40}
+                height={40}
+                alt="Logo BDE ISIMA"
+              />
+            </div>
+          </Link>
 
-            <Hidden mdDown>
+          <Hidden mdDown>
+            <div className="h-full w-full flex items-center justify-center md:justify-end">
               <Desktop />
-            </Hidden>
-          </div>
+            </div>
+          </Hidden>
 
           {!session?.userId ? (
             <Fab
               className={`${!fullScreen && "ml-4"}`}
-              variant="extended"
+              variant={fullScreen ? "circular" : "extended"}
               onClick={toggleDrawer(setIsLoginMenuOpen, true)}
               aria-label="Se connecter"
+              size={fullScreen ? "small" : "large"}
               color="primary"
             >
               <LoginVariant />
@@ -104,9 +105,10 @@ export default function Nav() {
           ) : (
             <Fab
               className={`${!fullScreen && "ml-4"}`}
-              variant="extended"
+              variant={fullScreen ? "circular" : "extended"}
               onClick={pushRoute("/hub")}
               aria-label="Mon compte"
+              size={fullScreen ? "small" : "large"}
               color="primary"
             >
               <AccountArrowRightOutline />

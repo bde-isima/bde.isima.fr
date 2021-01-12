@@ -4,3 +4,4 @@
 *.lock
 db/migrations
 .next
+.blitz

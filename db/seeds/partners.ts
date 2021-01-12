@@ -1,7 +1,7 @@
 import faker from "faker"
 
 const partners = async (db) => {
-  for (let i = 0; i < 6; ++i) {
+  for (let i = 0; i < 7; ++i) {
     await db.partner.create({
       data: {
         name: faker.lorem.word(),

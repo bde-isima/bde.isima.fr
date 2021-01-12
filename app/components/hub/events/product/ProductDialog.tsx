@@ -55,18 +55,21 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const handleAddProduct = () => {
     const { groupOptions, ...restProduct } = product
 
-    setQueryData((oldData) => ({
-      ...(oldData as EventSubscriptionWithTypedCart),
-      cart: [
-        ...eventSubscription.cart,
-        {
-          ...restProduct,
-          quantity,
-          comment,
-          options: selectedOptions,
-        } as CartItem,
-      ],
-    }))
+    setQueryData(
+      (oldData) => ({
+        ...(oldData as EventSubscriptionWithTypedCart),
+        cart: [
+          ...eventSubscription.cart,
+          {
+            ...restProduct,
+            quantity,
+            comment,
+            options: selectedOptions,
+          } as CartItem,
+        ],
+      }),
+      { refetch: false }
+    )
     onClose()
   }
 

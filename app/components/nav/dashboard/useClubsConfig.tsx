@@ -7,7 +7,7 @@ function createConfig(clubs, user) {
   return clubs
     .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === "*"))
     .map((x) => ({
-      icon: <Image src={x.image ?? "//:0"} width={40} height={40} alt={`Logo ${x.name}`} />,
+      icon: x.image && <Image src={x.image} width={40} height={40} alt={`Logo ${x.name}`} />,
       text: x.name.toUpperCase(),
       to: `/dashboard/${x.name.toLowerCase()}`,
       role: x.name,

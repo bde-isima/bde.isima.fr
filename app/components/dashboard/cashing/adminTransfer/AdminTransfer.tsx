@@ -11,10 +11,10 @@ import createAdminTransaction from "app/entities/transactions/mutations/createAd
 
 type AdminTransferProps = {
   user: User | null
-  updateBalance: (amount) => void
+  onComplete: () => void
 }
 
-export default function AdminTransfer({ user, updateBalance }: AdminTransferProps) {
+export default function AdminTransfer({ user, onComplete }: AdminTransferProps) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
@@ -34,7 +34,7 @@ export default function AdminTransfer({ user, updateBalance }: AdminTransferProp
       })
         .then(() => {
           onShow("success", "Envoyé")
-          updateBalance(amount)
+          onComplete()
         })
         .catch((err) => onShow("error", err.message))
     }

@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState } from "react"
 import { TextField } from "mui-rff"
 import Divider from "@material-ui/core/Divider"
 
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
-import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
+import getUsersPublicData from "app/entities/users/queries/getUsersPublicData"
 import { TransferInput, TransferInputType } from "app/components/forms/validations"
 
 type TransferFormProps = {
@@ -39,18 +40,18 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="number" name="amount" label="Montant" inputProps={{ step: 0.01 }} />
+      <EnhancedTextField type="number" name="amount" label="Montant" inputProps={{ step: 0.01 }} />
       <TextField type="text" name="description" label="Description" />
 
       <Divider className="m-2" />
 
-      <SearchUser 
-        name="receiver" 
-        label="Rechercher un membre" 
+      <SearchUser
+        name="receiver"
+        label="Rechercher un membre"
         open={open}
         setOpen={setOpen}
         getQuery={getUsersPublicData}
-        disableSelf 
+        disableSelf
         withForm
       />
     </Form>

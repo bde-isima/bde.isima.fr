@@ -1,6 +1,6 @@
 import { useState, ReactNode } from "react"
 import Paper from "@material-ui/core/Paper"
-import { useQuery, useMutation } from "blitz"
+import { useQuery, useMutation, invalidateQuery } from "blitz"
 import TablePagination from "@material-ui/core/TablePagination"
 
 import TableCore from "./TableCore"
@@ -40,22 +40,26 @@ export default function Table({
 }: TableProps) {
   const { page, order, search, orderBy, rowsPerPage } = useTableProps()
 
+  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== "equals")
+
   const inputArgs = {
     skip: page.value * rowsPerPage,
     take: rowsPerPage,
     orderBy: {
       [orderBy.value]: order.value,
     },
-    where: {
-      OR: columns
-        .filter((x) => x.searchCriteria && x.searchCriteria !== "equals")
-        .map((x) => ({
-          [x.id]: {
-            [x.searchCriteria]: search.value,
-            mode: "insensitive",
+    ...(filteringColumns.length > 0
+      ? {
+          where: {
+            OR: filteringColumns.map((x) => ({
+              [x.id]: {
+                [x.searchCriteria]: search.value,
+                mode: "insensitive",
+              },
+            })),
           },
-        })),
-    },
+        }
+      : {}),
     ...queryArgs,
   }
 
@@ -85,7 +89,6 @@ export default function Table({
     e.stopPropagation()
     await onClick()
     setSelected([])
-    // TODO Refetch query
   }
 
   const handleDeleteAllClick = async () => {
@@ -93,7 +96,7 @@ export default function Table({
       .then(() => {
         setSelected([])
         snackbar.onShow("success", "Supprimé(s)")
-        // TODO Refetch query
+        invalidateQuery(getQuery)
       })
       .catch((err) => snackbar.onShow("error", err.message))
   }
@@ -166,6 +169,7 @@ export default function Table({
         values={values}
         columns={columns}
         onClose={onDialogClose}
+        getQuery={getQuery}
         upsertQuery={upsertQuery}
         snackbar={snackbar}
         FormComponent={FormComponent}

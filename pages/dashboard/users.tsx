@@ -31,15 +31,16 @@ const columns = [
   {
     id: "image",
     headerName: "Photo",
-    render: (row) => (
-      <Image
-        className="ml-auto rounded-full"
-        src={row.image}
-        width={40}
-        height={40}
-        alt={`Photo de ${row.lastname} ${row.firstname}`}
-      />
-    ),
+    render: (row) =>
+      row.image && (
+        <Image
+          className="ml-auto rounded-full"
+          src={row.image}
+          width={40}
+          height={40}
+          alt={`Photo de ${row.lastname} ${row.firstname}`}
+        />
+      ),
   },
   {
     id: "lastname",
@@ -64,18 +65,15 @@ const columns = [
   {
     id: "card",
     headerName: "N° Carte",
-    format: (value) => parseInt(value),
   },
   {
     id: "balance",
     headerName: "Solde",
-    format: (value) => parseFloat(value),
   },
   {
     id: "promotion",
     headerName: "Promotion",
     render: (row) => row.promotion?.year,
-    format: (value) => ({ connect: { id: value } }),
   },
   {
     id: "roles",
