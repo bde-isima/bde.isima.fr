@@ -17,7 +17,7 @@ export default function ProductsList({ event, isFetching }: ProductsListProps) {
 
   return (
     <Grid container spacing={5}>
-      {event.products.map((product, productIdx) => (
+      {event?.products.map((product, productIdx) => (
         <ProductCard
           key={productIdx}
           isFetching={isFetching}

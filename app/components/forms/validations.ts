@@ -1,30 +1,28 @@
 import * as z from "zod"
-import { State, PaymentMethod } from 'db'
 
-export const InitOrResetPasswordInput = z
-  .object({
-    password: z.string().max(255),
-    confirmPassword: z.string().max(255),
+export const beforeSubmit: any = (values) => {
+  const returnValues = {}
+  Object.keys(values).forEach((x) => {
+    Object.assign(returnValues, { [x]: values[x] ?? null })
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
-  })
-export type InitOrResetPasswordInputType = z.infer<typeof InitOrResetPasswordInput>
-
-export const ForgotPasswordInput = z.object({
-  email: z.string().email().max(255),
-})
-export type ForgotPasswordInputType = z.infer<typeof ForgotPasswordInput>
+  console.log(values)
+  console.log(returnValues)
+  return returnValues
+}
 
 export const LoginInput = z.object({
   identifier: z.string(),
-  password: z.string(),
 })
 export type LoginInputType = z.infer<typeof LoginInput>
 
+export const LoginWithCallbackInput = z.object({
+  identifier: z.string(),
+  callbackUrl: z.string().url(),
+})
+export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>
+
 export const TransferInput = z.object({
-  amount: z.string().regex(/^-?\d+\.?\d*$/, { message: "Montant invalide" }),
+  amount: z.number().positive(),
   description: z.string().max(255).optional().nullable(),
   receiver: z
     .object({
@@ -35,14 +33,16 @@ export const TransferInput = z.object({
 export type TransferInputType = z.infer<typeof TransferInput>
 
 export const AdminTransferInput = z.object({
-  amount: z.string().regex(/^-?\d+\.?\d*$/, { message: "Montant invalide" }),
+  amount: z.number(),
   description: z.string().max(255).optional().nullable(),
 })
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
-  amount: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Montant invalide" }),
-  recipient: z.string().regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
+  amount: z.number().min(5).max(1000),
+  recipient: z
+    .string()
+    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
 })
 export type TopUpInputType = z.infer<typeof TopUpInput>
 
@@ -63,13 +63,14 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    password: z.string().max(255).optional().nullable(),
-    confirmPassword: z.string().max(255).optional(),
-    image: z.string().optional().nullable(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
   })
   .nonstrict()
 export type SettingsInputType = z.infer<typeof SettingsInput>
@@ -77,7 +78,14 @@ export type SettingsInputType = z.infer<typeof SettingsInput>
 export const ClubInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     email: z.string().email().max(255).optional().nullable(),
     description: z.string().max(3000).optional().nullable(),
     facebookURL: z.string().url().optional().nullable(),
@@ -91,11 +99,17 @@ export type ClubInputType = z.infer<typeof ClubInput>
 export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
-    name: z.string().max(255),
-    price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-    member_price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-    is_enabled: z.boolean(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
+    price: z.number().positive(),
+    member_price: z.number().positive(),
+    is_enabled: z.boolean().optional(),
   })
   .nonstrict()
 export type ArticleInputType = z.infer<typeof ArticleInput>
@@ -103,7 +117,14 @@ export type ArticleInputType = z.infer<typeof ArticleInput>
 export const PartnerInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
   })
@@ -113,8 +134,8 @@ export type PartnerInputType = z.infer<typeof PartnerInput>
 export const PromotionInput = z
   .object({
     id: z.string().optional().nullable(),
-    year: z.string(),
-    fb_group_id: z.string().max(255).optional().nullable(),
+    year: z.number().min(1996),
+    fb_group_id: z.number().optional().nullable(),
     list_email: z.string().max(255).optional().nullable(),
   })
   .nonstrict()
@@ -123,15 +144,22 @@ export type PromotionInputType = z.infer<typeof PromotionInput>
 export const UserInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     lastname: z.string().max(255),
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    card: z.string(),
-    balance: z.string(),
+    card: z.number().optional().nullable(),
+    balance: z.number(),
     roles: z.array(z.string()),
-    promotionId: z.string().optional(),
+    promotionId: z.string().optional().nullable(),
     is_member: z.boolean(),
     is_enabled: z.boolean(),
   })
@@ -141,60 +169,80 @@ export type UserInputType = z.infer<typeof UserInput>
 export const EventInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
     takes_place_at: z.date(),
     subscriptions_end_at: z.date(),
-    status: z.nativeEnum(State),
+    status: z.enum(["WAITING_APPROVAL", "ACCEPTED", "CHECKED_OUT"]),
     club: z.object({
       connect: z.object({
         name: z.string(),
       }),
     }),
-    max_subscribers: z.number().min(0).optional().nullable(),
-    products: z.array(z.object({
-      name: z.string().max(255),
-      price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      description: z.string().max(3000).optional().nullable(),
-      groupOptions: z.array(z.object({
+    max_subscribers: z
+      .string()
+      .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Nombre invalide" })
+      .optional()
+      .nullable(),
+    products: z.array(
+      z.object({
         name: z.string().max(255),
-        type: z.enum(['exclusive', 'combinable']),
-        options: z.array(z.object({
-          name: z.string().max(255),
-          price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-          description: z.string().max(3000).optional().nullable(),
-        })),
-      })),
-    })),
+        price: z.number().nonnegative(),
+        description: z.string().max(3000).optional().nullable(),
+        groupOptions: z.array(
+          z.object({
+            name: z.string().max(255),
+            type: z.enum(["exclusive", "combinable"]),
+            options: z.array(
+              z.object({
+                name: z.string().max(255),
+                price: z.number().nonnegative(),
+                description: z.string().max(3000).optional().nullable(),
+              })
+            ),
+          })
+        ),
+      })
+    ),
   })
   .nonstrict()
 export type EventInputType = z.infer<typeof EventInput>
 
 export const EventSubscriptionInput = z
   .object({
-    payment_method: z.nativeEnum(PaymentMethod),
-    cart: z.array(z.object({
-      name: z.string().max(255),
-      description: z.string().max(500).optional().nullable(),
-      price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      quantity: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Quantité invalide" }),
-      comment: z.string().nullable(),
-      options: z.array(z.object({
+    payment_method: z.enum(["BDE", "LYDIA", "CASH"]),
+    cart: z.array(
+      z.object({
         name: z.string().max(255),
         description: z.string().max(500).optional().nullable(),
-        price: z.string().regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Prix invalide" }),
-      }))
-    })),
+        price: z.number().nonnegative(),
+        quantity: z.number().positive(),
+        comment: z.string().optional().nullable(),
+        options: z
+          .array(
+            z.object({
+              name: z.string().max(255),
+              description: z.string().max(500).optional().nullable(),
+              price: z.number().nonnegative(),
+            })
+          )
+          .optional()
+          .nullable(),
+      })
+    ),
   })
   .nonstrict()
 export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>
 
 export const AddSubscriptionInput = z.object({
-  subscriber: z
-    .object({
-      id: z.string(),
-    })
-    .nonstrict(),
+  subscriber: z.object({ id: z.string() }).nonstrict(),
 })
 export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>

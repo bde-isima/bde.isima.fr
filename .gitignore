@@ -7,13 +7,11 @@ node_modules
 .npm
 web_modules/
 
-# blitz
+# next
 /.blitz/
 /.next/
 *.sqlite
 .now
-.blitz-console-history
-blitz-log.log
 
 # misc
 .DS_Store

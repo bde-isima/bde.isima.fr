@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react"
 import Paper from "@material-ui/core/Paper"
+import { useQuery, useMutation, invalidateQuery } from "blitz"
 import TablePagination from "@material-ui/core/TablePagination"
-import { usePaginatedQuery, useMutation, useRouter } from 'blitz'
 
 import TableCore from "./TableCore"
 import TableDialog from "./TableDialog"
@@ -20,7 +20,7 @@ type TableProps = {
   deleteQuery: any
   allowCopy?: boolean
   onExport?: (rowData: any) => void
-  FormComponent: ReactNode
+  FormComponent?: ReactNode
   actions?: any[]
 }
 
@@ -35,10 +35,12 @@ export default function Table({
   deleteQuery,
   allowCopy = false,
   onExport = undefined,
-  FormComponent,
+  FormComponent = undefined,
   actions = [],
 }: TableProps) {
   const { page, order, search, orderBy, rowsPerPage } = useTableProps()
+
+  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== "equals")
 
   const inputArgs = {
     skip: page.value * rowsPerPage,
@@ -46,16 +48,18 @@ export default function Table({
     orderBy: {
       [orderBy.value]: order.value,
     },
-    where: {
-      OR: columns
-        .filter((x) => x.searchCriteria && x.searchCriteria !== "equals")
-        .map((x) => ({
-          [x.id]: {
-            [x.searchCriteria]: search.value,
-            mode: "insensitive",
+    ...(filteringColumns.length > 0
+      ? {
+          where: {
+            OR: filteringColumns.map((x) => ({
+              [x.id]: {
+                [x.searchCriteria]: search.value,
+                mode: "insensitive",
+              },
+            })),
           },
-        })),
-    },
+        }
+      : {}),
     ...queryArgs,
   }
 
@@ -69,45 +73,37 @@ export default function Table({
       }))
   }
 
-  const router = useRouter()
-  const [result, { refetch, isFetching }] = usePaginatedQuery(getQuery, inputArgs, {
-    suspense: false,
-  })
+  const [data, { isFetching }] = useQuery(getQuery, inputArgs, { suspense: false })
+
   const [deleteMutation] = useMutation(deleteQuery)
 
+  const snackbar = useSnackbar()
   const [open, setOpen] = useState(false)
   const [values, setValues] = useState<Object | null>(null)
   const [selected, setSelected] = useState<string[]>([])
-  const { open: snackOpen, message, severity } = useSnackbar()
 
-  const rows = result ? result[queryKey] : []
-  const count = result ? result["count"] : -1
+  const rows = data ? data[queryKey] : []
+  const count = data ? data["count"] : -1
 
   const handleCustomAction = (onClick) => async (e) => {
     e.stopPropagation()
     await onClick()
-    refetch()
     setSelected([])
   }
 
   const handleDeleteAllClick = async () => {
     await deleteMutation({ where: { id: { in: selected } } } as any)
       .then(() => {
-        message.set("Supprimé(s)")
-        severity.set("success")
         setSelected([])
+        snackbar.onShow("success", "Supprimé(s)")
+        invalidateQuery(getQuery)
       })
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-      })
-      .finally(() => {
-        snackOpen.set(true)
-      })
-    refetch()
+      .catch((err) => snackbar.onShow("error", err.message))
   }
 
-  const handleExportAllClick = onExport ? async () => selected.forEach(x => onExport(rows.find(r => r.id === x))) : undefined
+  const handleExportAllClick = onExport
+    ? async () => selected.forEach((x) => onExport(rows.find((r) => r.id === x)))
+    : undefined
 
   const onPageChange = (event, newPage) => page.set(newPage)
 
@@ -121,7 +117,7 @@ export default function Table({
     setOpen(true)
   }
 
-  const onClose = () => {
+  const onDialogClose = () => {
     setValues(null)
     setOpen(false)
   }
@@ -137,7 +133,7 @@ export default function Table({
       <TableToolbar
         title={title}
         numSelected={selected.length}
-        onAdd={onAdd}
+        onAdd={FormComponent ? onAdd : undefined}
         onDelete={handleDeleteAllClick}
         onExport={handleExportAllClick}
         onSearch={onSearch}
@@ -147,8 +143,8 @@ export default function Table({
         rows={rows}
         columns={columns}
         selected={{ value: selected, set: setSelected }}
-        onEdit={onEdit}
-        isFetching={isFetching || router.isFallback}
+        onEdit={FormComponent ? onEdit : undefined}
+        isFetching={isFetching}
         tableProps={{
           order,
           orderBy,
@@ -172,10 +168,10 @@ export default function Table({
         open={open}
         values={values}
         columns={columns}
-        onClose={onClose}
+        onClose={onDialogClose}
+        getQuery={getQuery}
         upsertQuery={upsertQuery}
-        refetch={refetch}
-        snackbar={{ snackOpen, message, severity }}
+        snackbar={snackbar}
         FormComponent={FormComponent}
       />
     </Paper>

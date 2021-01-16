@@ -20,7 +20,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
   return (
     <Toolbar className="pl-4 pr-2">
       {numSelected > 0 ? (
-        <Typography className="sm:flex-auto" color="textSecondary" variant="subtitle1">
+        <Typography className="sm:flex-auto flex-grow" color="textSecondary" variant="subtitle1">
           {`${numSelected} sélectionné${numSelected > 1 ? "s" : ""}`}
         </Typography>
       ) : (
@@ -53,18 +53,23 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
 
           <InputBase
             placeholder="Rechercher..."
-            classes={{ input: "p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out" }}
+            classes={{
+              input:
+                "p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out",
+            }}
             inputProps={{ "aria-label": "Rechercher" }}
             onKeyDown={onSearch}
           />
 
-          <div>
-            <Tooltip title="Ajouter">
-              <IconButton aria-label="Ajouter" onClick={onAdd}>
-                <PlusCircleOutline />
-              </IconButton>
-            </Tooltip>
-          </div>
+          {onAdd && (
+            <div>
+              <Tooltip title="Ajouter">
+                <IconButton aria-label="Ajouter" onClick={onAdd}>
+                  <PlusCircleOutline />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
         </div>
       )}
     </Toolbar>

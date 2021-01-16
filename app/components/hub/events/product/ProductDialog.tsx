@@ -28,8 +28,8 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const [total, setTotal] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [comment, setComment] = useState(null)
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
   const { eventSubscription, setQueryData } = useEventSubscription()
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
@@ -54,18 +54,22 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
 
   const handleAddProduct = () => {
     const { groupOptions, ...restProduct } = product
-    setQueryData((oldData) => ({
-      ...(oldData as EventSubscriptionWithTypedCart),
-      cart: [
-        ...eventSubscription.cart,
-        {
-          ...restProduct,
-          quantity,
-          comment,
-          options: selectedOptions,
-        } as CartItem,
-      ],
-    }))
+
+    setQueryData(
+      (oldData) => ({
+        ...(oldData as EventSubscriptionWithTypedCart),
+        cart: [
+          ...eventSubscription.cart,
+          {
+            ...restProduct,
+            quantity,
+            comment,
+            options: selectedOptions,
+          } as CartItem,
+        ],
+      }),
+      { refetch: false }
+    )
     onClose()
   }
 

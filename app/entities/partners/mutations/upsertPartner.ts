@@ -7,7 +7,7 @@ export default async function upsertPartner(
   { where, create, update }: UpsertPartnerInput,
   ctx: Ctx
 ) {
-  ctx.session.authorize(['*', 'bde'])
+  ctx.session.authorize(["*", "bde"])
 
   const partner = await db.partner.upsert({ where, update, create })
 

@@ -27,7 +27,7 @@ export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
       >
         <ListItem dense disableGutters>
           <ListItemIcon>
-            {cloneElement(item.icon, { className: isActive ? "text-white" : undefined })}
+            {cloneElement(item.icon, { className: `${isActive ? "text-white" : ""} rounded-full` })}
           </ListItemIcon>
 
           <ListItemText

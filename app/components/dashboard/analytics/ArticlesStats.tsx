@@ -13,7 +13,7 @@ const now = new Date()
 export default function ArticlesStats() {
   const [period, setPeriod] = useState(31)
 
-  const [{ articles }] = useQuery(getArticles, {
+  const [data] = useQuery(getArticles, {
     include: { Transaction: true },
     where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
   })
@@ -36,7 +36,7 @@ export default function ArticlesStats() {
         <VictoryBar
           horizontal
           animate={{ duration: 300 }}
-          data={articles}
+          data={data?.articles}
           x="name"
           y="Transaction.length"
         />

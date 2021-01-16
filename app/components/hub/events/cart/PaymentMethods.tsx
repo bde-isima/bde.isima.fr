@@ -1,9 +1,10 @@
 import Button from "@material-ui/core/Button"
 import Tooltip from "@material-ui/core/Tooltip"
-import Cellphone from "mdi-material-ui/Cellphone"
 import Typography from "@material-ui/core/Typography"
-import CardBulleted from "mdi-material-ui/CardBulleted"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
+
+import Cellphone from "mdi-material-ui/Cellphone"
+import CardBulleted from "mdi-material-ui/CardBulleted"
 import CashMultiple from "mdi-material-ui/CashMultiple"
 
 import { EventSubscriptionWithTypedCart } from "types"
@@ -13,10 +14,13 @@ export default function PaymentMethods() {
   const { eventSubscription, setQueryData } = useEventSubscription()
 
   const onPaymentMethodChange = (payment_method) => () => {
-    setQueryData((oldData) => ({
-      ...(oldData as EventSubscriptionWithTypedCart),
-      payment_method,
-    }))
+    setQueryData(
+      (oldData) => ({
+        ...(oldData as EventSubscriptionWithTypedCart),
+        payment_method,
+      }),
+      { refetch: false }
+    )
   }
 
   return (

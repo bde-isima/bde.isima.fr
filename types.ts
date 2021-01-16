@@ -8,6 +8,12 @@ declare module "blitz" {
   }
   export interface PublicData extends DefaultPublicData {
     userId: User["id"]
+    firstname: string
+    lastname: string
+    nickname: string | null
+    image: string | null
+    email: string
+    card: number
   }
 }
 

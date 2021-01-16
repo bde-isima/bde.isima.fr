@@ -1,15 +1,16 @@
 import Grid from "@material-ui/core/Grid"
-import arrayMutators from 'final-form-arrays'
+import arrayMutators from "final-form-arrays"
 
-import { User } from "db"
-import { EventSubscriptionWithTypedCart } from 'types'
+import { EventSubscriptionWithTypedCart } from "types"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { EventSubscriptionInput, EventSubscriptionInputType } from "app/components/forms/validations"
-import SubscriptionEditCard from 'app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard'
+import {
+  EventSubscriptionInput,
+  EventSubscriptionInputType,
+} from "app/components/forms/validations"
+import SubscriptionEditCard from "app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard"
 
 type SubscriptionFormProps = {
-  subscription: EventSubscriptionWithTypedCart & { user: User }
-  isLoading: boolean
+  subscription: EventSubscriptionWithTypedCart
   onStopEdit: () => void
   onSuccess: (values) => void
 }
@@ -17,18 +18,7 @@ type SubscriptionFormProps = {
 export default function SubscriptionForm(props: SubscriptionFormProps) {
   const onSubmit = async (values: EventSubscriptionInputType) => {
     try {
-      return props.onSuccess({
-        ...values,
-        cart: values.cart.map(c => ({
-          ...c,
-          price: parseFloat(c.price),
-          quantity: parseFloat(c.quantity),
-          options: c.options.map(o => ({
-            ...o,
-            price: parseFloat(o.price),
-          })),
-        })),
-      })
+      return props.onSuccess(values)
     } catch (error) {
       return {
         [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
@@ -41,18 +31,18 @@ export default function SubscriptionForm(props: SubscriptionFormProps) {
       <Form<EventSubscriptionInputType>
         className="w-full"
         schema={EventSubscriptionInput}
-        initialValues={props.isLoading ? undefined : {
+        initialValues={{
           payment_method: props.subscription.payment_method,
-          cart: props.subscription.cart.map(i => ({
+          cart: props.subscription.cart.map((i) => ({
             name: i.name,
             description: i.description,
-            price: i.price.toString(),
-            quantity: i.quantity.toString(),
+            price: i.price,
+            quantity: i.quantity,
             comment: i.comment,
-            options: i.options.map(o => ({
+            options: i.options?.map((o) => ({
               name: o.name,
               description: o.description,
-              price: o.price.toString(),
+              price: o.price,
             })),
           })),
         }}

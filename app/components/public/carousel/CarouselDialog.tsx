@@ -10,6 +10,8 @@ import DialogContentText from "@material-ui/core/DialogContentText"
 
 import Close from "mdi-material-ui/Close"
 
+import SlideTransition from "app/layouts/SlideTransition"
+
 export default function CarouselDialog({ selected, onClose }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
@@ -20,7 +22,8 @@ export default function CarouselDialog({ selected, onClose }) {
         open={Boolean(selected)}
         fullScreen={fullScreen}
         onClose={onClose}
-        PaperProps={{ className: "w-full md:w-64" }}
+        TransitionComponent={SlideTransition}
+        PaperProps={{ className: "w-full" }}
         aria-labelledby="carousel-dialog-title"
       >
         <DialogActions id="carousel-dialog-title" className="text-right">

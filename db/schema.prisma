@@ -8,6 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["uncheckedScalarInputs"]
 }
 
 // --------------------------------------
@@ -131,9 +132,9 @@ model Partner {
 model Promotion {
     id             String    @id @default(cuid())
 
-    year           Int
-    fb_group_id    Int?
-    list_email     String?
+    year           Int       @unique
+    fb_group_id    Int?      @unique
+    list_email     String?   @unique
 
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
@@ -172,13 +173,11 @@ model User {
     card                    Int       @unique
     balance                 Float
 
-    password                String?
     roles                   String[]
     sessions                Session[]
-    resetPasswordToken      String?   @unique
 
-    promotion               Promotion @relation(fields: [promotionId], references: [id])
-    promotionId             String
+    promotion               Promotion? @relation(fields: [promotionId], references: [id])
+    promotionId             String?
 
     transactions            Transaction[] @relation("TransactionUser")
     userStats               UserStats?
@@ -187,24 +186,31 @@ model User {
     is_member               Boolean   @default(false)
     is_enabled              Boolean   @default(true)
 
+    createdAt               DateTime  @default(now()) @map(name: "created_at")
+    updatedAt               DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model Session {
+    id                      String    @id @default(cuid())
+    user                    User?     @relation(fields: [userId], references: [id])
+    userId                  String?
+    handle                  String    @unique
+    hashedSessionToken      String?
+    antiCSRFToken           String?
+    expiresAt               DateTime?
+    publicData              String?
+    privateData             String?
     createdAt               DateTime  @default(now())
     updatedAt               DateTime  @updatedAt
 }
 
-model Session {
-    id                 String    @id @default(cuid())
-
-    user               User?     @relation(fields: [userId], references: [id])
-    userId             String?
-    handle             String    @unique
-
-    hashedSessionToken String?
-    antiCSRFToken      String?
-    expiresAt          DateTime?
-
-    publicData         String?
-    privateData        String?
-
-    createdAt          DateTime  @default(now())
-    updatedAt          DateTime  @updatedAt
+model LoginRequest {
+  id                        String    @id @default(cuid())
+  user                      User      @relation(fields: [userId], references: [id])
+  userId                    String
+  token                     String    @unique
+  callbackUrl               String
+  expires                   DateTime
+  createdAt                 DateTime  @default(now()) @map(name: "created_at")
+  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
 }

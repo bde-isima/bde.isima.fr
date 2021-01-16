@@ -1,57 +1,64 @@
-import Menu from '@material-ui/core/Menu'
-import Grid from '@material-ui/core/Grid'
-import { useMutation, Image } from 'blitz'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import { useState, SyntheticEvent } from 'react'
-import MenuItem from '@material-ui/core/MenuItem'
-import Typography from '@material-ui/core/Typography'
+import Image from "next/image"
+import { useState } from "react"
+import Menu from "@material-ui/core/Menu"
+import Grid from "@material-ui/core/Grid"
+import Button from "@material-ui/core/Button"
+import Divider from "@material-ui/core/Divider"
+import MenuItem from "@material-ui/core/MenuItem"
+import { useMutation, invalidateQuery } from "blitz"
+import Typography from "@material-ui/core/Typography"
 
-import Plus from 'mdi-material-ui/Plus'
+import Plus from "mdi-material-ui/Plus"
 
+import { Event } from "db"
 import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
-import SubscriptionCard from './SubscriptionCard'
-import { AddSubscriptionInputType } from 'app/components/forms/validations'
-import AddSubscriptionDialog from './add/AddSubscriptionDialog'
-import createEventSubscription from 'app/entities/eventSubscriptions/mutations/createEventSubscription'
-import updateEventSubscription from 'app/entities/eventSubscriptions/mutations/updateEventSubscription'
-import deleteEventSubscription from 'app/entities/eventSubscriptions/mutations/deleteEventSubscription'
-import SubscriptionForm from 'app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm'
+import SubscriptionCard from "./SubscriptionCard"
+import { EventSubscriptionWithTypedCart } from "types"
+import AddSubscriptionDialog from "./add/AddSubscriptionDialog"
+import { AddSubscriptionInputType } from "app/components/forms/validations"
+import getEventSubscriptions from "app/entities/eventSubscriptions/queries/getEventSubscriptions"
+import createEventSubscription from "app/entities/eventSubscriptions/mutations/createEventSubscription"
+import updateEventSubscription from "app/entities/eventSubscriptions/mutations/updateEventSubscription"
+import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
+import SubscriptionForm from "app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm"
 
-export default function SubscriptionsList({ event, eventSubscriptionsQueryResult: [{ eventSubscriptions }, { isFetching, refetch }] }) {
+type SubscriptionsListProps = {
+  event: Event
+  eventSubscriptions: EventSubscriptionWithTypedCart[]
+}
+
+export default function SubscriptionsList({
+  event,
+  eventSubscriptions = [],
+}: SubscriptionsListProps) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selected, setSelected] = useState<any>(null)
   const [isEditMode, setIsEditMode] = useState(false)
   const [isAddSubscriptionOpen, setIsAddSubscriptionOpen] = useState(false)
 
-  const { open, message, severity } = useSnackbar()
+  const { open, message, severity, onShow, onClose } = useSnackbar()
 
-  const [createSubscription] = useMutation(createEventSubscription)
-  const [updateSubscription] = useMutation(updateEventSubscription)
-  const [deleteSubscription] = useMutation(deleteEventSubscription)
+  const [createSub] = useMutation(createEventSubscription)
+  const [updateSub] = useMutation(updateEventSubscription)
+  const [deleteSub] = useMutation(deleteEventSubscription)
 
   const onAdd = () => setIsAddSubscriptionOpen(true)
 
   const onAddSuccess = async (data: AddSubscriptionInputType) => {
-    await createSubscription({
+    await createSub({
       data: {
-        payment_method: 'BDE',
+        payment_method: "BDE",
         cart: [],
         event: { connect: { id: event?.id } },
         user: { connect: { id: data.subscriber.id } },
-      }
+      },
     })
       .then(() => {
-        refetch()
-        message.set("Ajouté")
-        severity.set("success")
+        onShow("success", "Ajoutée")
+        invalidateQuery(getEventSubscriptions)
       })
-      .catch(err => {
-        message.set(err.message)
-        severity.set("error")
-      })
-      .finally(() => open.set(true))
+      .catch((err) => onShow("error", err.message))
   }
 
   const onStopAdd = () => setIsAddSubscriptionOpen(false)
@@ -61,23 +68,18 @@ export default function SubscriptionsList({ event, eventSubscriptionsQueryResult
     setAnchorEl(null)
   }
 
-  const onEditSuccess = async data => {
-    await updateSubscription({ 
+  const onEditSuccess = async (data) => {
+    await updateSub({
       where: { id: selected?.id },
       data,
     })
       .then(() => {
-        refetch()
         setSelected(null)
         setIsEditMode(false)
-        message.set("Sauvegardé")
-        severity.set("success")
+        onShow("success", "Sauvegardée")
+        invalidateQuery(getEventSubscriptions)
       })
-      .catch(err => {
-        message.set(err.message)
-        severity.set("error")
-      })
-      .finally(() => open.set(true))
+      .catch((err) => onShow("error", err.message))
   }
 
   const onStopEdit = () => {
@@ -87,32 +89,22 @@ export default function SubscriptionsList({ event, eventSubscriptionsQueryResult
 
   const onDelete = async () => {
     setAnchorEl(null)
-    await deleteSubscription({ where: { id: selected?.id } })
+    await deleteSub({ where: { id: selected?.id } })
       .then(() => {
-        refetch()
         setSelected(null)
-        message.set("Supprimée")
-        severity.set("success")
+        onShow("success", "Supprimée")
+        invalidateQuery(getEventSubscriptions)
       })
-      .catch(err => {
-        message.set(err.message)
-        severity.set("error")
-      })
-      .finally(() => open.set(true))
+      .catch((err) => onShow("error", err.message))
   }
 
   const onMenuClick = (target, subscription) => {
     setSelected(subscription)
     setIsEditMode(false)
     setAnchorEl(target)
-  } 
-
-  const onClose = () => setAnchorEl(null)
-
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    open.set(false)
   }
+
+  const onMenuClose = () => setAnchorEl(null)
 
   return (
     <div className="flex flex-col">
@@ -133,7 +125,7 @@ export default function SubscriptionsList({ event, eventSubscriptionsQueryResult
         Ajouter
       </Button>
 
-      {!isFetching && eventSubscriptions.length === 0 && (
+      {eventSubscriptions.length === 0 && (
         <div className="flex flex-col justify-center items-center">
           <Image
             src="/static/images/illustrations/NoData.svg"
@@ -141,59 +133,44 @@ export default function SubscriptionsList({ event, eventSubscriptionsQueryResult
             width="300"
             alt="Aucune donnée"
           />
-            <Typography variant="subtitle2" gutterBottom>
-                Aucun inscrit
-            </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            Aucun inscrit
+          </Typography>
         </div>
       )}
 
       <Grid container justifyContent="flex-start" spacing={4}>
-        {(isFetching ? [...Array(6).keys()] : eventSubscriptions).map((x, key) => (
-          (isEditMode && x.id === selected.id) ? (
+        {eventSubscriptions.map((x, key) =>
+          isEditMode && x.id === selected?.id ? (
             <SubscriptionForm
               key={key}
               subscription={x}
-              isLoading={isFetching}
               onStopEdit={onStopEdit}
               onSuccess={onEditSuccess}
             />
           ) : (
-            <SubscriptionCard
-              key={key}
-              subscription={x}
-              isLoading={isFetching}
-              onMenuClick={onMenuClick}
-            />
+            <SubscriptionCard key={key} subscription={x} onMenuClick={onMenuClick} />
           )
-        ))}
+        )}
       </Grid>
 
-      <AddSubscriptionDialog 
-        isOpen={isAddSubscriptionOpen} 
+      <AddSubscriptionDialog
+        isOpen={isAddSubscriptionOpen}
         onSuccess={onAddSuccess}
-        onClose={onStopAdd} 
+        onClose={onStopAdd}
       />
 
       <Menu
         id="subscription-list-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={onClose}
+        onClose={onMenuClose}
       >
-        <MenuItem onClick={onEdit}>
-          Éditer
-        </MenuItem>
-        <MenuItem onClick={onDelete}>
-          Supprimer
-        </MenuItem>
+        <MenuItem onClick={onEdit}>Éditer</MenuItem>
+        <MenuItem onClick={onDelete}>Supprimer</MenuItem>
       </Menu>
 
-      <Snackbar
-        open={open.value}
-        message={message.value}
-        severity={severity.value}
-        onClose={onSnackClose}
-      />
+      <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </div>
   )
 }

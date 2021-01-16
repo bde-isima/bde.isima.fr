@@ -54,7 +54,7 @@ export default function ProductGroupOption({
 
       {groupOption.type === "combinable" && (
         <FormGroup className="my-2" aria-label={`Options combinables de ${groupOption.name}`}>
-          {groupOption.options.map((option: Option, optionIdx: number) => (
+          {groupOption.options?.map((option: Option, optionIdx: number) => (
             <FormControlLabel
               key={optionIdx}
               control={
@@ -77,7 +77,7 @@ export default function ProductGroupOption({
           value={exclusiveSelected}
           onChange={handleExclusiveChange}
         >
-          {groupOption.options.map((option: Option, optionIdx: number) => (
+          {groupOption.options?.map((option: Option, optionIdx: number) => (
             <FormControlLabel
               key={optionIdx}
               control={<Radio value={optionIdx} color="primary" />}

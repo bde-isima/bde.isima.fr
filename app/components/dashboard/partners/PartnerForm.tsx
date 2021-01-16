@@ -1,5 +1,5 @@
+import Image from "next/image"
 import { TextField } from "mui-rff"
-import Avatar from "@material-ui/core/Avatar"
 import IconButton from "@material-ui/core/IconButton"
 import InputAdornment from "@material-ui/core/InputAdornment"
 
@@ -41,13 +41,18 @@ export default function PartnerForm(props: PartnerFormProps) {
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      {props.initialValues?.id && (
-        <Avatar
-          className="mx-auto w-32 h-32"
-          src={props.initialValues?.image || undefined}
-          alt={`Image de ${props.initialValues?.name}`}
-        />
-      )}
+      <div className="mx-auto">
+        {props.initialValues?.id && props.initialValues?.image && (
+          <Image
+            className="rounded-full"
+            src={props.initialValues.image}
+            width={100}
+            height={100}
+            alt={`Image de ${props.initialValues?.name}`}
+          />
+        )}
+      </div>
+
       <TextField
         type="text"
         name="image"

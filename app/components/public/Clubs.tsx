@@ -1,13 +1,13 @@
-import { Image } from "blitz"
+import Image from "next/image"
 import { Suspense } from "react"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
-import getClubs from "app/entities/clubs/queries/getClubs"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 import Carousel from "./carousel"
+import getClubs from "app/entities/clubs/queries/getClubs"
 
 export default function Clubs() {
   return (

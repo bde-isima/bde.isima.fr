@@ -1,16 +1,16 @@
+import { useSession } from "blitz"
 import Paper from "@material-ui/core/Paper"
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense } from "react"
 
-import { User } from 'db'
+import { User } from "db"
 import { Form } from "app/components/forms/Form"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-import getUsers from 'app/entities/users/queries/getUsers'
+import getUsers from "app/entities/users/queries/getUsers"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
 
-const CashingDialog = lazy(() => import('./CashingDialog'))
+const CashingDialog = lazy(() => import("./CashingDialog"))
 
 export default function SearchUserForm() {
-  const [user] = useCurrentUser()
+  const session = useSession()
   const [selected, setSelected] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
 
@@ -25,7 +25,7 @@ export default function SearchUserForm() {
 
   return (
     <>
-      {user?.roles.some(x => x.toLowerCase() === 'bde' || x === '*') && (
+      {session?.roles.some((x) => x.toLowerCase() === "bde" || x === "*") && (
         <Paper className="w-full md:w-80 p-4 mb-4">
           <Form onSubmit={() => {}} autoComplete="off">
             <SearchUser

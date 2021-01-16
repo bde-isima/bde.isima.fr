@@ -1,7 +1,10 @@
 import { Ctx } from "blitz"
 import db, { Prisma } from "db"
 
-type GetEventsInput = Pick<Prisma.FindManyEventArgs, "where" | "include" | "orderBy" | "skip" | "take">
+type GetEventsInput = Pick<
+  Prisma.FindManyEventArgs,
+  "where" | "include" | "orderBy" | "skip" | "take"
+>
 
 export default async function getEvents(
   { where, orderBy, include, skip = 0, take }: GetEventsInput,

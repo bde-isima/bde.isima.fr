@@ -1,12 +1,12 @@
 import faker from "faker"
 
 const partners = async (db) => {
-  for (let i = 0; i < 5; ++i) {
+  for (let i = 0; i < 7; ++i) {
     await db.partner.create({
       data: {
         name: faker.lorem.word(),
         description: faker.lorem.sentence(),
-        image: faker.image.imageUrl(),
+        image: faker.image.imageUrl(100, 100, undefined, false, true),
       },
     })
   }

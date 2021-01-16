@@ -8,7 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 
-import errorMap from './errorMap'
+import errorMap from "./errorMap"
 
 export { FORM_ERROR } from "final-form"
 
@@ -44,7 +44,7 @@ export function Form<FormValues extends Record<string, unknown>>({
         try {
           schema.parse(values, { errorMap })
         } catch (error) {
-          //console.log(error)
+          //console.log(error.message)
           return error.formErrors.fieldErrors
         }
       }}
@@ -53,7 +53,7 @@ export function Form<FormValues extends Record<string, unknown>>({
       render={({ handleSubmit, submitting, pristine, submitError }) => (
         <>
           {variant === "button" && (
-            <form onSubmit={handleSubmit} className="form flex flex-col" {...props}>
+            <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
               {children}
 
               {submitError && (

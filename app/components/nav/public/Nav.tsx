@@ -1,16 +1,16 @@
 import Link from "next/link"
+import Image from "next/image"
 import { useSession } from "blitz"
 import Fab from "@material-ui/core/Fab"
 import { useState, useEffect } from "react"
 import Slide from "@material-ui/core/Slide"
 import AppBar from "@material-ui/core/AppBar"
-import Avatar from "@material-ui/core/Avatar"
 import Dialog from "@material-ui/core/Dialog"
 import Hidden from "@material-ui/core/Hidden"
 import Toolbar from "@material-ui/core/Toolbar"
 import IconButton from "@material-ui/core/IconButton"
 import { useTheme, useMediaQuery } from "@material-ui/core"
-import DialogActions from '@material-ui/core/DialogActions'
+import DialogActions from "@material-ui/core/DialogActions"
 import useScrollTrigger from "@material-ui/core/useScrollTrigger"
 
 import Menu from "mdi-material-ui/Menu"
@@ -20,7 +20,7 @@ import AccountArrowRightOutline from "mdi-material-ui/AccountArrowRightOutline"
 
 import Mobile from "./Mobile"
 import Desktop from "./Desktop"
-import Login from "app/auth/components/Login"
+import LoginContent from "app/components/auth/LoginContent"
 import { useCustomRouter } from "app/hooks/useCustomRouter"
 
 export default function Nav() {
@@ -61,7 +61,7 @@ export default function Nav() {
           />
 
           <Hidden mdUp>
-            <div className="flex flex-grow justify-start">
+            <div className="flex lg:flex-grow justify-start">
               <IconButton
                 aria-label="Menu"
                 onClick={toggleDrawer(setIsMobileMenuOpen, true)}
@@ -72,26 +72,31 @@ export default function Nav() {
             </div>
           </Hidden>
 
-          <div className="h-full w-full flex items-center justify-center md:justify-end">
-            <Link href="/">
-              <Avatar
-                className="mx-auto md:ml-0"
-                alt="Logo BDE ISIMA"
+          <Link href="/" passHref>
+            <div className="mx-auto lg:ml-0">
+              <Image
+                className="rounded-full"
                 src="/static/images/logos/logo.svg"
+                width={40}
+                height={40}
+                alt="Logo BDE ISIMA"
               />
-            </Link>
+            </div>
+          </Link>
 
-            <Hidden mdDown>
+          <Hidden mdDown>
+            <div className="h-full w-full flex items-center justify-center md:justify-end">
               <Desktop />
-            </Hidden>
-          </div>
+            </div>
+          </Hidden>
 
-          {!session.userId ? (
+          {!session?.userId ? (
             <Fab
               className={`${!fullScreen && "ml-4"}`}
-              variant="extended"
+              variant={fullScreen ? "circular" : "extended"}
               onClick={toggleDrawer(setIsLoginMenuOpen, true)}
               aria-label="Se connecter"
+              size={fullScreen ? "small" : "large"}
               color="primary"
             >
               <LoginVariant />
@@ -100,9 +105,10 @@ export default function Nav() {
           ) : (
             <Fab
               className={`${!fullScreen && "ml-4"}`}
-              variant="extended"
+              variant={fullScreen ? "circular" : "extended"}
               onClick={pushRoute("/hub")}
               aria-label="Mon compte"
+              size={fullScreen ? "small" : "large"}
               color="primary"
             >
               <AccountArrowRightOutline />
@@ -110,10 +116,11 @@ export default function Nav() {
             </Fab>
           )}
 
-          {!session.userId && (
+          {!session?.userId && (
             <Dialog
               open={isLoginMenuOpen}
               fullScreen={fullScreen}
+              PaperProps={{ className: "w-full" }}
               onClose={toggleDrawer(setIsLoginMenuOpen, false)}
             >
               <DialogActions>
@@ -126,7 +133,7 @@ export default function Nav() {
                 </IconButton>
               </DialogActions>
 
-              <Login />
+              <LoginContent />
             </Dialog>
           )}
         </Toolbar>
