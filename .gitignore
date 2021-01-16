@@ -51,3 +51,4 @@ lib-cov
 .vscode-test
 
 .idea
+.vercel
