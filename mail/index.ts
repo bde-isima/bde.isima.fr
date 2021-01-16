@@ -11,17 +11,14 @@ type MailParams = {
 
 export const mail = {
   send: async ({ subject, to, view, variables }: MailParams) => {
-    const params = {
+    const mailTransport = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true,
       auth: {
-        user: process.env.SMTP_USER,
+        user: `${process.env.SMTP_USER}@gmail.com`,
         pass: process.env.SMTP_PASSWORD,
       },
-    }
-    console.log(params)
-    const mailTransport = nodemailer.createTransport(params)
+    })
 
     try {
       return mailTransport.sendMail({
