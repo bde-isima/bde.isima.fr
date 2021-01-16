@@ -8,8 +8,9 @@ export default function RecentTransactions() {
   const [user] = useCurrentUser()
 
   const [{ transactions }] = useQuery(getTransactions, {
-    where: { userId: user?.id },
     take: 10,
+    skip: 0,
+    where: { userId: user?.id },
     orderBy: { createdAt: "desc" },
   })
 

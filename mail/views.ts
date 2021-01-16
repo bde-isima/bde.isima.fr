@@ -14,8 +14,6 @@ export const compileView = ({
 }) => {
   const viewContent = render(templates[view].generate())
 
-  console.log(viewContent.errors)
-
   return Handlebars.compile(viewContent.html)({
     subject,
     ...variables,

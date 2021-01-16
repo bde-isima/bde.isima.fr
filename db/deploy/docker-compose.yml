@@ -6,7 +6,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - 5432:5432
+      - 6432:5432
     env_file:
       - .env
     volumes:
@@ -20,7 +20,7 @@ services:
     links:
       - bde_postgres:postgres
     ports:
-      - 6432:6432
+      - 5432:6432
     depends_on:
       - bde_postgres
 
@@ -29,7 +29,8 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - 8080:80
+      - 8443:443
+      - 8480:80
     env_file:
       - .env
     volumes:
