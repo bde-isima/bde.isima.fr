@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+import { useSession } from "blitz"
 import Card from "@material-ui/core/Card"
 import Badge from "@material-ui/core/Badge"
 import Button from "@material-ui/core/Button"
@@ -9,23 +11,31 @@ import CashPlus from "mdi-material-ui/CashPlus"
 import CubeSend from "mdi-material-ui/CubeSend"
 import HistoryIcon from "mdi-material-ui/History"
 
-import { useCurrentUser } from "app/hooks/useCurrentUser"
 import Balance from "app/components/hub/transactions/display/Balance"
+import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 import RecentTransactions from "app/components/hub/transactions/display/RecentTransactions"
 
 export default function TransactionsCard({ openTransfer, openHistory, openTopUp }) {
-  const [user, { isFetching }] = useCurrentUser()
+  const session = useSession()
+
+  const FallbackComponent = [...Array(10).keys()].map((x) => (
+    <Skeleton className="m-1" key={x} height={24} width="80%" />
+  ))
 
   return (
     <Card className="py-6 mb-4 px-4">
       <div className="flex flex-col justify-center items-center">
-        {isFetching ? <Skeleton width="60%" height={55} /> : <Balance balance={user?.balance} variant="h3" />}
+        <Suspense fallback={<Skeleton width="60%" height={55} />}>
+          <Balance getQuery={getCurrentUser} />
+        </Suspense>
 
         <Typography className="my-2" variant="subtitle2" color="textSecondary" gutterBottom>
-          Solde carte n°{user?.card}
+          Solde carte n°{session.card}
         </Typography>
 
-        <RecentTransactions />
+        <Suspense fallback={FallbackComponent}>
+          <RecentTransactions />
+        </Suspense>
 
         <ButtonGroup
           className="my-4"

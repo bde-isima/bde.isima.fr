@@ -1,4 +1,4 @@
-import { Image } from "blitz"
+import Image from "next/image"
 import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid"
 import Container from "@material-ui/core/Container"
@@ -50,7 +50,7 @@ export default function School() {
 
         <div className="p-6 flex flex-col items-center">
           <Fab
-            className="mb-8"
+            className="mb-16"
             href="https://www.isima.fr/"
             target="_blank"
             rel="noopener noreferrer"
@@ -65,11 +65,11 @@ export default function School() {
           </Fab>
 
           <Image
-              src="/static/images/logos/isima.png"
-              width={300}
-              height={87}
-              alt="Logo de l'ISIMA"
-            />
+            src="/static/images/logos/isima.png"
+            width={300}
+            height={87}
+            alt="Logo de l'ISIMA"
+          />
         </div>
       </div>
     </Container>

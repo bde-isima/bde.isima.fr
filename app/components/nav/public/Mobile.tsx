@@ -1,9 +1,9 @@
 import Link from "next/link"
+import Image from "next/image"
 import { useSession } from "blitz"
 import { cloneElement } from "react"
 import Fab from "@material-ui/core/Fab"
 import List from "@material-ui/core/List"
-import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
@@ -66,11 +66,15 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         <List>
           <ListItem>
             <ListItemIcon>
-              <Avatar
-                className="m-2 mr-4"
-                src="/static/images/logos/logo.svg"
-                alt="Logo BDE ISIMA"
-              />
+              <div className="m-2 mr-4">
+                <Image
+                  className="rounded-full"
+                  src="/static/images/logos/logo.svg"
+                  width={40}
+                  height={40}
+                  alt="Logo BDE ISIMA"
+                />
+              </div>
             </ListItemIcon>
 
             <ListItemText primary="BDE ISIMA" />
@@ -79,7 +83,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
           <ItemsList />
 
           <div className="m-3 flex justify-center">
-            {session.userId ? (
+            {session?.userId ? (
               <Fab
                 variant="extended"
                 onClick={pushRoute("/hub")}

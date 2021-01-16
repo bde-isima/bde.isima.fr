@@ -1,5 +1,5 @@
+import Image from "next/image"
 import { TextField, Switches } from "mui-rff"
-import Avatar from "@material-ui/core/Avatar"
 import IconButton from "@material-ui/core/IconButton"
 import InputAdornment from "@material-ui/core/InputAdornment"
 
@@ -7,6 +7,7 @@ import OpenInNew from "mdi-material-ui/OpenInNew"
 
 import { Article } from "db"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import { ArticleInput, ArticleInputType } from "app/components/forms/validations"
 
 type ArticleFormProps = {
@@ -36,20 +37,25 @@ export default function ArticleForm(props: ArticleFormProps) {
         id: props.initialValues?.id,
         image: props.initialValues?.image,
         name: props.initialValues?.name,
-        price: props.initialValues?.price?.toString(),
-        member_price: props.initialValues?.member_price?.toString(),
+        price: props.initialValues?.price,
+        member_price: props.initialValues?.member_price,
         is_enabled: props.initialValues?.is_enabled,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      {props.initialValues?.id && (
-        <Avatar
-          className="mx-auto w-32 h-32"
-          src={props.initialValues?.image || undefined}
-          alt={`Image de ${props.initialValues?.name}`}
-        />
-      )}
+      <div className="mx-auto">
+        {props.initialValues?.id && props.initialValues?.image && (
+          <Image
+            className="rounded-full"
+            src={props.initialValues.image}
+            width={100}
+            height={100}
+            alt={`Image de ${props.initialValues?.name}`}
+          />
+        )}
+      </div>
+
       <TextField
         type="text"
         name="image"
@@ -70,9 +76,14 @@ export default function ArticleForm(props: ArticleFormProps) {
         }}
       />
 
-      <TextField type="text" name="name" label="Nom" />
-      <TextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
-      <TextField type="number" name="member_price" label="Prix adhérent" inputProps={{ step: 0.01 }} />
+      <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
+      <EnhancedTextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
+      <EnhancedTextField
+        type="number"
+        name="member_price"
+        label="Prix adhérent"
+        inputProps={{ step: 0.01 }}
+      />
 
       <Switches name="is_enabled" data={{ label: "Activé", value: "is_enabled" }} color="primary" />
     </Form>

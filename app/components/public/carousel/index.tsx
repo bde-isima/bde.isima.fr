@@ -38,7 +38,7 @@ export default function Carousel({ getQuery, queryKey }) {
   const [isMoving, setIsMoving] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  const [result] = useQuery(getQuery, {}, { refetchOnWindowFocus: false })
+  const [data] = useQuery(getQuery, {}, { refetchOnWindowFocus: false })
 
   const stopPropagation = (e) => {
     e.stopPropagation()
@@ -72,7 +72,7 @@ export default function Carousel({ getQuery, queryKey }) {
       beforeChange={handleChange(true)}
       afterChange={handleChange(false)}
     >
-      {result[queryKey].map((item) => (
+      {data[queryKey].map((item) => (
         <Card key={item.id} className="mx-2 h-full">
           <CardActionArea className="flex flex-col" onClick={handleSelectionChange(item, true)}>
             <div className="h-40 flex justify-center align-center">
@@ -100,7 +100,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Facebook"
                 >
-                  <Facebook className="m-2" />
+                  <Facebook className="m-2 text-primary" />
                 </a>
               )}
               {item.twitterURL && (
@@ -111,7 +111,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Twitter"
                 >
-                  <Twitter className="m-2" />
+                  <Twitter className="m-2 text-primary" />
                 </a>
               )}
               {item.instagramURL && (
@@ -122,7 +122,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Instagram"
                 >
-                  <Instagram className="m-2" />
+                  <Instagram className="m-2 text-primary" />
                 </a>
               )}
               {item.customURL && (
@@ -133,7 +133,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien personnalisé"
                 >
-                  <Earth className="m-2" />
+                  <Earth className="m-2 text-primary" />
                 </a>
               )}
             </CardActions>

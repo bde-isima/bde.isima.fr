@@ -1,11 +1,12 @@
-import { Image } from 'blitz'
+import Image from "next/image"
 import { TextField } from "mui-rff"
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
 
-import { PaymentMethod } from './TopUp'
+import { PaymentMethod } from "./TopUp"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { TopUpInput, TopUpInputType } from "app/components/forms/validations"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void
@@ -28,27 +29,39 @@ export default function TopUpForm(props: TopUpFormProps) {
       title="Recharger son compte"
       variant="dialog"
       schema={TopUpInput}
-      initialValues={{ 
-        amount: '5', 
-        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined 
+      initialValues={{
+        amount: 5,
+        recipient: process.env.NODE_ENV === "development" ? "+33621491838" : undefined,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="number" name="amount" label="Montant" inputProps={{ min: 5, max: 1000, step: 0.01 }} />
+      <EnhancedTextField
+        type="number"
+        name="amount"
+        label="Montant"
+        inputProps={{ min: 5, max: 1000, step: 0.01 }}
+      />
       <TextField type="tel" name="recipient" label="Numéro de téléphone" />
 
       <div className="flex justify-center">
-        <Button onClick={props.beforeSubmit('cb')}>
-          <Image src="/static/images/logos/mastercard.svg" width={100} height={25} alt="Mastercard logo" />
+        <Button onClick={props.beforeSubmit("cb")}>
+          <Image
+            src="/static/images/logos/mastercard.svg"
+            width={100}
+            height={25}
+            alt="Mastercard logo"
+          />
         </Button>
 
-        <Button onClick={props.beforeSubmit('lydia')}>
+        <Button onClick={props.beforeSubmit("lydia")}>
           <Image src="/static/images/logos/lydia.svg" width={100} height={25} alt="Lydia logo" />
         </Button>
       </div>
 
-      <Typography variant="caption" align="center">Si vous rencontrez un problème lors de votre rechargement, contactez un membre BDE</Typography>
+      <Typography variant="caption" align="center">
+        Si vous rencontrez un problème lors de votre rechargement, contactez un membre BDE
+      </Typography>
     </Form>
   )
 }

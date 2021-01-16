@@ -1,50 +1,73 @@
 import cuid from "cuid"
 import { Ctx } from "blitz"
 
+import { mail } from "mail"
 import db, { Prisma } from "db"
-import { mail } from "app/mailers"
-import { assertIsNumber } from "utils/assert"
-import { hashPassword } from "app/auth/auth-utils"
+import { MAX_RAND, RandomInBetween } from "app/utils/math-utils"
 
 type UpsertUserInput = Pick<Prisma.UserUpsertArgs, "where" | "create" | "update">
 
 export default async function upsertUser({ where, create, update }: UpsertUserInput, ctx: Ctx) {
-  ctx.session.authorize(['*', 'bde'])
-
-  assertIsNumber("card", create.card)
-  assertIsNumber("card", update.card)
+  ctx.session.authorize(["*", "bde"])
 
   const user = await db.user.findUnique({ where })
 
   if (!user) {
-    create.password = await hashPassword(Math.random().toString(36).slice(-8))
-    create.resetPasswordToken = cuid()
+    if (!create.card) {
+      create.card = await generateCardNumber()
+    }
 
     const newUser = await db.user.create({ data: create })
 
     try {
-      mail.send({
-        subject: "Activation de ton compte BDE",
-        to: create.email,
-        view: "init_password/template.min.html",
-        variables: {
-          firstname: create.firstname,
-          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/init_password?token=${create.resetPasswordToken}`
+      const subject = "Activation de ton compte BDE"
+
+      const token = cuid()
+      const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+
+      await db.loginRequest.create({
+        data: {
+          userId: newUser.id,
+          token,
+          callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
+          expires: inAWeek,
         },
       })
-    }
-    catch(err) {
+
+      mail.send({
+        subject,
+        to: newUser.email,
+        view: "activation",
+        variables: {
+          subject,
+          firstname: newUser.firstname,
+          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+        },
+      })
+    } catch (err) {
       console.log(err)
     }
 
     return newUser
-  }
-  else {
+  } else {
     const newUser = await db.user.update({ where, data: update })
 
     const sessions = await db.session.updateMany({
-      where: { userId: user?.id },
-      data: { publicData: { set: JSON.stringify({ userId: user?.id, roles: newUser.roles }) } }
+      where: { userId: user.id },
+      data: {
+        publicData: {
+          set: JSON.stringify({
+            userId: user.id,
+            roles: user.roles,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            nickname: user.nickname,
+            image: user.image,
+            email: user.email,
+            card: user.card,
+          }),
+        },
+      },
     })
 
     return {
@@ -52,4 +75,29 @@ export default async function upsertUser({ where, create, update }: UpsertUserIn
       sessions,
     }
   }
+}
+
+async function generateCardNumber() {
+  const users = await db.user.findMany({ select: { card: true } })
+  const cards = users.map((user) => user.card)
+
+  let iteration: number = 0
+  let card: number | null = null
+
+  while (!card) {
+    if (iteration > 2000) {
+      //Prevent infinite loop
+      throw new Error("Could not generate card number")
+    }
+
+    const tmp = parseInt(RandomInBetween(1, MAX_RAND).toString().substr(0, 4))
+
+    // eslint-disable-next-line no-loop-func
+    if (cards.findIndex((c) => c === card) === -1) {
+      card = tmp
+    }
+    ++iteration
+  }
+
+  return card
 }

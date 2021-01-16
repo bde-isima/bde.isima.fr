@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "year": 2005,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 2,
+    "year": 2006,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 3,
+    "year": 2007,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 4,
+    "year": 2008,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 5,
+    "year": 2009,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 6,
+    "year": 2010,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 7,
+    "year": 2011,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 8,
+    "year": 2012,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 9,
+    "year": 2013,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 10,
+    "year": 2014,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 11,
+    "year": 2015,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 12,
+    "year": 2016,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 13,
+    "year": 2017,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 14,
+    "year": 2018,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 15,
+    "year": 2019,
+    "fb_group_id": null,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-21T18:05:29.000Z"
+  },
+  {
+    "id": 16,
+    "year": 2020,
+    "fb_group_id": 349646068825257,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-12-19T08:35:49.000Z"
+  },
+  {
+    "id": 17,
+    "year": 2021,
+    "fb_group_id": 719643981721513,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-22T01:49:13.000Z"
+  },
+  {
+    "id": 18,
+    "year": 2022,
+    "fb_group_id": 746818042438860,
+    "list_email": "bde@isima.fr",
+    "created_at": "2019-11-21T18:05:29.000Z",
+    "updated_at": "2019-11-22T01:49:31.000Z"
+  },
+  {
+    "id": 19,
+    "year": 2023,
+    "fb_group_id": 720761985433543,
+    "list_email": "bde@isima.fr",
+    "created_at": "2020-09-01T18:34:08.000Z",
+    "updated_at": "2020-09-03T17:32:43.000Z"
+  }
+]

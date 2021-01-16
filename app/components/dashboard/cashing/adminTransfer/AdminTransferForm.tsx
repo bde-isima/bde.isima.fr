@@ -1,6 +1,7 @@
 import { TextField } from "mui-rff"
 
 import { Form, FORM_ERROR } from "app/components/forms/Form"
+import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import { AdminTransferInput, AdminTransferInputType } from "app/components/forms/validations"
 
 type AdminTransferFormProps = {
@@ -30,7 +31,7 @@ export default function AdminTransferForm({ onSuccess }: AdminTransferFormProps)
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="number" name="amount" label="Montant" inputProps={{ step: 0.01 }} />
+      <EnhancedTextField type="number" name="amount" label="Montant" inputProps={{ step: 0.01 }} />
       <TextField type="text" name="description" label="Description" />
     </Form>
   )

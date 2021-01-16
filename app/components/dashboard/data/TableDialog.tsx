@@ -1,8 +1,7 @@
 import cuid from "cuid"
-import { useMutation } from "blitz"
-import { SyntheticEvent } from "react"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
+import { useMutation, invalidateQuery } from "blitz"
 
 import Snackbar from "app/layouts/Snackbar"
 import SlideTransition from "app/layouts/SlideTransition"
@@ -12,12 +11,12 @@ export default function TableDialog({
   values,
   columns,
   onClose,
+  getQuery,
   upsertQuery,
-  refetch,
   snackbar,
   FormComponent,
 }) {
-  const { snackOpen, message, severity } = snackbar
+  const { snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
 
   const [upsertMutation] = useMutation(upsertQuery)
 
@@ -25,6 +24,10 @@ export default function TableDialog({
     const formattedData = { ...data }
     columns.forEach((col) => {
       let value = data[col.id]
+
+      if (col.exclude) {
+        return
+      }
 
       if (typeof col.format === "function") {
         value = col.format(data[col.id])
@@ -34,7 +37,7 @@ export default function TableDialog({
         value = value.trim()
       }
 
-      Object.assign(formattedData, { [col.id]: value })
+      Object.assign(formattedData, { [col.id]: value ?? null })
     })
     return formattedData
   }
@@ -46,28 +49,21 @@ export default function TableDialog({
       create: formatData(data),
     } as any)
       .then(() => {
-        message.set("Sauvegardé")
-        severity.set("success")
+        onShow("success", "Sauvegardé")
+        invalidateQuery(getQuery)
         onClose()
       })
       .catch((err) => {
         if (err.code === "P2002") {
-          message.set(`${err.meta.target[0]} n'est pas unique`)
+          onShow("error", `${err.meta.target[0]} n'est pas unique`)
         } else {
-          message.set(err.message)
+          onShow("error", err.message)
         }
-        severity.set("error")
       })
-      .finally(() => {
-        snackOpen.set(true)
-      })
-
-    refetch()
   }
 
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    snackOpen.set(false)
+  if (!FormComponent) {
+    return null
   }
 
   return (
@@ -84,12 +80,7 @@ export default function TableDialog({
         <FormComponent initialValues={values} onSuccess={onSuccess} onClose={onClose} />
       </Dialog>
 
-      <Snackbar
-        open={snackOpen.value}
-        message={message.value}
-        severity={severity.value}
-        onClose={onSnackClose}
-      />
+      <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
   )
 }

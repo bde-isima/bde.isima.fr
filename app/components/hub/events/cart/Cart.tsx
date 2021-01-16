@@ -1,7 +1,8 @@
 import cuid from "cuid"
+import { useMutation } from "blitz"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import Hidden from "@material-ui/core/Hidden"
-import { useMutation, useRouter } from "blitz"
-import { useState, useEffect, SyntheticEvent } from "react"
 
 import { Event } from "db"
 import Mobile from "./Mobile"
@@ -20,7 +21,7 @@ type CartProps = {
 export default function Cart({ event }: CartProps) {
   const router = useRouter()
   const [total, setTotal] = useState<number>(0)
-  const { open, message, severity } = useSnackbar()
+  const { open, message, severity, onShow, onClose } = useSnackbar()
   const { eventSubscription, setQueryData } = useEventSubscription()
 
   const [upsertEventSub, { isLoading: subscribing }] = useMutation(upsertEventSubscription)
@@ -35,27 +36,19 @@ export default function Cart({ event }: CartProps) {
       user: { connect: { id: userId } },
     } as any
 
-    upsertEventSub({
+    return upsertEventSub({
       where: { id: eventSubscription.id ?? cuid() },
       update: args,
       create: args,
     })
       .then(() => router.push("/hub/events"))
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-        open.set(true)
-      })
+      .catch((err) => onShow("error", err.message))
   }
 
   const onUnsubscribe = () => {
-    deleteEventSub({ where: { id: eventSubscription.id } })
+    return deleteEventSub({ where: { id: eventSubscription.id } })
       .then(() => router.push("/hub/events"))
-      .catch((err) => {
-        message.set(err.message)
-        severity.set("error")
-        open.set(true)
-      })
+      .catch((err) => onShow("error", err.message))
   }
 
   const onQuantityChange = (cartItem: CartItem, value: number) => () => {
@@ -68,28 +61,26 @@ export default function Cart({ event }: CartProps) {
       ]
     }
 
-    setQueryData((oldData) => ({
-      ...(oldData as EventSubscriptionWithTypedCart),
-      cart,
-    }))
-  }
-
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    open.set(false)
+    setQueryData(
+      (oldData) => ({
+        ...(oldData as EventSubscriptionWithTypedCart),
+        cart,
+      }),
+      { refetch: false }
+    )
   }
 
   useEffect(() => {
     setTotal(
-      eventSubscription.cart.reduce(
+      eventSubscription?.cart.reduce(
         (acc: number, x: CartItem) =>
           acc +
           x.quantity *
-            (x.price + x.options.reduce((acc: number, val: Option) => acc + val.price, 0)),
+            (x.price + (x.options?.reduce((acc: number, val: Option) => acc + val.price, 0) || 0)),
         0
-      )
+      ) || 0
     )
-  }, [eventSubscription.cart])
+  }, [eventSubscription?.cart])
 
   return (
     <>
@@ -117,12 +108,7 @@ export default function Cart({ event }: CartProps) {
         />
       </Hidden>
 
-      <Snackbar
-        open={open.value}
-        message={message.value}
-        severity={severity.value}
-        onClose={onSnackClose}
-      />
+      <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>
   )
 }

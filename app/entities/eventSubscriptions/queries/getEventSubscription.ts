@@ -11,8 +11,8 @@ export default async function getEventSubscription({ where }: GetEventSubscripti
 
   if (!eventSubscription) {
     return Promise.resolve({
-      eventId: where?.eventId?.toString(),
-      userId: where?.userId?.toString(),
+      eventId: where?.eventId,
+      userId: where?.userId,
       payment_method: PaymentMethod.BDE,
       cart: [],
     })

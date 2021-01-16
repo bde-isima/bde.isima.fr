@@ -1,24 +1,41 @@
 import { Ctx } from "blitz"
-import db, { Prisma } from "db"
-import { hashPassword } from "app/auth/auth-utils"
 
-type UpdateUserInput = { 
-  data: Pick<Prisma.UserUpdateInput, "id" | "nickname" | "password" | "email">
+import db, { Prisma } from "db"
+
+type UpdateUserInput = {
+  data: Pick<Prisma.UserUpdateInput, "id" | "nickname" | "email" | "image">
   where: Prisma.UserWhereUniqueInput
 }
 
 export default async function updateUser({ where, data }: UpdateUserInput, ctx: Ctx) {
   ctx.session.authorize()
 
-  if (ctx.session.userId !== data?.id) {
+  if (ctx.session.userId !== where?.id) {
     throw new Error("Non autorisé")
-  }
-
-  if (data.password) {
-    data.password = await hashPassword(data.password as string)
   }
 
   const user = await db.user.update({ where, data })
 
-  return user
+  const sessions = await db.session.updateMany({
+    where: { userId: user.id },
+    data: {
+      publicData: {
+        set: JSON.stringify({
+          userId: user.id,
+          roles: user.roles,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          nickname: user.nickname,
+          image: user.image,
+          email: user.email,
+          card: user.card,
+        }),
+      },
+    },
+  })
+
+  return {
+    user,
+    sessions,
+  }
 }

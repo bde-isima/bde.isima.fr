@@ -1,18 +1,18 @@
-import { useRouter } from "blitz"
 import { TextField } from "mui-rff"
+import { useRouter } from "next/router"
 import Tab from "@material-ui/core/Tab"
 import { Field } from "react-final-form"
-import frLocale from 'date-fns/locale/fr'
+import frLocale from "date-fns/locale/fr"
 import AppBar from "@material-ui/core/AppBar"
-import arrayMutators from 'final-form-arrays'
+import arrayMutators from "final-form-arrays"
 import TabList from "@material-ui/lab/TabList"
 import Divider from "@material-ui/core/Divider"
 import TabContext from "@material-ui/lab/TabContext"
 import MuiTextField from "@material-ui/core/TextField"
 import { SyntheticEvent, useMemo, useState } from "react"
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
-import DateTimePicker from '@material-ui/lab/DateTimePicker'
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
+import DateTimePicker from "@material-ui/lab/DateTimePicker"
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
 
 import { Event } from "db"
 import ProductsForm from "./ProductsForm"
@@ -35,7 +35,10 @@ export default function EventForm(props: EventFormProps) {
 
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess({
+        ...values,
+        max_subscribers: parseInt(values.max_subscribers) || null,
+      })
     } catch (error) {
       return {
         [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
@@ -43,33 +46,38 @@ export default function EventForm(props: EventFormProps) {
     }
   }
 
-  const onDateChange = onChange => newDate => onChange(newDate)
+  const onDateChange = (onChange) => (newDate) => onChange(newDate)
 
-  const initialValues = useMemo(() => ({
-    id: props.initialValues?.id,
-    name: props.initialValues?.name,
-    description: props.initialValues?.description,
-    takes_place_at: new Date(props.initialValues?.takes_place_at ?? new Date()),
-    subscriptions_end_at: new Date(props.initialValues?.subscriptions_end_at ?? new Date()),
-    status: props.initialValues?.status || "WAITING_APPROVAL",
-    max_subscribers: props.initialValues?.max_subscribers,
-    club: { connect : { name: `${router.params.name}` }},
-    products: props.initialValues?.products ? (props.initialValues?.products as any[]).map(i => ({
-      name: i.name,
-      description: i.description,
-      price: i.price.toString(),
-      groupOptions: i.groupOptions.map(go => ({
-        name: go.name,
-        type: go.type,
-        options: go.options.map(o => ({
-          name: o.name,
-          description: o.description,
-          price: o.price.toString(),
-        })),
-      })),
-    })) : [],
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [])
+  const initialValues = useMemo(
+    () => ({
+      id: props.initialValues?.id,
+      name: props.initialValues?.name,
+      description: props.initialValues?.description,
+      takes_place_at: new Date(props.initialValues?.takes_place_at ?? new Date()),
+      subscriptions_end_at: new Date(props.initialValues?.subscriptions_end_at ?? new Date()),
+      status: props.initialValues?.status || "WAITING_APPROVAL",
+      max_subscribers: props.initialValues?.max_subscribers?.toString(),
+      club: { connect: { name: `${router.query.name}` } },
+      products: props.initialValues?.products
+        ? (props.initialValues?.products as any[]).map((i) => ({
+            name: i.name,
+            description: i.description,
+            price: i.price,
+            groupOptions: i.groupOptions.map((go) => ({
+              name: go.name,
+              type: go.type,
+              options: go.options?.map((o) => ({
+                name: o.name,
+                description: o.description,
+                price: o.price,
+              })),
+            })),
+          }))
+        : [],
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }),
+    []
+  )
 
   return (
     <Form<EventInputType>
@@ -100,29 +108,33 @@ export default function EventForm(props: EventFormProps) {
         <TabPanel value="0">
           <TextField type="text" name="name" label="Nom" />
           <TextField type="text" name="description" label="Description" multiline rows={5} />
-          <TextField type="number" name="max_subscribers" label="Limite de participants" />
+          <TextField type="text" name="max_subscribers" label="Limite de participants" />
 
           <Divider className="m-2" />
 
           <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
             <Field name="takes_place_at">
               {(props) => (
-                <DateTimePicker 
-                  label="Date de l'événement" 
+                <DateTimePicker
+                  label="Date de l'événement"
                   value={props.input.value}
                   onChange={onDateChange(props.input.onChange)}
-                  renderInput={(tfProps) => <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />}
+                  renderInput={(tfProps) => (
+                    <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />
+                  )}
                 />
               )}
             </Field>
 
             <Field name="subscriptions_end_at">
               {(props) => (
-                <DateTimePicker 
-                  label="Date de fin des inscriptions" 
+                <DateTimePicker
+                  label="Date de fin des inscriptions"
                   value={props.input.value}
                   onChange={onDateChange(props.input.onChange)}
-                  renderInput={(tfProps) => <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />}
+                  renderInput={(tfProps) => (
+                    <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />
+                  )}
                 />
               )}
             </Field>

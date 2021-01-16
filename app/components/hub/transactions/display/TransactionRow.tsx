@@ -1,6 +1,8 @@
+import { Suspense } from "react"
 import { format } from "date-fns"
 import Grid from "@material-ui/core/Grid"
 import Tooltip from "@material-ui/core/Tooltip"
+import Skeleton from "@material-ui/core/Skeleton"
 import TrendingUp from "mdi-material-ui/TrendingUp"
 import Typography from "@material-ui/core/Typography"
 import TrendingDown from "mdi-material-ui/TrendingDown"
@@ -27,7 +29,9 @@ export default function TransactionRow({ values, dense = false }: TransactionPro
         alignContent="center"
       >
         {!dense && values.emitterId ? (
-          <TransactionAvatar id={values.emitterId} />
+          <Suspense fallback={<Skeleton variant="circular" width={40} height={40} />}>
+            <TransactionAvatar id={values.emitterId} />
+          </Suspense>
         ) : isPositive ? (
           <TrendingUp />
         ) : (

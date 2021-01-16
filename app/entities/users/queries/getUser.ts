@@ -5,12 +5,9 @@ import db, { Prisma } from "db"
 type FindUniqueUserInput = Pick<Prisma.FindUniqueUserArgs, "where">
 
 export default async function getUser({ where }: FindUniqueUserInput, ctx: Ctx) {
-  ctx.session.authorize()
+  ctx.session.authorize(["*", "bde"])
 
-  const user = await db.user.findFirst({ 
-    where,
-    select: { image: true }
-  })
+  const user = await db.user.findFirst({ where })
 
   if (!user) throw new NotFoundError()
 

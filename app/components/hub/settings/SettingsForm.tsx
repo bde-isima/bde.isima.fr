@@ -1,19 +1,26 @@
+import Image from "next/image"
 import { TextField } from "mui-rff"
 import Divider from "@material-ui/core/Divider"
+import Typography from "@material-ui/core/Typography"
+import IconButton from "@material-ui/core/IconButton"
+import InputAdornment from "@material-ui/core/InputAdornment"
 
-import { User } from "db"
+import OpenInNew from "mdi-material-ui/OpenInNew"
+
+import { useCurrentUser } from "app/hooks/useCurrentUser"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { SettingsInput, SettingsInputType } from "app/components/forms/validations"
 
 type SettingsFormProps = {
-  initialValues: User | null
   onSuccess: (values: SettingsInputType) => void
 }
 
 export default function SettingsForm(props: SettingsFormProps) {
-  const onSubmit = async (values) => {
+  const [user] = useCurrentUser()
+
+  const onSubmit = async (values: SettingsInputType) => {
     try {
-      delete values.confirmPassword
+      console.log(values)
       await props.onSuccess(values)
     } catch (error) {
       return {
@@ -27,30 +34,62 @@ export default function SettingsForm(props: SettingsFormProps) {
       submitText="Sauvegarder"
       schema={SettingsInput}
       initialValues={{
-        lastname: props.initialValues?.lastname,
-        firstname: props.initialValues?.firstname,
-        nickname: props.initialValues?.nickname,
-        email: props.initialValues?.email,
-        password: undefined,
-        confirmPassword: undefined,
-        card: props.initialValues?.card,
+        nickname: user?.nickname,
+        email: user?.email,
+        image: user?.image,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <TextField type="text" name="lastname" label="Nom" disabled />
-      <TextField type="text" name="firstname" label="Prénom" disabled />
-      <TextField type="text" name="nickname" label="Surnom" />
+      <Typography variant="h6" color="textSecondary">
+        {user?.lastname} {user?.firstname} (n° {user?.card}) -{" "}
+        {user?.is_member ? "Cotisant" : "Non-cotisant"}
+      </Typography>
 
       <Divider className="m-2" />
 
+      <TextField
+        type="text"
+        name="nickname"
+        label="Surnom"
+        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
+      />
       <TextField type="email" name="email" label="Adresse email" />
-      <TextField type="password" name="password" label="Changer de mot de passe" />
-      <TextField type="password" name="confirmPassword" label="Confirmer le nouveau mot de passe" />
 
       <Divider className="m-2" />
 
-      <TextField type="text" name="card" label="N° de carte" disabled />
+      <div className="mx-auto">
+        {user?.image && (
+          <Image
+            className="rounded-full"
+            src={user.image}
+            width={100}
+            height={100}
+            alt="Image de profil"
+          />
+        )}
+      </div>
+
+      <TextField
+        type="text"
+        name="image"
+        label="URL de l'image de l'article"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                href="https://imgur.com/upload"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ouvrir Imgur"
+              >
+                <OpenInNew />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
+      />
     </Form>
   )
 }

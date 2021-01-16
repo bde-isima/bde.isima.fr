@@ -1,42 +1,47 @@
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
-import { useMutation } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Avatar from "@material-ui/core/Avatar"
 import Divider from "@material-ui/core/Divider"
+import { useSession, useMutation } from "blitz"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 
 import Logout from "mdi-material-ui/Logout"
 import CogOutline from "mdi-material-ui/CogOutline"
 import MessageAlertOutline from "mdi-material-ui/MessageAlertOutline"
-
-import logout from "app/auth/mutations/logout"
-import { useCurrentUser } from "app/hooks/useCurrentUser"
+import logout from "app/entities/auth/mutations/logout"
 
 export default function ModulesMenu() {
+  const session = useSession()
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
-  const [user] = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
+  const [signOut] = useMutation(logout)
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
 
   const handleClose = () => setAnchorEl(null)
 
   const onLogout = () => {
-    logoutMutation()
+    signOut()
   }
 
   return (
-    <>
-      <Avatar
-        className="mx-2"
-        src={user?.image ?? undefined}
-        onClick={handleOpen}
-        alt="Photo de profil"
-      />
+    <div className="flex mx-2">
+      {session?.image ? (
+        <Image
+          className="rounded-full"
+          src={session.image}
+          onClick={handleOpen}
+          width={40}
+          height={40}
+          alt="Photo de profil"
+        />
+      ) : (
+        <Avatar onClick={handleOpen} alt="Photo de profil" />
+      )}
 
       <Menu
         id="avatar-menu"
@@ -56,7 +61,7 @@ export default function ModulesMenu() {
         disableAutoFocusItem
       >
         <Typography className="pt-4 pl-4 pr-4" variant="subtitle1" noWrap>
-          {user?.nickname || `${user?.firstname} ${user?.lastname}`}
+          {session?.nickname || `${session?.firstname} ${session?.lastname}`}
         </Typography>
 
         <Divider className="m-3" />
@@ -101,6 +106,6 @@ export default function ModulesMenu() {
           </Typography>
         </MenuItem>
       </Menu>
-    </>
+    </div>
   )
 }

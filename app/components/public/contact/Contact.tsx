@@ -1,5 +1,4 @@
 import { useMutation } from "blitz"
-import { SyntheticEvent } from "react"
 import Paper from "@material-ui/core/Paper"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
@@ -11,25 +10,14 @@ import { ContactInputType } from "app/components/forms/validations"
 import ContactForm from "app/components/public/contact/ContactForm"
 
 export default function Contact() {
+  const { open, message, severity, onShow, onClose } = useSnackbar()
+
   const [sendContact] = useMutation(contact)
-  const { open, message, severity } = useSnackbar()
 
   const onSuccess = async (data: ContactInputType) => {
     await sendContact(data)
-    .then(() => {
-      message.set("Envoyé")
-      severity.set("success")
-    })
-    .catch((err) => {
-      message.set(err.message)
-      severity.set("error")
-    })
-    .finally(() => open.set(true))
-  }
-
-  const onSnackClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
-    if (reason === "clickaway") return
-    open.set(false)
+      .then(() => onShow("success", "Envoyé"))
+      .catch((err) => onShow("error", err.message))
   }
 
   return (
@@ -50,12 +38,7 @@ export default function Contact() {
             <ContactForm onSuccess={onSuccess} />
           </Paper>
 
-          <Snackbar
-            open={open.value}
-            message={message.value}
-            severity={severity.value}
-            onClose={onSnackClose}
-          />
+          <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
         </div>
       </Container>
     </Paper>

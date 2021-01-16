@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Image } from "blitz"
+import Image from "next/image"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
@@ -36,13 +36,13 @@ export default function Footer() {
         </Grid>
 
         <Grid container item xs={12} md={4} justifyContent="center" alignContent="center">
-        <Image
-              src="/static/images/logos/uca.png"
-              width={300}
-              height={45}
-              quality={100}
-              alt="Logo de l'UCA"
-            />
+          <Image
+            src="/static/images/logos/uca.png"
+            width={300}
+            height={45}
+            quality={100}
+            alt="Logo de l'UCA"
+          />
         </Grid>
 
         <Grid

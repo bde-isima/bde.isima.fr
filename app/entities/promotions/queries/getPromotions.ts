@@ -8,7 +8,7 @@ export default async function getPromotions(
   { where, orderBy, skip = 0, take }: GetPromotionsInput,
   ctx: Ctx
 ) {
-  ctx.session.authorize(['*', 'bde'])
+  ctx.session.authorize(["*", "bde"])
 
   const promotions = await db.promotion.findMany({
     where,

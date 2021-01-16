@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Image } from "blitz"
+import Image from "next/image"
 import { Suspense } from "react"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -48,7 +48,7 @@ export default function Partners() {
           </Grid>
         </Grid>
 
-        <Suspense fallback={<CircularProgress size={25} />}>
+        <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
           <Carousel getQuery={getPartners} queryKey="partners" />
         </Suspense>
       </div>

@@ -41,7 +41,9 @@ export default function Desktop() {
               >
                 <ListItem dense disableGutters>
                   <ListItemIcon>
-                    {cloneElement(obj.icon, { className: isActive ? "text-white" : undefined })}
+                    {cloneElement(obj.icon, {
+                      className: `${isActive ? "text-white" : undefined} rounded-full`,
+                    })}
                   </ListItemIcon>
 
                   <ListItemText

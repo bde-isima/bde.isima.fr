@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useQuery } from "blitz"
 import { Field } from "react-final-form"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
@@ -11,7 +12,7 @@ import Typography from "@material-ui/core/Typography"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
-import { useClubs } from "app/hooks/useClubs"
+import getClubs from "app/entities/clubs/queries/getClubs"
 
 function not(a: string[], b: string[]) {
   return a.filter((value) => b.indexOf(value) === -1)
@@ -23,7 +24,7 @@ function intersection(a: string[], b: string[]) {
 
 export default function RolesForm({ values }) {
   const form = useForm()
-  const { clubs } = useClubs()
+  const [{ clubs }] = useQuery(getClubs, {})
   const roles = values?.roles ?? []
   const [checked, setChecked] = useState<string[]>([])
   const [left, setLeft] = useState<string[]>(

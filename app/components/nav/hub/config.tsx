@@ -24,7 +24,7 @@ const config = [
   },
   {
     icon: <TrophyOutline />,
-    text: "LEADERBOARD",
+    text: "CLASSEMENT",
     to: "/hub/leaderboard",
     isActive: (pathname: String, hash: String) => pathname === "/hub/leaderboard",
   },

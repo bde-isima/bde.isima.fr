@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "image": "uploads/partners/langfr-280px-Crédit_Agricole.svg.png",
+    "name": "Crédit Agricole",
+    "description": "Le Crédit Agricole est le principal partenaire du BDE.\nIl sponsorise l'ensemble de nos événements et ceux du BDS.",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 2,
+    "image": "uploads/partners/2850_New-logo-empire-du-malt-MARRON.jpg",
+    "name": "Empire du Malt",
+    "description": "En terre Auvergnate, l'Empire du Malt est un partenaire de choix : il nous propose ses produits, mais au delà de ça, il nous aide à l'organisation de l'ensemble de nos événements.",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 3,
+    "image": "uploads/partners/download.png",
+    "name": "STUD'CITY",
+    "description": "STUD'CITY, spécialiste du logement étudiant sur Clermont-Ferrand vous propose des logements meublés et équipés tout confort au plus proche des universités (à 7 min à pied du campus des Cézeaux) tout en apportant les services pratiques de la vie quotidienne (laverie-sécherie,  salle de sport, salon détente, kit linge, wifi, parking) et vous assurant la tranquillité et la sécurité (digicode, gardien sur place et vidéo-surveillance). Grâce au partenariat établi avec le BDE, les étudiants de l'ISIMA ont les frais de dossiers OFFERTS (d'une valeur de 150 €) ! Visite immédiate sur place à la résidence : JEAN COCTEAU, 9 Boulevard Pochet Layage, 63000 Clermont-Ferrand. Informations et réservations au 04 73 28 43 08 ou sur leur site : <a href=\"http://www.studcity-clermont.com\" target=\"_blank\" rel=\"noopener noreferrer\">http://www.studcity-clermont.com</a>",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 5,
+    "image": "uploads/partners/3M.jpg",
+    "name": "The 3 Monkeys pub",
+    "description": "Grâce a ce partenariat, tout étudiant ZZ peut demander à chacune des soirées ISIMA:\n- Sa pinte de kro à 3.5euros\n- Son pichet de kro à 10euros (pour des bières pongs)\n- Quelques cocktails à 3.5euros (le 3M propose régulièrement des cocktails à l'occasion des soirées ISIMA)",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 6,
+    "image": "uploads/partners/download_copy_copy.png",
+    "name": "NRJ Clermont",
+    "description": "NRJ Clermont est la radio de l'ambiance à écouter sur Clermont-Ferrand  ! Tout au long de l'année, vous serez au courant des plus grands événements. ",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 7,
+    "image": "uploads/partners/logo.png",
+    "name": "Ciné Jaude",
+    "description": "C'est notre cinéma partenaire ! Situé dans le centre de Clermont, vous pouvez regarder les grands films mais aussi participer à plusieurs manifestations exceptionnelles. ",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  },
+  {
+    "id": 8,
+    "image": "uploads/partners/auto-scool.png",
+    "name": "Auto'Scool",
+    "description": "L'Ecole de Conduite Auto'Scool propose des formations que ce soit pour le code de la route, la conduite, ou même le perfectionnement. Il s'agit d'une Ecole de Conduite très sympathique et sérieuse ! Étant étudiant à l'ISIMA, vous avez droit à une réduction de 50 € sur tous les forfaits ! Il suffit de présenter votre carte d'étudiant ! Auto'Scool possède deux agences sur Clermont-Ferrand proches des arrêts de Tramway :  <ul> <li>19 Boulevard Lafayette - Arrêt Université - 5 min</li> <li>147 Bis Avenue Léon Blum - Arrêt Léon Blum - 1 min</li> </ul> Pour plus d'informations : <a href=\"http://www.autoscool-clermont.com\" target=\"_blank\" rel=\"noopener noreferrer\">http://www.autoscool-clermont.com</a>",
+    "createdAt": "2019-11-21T17:01:35.000Z",
+    "updatedAt": "2019-11-21T17:01:35.000Z"
+  }
+]

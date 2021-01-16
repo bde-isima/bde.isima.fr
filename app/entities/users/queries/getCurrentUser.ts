@@ -11,7 +11,7 @@ export default async function getCurrentUser({ include }: GetCurrentUserInput, c
     return null
   }
 
-  return db.user.findUnique({ 
+  return db.user.findUnique({
     where: { id: ctx.session.userId },
     include,
   })
