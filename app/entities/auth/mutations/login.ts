@@ -32,7 +32,7 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
           view: "login",
           variables: {
             firstname: user.firstname,
-            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/verify-login?token=${token}`,
           },
         }),
       ])

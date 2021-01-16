@@ -3,9 +3,6 @@ const { sessionMiddleware, simpleRolesIsAuthorized } = require("@blitzjs/server"
 
 module.exports = withPWA({
   productionBrowserSourceMaps: true,
-  publicRuntimeConfig: {
-    staticFolder: "/static",
-  },
   middleware: [
     sessionMiddleware({
       isAuthorized: simpleRolesIsAuthorized,
