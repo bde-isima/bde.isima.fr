@@ -22,19 +22,20 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
     const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000)
 
     try {
-      await db.loginRequest.create({
-        data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes },
-      })
-
-      mail.send({
-        subject: "Connexion à bde.isima.fr",
-        to: user.email,
-        view: "login",
-        variables: {
-          firstname: user.firstname,
-          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
-        },
-      })
+      await Promise.all([
+        db.loginRequest.create({
+          data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes },
+        }),
+        mail.send({
+          subject: "Connexion à bde.isima.fr",
+          to: user.email,
+          view: "login",
+          variables: {
+            firstname: user.firstname,
+            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+          },
+        }),
+      ])
     } catch (err) {
       console.log(err)
       return err
