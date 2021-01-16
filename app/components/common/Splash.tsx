@@ -10,7 +10,7 @@ export default function Splash() {
         height={150}
         alt="Logo BDE ISIMA"
       />
-      <CircularProgress className="m-2" color="inherit" />
+      <CircularProgress className="m-4" size={25} color="inherit" />
     </div>
   )
 }
