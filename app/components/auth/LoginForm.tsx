@@ -45,6 +45,7 @@ export default function LoginForm() {
         name="identifier"
         label="Email ou n° de carte"
         autoComplete="username"
+        fullWidth
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />

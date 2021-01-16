@@ -15,7 +15,7 @@ export default async function feedback({ subject, message, from }: FeedbackInput
     mail.send({
       subject: from,
       to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
-      view: "feedback/template.min.html",
+      view: "feedback",
       variables: {
         message,
         from,

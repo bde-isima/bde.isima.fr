@@ -29,7 +29,7 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
       mail.send({
         subject: "Connexion à bde.isima.fr",
         to: user.email,
-        view: "login/template.min.html",
+        view: "login",
         variables: {
           firstname: user.firstname,
           link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
@@ -37,6 +37,7 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
       })
     } catch (err) {
       console.log(err)
+      return err
     }
   }
 

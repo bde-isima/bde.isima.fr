@@ -1,4 +1,4 @@
-import { useQuery } from "blitz"
+import { useQuery, useMutation } from "blitz"
 import { useTheme } from "@material-ui/core"
 import { VariableSizeGrid } from "react-window"
 import TextField from "@material-ui/core/TextField"
@@ -10,6 +10,7 @@ import Article from "./Article"
 import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
 import getArticles from "app/entities/articles/queries/getArticles"
+import deleteTransaction from "app/entities/transactions/mutations/deleteTransaction"
 
 const GUTTER_SIZE = 16
 
@@ -34,6 +35,7 @@ const innerElementType = forwardRef(
       ref={ref}
       style={{
         ...style,
+        paddingLeft: GUTTER_SIZE,
         paddingTop: GUTTER_SIZE,
       }}
       {...rest}
@@ -46,8 +48,11 @@ export default function Catalog({ user, onComplete }) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
   const [loading, setLoading] = useState(false)
+  const [previousTransaction, setPreviousTransaction] = useState<string | null>(null)
   const [searchArticleInput, setSearchArticleInput] = useState("")
   const { open, message, severity, onShow, onClose } = useSnackbar()
+
+  const [deleteT] = useMutation(deleteTransaction)
 
   const [{ articles }] = useQuery(
     getArticles,
@@ -60,13 +65,29 @@ export default function Catalog({ user, onComplete }) {
 
   const onChange = (event) => setSearchArticleInput(event.target.value)
 
+  const onUndo = () => {
+    deleteT({ where: { id: previousTransaction as string } }).then(() => {
+      setPreviousTransaction(null)
+      onShow("warning", "Vente annulée")
+      onComplete()
+    })
+  }
+
+  const onSnackClose = () => {
+    setPreviousTransaction(null)
+    onClose(undefined, undefined)
+  }
+
   const onTransaction = async (mutation) => {
     if (!loading) {
       setLoading(true)
       onShow("info", "Vente en cours ...")
 
       await mutation()
-        .then(() => {
+        .then((res) => {
+          if (res[0]) {
+            setPreviousTransaction(res[0].id)
+          }
           onShow("success", "Article vendu")
           onComplete()
         })
@@ -75,14 +96,14 @@ export default function Catalog({ user, onComplete }) {
     }
   }
 
-  const Cell = ({ key, columnIndex, rowIndex, style }) => {
+  const Cell = ({ columnIndex, rowIndex, style }) => {
     const article = filtered[rowIndex * itemsPerRow + columnIndex]
 
     if (!article) {
       return null
     }
 
-    return <Article key={key} user={user} article={article} onClick={onTransaction} style={style} />
+    return <Article user={user} article={article} onClick={onTransaction} style={style} />
   }
 
   return (
@@ -100,9 +121,9 @@ export default function Catalog({ user, onComplete }) {
           <VariableSizeGrid
             innerElementType={innerElementType}
             columnCount={itemsPerRow}
-            columnWidth={(index) => Math.floor(width / itemsPerRow)}
+            columnWidth={(index) => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             rowCount={Math.ceil(filtered.length / itemsPerRow)}
-            rowHeight={(index) => Math.floor(width / itemsPerRow) + GUTTER_SIZE}
+            rowHeight={(index) => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
           >
@@ -117,8 +138,9 @@ export default function Catalog({ user, onComplete }) {
         loading={loading}
         message={message}
         severity={severity}
-        onClose={onClose}
+        onClose={onSnackClose}
         anchorOrigin={{ vertical: "bottom", horizontal: fullScreen ? "center" : "right" }}
+        onUndo={previousTransaction ? onUndo : undefined}
       />
     </>
   )

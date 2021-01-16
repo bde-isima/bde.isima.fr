@@ -100,7 +100,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Facebook"
                 >
-                  <Facebook className="m-2" />
+                  <Facebook className="m-2 text-primary" />
                 </a>
               )}
               {item.twitterURL && (
@@ -111,7 +111,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Twitter"
                 >
-                  <Twitter className="m-2" />
+                  <Twitter className="m-2 text-primary" />
                 </a>
               )}
               {item.instagramURL && (
@@ -122,7 +122,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Instagram"
                 >
-                  <Instagram className="m-2" />
+                  <Instagram className="m-2 text-primary" />
                 </a>
               )}
               {item.customURL && (
@@ -133,7 +133,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien personnalisé"
                 >
-                  <Earth className="m-2" />
+                  <Earth className="m-2 text-primary" />
                 </a>
               )}
             </CardActions>

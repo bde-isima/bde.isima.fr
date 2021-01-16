@@ -50,25 +50,4 @@ const columns = [
     headerName: "Email",
     searchCriteria: "contains",
   },
-  {
-    id: "description",
-    headerName: "Description",
-    searchCriteria: "contains",
-  },
-  {
-    id: "facebook_URL",
-    headerName: "Facebook",
-  },
-  {
-    id: "twitter_URL",
-    headerName: "Twitter",
-  },
-  {
-    id: "instagram_URL",
-    headerName: "Instagram",
-  },
-  {
-    id: "custom_URL",
-    headerName: "Website",
-  },
 ]

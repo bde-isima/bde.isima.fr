@@ -27,7 +27,9 @@ export default function Article({ user, article, onClick, style }) {
     <div
       style={{
         ...style,
+        left: style.left + GUTTER_SIZE,
         top: style.top + GUTTER_SIZE,
+        width: style.width - GUTTER_SIZE,
         height: style.height - GUTTER_SIZE,
       }}
     >

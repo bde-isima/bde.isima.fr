@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
 import Menu from "@material-ui/core/Menu"
+import Avatar from "@material-ui/core/Avatar"
 import Divider from "@material-ui/core/Divider"
 import { useSession, useMutation } from "blitz"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -29,7 +30,7 @@ export default function ModulesMenu() {
 
   return (
     <div className="flex mx-2">
-      {session?.image && (
+      {session?.image ? (
         <Image
           className="rounded-full"
           src={session.image}
@@ -38,6 +39,8 @@ export default function ModulesMenu() {
           height={40}
           alt="Photo de profil"
         />
+      ) : (
+        <Avatar onClick={handleOpen} alt="Photo de profil" />
       )}
 
       <Menu

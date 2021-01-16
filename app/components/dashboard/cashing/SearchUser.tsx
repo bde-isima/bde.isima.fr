@@ -58,7 +58,11 @@ export default function SearchUser({
     getOptionDisabled: (option: User) => disableSelf && option.id === session?.userId,
     getOptionSelected: (option: User, value: User) => option.id === value.id,
     getOptionLabel: (option: User) =>
-      option ? `${option.card} - ${option.lastname} ${option.firstname} (${option.nickname})` : "",
+      option
+        ? `${option.card} - ${option.lastname} ${option.firstname} ${
+            option.nickname ? `(${option.nickname})` : ""
+          }`
+        : "",
     renderInput: (params) => (
       <TextField
         {...params}

@@ -1,3 +1,4 @@
+import cuid from "cuid"
 import { Ctx } from "blitz"
 
 import { mail } from "mail"
@@ -21,14 +22,26 @@ export default async function upsertUser({ where, create, update }: UpsertUserIn
     try {
       const subject = "Activation de ton compte BDE"
 
+      const token = cuid()
+      const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+
+      await db.loginRequest.create({
+        data: {
+          userId: newUser.id,
+          token,
+          callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
+          expires: inAWeek,
+        },
+      })
+
       mail.send({
         subject,
         to: newUser.email,
-        view: "activation/template.min.html",
+        view: "activation",
         variables: {
           subject,
           firstname: newUser.firstname,
-          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`,
+          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
         },
       })
     } catch (err) {

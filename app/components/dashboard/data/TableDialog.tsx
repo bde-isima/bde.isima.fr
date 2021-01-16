@@ -25,6 +25,10 @@ export default function TableDialog({
     columns.forEach((col) => {
       let value = data[col.id]
 
+      if (col.exclude) {
+        return
+      }
+
       if (typeof col.format === "function") {
         value = col.format(data[col.id])
       }
@@ -33,7 +37,7 @@ export default function TableDialog({
         value = value.trim()
       }
 
-      Object.assign(formattedData, { [col.id]: value })
+      Object.assign(formattedData, { [col.id]: value ?? null })
     })
     return formattedData
   }
@@ -56,6 +60,10 @@ export default function TableDialog({
           onShow("error", err.message)
         }
       })
+  }
+
+  if (!FormComponent) {
+    return null
   }
 
   return (

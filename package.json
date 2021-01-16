@@ -49,6 +49,8 @@
     "formidable": "1.2.2",
     "handlebars": "4.7.6",
     "mdi-material-ui": "6.20.0",
+    "mjml": "^4.8.1",
+    "mjml-react": "^1.0.65",
     "mui-rff": "2.5.6",
     "next-connect": "0.9.1",
     "next-pwa": "5.0.0",

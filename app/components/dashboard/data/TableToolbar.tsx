@@ -61,13 +61,15 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
             onKeyDown={onSearch}
           />
 
-          <div>
-            <Tooltip title="Ajouter">
-              <IconButton aria-label="Ajouter" onClick={onAdd}>
-                <PlusCircleOutline />
-              </IconButton>
-            </Tooltip>
-          </div>
+          {onAdd && (
+            <div>
+              <Tooltip title="Ajouter">
+                <IconButton aria-label="Ajouter" onClick={onAdd}>
+                  <PlusCircleOutline />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
         </div>
       )}
     </Toolbar>

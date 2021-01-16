@@ -2,6 +2,7 @@ const withPWA = require("next-pwa")
 const { sessionMiddleware, simpleRolesIsAuthorized } = require("@blitzjs/server")
 
 module.exports = withPWA({
+  productionBrowserSourceMaps: true,
   publicRuntimeConfig: {
     staticFolder: "/static",
   },
@@ -15,7 +16,7 @@ module.exports = withPWA({
     reactMode: "concurrent",
   },
   images: {
-    domains: ["s3.amazonaws.com", "placeimg.com", "imgur.com"],
+    domains: ["placeimg.com", "i.imgur.com"],
   },
   pwa: {
     disable: process.env.NODE_ENV === "development",

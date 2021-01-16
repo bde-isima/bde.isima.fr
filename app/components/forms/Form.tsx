@@ -53,7 +53,7 @@ export function Form<FormValues extends Record<string, unknown>>({
       render={({ handleSubmit, submitting, pristine, submitError }) => (
         <>
           {variant === "button" && (
-            <form onSubmit={handleSubmit} className="form flex flex-col" {...props}>
+            <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
               {children}
 
               {submitError && (

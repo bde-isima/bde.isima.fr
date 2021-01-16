@@ -11,7 +11,7 @@ export default async function contact({ subject, message, email }: ContactInput)
     mail.send({
       subject,
       to: `${process.env.SMTP_USER}@gmail.com`,
-      view: "contact/template.min.html",
+      view: "contact",
       variables: {
         subject,
         message,

@@ -23,7 +23,7 @@ export default function CarouselDialog({ selected, onClose }) {
         fullScreen={fullScreen}
         onClose={onClose}
         TransitionComponent={SlideTransition}
-        PaperProps={{ className: "w-full md:w-64" }}
+        PaperProps={{ className: "w-full" }}
         aria-labelledby="carousel-dialog-title"
       >
         <DialogActions id="carousel-dialog-title" className="text-right">

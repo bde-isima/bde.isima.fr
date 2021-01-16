@@ -1,5 +1,5 @@
+import { useState } from "react"
 import { Color } from "@material-ui/core/Alert"
-import { useState, SyntheticEvent } from "react"
 
 export default function useSnackbar() {
   const [open, setOpen] = useState(false)
@@ -12,7 +12,7 @@ export default function useSnackbar() {
     setOpen(true)
   }
 
-  const onClose = (event: SyntheticEvent | MouseEvent, reason?: string) => {
+  const onClose = (_, reason?: string) => {
     if (reason === "clickaway") return
     setOpen(false)
   }

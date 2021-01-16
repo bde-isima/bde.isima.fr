@@ -18,8 +18,9 @@ type SettingsFormProps = {
 export default function SettingsForm(props: SettingsFormProps) {
   const [user] = useCurrentUser()
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: SettingsInputType) => {
     try {
+      console.log(values)
       await props.onSuccess(values)
     } catch (error) {
       return {
@@ -41,12 +42,18 @@ export default function SettingsForm(props: SettingsFormProps) {
       autoComplete="off"
     >
       <Typography variant="h6" color="textSecondary">
-        {user?.lastname} {user?.firstname} (n° {user?.card})
+        {user?.lastname} {user?.firstname} (n° {user?.card}) -{" "}
+        {user?.is_member ? "Cotisant" : "Non-cotisant"}
       </Typography>
 
       <Divider className="m-2" />
 
-      <TextField type="text" name="nickname" label="Surnom" />
+      <TextField
+        type="text"
+        name="nickname"
+        label="Surnom"
+        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
+      />
       <TextField type="email" name="email" label="Adresse email" />
 
       <Divider className="m-2" />
@@ -81,6 +88,7 @@ export default function SettingsForm(props: SettingsFormProps) {
             </InputAdornment>
           ),
         }}
+        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
       />
     </Form>
   )

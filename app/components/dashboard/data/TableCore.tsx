@@ -19,7 +19,7 @@ type TableCoreProps = {
   rows: any[]
   columns: any[]
   selected: { value: any[]; set: Dispatch<SetStateAction<string[]>> }
-  onEdit: (values: any) => void
+  onEdit?: (values: any) => void
   isFetching: boolean
   tableProps: any
   handleCustomAction: (onClick: any) => (e: any) => Promise<void>
@@ -80,13 +80,13 @@ export default function TableCore({
 
   const editClick = (row) => (e) => {
     e.stopPropagation()
-    onEdit(row)
+    onEdit && onEdit(row)
   }
 
   const copyClick = (row) => (e) => {
     const { id, ...rest } = row
     e.stopPropagation()
-    onEdit({ ...rest })
+    onEdit && onEdit({ ...rest })
   }
 
   return (
@@ -167,13 +167,15 @@ export default function TableCore({
                     </TableCell>
                   )}
 
-                  <TableCell align="right">
-                    <Tooltip title="Éditer">
-                      <IconButton aria-label="Éditer" onClick={editClick(row)}>
-                        <CircleEditOutline />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
+                  {onEdit && (
+                    <TableCell align="right">
+                      <Tooltip title="Éditer">
+                        <IconButton aria-label="Éditer" onClick={editClick(row)}>
+                          <CircleEditOutline />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  )}
                 </TableRow>
               )
             })}

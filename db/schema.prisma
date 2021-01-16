@@ -176,8 +176,8 @@ model User {
     roles                   String[]
     sessions                Session[]
 
-    promotion               Promotion @relation(fields: [promotionId], references: [id])
-    promotionId             String
+    promotion               Promotion? @relation(fields: [promotionId], references: [id])
+    promotionId             String?
 
     transactions            Transaction[] @relation("TransactionUser")
     userStats               UserStats?

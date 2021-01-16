@@ -10,12 +10,12 @@ const users = async (db) => {
       lastname: "Lenoir",
       firstname: "Adrien",
       nickname: faker.name.findName(),
-      image: faker.image.imageUrl(),
+      image: faker.image.imageUrl(100, 100, undefined, false, true),
       email: "adrien.lenoir42440@gmail.com",
       card: 941,
       balance: 0,
       roles: "*",
-      promotion: { connect: { id: promotion.id } },
+      promotionId: promotion.id,
     },
   })
 
@@ -25,11 +25,11 @@ const users = async (db) => {
         lastname: faker.name.lastName(),
         firstname: faker.name.firstName(),
         nickname: faker.name.findName(),
-        image: faker.image.imageUrl(),
+        image: faker.image.imageUrl(100, 100, undefined, false, true),
         email: faker.internet.email(),
         card: faker.random.number(),
         balance: parseFloat(faker.finance.amount()),
-        promotion: { connect: { id: promotion.id } },
+        promotionId: promotion.id,
       },
     })
   }

@@ -11,8 +11,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery"
 import DialogActions from "@material-ui/core/DialogActions"
 import BottomNavigation from "@material-ui/core/BottomNavigation"
 import CircularProgress from "@material-ui/core/CircularProgress"
+import { lazy, Suspense, unstable_SuspenseList, useState } from "react"
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
-import { lazy, Suspense, unstable_SuspenseList, useState, SyntheticEvent } from "react"
 
 import Close from "mdi-material-ui/Close"
 import HistoryIcon from "mdi-material-ui/History"
@@ -39,12 +39,11 @@ export default function CashingDialog({ user, onSelection, onClear }) {
   const [value, setValue] = useState(0)
   const [open, setOpen] = useState(false)
 
-  const onChange = (event: SyntheticEvent, newValue: number) => setValue(newValue)
+  const onChange = (_, newValue: number) => setValue(newValue)
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setValue(value > 1 ? value : value + 1),
     onSwipedRight: () => setValue(value < 1 ? value : value - 1),
-    onSwipedDown: () => onClear(),
   })
 
   const onComplete = () => {
@@ -62,6 +61,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
           keepMounted
           fullWidth
           onClose={onClear}
+          PaperProps={{ className: "w-full" }}
           aria-labelledby="cashing-dialog-title"
           aria-describedby="cashing-dialog-description"
           {...handlers}
@@ -87,10 +87,10 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             </Suspense>
           </DialogActions>
 
-          <DialogContent className="flex flex-col">
+          <DialogContent className="flex flex-col overflow-y-hidden">
             <SuspenseList revealOrder="forwards">
               <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel className="h-full" value="0">
+                <TabPanel className="h-full mb-14" value="0">
                   <Catalog user={user} onComplete={onComplete} />
                 </TabPanel>
               </Suspense>
