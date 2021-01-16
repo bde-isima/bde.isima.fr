@@ -3,7 +3,7 @@ version: "3.7"
 services:
   bde_postgres:
     container_name: bde_postgres
-    image: postgres:latest
+    image: postgres
     restart: always
     ports:
       - 5432:5432
@@ -11,6 +11,18 @@ services:
       - .env
     volumes:
       - bde_data:/var/lib/postgresql/data
+
+  bde_pgbouncer:
+    container_name: bde_pgbouncer
+    image: brainsam/pgbouncer
+    env_file:
+      - .env
+    links:
+      - bde_postgres:postgres
+    ports:
+      - 6432:6432
+    depends_on:
+      - bde_postgres
 
   bde_pgadmin:
     container_name: bde_pgadmin
@@ -22,6 +34,10 @@ services:
       - .env
     volumes:
       - bde_pgadmin:/root/.pgadmin
+    links:
+      - bde_postgres:postgres
+    depends_on:
+      - bde_postgres
 
 volumes:
   bde_data:
