@@ -4,15 +4,17 @@ import users from "./1.json"
 import clubs from "./2.json"
 import partners from "./3.json"
 import promotions from "./4.json"
-
 ;(async () => {
   const seeds = [
     "session",
-    "transaction",
     "loginRequest",
     "userStats",
+    "analytic",
+    "eventSubscription",
+    "transaction",
     "partner",
     "article",
+    "event",
     "user",
     "club",
     "promotion",
