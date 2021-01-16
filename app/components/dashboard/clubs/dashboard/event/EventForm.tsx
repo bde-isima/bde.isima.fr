@@ -19,7 +19,6 @@ import ProductsForm from "./ProductsForm"
 import TabPanel from "app/layouts/TabPanel"
 import GroupOptionsForm from "./GroupOptionsForm"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
 import { EventInput, EventInputType } from "app/components/forms/validations"
 
 type EventFormProps = {
@@ -36,7 +35,10 @@ export default function EventForm(props: EventFormProps) {
 
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess({
+        ...values,
+        max_subscribers: parseInt(values.max_subscribers) || null,
+      })
     } catch (error) {
       return {
         [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
@@ -54,7 +56,7 @@ export default function EventForm(props: EventFormProps) {
       takes_place_at: new Date(props.initialValues?.takes_place_at ?? new Date()),
       subscriptions_end_at: new Date(props.initialValues?.subscriptions_end_at ?? new Date()),
       status: props.initialValues?.status || "WAITING_APPROVAL",
-      max_subscribers: props.initialValues?.max_subscribers,
+      max_subscribers: props.initialValues?.max_subscribers?.toString(),
       club: { connect: { name: `${router.query.name}` } },
       products: props.initialValues?.products
         ? (props.initialValues?.products as any[]).map((i) => ({
@@ -106,7 +108,7 @@ export default function EventForm(props: EventFormProps) {
         <TabPanel value="0">
           <TextField type="text" name="name" label="Nom" />
           <TextField type="text" name="description" label="Description" multiline rows={5} />
-          <EnhancedTextField type="number" name="max_subscribers" label="Limite de participants" />
+          <TextField type="text" name="max_subscribers" label="Limite de participants" />
 
           <Divider className="m-2" />
 

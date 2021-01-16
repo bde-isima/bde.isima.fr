@@ -72,6 +72,7 @@ const columns = [
   },
   {
     id: "promotion",
+    exclude: true,
     headerName: "Promotion",
     render: (row) => row.promotion?.year,
   },

@@ -1,17 +1,7 @@
-import fs from "fs"
-import path from "path"
-import getConfig from "next/config"
+import { render } from "mjml-react"
 import Handlebars from "handlebars"
 
-const resolveView = (viewPath: string) => {
-  const viewResolvedPath = path.resolve(viewPath)
-
-  if (!fs.existsSync(viewResolvedPath)) {
-    throw new Error(`Template "${viewResolvedPath}" doesn't exist.`)
-  }
-
-  return fs.readFileSync(viewResolvedPath, "utf8")
-}
+import templates from "./templates"
 
 export const compileView = ({
   subject,
@@ -22,14 +12,12 @@ export const compileView = ({
   view: string
   variables: object
 }) => {
-  const { publicRuntimeConfig } = getConfig()
-  const content = resolveView(path.join(publicRuntimeConfig.staticFolder, `mails/${view}`))
-  const layout = resolveView(path.join(publicRuntimeConfig.staticFolder, "mails/layout.html"))
+  const viewContent = render(templates[view].generate())
 
-  const formattedContent = Handlebars.compile(content)(variables)
+  console.log(viewContent.errors)
 
-  return Handlebars.compile(layout)({
+  return Handlebars.compile(viewContent.html)({
     subject,
-    content: formattedContent,
+    ...variables,
   })
 }

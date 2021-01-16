@@ -7,7 +7,7 @@ const articles = async (db) => {
         name: faker.lorem.word(),
         price: parseFloat(faker.finance.amount()),
         member_price: parseFloat(faker.finance.amount()),
-        image: faker.image.imageUrl(),
+        image: faker.image.imageUrl(100, 100, undefined, false, true),
       },
     })
   }

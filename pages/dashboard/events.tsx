@@ -1,5 +1,5 @@
 import { format } from "date-fns"
-import { useMutation } from "blitz"
+import { useMutation, invalidateQuery } from "blitz"
 
 import Check from "mdi-material-ui/Check"
 import CurrencyUsd from "mdi-material-ui/CurrencyUsd"
@@ -9,7 +9,6 @@ import PageTitle from "app/layouts/PageTitle"
 import useSnackbar from "app/hooks/useSnackbar"
 import Table from "app/components/dashboard/data/Table"
 import getEvents from "app/entities/events/queries/getEvents"
-import EventForm from "app/components/dashboard/events/EventForm"
 import upsertEvent from "app/entities/events/mutations/upsertEvent"
 import updateEvent from "app/entities/events/mutations/updateEvent"
 import EventStatus from "app/components/dashboard/events/EventStatus"
@@ -26,13 +25,19 @@ export default function Events() {
 
   const approve = (rowData) => () => {
     return updateEvnt({ where: { id: rowData.id }, data: { status: "ACCEPTED" } })
-      .then(() => onShow("success", "Approuvé"))
+      .then(() => {
+        onShow("success", "Approuvé")
+        invalidateQuery(getEvents)
+      })
       .catch((err) => onShow("error", err.message))
   }
 
   const checkout = (rowData) => () => {
     return checkoutEvnt({ where: { id: rowData.id } })
-      .then(() => onShow("success", "Encaissé"))
+      .then(() => {
+        onShow("success", "Encaissé")
+        invalidateQuery(getEvents)
+      })
       .catch((err) => onShow("error", err.message))
   }
 
@@ -60,7 +65,6 @@ export default function Events() {
         }}
         upsertQuery={upsertEvent}
         deleteQuery={deleteManyEvents}
-        FormComponent={EventForm}
         actions={[
           (rowData) => ({
             icon: <Check />,

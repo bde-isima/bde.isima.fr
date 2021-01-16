@@ -18,6 +18,7 @@ type ClubFormProps = {
 
 export default function ClubForm(props: ClubFormProps) {
   const onSubmit = async (values) => {
+    console.log(values)
     try {
       await props.onSuccess(values)
     } catch (error) {
@@ -81,7 +82,7 @@ export default function ClubForm(props: ClubFormProps) {
 
       <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
       <TextField type="email" name="email" label="Adresse email" />
-      <TextField type="text" name="description" label="Description" />
+      <TextField type="text" name="description" label="Description" multiline rows={15} />
 
       <Divider className="m-2" />
 

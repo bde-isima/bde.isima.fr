@@ -1,5 +1,15 @@
 import * as z from "zod"
 
+export const beforeSubmit: any = (values) => {
+  const returnValues = {}
+  Object.keys(values).forEach((x) => {
+    Object.assign(returnValues, { [x]: values[x] ?? null })
+  })
+  console.log(values)
+  console.log(returnValues)
+  return returnValues
+}
+
 export const LoginInput = z.object({
   identifier: z.string(),
 })
@@ -23,7 +33,7 @@ export const TransferInput = z.object({
 export type TransferInputType = z.infer<typeof TransferInput>
 
 export const AdminTransferInput = z.object({
-  amount: z.number().positive(),
+  amount: z.number(),
   description: z.string().max(255).optional().nullable(),
 })
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
@@ -53,7 +63,14 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
   })
   .nonstrict()
 export type SettingsInputType = z.infer<typeof SettingsInput>
@@ -61,7 +78,14 @@ export type SettingsInputType = z.infer<typeof SettingsInput>
 export const ClubInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     email: z.string().email().max(255).optional().nullable(),
     description: z.string().max(3000).optional().nullable(),
     facebookURL: z.string().url().optional().nullable(),
@@ -75,7 +99,14 @@ export type ClubInputType = z.infer<typeof ClubInput>
 export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     price: z.number().positive(),
     member_price: z.number().positive(),
     is_enabled: z.boolean().optional(),
@@ -86,7 +117,14 @@ export type ArticleInputType = z.infer<typeof ArticleInput>
 export const PartnerInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
   })
@@ -106,7 +144,14 @@ export type PromotionInputType = z.infer<typeof PromotionInput>
 export const UserInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     lastname: z.string().max(255),
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
@@ -114,7 +159,7 @@ export const UserInput = z
     card: z.number().optional().nullable(),
     balance: z.number(),
     roles: z.array(z.string()),
-    promotionId: z.string(),
+    promotionId: z.string().optional().nullable(),
     is_member: z.boolean(),
     is_enabled: z.boolean(),
   })
@@ -124,7 +169,14 @@ export type UserInputType = z.infer<typeof UserInput>
 export const EventInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    image: z
+      .string()
+      .url()
+      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+        message: "L'URL doit provenir d'Imgur",
+      })
+      .optional()
+      .nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
     takes_place_at: z.date(),
@@ -135,11 +187,15 @@ export const EventInput = z
         name: z.string(),
       }),
     }),
-    max_subscribers: z.number().min(0).optional().nullable(),
+    max_subscribers: z
+      .string()
+      .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Nombre invalide" })
+      .optional()
+      .nullable(),
     products: z.array(
       z.object({
         name: z.string().max(255),
-        price: z.number().positive(),
+        price: z.number().nonnegative(),
         description: z.string().max(3000).optional().nullable(),
         groupOptions: z.array(
           z.object({
@@ -148,7 +204,7 @@ export const EventInput = z
             options: z.array(
               z.object({
                 name: z.string().max(255),
-                price: z.number().positive(),
+                price: z.number().nonnegative(),
                 description: z.string().max(3000).optional().nullable(),
               })
             ),
@@ -167,7 +223,7 @@ export const EventSubscriptionInput = z
       z.object({
         name: z.string().max(255),
         description: z.string().max(500).optional().nullable(),
-        price: z.number().positive(),
+        price: z.number().nonnegative(),
         quantity: z.number().positive(),
         comment: z.string().optional().nullable(),
         options: z
@@ -175,7 +231,7 @@ export const EventSubscriptionInput = z
             z.object({
               name: z.string().max(255),
               description: z.string().max(500).optional().nullable(),
-              price: z.number().positive(),
+              price: z.number().nonnegative(),
             })
           )
           .optional()

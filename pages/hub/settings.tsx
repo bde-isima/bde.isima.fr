@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import Paper from "@material-ui/core/Paper"
-import { useMutation, useSession } from "blitz"
+import { useMutation, useSession, invalidateQuery } from "blitz"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
@@ -10,6 +10,7 @@ import useSnackbar from "app/hooks/useSnackbar"
 import updateUser from "app/entities/users/mutations/updateUser"
 import SettingsForm from "app/components/hub/settings/SettingsForm"
 import { SettingsInputType } from "app/components/forms/validations"
+import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 
 export default function Settings() {
   const session = useSession()
@@ -19,8 +20,14 @@ export default function Settings() {
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
   const onSuccess = (data: SettingsInputType) => {
-    return updtUser({ where: { id: session?.userId }, data })
-      .then(() => onShow("success", "Sauvegardé"))
+    return updtUser({
+      data,
+      where: { id: session?.userId },
+    })
+      .then(() => {
+        onShow("success", "Sauvegardé")
+        invalidateQuery(getCurrentUser)
+      })
       .catch((err) => onShow("error", err.message))
   }
 

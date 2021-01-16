@@ -20,7 +20,7 @@ type TableProps = {
   deleteQuery: any
   allowCopy?: boolean
   onExport?: (rowData: any) => void
-  FormComponent: ReactNode
+  FormComponent?: ReactNode
   actions?: any[]
 }
 
@@ -35,7 +35,7 @@ export default function Table({
   deleteQuery,
   allowCopy = false,
   onExport = undefined,
-  FormComponent,
+  FormComponent = undefined,
   actions = [],
 }: TableProps) {
   const { page, order, search, orderBy, rowsPerPage } = useTableProps()
@@ -133,7 +133,7 @@ export default function Table({
       <TableToolbar
         title={title}
         numSelected={selected.length}
-        onAdd={onAdd}
+        onAdd={FormComponent ? onAdd : undefined}
         onDelete={handleDeleteAllClick}
         onExport={handleExportAllClick}
         onSearch={onSearch}
@@ -143,7 +143,7 @@ export default function Table({
         rows={rows}
         columns={columns}
         selected={{ value: selected, set: setSelected }}
-        onEdit={onEdit}
+        onEdit={FormComponent ? onEdit : undefined}
         isFetching={isFetching}
         tableProps={{
           order,

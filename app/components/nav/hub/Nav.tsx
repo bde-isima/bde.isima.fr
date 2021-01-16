@@ -49,10 +49,8 @@ export default function Nav() {
           </div>
         </Hidden>
 
-        <div className="flex items-center">
-          <ModulesMenu />
-          <AvatarMenu />
-        </div>
+        <ModulesMenu />
+        <AvatarMenu />
       </Toolbar>
     </AppBar>
   )

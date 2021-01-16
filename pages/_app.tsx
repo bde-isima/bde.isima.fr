@@ -58,6 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <StrictMode>
       <CacheProvider value={cache}>
         <Head>
+          <title>BDE ISIMA</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"

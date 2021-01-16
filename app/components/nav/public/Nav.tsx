@@ -61,7 +61,7 @@ export default function Nav() {
           />
 
           <Hidden mdUp>
-            <div className="flex md:flex-grow justify-start">
+            <div className="flex lg:flex-grow justify-start">
               <IconButton
                 aria-label="Menu"
                 onClick={toggleDrawer(setIsMobileMenuOpen, true)}
@@ -73,7 +73,7 @@ export default function Nav() {
           </Hidden>
 
           <Link href="/" passHref>
-            <div className="mx-auto md:ml-0">
+            <div className="mx-auto lg:ml-0">
               <Image
                 className="rounded-full"
                 src="/static/images/logos/logo.svg"
@@ -120,6 +120,7 @@ export default function Nav() {
             <Dialog
               open={isLoginMenuOpen}
               fullScreen={fullScreen}
+              PaperProps={{ className: "w-full" }}
               onClose={toggleDrawer(setIsLoginMenuOpen, false)}
             >
               <DialogActions>
