@@ -5,6 +5,12 @@ services:
     container_name: bde_postgres
     image: postgres
     restart: always
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=100"
+      - "-c"
+      - "shared_buffers=2GB"
     ports:
       - 6432:5432
     env_file:
@@ -34,7 +40,7 @@ services:
     env_file:
       - .env
     volumes:
-      - bde_pgadmin:/root/.pgadmin
+      - bde_pgadmin:/var/lib/pgadmin
     links:
       - bde_postgres:postgres
     depends_on:

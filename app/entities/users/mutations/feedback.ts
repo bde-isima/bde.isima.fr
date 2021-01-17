@@ -12,11 +12,12 @@ export default async function feedback({ subject, message, from }: FeedbackInput
   ctx.session.authorize()
 
   try {
-    mail.send({
+    await mail.send({
       subject: from,
       to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
       view: "feedback",
       variables: {
+        subject: from,
         message,
         from,
       },

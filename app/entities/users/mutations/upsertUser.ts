@@ -20,30 +20,30 @@ export default async function upsertUser({ where, create, update }: UpsertUserIn
     const newUser = await db.user.create({ data: create })
 
     try {
-      const subject = "Activation de ton compte BDE"
-
       const token = cuid()
+      const subject = "Activation de ton compte BDE"
       const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
 
-      await db.loginRequest.create({
-        data: {
-          userId: newUser.id,
-          token,
-          callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
-          expires: inAWeek,
-        },
-      })
-
-      mail.send({
-        subject,
-        to: newUser.email,
-        view: "activation",
-        variables: {
+      await Promise.all([
+        db.loginRequest.create({
+          data: {
+            userId: newUser.id,
+            token,
+            callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
+            expires: inAWeek,
+          },
+        }),
+        mail.send({
           subject,
-          firstname: newUser.firstname,
-          link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
-        },
-      })
+          to: newUser.email,
+          view: "activation",
+          variables: {
+            subject,
+            firstname: newUser.firstname,
+            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+          },
+        }),
+      ])
     } catch (err) {
       console.log(err)
     }

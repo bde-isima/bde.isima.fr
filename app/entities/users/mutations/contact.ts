@@ -8,7 +8,7 @@ type ContactInput = {
 
 export default async function contact({ subject, message, email }: ContactInput) {
   try {
-    mail.send({
+    await mail.send({
       subject,
       to: `${process.env.SMTP_USER}@gmail.com`,
       view: "contact",

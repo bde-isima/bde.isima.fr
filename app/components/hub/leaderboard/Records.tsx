@@ -19,13 +19,15 @@ export default function Records({ leaderboard }) {
         return (
           <TableRow key={row.articleName}>
             <TableCell align="right">
-              <Image
-                className="rounded-full"
-                src={row.articleImage}
-                width={40}
-                height={40}
-                alt={`Image de ${row.articleName}`}
-              />
+              {row.articleImage && (
+                <Image
+                  className="rounded-full"
+                  src={row.articleImage}
+                  width={40}
+                  height={40}
+                  alt={`Image de ${row.articleName}`}
+                />
+              )}
             </TableCell>
             <TableCell component="th" scope="row" align="right">
               {row.articleName}
