@@ -30,15 +30,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const tAmount = parseFloat(amount)
 
   if (sig !== signature) {
-    console.error(sig)
-    console.error(amount)
-    console.error(signature)
-    console.error(currency)
-    console.error(request_id)
-    console.error(signed)
-    console.error(vendor_token)
-    console.error(transaction_identifier)
-    console.error(order_ref)
     console.error("Rechargement non autorisé")
     res.status(401).json({ name: "Rechargement non autorisé" })
   } else if (Number.isNaN(tAmount) || tAmount <= 0) {
