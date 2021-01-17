@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  bde_nginx:
+    container_name: bde_nginx
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ../logs:/var/log/nginx
+      - ./app/deploy/conf:/etc/nginx/conf.d
+      - ../ssl:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+
+  bde_app:
+    container_name: bde_app
+    image: node:14
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - ./:/usr/app
+    ports:
+      - 3000:3000
+    command: npm start

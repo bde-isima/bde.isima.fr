@@ -35,7 +35,10 @@ export const generate = () => {
           textAlign="center"
         >
           <MjmlColumn>
-            <MjmlImage width="75px" src="https://bde.isima.fr/static/images/logos/logo.svg" />
+            <MjmlImage
+              width="75px"
+              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/logos/logo.svg`}
+            />
             <MjmlText align="center" color="#FFF" fontWeight="bold" fontSize="46px">
               BDE ISIMA
             </MjmlText>

@@ -32,6 +32,7 @@ export default function TableHead({
         {columns.map((col) => (
           <TableCell key={col.id} align="right" sortDirection={orderBy === col.id ? order : false}>
             <TableSortLabel
+              disabled={!col.searchCriteria}
               active={orderBy === col.id}
               direction={orderBy === col.id ? order : "asc"}
               onClick={createSortHandler(col.id)}
