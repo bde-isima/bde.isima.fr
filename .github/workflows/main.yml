@@ -17,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      
     - name: Install Node.js
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
+    
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
@@ -36,10 +38,32 @@ jobs:
         envkey_NEXT_PUBLIC_LYDIA_API_URL: ${{ secrets.NEXT_PUBLIC_LYDIA_API_URL }}
         envkey_LYDIA_API_VENDOR_ID: ${{ secrets.LYDIA_API_VENDOR_ID }}
         envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    
     - name: Install npm dependencies
       run: npm install --progress=false
+    
     - name: Run build task
       run: npm run build --if-present
+    
+    - name: Install Open VPN
+      run: sudo apt-get install openvpn
+    
+    - name: Connect VPN
+      uses: golfzaptw/action-connect-ovpn@master
+      id: connect_vpn
+      with:
+        PING_URL: '127.0.0.1'
+        FILE_OVPN: '.github/vpn/config.ovpn'
+        SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
+        TLS_KEY: ${{ secrets.TLS_KEY }}
+      env:
+        CA_CRT: ${{ secrets.CA_CRT}}
+        USER_CRT: ${{ secrets.USER_CRT }}
+        USER_KEY: ${{ secrets.USER_KEY }}
+    
+    - name: Check Connect VPN
+      run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+    
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
@@ -48,3 +72,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
+    
+    - name: kill vpn
+      if: always()
+      run: sudo killall openvpn
