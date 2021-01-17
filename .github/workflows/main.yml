@@ -67,7 +67,7 @@ jobs:
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
-          ARGS: "-rltgoDzvO --delete"
+          ARGS: "-rltgoDzvO --delete --rsync-path=\"sudo rsync\""
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
