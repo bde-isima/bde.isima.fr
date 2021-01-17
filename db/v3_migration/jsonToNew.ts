@@ -86,6 +86,7 @@ import promotions from "./4.json"
           .then((res) => ({
             oldId: x.id,
             newId: res.id,
+            year: x.year,
           }))
       )
     )
@@ -125,8 +126,9 @@ import promotions from "./4.json"
                 articlesStats,
               },
             },
+            roles: x.email === "adrien.lenoir42440@gmail.com" ? ["*"] : [],
             is_member: x.is_member,
-            is_enabled: x.is_enabled,
+            is_enabled: res?.year && res.year > 2019 ? true : false,
             createdAt: x.created_at,
           },
         })
