@@ -27,6 +27,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const tAmount = parseFloat(amount)
 
   if (sigArray[sigArray.length - 1] !== process.env.LYDIA_API_VENDOR_ID) {
+    console.error(sigArray)
     console.error("Rechargement non autorisé")
     res.status(401).json({ name: "Rechargement non autorisé" })
   } else if (Number.isNaN(tAmount) || tAmount <= 0) {
