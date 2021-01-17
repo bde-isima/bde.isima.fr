@@ -48,7 +48,7 @@ export default function Clubs() {
             </Grid>
           </Grid>
 
-          <Suspense fallback={<CircularProgress size={25} />}>
+          <Suspense fallback={<CircularProgress className="mx-auto" size={25} color="secondary" />}>
             <Carousel getQuery={getClubs} queryKey="clubs" />
           </Suspense>
         </div>
