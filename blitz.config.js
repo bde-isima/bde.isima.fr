@@ -16,7 +16,7 @@ module.exports = withPWA({
   },
   pwa: {
     disable: process.env.NODE_ENV === "development",
-    dest: "public",
+    dest: "../../../public",
   },
   /* Uncomment this to customize the webpack config
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
