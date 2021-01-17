@@ -1,5 +1,5 @@
 import "react-multi-carousel/lib/styles.css"
-import { lazy, unstable_SuspenseList } from "react"
+import { lazy, Suspense, unstable_SuspenseList } from "react"
 
 const SuspenseList = unstable_SuspenseList
 const Clubs = lazy(() => import("app/components/public/Clubs"))
@@ -13,13 +13,27 @@ const Contact = lazy(() => import("app/components/public/contact/Contact"))
 export default function Index() {
   return (
     <SuspenseList revealOrder="forwards">
-      <Landing />
-      <School />
-      <Clubs />
-      <Partners />
-      <Contact />
-      <Footer />
-      <MessengerChat />
+      <Suspense fallback={null}>
+        <Landing />
+      </Suspense>
+      <Suspense fallback={null}>
+        <School />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Clubs />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Partners />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Contact />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+      <Suspense fallback={null}>
+        <MessengerChat />
+      </Suspense>
     </SuspenseList>
   )
 }
