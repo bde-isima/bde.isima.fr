@@ -86,6 +86,14 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
     
+    - name: Restart server
+      uses: cd bde-isima && garygrossgarten/github-action-ssh@release
+      with:
+        command: docker-compose restart
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.SERVER_SSH_KEY}}
+    
     - name: kill vpn
       if: always()
       run: sudo killall openvpn
