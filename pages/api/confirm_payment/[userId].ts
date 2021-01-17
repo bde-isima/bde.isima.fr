@@ -24,18 +24,20 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   } = body
 
   const signature = md5(
-    `&amount=${amount}currency=${currency}&order_ref=${order_ref}&request_id=${request_id}&signed=${signed}&transaction_identifier${transaction_identifier}&vendor_token${vendor_token}&${process.env.LYDIA_API_VENDOR_ID}`
+    `amount=${amount}&currency=${currency}&order_ref=${order_ref}&request_id=${request_id}&signed=${signed}&transaction_identifier=${transaction_identifier}&vendor_token=${vendor_token}&${process.env.LYDIA_API_VENDOR_ID}`
   )
   const id = query.userId as string
   const tAmount = parseFloat(amount)
 
   if (sig !== signature) {
     console.error(sig)
+    console.error(amount)
     console.error(signature)
     console.error(currency)
     console.error(request_id)
     console.error(signed)
     console.error(vendor_token)
+    console.error(transaction_identifier)
     console.error(order_ref)
     console.error("Rechargement non autorisé")
     res.status(401).json({ name: "Rechargement non autorisé" })
