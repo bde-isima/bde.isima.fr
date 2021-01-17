@@ -14,13 +14,13 @@ services:
 
   bde_pgbouncer:
     container_name: bde_pgbouncer
-    image: brainsam/pgbouncer
+    image: edoburu/pgbouncer
     env_file:
       - .env
     links:
       - bde_postgres:postgres
     ports:
-      - 5432:6432
+      - 5432:5432
     depends_on:
       - bde_postgres
 
@@ -30,7 +30,7 @@ services:
     restart: always
     ports:
       - 8443:443
-      - 8480:80
+      - 8080:80
     env_file:
       - .env
     volumes:
