@@ -19,6 +19,7 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
 
   if (user) {
     const token = cuid()
+    const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`
     const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000)
 
     try {
@@ -27,10 +28,11 @@ export default async function login(input: LoginWithCallbackInputType, ctx: Ctx)
           data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes },
         }),
         mail.send({
-          subject: "Connexion à bde.isima.fr",
+          subject,
           to: user.email,
           view: "login",
           variables: {
+            subject,
             firstname: user.firstname,
             link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/verify-login?token=${token}`,
           },
