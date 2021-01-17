@@ -27,8 +27,10 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const tAmount = parseFloat(amount)
 
   if (sigArray[sigArray.length - 1] !== process.env.LYDIA_API_VENDOR_ID) {
+    console.error("Rechargement non autorisé")
     res.status(401).json({ name: "Rechargement non autorisé" })
   } else if (Number.isNaN(tAmount) || tAmount <= 0) {
+    console.error("Montant incorrect")
     res.status(403).json({ name: "Montant incorrect" })
   } else {
     const user = await db.user.findUnique({ where: { id } })
@@ -50,8 +52,10 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
         }),
       ])
 
+      console.log("Rechargement effectué")
       res.status(200).json({ name: "Rechargement effectué" })
     } else {
+      console.error("Utilisateur introuvable")
       res.status(404).json({ name: "Utilisateur introuvable" })
     }
   }
