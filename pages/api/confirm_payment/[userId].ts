@@ -1,3 +1,4 @@
+import md5 from "md5"
 import nextConnect from "next-connect"
 import { NextApiRequest, NextApiResponse } from "next"
 
@@ -17,17 +18,20 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     //currency,
     //request_id,
     //signed,
-    //transaction_identifier,
+    transaction_identifier,
     //vendor_token,
     //order_ref,
   } = body
 
-  const sigArray = sig.split("&") //@see https://homologation.lydia-app.com/doc/api/#signature
+  const signature = md5(
+    `amount=${amount}&transaction_identifier${transaction_identifier}&${process.env.LYDIA_API_VENDOR_ID}`
+  )
   const id = query.userId as string
   const tAmount = parseFloat(amount)
 
-  if (sigArray[sigArray.length - 1] !== process.env.LYDIA_API_VENDOR_ID) {
-    console.error(sigArray)
+  if (sig !== signature) {
+    console.error(sig)
+    console.error(signature)
     console.error("Rechargement non autorisé")
     res.status(401).json({ name: "Rechargement non autorisé" })
   } else if (Number.isNaN(tAmount) || tAmount <= 0) {

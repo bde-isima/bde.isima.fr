@@ -48,6 +48,7 @@
     "final-form-arrays": "3.0.2",
     "formidable": "1.2.2",
     "handlebars": "4.7.6",
+    "md5": "^2.3.0",
     "mdi-material-ui": "6.20.0",
     "mjml": "^4.8.1",
     "mjml-react": "^1.0.65",
