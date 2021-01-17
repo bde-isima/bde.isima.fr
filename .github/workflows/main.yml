@@ -84,7 +84,7 @@ jobs:
     - name: Restart server
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: cd bde-isima && docker-compose restart
+        command: cd bde-isima && docker-compose stop && docker-compose up
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         privateKey: ${{ secrets.SERVER_SSH_KEY}}
