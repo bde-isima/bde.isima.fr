@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 import PageTitle from "app/layouts/PageTitle"
+import Guzlr from "app/components/hub/home/Guzlr"
+import Discord from "app/components/hub/home/Discord"
 import Upcoming from "app/components/hub/events/Upcoming"
 import TopUpDialog from "app/components/hub/transactions/operations/topUp/TopUpDialog"
 import TransactionsCard from "app/components/hub/transactions/display/TransactionsCard"
@@ -23,6 +25,8 @@ export default function Hub() {
         style={{ gridTemplateColumns: "1fr 310px" }}
       >
         <main className="flex flex-col">
+          <Guzlr />
+          <Discord />
           <Upcoming />
         </main>
 

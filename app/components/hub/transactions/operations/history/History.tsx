@@ -28,7 +28,7 @@ export default function History({ userId }: HistoryProps) {
   )
 
   return (
-    <div className="flex flex-col justify-center">
+    <>
       {groupedTransactions &&
         groupedTransactions.map((group, i) => (
           <Fragment key={i}>
@@ -53,6 +53,6 @@ export default function History({ userId }: HistoryProps) {
           ? "Charger plus"
           : "Plus rien à charger"}
       </Button>
-    </div>
+    </>
   )
 }
