@@ -1,5 +1,5 @@
-import { useState, ReactNode } from "react"
 import Paper from "@material-ui/core/Paper"
+import { useState, ReactNode, useEffect } from "react"
 import { useQuery, useMutation, invalidateQuery } from "blitz"
 import TablePagination from "@material-ui/core/TablePagination"
 
@@ -127,6 +127,12 @@ export default function Table({
       search.set(e.target.value)
     }
   }
+
+  useEffect(() => {
+    if (page.value * rowsPerPage > rows.length) {
+      page.set(Math.ceil(rows.length / rowsPerPage))
+    }
+  })
 
   return (
     <Paper className="w-full mb-4" variant={variant}>

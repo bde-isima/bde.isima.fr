@@ -8,7 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["uncheckedScalarInputs"]
+  previewFeatures = ["uncheckedScalarInputs", "groupBy"]
 }
 
 // --------------------------------------
@@ -211,6 +211,40 @@ model LoginRequest {
   token                     String    @unique
   callbackUrl               String
   expires                   DateTime
+  createdAt                 DateTime  @default(now()) @map(name: "created_at")
+  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model VoteRequest {
+  id                        String    @id @default(cuid())
+  user                      User      @relation(fields: [userId], references: [id])
+  userId                    String
+  voteToken                 String    @unique
+  createdAt                 DateTime  @default(now()) @map(name: "created_at")
+  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model Vote {
+  id                        String    @id @default(cuid())
+  candidate                 Candidate      @relation(fields: [candidateId], references: [id])
+  candidateId               String
+  voteToken                 String    @unique
+  createdAt                 DateTime  @default(now()) @map(name: "created_at")
+  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model Candidate {
+  id                        String    @id @default(cuid())
+  name                      String
+  image                     String
+  createdAt                 DateTime  @default(now()) @map(name: "created_at")
+  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model Election {
+  id                        String    @id @default(cuid())
+  candidates                Candidate[]
+  endDate                   DateTime
   createdAt                 DateTime  @default(now()) @map(name: "created_at")
   updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
 }

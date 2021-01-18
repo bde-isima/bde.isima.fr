@@ -14,7 +14,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const clubs = await db.club.findMany()
   const session: SessionContext = await getSessionContext(req, res)
 
-  session.authorize()
+  if (session) {
+    session.authorize()
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/hub",
+      },
+    }
+  }
 
   const user = await db.user.findUnique({ where: { id: session?.userId! } })
 

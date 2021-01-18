@@ -44,6 +44,7 @@ const columns = [
     id: "name",
     headerName: "Name",
     searchCriteria: "contains",
+    format: (value) => (value ? value.toLowerCase() : value),
   },
   {
     id: "email",

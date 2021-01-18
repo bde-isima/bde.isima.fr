@@ -1,7 +1,7 @@
 import { format } from "date-fns"
 import { CsvBuilder } from "filefy"
 import { useState, Suspense } from "react"
-import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next"
+import { GetStaticProps, GetStaticPaths } from "next"
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
 
@@ -16,7 +16,7 @@ import EventForm from "app/components/dashboard/clubs/dashboard/event/EventForm"
 import Manager from "app/components/dashboard/clubs/dashboard/event/manager/Manager"
 import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
 
-export default function ClubDashboard({ club }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function ClubDashboard({ club }) {
   const clb = convertStringsToDate(club) as any
 
   const [open, setOpen] = useState(false)
@@ -124,7 +124,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: clubs.map((c) => ({ params: { name: c.name } })),
-    fallback: true,
+    fallback: "blocking",
   }
 }
 

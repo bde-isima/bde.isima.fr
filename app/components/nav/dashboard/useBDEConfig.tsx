@@ -1,3 +1,4 @@
+import Vote from "mdi-material-ui/Vote"
 import Earth from "mdi-material-ui/Earth"
 import Store from "mdi-material-ui/Store"
 import Finance from "mdi-material-ui/Finance"
@@ -57,6 +58,12 @@ const config = [
     text: "PROMOTIONS",
     to: "/dashboard/promotions",
     isActive: (pathname: String, hash: String) => pathname === "/dashboard/promotions",
+  },
+  {
+    icon: <Vote />,
+    text: "CAMPAGNES",
+    to: "/dashboard/elections",
+    isActive: (pathname: String, hash: String) => pathname === "/dashboard/elections",
   },
 ]
 

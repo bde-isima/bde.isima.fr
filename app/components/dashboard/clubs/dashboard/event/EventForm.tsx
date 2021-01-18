@@ -3,13 +3,13 @@ import { useRouter } from "next/router"
 import Tab from "@material-ui/core/Tab"
 import { Field } from "react-final-form"
 import frLocale from "date-fns/locale/fr"
+import { useMemo, useState } from "react"
 import AppBar from "@material-ui/core/AppBar"
 import arrayMutators from "final-form-arrays"
 import TabList from "@material-ui/lab/TabList"
 import Divider from "@material-ui/core/Divider"
 import TabContext from "@material-ui/lab/TabContext"
 import MuiTextField from "@material-ui/core/TextField"
-import { SyntheticEvent, useMemo, useState } from "react"
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
 import DateTimePicker from "@material-ui/lab/DateTimePicker"
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
@@ -31,7 +31,7 @@ export default function EventForm(props: EventFormProps) {
   const router = useRouter()
   const [value, setValue] = useState("0")
 
-  const handleChange = (event: SyntheticEvent, newValue: string) => setValue(newValue)
+  const handleChange = (_, newValue: string) => setValue(newValue)
 
   const onSubmit = async (values) => {
     try {

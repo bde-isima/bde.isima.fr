@@ -246,3 +246,36 @@ export const AddSubscriptionInput = z.object({
   subscriber: z.object({ id: z.string() }).nonstrict(),
 })
 export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>
+
+export const ElectionInput = z
+  .object({
+    id: z.string().optional().nullable(),
+    endDate: z.date(),
+    candidates: z.array(
+      z
+        .object({
+          id: z.string().optional().nullable(),
+          name: z.string().max(255),
+          image: z
+            .string()
+            .url()
+            .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+              message: "L'URL doit provenir d'Imgur",
+            }),
+        })
+        .nonstrict()
+    ),
+  })
+  .nonstrict()
+export type ElectionInputType = z.infer<typeof ElectionInput>
+
+export const VoteInput = z
+  .object({
+    voteToken: z.string(),
+    candidateId: z.string(),
+    approve: z.boolean().refine((value) => Boolean(value), {
+      message: "Veuillez accepter",
+    }),
+  })
+  .nonstrict()
+export type VoteInputType = z.infer<typeof VoteInput>

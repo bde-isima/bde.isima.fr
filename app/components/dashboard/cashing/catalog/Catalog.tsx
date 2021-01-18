@@ -60,7 +60,7 @@ export default function Catalog({ user, onComplete }) {
     { refetchOnWindowFocus: false }
   )
 
-  const itemsPerRow = 4
+  const itemsPerRow = fullScreen ? 3 : 4
   const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput))
 
   const onChange = (event) => setSearchArticleInput(event.target.value)
