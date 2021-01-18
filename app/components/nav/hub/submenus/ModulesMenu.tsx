@@ -1,13 +1,15 @@
 import Link from "next/link"
 import { useState } from "react"
-import Apps from "mdi-material-ui/Apps"
 import Menu from "@material-ui/core/Menu"
+import Badge from "@material-ui/core/Badge"
 import Divider from "@material-ui/core/Divider"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
+
+import Apps from "mdi-material-ui/Apps"
+import Vote from "mdi-material-ui/Vote"
 import PuzzleOutline from "mdi-material-ui/PuzzleOutline"
-//import CalculatorVariant from 'mdi-material-ui/CalculatorVariant'
 
 export default function ModulesMenu() {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -19,16 +21,18 @@ export default function ModulesMenu() {
 
   return (
     <>
-      <IconButton
-        className="mx-2"
-        aria-label="Voir les modules"
-        aria-owns={isOpen ? "module-menu" : undefined}
-        aria-haspopup="true"
-        onClick={handleOpen}
-        color="inherit"
-      >
-        <Apps />
-      </IconButton>
+      <Badge badgeContent="!" overlap="circular" color="primary">
+        <IconButton
+          className="mx-2"
+          aria-label="Voir les modules"
+          aria-owns={isOpen ? "module-menu" : undefined}
+          aria-haspopup="true"
+          onClick={handleOpen}
+          color="inherit"
+        >
+          <Apps />
+        </IconButton>
+      </Badge>
 
       <Menu
         id="module-menu"
@@ -52,6 +56,20 @@ export default function ModulesMenu() {
         </Typography>
 
         <Divider className="mx-3 mt-3" />
+
+        <Link href="/hub/elections">
+          <MenuItem className="p-3" onClick={handleClose}>
+            <Vote className="mx-3" />
+            <Typography
+              className="flex flex-grow items-center justify-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Élections BDE
+            </Typography>
+          </MenuItem>
+        </Link>
 
         <Link href="/hub/feedback">
           <MenuItem className="p-3" onClick={handleClose}>

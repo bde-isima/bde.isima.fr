@@ -6,7 +6,7 @@ import Skeleton from "@material-ui/core/Skeleton"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
-import CardContent from "@material-ui/core/CardContent"
+import TableContainer from "@material-ui/core/TableContainer"
 
 import Records from "app/components/hub/leaderboard/Records"
 
@@ -21,7 +21,7 @@ export default function RecordsTable({ leaderboard }) {
 
   return (
     <Card>
-      <CardContent>
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -39,7 +39,7 @@ export default function RecordsTable({ leaderboard }) {
             </Suspense>
           </TableBody>
         </Table>
-      </CardContent>
+      </TableContainer>
     </Card>
   )
 }

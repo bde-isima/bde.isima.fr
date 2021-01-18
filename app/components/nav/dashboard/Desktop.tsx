@@ -85,7 +85,7 @@ export default function Desktop() {
           </AppBar>
 
           {bdeConfig.length > 0 && (
-            <TabPanel value="0">
+            <TabPanel value="0" className="pb-14">
               <List>
                 <Items config={bdeConfig} />
               </List>
@@ -93,7 +93,7 @@ export default function Desktop() {
           )}
 
           {clubsConfig.length > 0 && (
-            <TabPanel value="1">
+            <TabPanel value="1" className="pb-14">
               <List>
                 <Items config={clubsConfig} />
               </List>
