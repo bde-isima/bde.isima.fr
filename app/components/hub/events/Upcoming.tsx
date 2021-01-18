@@ -25,7 +25,7 @@ export default function Upcoming() {
   ))
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-4">
       <Typography align="left" variant="h6">
         Évènements à venir
       </Typography>
