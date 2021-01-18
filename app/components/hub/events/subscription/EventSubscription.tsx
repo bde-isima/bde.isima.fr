@@ -1,7 +1,8 @@
-import { useQuery, useSession } from "blitz"
+import { useQuery } from "blitz"
 import { createContext, useContext } from "react"
 
 import { EventSubscriptionWithTypedCart } from "types"
+import { useBDESession } from "app/components/auth/SessionProvider"
 import getEventSubscription from "app/entities/eventSubscriptions/queries/getEventSubscription"
 
 interface EventSubscriptionContextType {
@@ -17,12 +18,12 @@ export const useEventSubscription = () => {
 }
 
 export function EventSubscriptionProvider({ eventId, children }) {
-  const session = useSession()
+  const session = useBDESession()
 
   const inputArgs = { where: { eventId, userId: session?.userId } }
 
   const [data, { isFetching, setQueryData }] = useQuery(getEventSubscription, inputArgs, {
-    enabled: Boolean(eventId) && !session.isLoading,
+    enabled: Boolean(eventId),
     refetchOnWindowFocus: false,
     suspense: false,
   })
@@ -30,7 +31,7 @@ export function EventSubscriptionProvider({ eventId, children }) {
   return (
     <EventSubscriptionContext.Provider
       value={{
-        isFetching: session.isLoading || isFetching,
+        isFetching: isFetching,
         eventSubscription: data as any,
         setQueryData,
       }}

@@ -1,8 +1,9 @@
 import Image from "next/image"
-import { useQuery, useSession } from "blitz"
+import { useQuery } from "blitz"
 import Avatar from "@material-ui/core/Avatar"
 
 import getClubs from "app/entities/clubs/queries/getClubs"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 function createConfig(clubs, user) {
   return clubs
@@ -22,7 +23,7 @@ function createConfig(clubs, user) {
 }
 
 export function useClubsConfig() {
-  const session = useSession()
+  const session = useBDESession()
   const [{ clubs }] = useQuery(getClubs, {})
 
   return createConfig(clubs, session)

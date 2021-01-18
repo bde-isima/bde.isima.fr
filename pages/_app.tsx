@@ -19,6 +19,7 @@ import getNav from "app/components/nav/getNav"
 import Splash from "app/components/common/Splash"
 import useCustomTheme from "app/styles/useCustomTheme"
 import LoginFallback from "app/components/auth/LoginFallback"
+import { SessionProvider } from "app/components/auth/SessionProvider"
 
 globalThis.appName = packageJson.appName
 globalThis.website = packageJson.website
@@ -73,9 +74,11 @@ export default function App({ Component, pageProps }: AppProps) {
             resetKeys={[router.asPath]}
             onReset={() => queryCache.resetErrorBoundaries()}
           >
-            <Suspense fallback={<Splash />}>
-              {getNav(router, <Component {...pageProps} />)}
-            </Suspense>
+            <SessionProvider>
+              <Suspense fallback={<Splash />}>
+                {getNav(router, <Component {...pageProps} />)}
+              </Suspense>
+            </SessionProvider>
           </ErrorBoundary>
         </MuiThemeProvider>
       </CacheProvider>

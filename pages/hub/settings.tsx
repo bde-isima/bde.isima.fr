@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import Paper from "@material-ui/core/Paper"
-import { useMutation, useSession, invalidateQuery } from "blitz"
+import { useMutation, invalidateQuery } from "blitz"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
@@ -8,12 +8,13 @@ import Snackbar from "app/layouts/Snackbar"
 import PageTitle from "app/layouts/PageTitle"
 import useSnackbar from "app/hooks/useSnackbar"
 import updateUser from "app/entities/users/mutations/updateUser"
+import { useBDESession } from "app/components/auth/SessionProvider"
 import SettingsForm from "app/components/hub/settings/SettingsForm"
 import { SettingsInputType } from "app/components/forms/validations"
 import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 
 export default function Settings() {
-  const session = useSession()
+  const session = useBDESession()
 
   const [updtUser] = useMutation(updateUser)
 

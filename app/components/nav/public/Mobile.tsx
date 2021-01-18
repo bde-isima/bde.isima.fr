@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import { useSession } from "blitz"
 import { cloneElement } from "react"
 import Fab from "@material-ui/core/Fab"
 import List from "@material-ui/core/List"
@@ -15,9 +14,10 @@ import AccountArrowRightOutline from "mdi-material-ui/AccountArrowRightOutline"
 
 import config from "./config"
 import { useCustomRouter } from "app/hooks/useCustomRouter"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
-  const session = useSession()
+  const session = useBDESession()
   const { router, pushRoute } = useCustomRouter()
 
   const iOS = typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)

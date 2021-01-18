@@ -1,18 +1,25 @@
+import { GetServerSideProps } from "next"
 import { getSessionContext } from "@blitzjs/server"
-import { NextApiRequest, NextApiResponse } from "next"
 
 import db from "db"
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { query } = req
+export default function VerifyLogin() {
+  return null
+}
 
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const request = await db.loginRequest.findUnique({
     where: { token: `${query.token}` },
     include: { user: true },
   })
 
   if (!request || new Date() > request.expires) {
-    return res.redirect("/login?invalid=1")
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login?invalid=1",
+      },
+    }
   }
 
   const session = await getSessionContext(req, res)
@@ -31,11 +38,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     db.loginRequest.delete({ where: { id: request.id } }),
   ])
 
-  return res.redirect(request.callbackUrl)
-}
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+  return {
+    redirect: {
+      permanent: false,
+      destination: request.callbackUrl,
+    },
+  }
 }

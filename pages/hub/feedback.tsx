@@ -1,17 +1,18 @@
+import { useMutation } from "blitz"
 import Paper from "@material-ui/core/Paper"
 import NoSsr from "@material-ui/core/NoSsr"
-import { useMutation, useSession } from "blitz"
 import Typography from "@material-ui/core/Typography"
 
 import Snackbar from "app/layouts/Snackbar"
 import PageTitle from "app/layouts/PageTitle"
 import useSnackbar from "app/hooks/useSnackbar"
 import feedback from "app/entities/users/mutations/feedback"
+import { useBDESession } from "app/components/auth/SessionProvider"
 import FeedbackForm from "app/components/hub/feedback/FeedbackForm"
 import { FeedbackInputType } from "app/components/forms/validations"
 
 export default function Feedback() {
-  const session = useSession()
+  const session = useBDESession()
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
   const [sendFeedback] = useMutation(feedback)
