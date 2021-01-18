@@ -1,15 +1,15 @@
 import { useState } from "react"
-import { useSession } from "blitz"
 
 import TopUpForm from "./TopUpForm"
 import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
 import { TopUpInputType } from "app/components/forms/validations"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 export type PaymentMethod = "cb" | "lydia"
 
 export default function TopUp() {
-  const session = useSession()
+  const session = useBDESession()
   const { open, message, severity, onShow, onClose } = useSnackbar()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cb")
 

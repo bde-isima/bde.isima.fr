@@ -1,5 +1,3 @@
-import { useSession } from "blitz"
-
 import Earth from "mdi-material-ui/Earth"
 import Store from "mdi-material-ui/Store"
 import Finance from "mdi-material-ui/Finance"
@@ -8,6 +6,8 @@ import CalendarToday from "mdi-material-ui/CalendarToday"
 import AccountDetails from "mdi-material-ui/AccountDetails"
 import BookOpenVariant from "mdi-material-ui/BookOpenVariant"
 import AccountGroupOutline from "mdi-material-ui/AccountGroupOutline"
+
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 const config = [
   {
@@ -61,7 +61,7 @@ const config = [
 ]
 
 export function useBDEConfig() {
-  const session = useSession()
+  const session = useBDESession()
   return session?.roles.findIndex((x) => x === "*" || x.toLowerCase() === "bde") !== -1
     ? config
     : []

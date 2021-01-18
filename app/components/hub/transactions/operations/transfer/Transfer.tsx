@@ -1,8 +1,9 @@
-import { useMutation, useSession, invalidateQuery } from "blitz"
+import { useMutation, invalidateQuery } from "blitz"
 
 import TransferForm from "./TransferForm"
 import Snackbar from "app/layouts/Snackbar"
 import useSnackbar from "app/hooks/useSnackbar"
+import { useBDESession } from "app/components/auth/SessionProvider"
 import { TransferInputType } from "app/components/forms/validations"
 import getCurrentUser from "app/entities/users/queries/getCurrentUser"
 import getTransactions from "app/entities/transactions/queries/getTransactions"
@@ -15,7 +16,7 @@ type TransferProps = {
 export default function Transfer({ onClose }: TransferProps) {
   const { open, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
-  const session = useSession()
+  const session = useBDESession()
   const [createTransaction] = useMutation(createTransferTransaction)
 
   const onSuccess = (data: TransferInputType) => {

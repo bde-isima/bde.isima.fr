@@ -1,4 +1,3 @@
-import { useSession } from "blitz"
 import NoSsr from "@material-ui/core/NoSsr"
 import Dialog from "@material-ui/core/Dialog"
 import IconButton from "@material-ui/core/IconButton"
@@ -12,6 +11,7 @@ import Close from "mdi-material-ui/Close"
 import History from "./History"
 import HistoryHeader from "./HistoryHeader"
 import SlideTransition from "app/layouts/SlideTransition"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 type HistoryDialogProps = {
   isOpen: boolean
@@ -19,7 +19,7 @@ type HistoryDialogProps = {
 }
 
 export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
-  const session = useSession()
+  const session = useBDESession()
 
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))

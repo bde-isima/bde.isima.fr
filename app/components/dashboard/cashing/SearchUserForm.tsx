@@ -1,16 +1,16 @@
-import { useSession } from "blitz"
 import Paper from "@material-ui/core/Paper"
 import { useState, lazy, Suspense } from "react"
 
 import { User } from "db"
 import { Form } from "app/components/forms/Form"
 import getUsers from "app/entities/users/queries/getUsers"
+import { useBDESession } from "app/components/auth/SessionProvider"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
 
 const CashingDialog = lazy(() => import("./CashingDialog"))
 
 export default function SearchUserForm() {
-  const session = useSession()
+  const session = useBDESession()
   const [selected, setSelected] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
 

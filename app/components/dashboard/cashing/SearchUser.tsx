@@ -1,11 +1,12 @@
 import { Autocomplete } from "mui-rff"
-import { useQuery, useSession } from "blitz"
+import { useQuery } from "blitz"
 import TextField from "@material-ui/core/TextField"
 import { useState, Dispatch, SetStateAction } from "react"
 import MuiAutocomplete from "@material-ui/core/Autocomplete"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 import { User } from "db"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 type SearchUserProps = {
   className?: string
@@ -32,7 +33,7 @@ export default function SearchUser({
   disableSelf = false,
   withForm = false,
 }: SearchUserProps) {
-  const session = useSession()
+  const session = useBDESession()
   const [options, setOptions] = useState<User[]>([])
   const loading = open && options.length === 0
 

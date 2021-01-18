@@ -1,20 +1,22 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
+import { useMutation } from "blitz"
 import Menu from "@material-ui/core/Menu"
 import Avatar from "@material-ui/core/Avatar"
 import Divider from "@material-ui/core/Divider"
-import { useSession, useMutation } from "blitz"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
 
 import Logout from "mdi-material-ui/Logout"
 import CogOutline from "mdi-material-ui/CogOutline"
 import MessageAlertOutline from "mdi-material-ui/MessageAlertOutline"
+
 import logout from "app/entities/auth/mutations/logout"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 export default function ModulesMenu() {
-  const session = useSession()
+  const session = useBDESession()
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 

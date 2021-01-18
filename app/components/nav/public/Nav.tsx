@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import { useSession } from "blitz"
 import Fab from "@material-ui/core/Fab"
 import { useState, useEffect } from "react"
 import Slide from "@material-ui/core/Slide"
@@ -22,9 +21,10 @@ import Mobile from "./Mobile"
 import Desktop from "./Desktop"
 import LoginContent from "app/components/auth/LoginContent"
 import { useCustomRouter } from "app/hooks/useCustomRouter"
+import { useBDESession } from "app/components/auth/SessionProvider"
 
 export default function Nav() {
-  const session = useSession()
+  const session = useBDESession()
   const { pushRoute } = useCustomRouter()
   const [isOnTop, setIsOnTop] = useState(
     typeof window === "undefined" ? true : window.scrollY === 0
