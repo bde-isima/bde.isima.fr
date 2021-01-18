@@ -96,7 +96,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
               </Suspense>
 
               <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel value="1">
+                <TabPanel value="1" className="flex flex-col items-center">
                   <HistoryHeader />
                   <History userId={user?.id} />
                 </TabPanel>

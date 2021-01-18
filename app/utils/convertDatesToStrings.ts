@@ -5,8 +5,12 @@ export function convertDatesToStrings(obj) {
     Object.keys(obj).forEach((x) => {
       if (obj[x] instanceof Date) {
         Object.assign(newObj, { [x]: (obj[x] as Date).toISOString() })
-      } else if (obj[x] && typeof obj[x] === "object" && !Array.isArray(obj[x])) {
-        Object.assign(newObj, { [x]: convertDatesToStrings(obj[x]) })
+      } else if (obj[x] && typeof obj[x] === "object") {
+        if (Array.isArray(obj[x])) {
+          Object.assign(newObj, { [x]: obj[x].map((y) => convertDatesToStrings(y)) })
+        } else {
+          Object.assign(newObj, { [x]: convertDatesToStrings(obj[x]) })
+        }
       } else {
         Object.assign(newObj, { [x]: obj[x] })
       }

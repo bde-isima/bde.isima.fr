@@ -23,7 +23,7 @@ export default function CalendarCell({
       className="p-2 min-h-100 border border-gray-300"
       item
       container
-      xs={6}
+      xs={idx === 6 ? 12 : 6}
       md={idx < 4 ? 3 : 4}
       justifyContent="center"
       alignContent="flex-start"

@@ -50,7 +50,7 @@ import promotions from "./4.json"
       clubs.map((x) =>
         db.club.create({
           data: {
-            name: x.name,
+            name: x.name.toLowerCase(),
             email: x.email,
             description: x.description,
             facebookURL: x.facebookURL,

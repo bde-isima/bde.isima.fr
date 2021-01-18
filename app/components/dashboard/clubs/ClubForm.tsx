@@ -18,7 +18,6 @@ type ClubFormProps = {
 
 export default function ClubForm(props: ClubFormProps) {
   const onSubmit = async (values) => {
-    console.log(values)
     try {
       await props.onSuccess(values)
     } catch (error) {

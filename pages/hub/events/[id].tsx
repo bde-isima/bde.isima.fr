@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import Divider from "@material-ui/core/Divider"
 
 import db from "db"
@@ -13,7 +12,6 @@ type EventProps = {
 }
 
 export default function Event({ event }: EventProps) {
-  const router = useRouter()
   const evt = convertStringsToDate(event)
 
   return (
@@ -23,9 +21,9 @@ export default function Event({ event }: EventProps) {
     >
       <EventSubscriptionProvider eventId={evt?.id}>
         <main className="flex flex-col">
-          <Header event={evt} isFetching={router.isFallback} />
+          <Header event={evt} />
           <Divider className="m-4" />
-          <ProductsList event={evt} isFetching={router.isFallback} />
+          <ProductsList event={evt} />
         </main>
 
         <aside>
@@ -41,7 +39,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: events.map((e) => ({ params: { id: e.id } })),
-    fallback: true,
+    fallback: "blocking",
   }
 }
 

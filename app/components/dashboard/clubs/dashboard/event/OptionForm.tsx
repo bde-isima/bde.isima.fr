@@ -18,7 +18,7 @@ export default function OptionForm({ groupOptionName, groupOptionIdx }) {
       <FieldArray name={`${groupOptionName}.options`}>
         {({ fields }) =>
           fields.map((optionName, optionIdx) => (
-            <div className="flex flex-col md:flex-row items-center">
+            <div key={optionIdx} className="flex flex-col md:flex-row items-center">
               <TextField
                 className="my-1 md:mr-1"
                 type="text"
@@ -34,7 +34,7 @@ export default function OptionForm({ groupOptionName, groupOptionIdx }) {
               />
               <IconButton
                 className="m-2"
-                onClick={onDeleteItem(`${groupOptionName}`, optionIdx)}
+                onClick={onDeleteItem(`${groupOptionName}.options`, optionIdx)}
                 aria-label="Supprimer"
                 size="small"
               >

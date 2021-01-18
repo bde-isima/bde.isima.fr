@@ -2,8 +2,8 @@ import { useState } from "react"
 
 import PageTitle from "app/layouts/PageTitle"
 import Guzlr from "app/components/hub/home/Guzlr"
-import Discord from "app/components/hub/home/Discord"
 import Upcoming from "app/components/hub/events/Upcoming"
+import DiscordButton from "app/components/hub/home/DiscordButton"
 import TopUpDialog from "app/components/hub/transactions/operations/topUp/TopUpDialog"
 import TransactionsCard from "app/components/hub/transactions/display/TransactionsCard"
 import HistoryDialog from "app/components/hub/transactions/operations/history/HistoryDialog"
@@ -26,7 +26,6 @@ export default function Hub() {
       >
         <main className="flex flex-col">
           <Guzlr />
-          <Discord />
           <Upcoming />
         </main>
 
@@ -36,6 +35,7 @@ export default function Hub() {
             openHistory={toggleDialog(setIsHistoryOpen, true)}
             openTopUp={toggleDialog(setIsTopUpOpen, true)}
           />
+          <DiscordButton />
           <TransferDialog
             isOpen={isTransferOpen}
             onClose={toggleDialog(setIsTransferOpen, false)}

@@ -23,7 +23,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
   ))
 
   return (
-    <Card className="py-6 mb-4 px-4">
+    <Card className="py-6 px-4 rounded-md rounded-b-none" square>
       <div className="flex flex-col justify-center items-center">
         <Suspense fallback={<Skeleton width="60%" height={55} />}>
           <Balance getQuery={getCurrentUser} />

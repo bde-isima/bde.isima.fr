@@ -7,10 +7,9 @@ import ProductDialog from "app/components/hub/events/product/ProductDialog"
 
 type ProductsListProps = {
   event: EventWithTypedProducts
-  isFetching: boolean
 }
 
-export default function ProductsList({ event, isFetching }: ProductsListProps) {
+export default function ProductsList({ event }: ProductsListProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product>()
 
   const changeSelectedProduct = (value) => () => setSelectedProduct(value)
@@ -18,12 +17,7 @@ export default function ProductsList({ event, isFetching }: ProductsListProps) {
   return (
     <Grid container spacing={5}>
       {event?.products.map((product, productIdx) => (
-        <ProductCard
-          key={productIdx}
-          isFetching={isFetching}
-          product={product}
-          onClick={changeSelectedProduct}
-        />
+        <ProductCard key={productIdx} product={product} onClick={changeSelectedProduct} />
       ))}
 
       {selectedProduct && (
