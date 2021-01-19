@@ -16,9 +16,16 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
       {isLoading ? (
         <Skeleton variant="rectangular" width="100%" height={200} animation="wave" />
       ) : (
-        <Image src={article?.image!} layout="fill" objectFit="cover" alt={article?.name} />
+        <Image
+          className="rounded-lg"
+          src={article?.image!}
+          layout="fill"
+          objectFit="cover"
+          alt={article?.name}
+        />
       )}
       <ImageListItemBar
+        className="rounded-b-lg"
         title={
           isLoading ? (
             <Skeleton width="100%" animation="wave" />

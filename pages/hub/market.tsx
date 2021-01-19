@@ -13,7 +13,7 @@ export default function MarketIndex() {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
-  const FallbackComponent = [...Array(16).keys()].map((x) => <MarketItem key={x} isLoading />)
+  const FallbackComponent = [...Array(20).keys()].map((x) => <MarketItem key={x} isLoading />)
 
   return (
     <>

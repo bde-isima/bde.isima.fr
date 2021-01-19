@@ -81,16 +81,7 @@ export default function EventIndex({ event }: EventProps) {
   )
 }
 
-export const getStaticPaths = async () => {
-  const events = await db.event.findMany()
-
-  return {
-    paths: events.map((e) => ({ params: { id: e.id } })),
-    fallback: "blocking",
-  }
-}
-
-export const getStaticProps = async ({ params }) => {
+export async function getServerSideProps({ params }) {
   const event = await db.event.findUnique({
     where: { id: params?.id as string },
     include: { club: true },
@@ -104,6 +95,5 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     props: { event: convertDatesToStrings(event) },
-    revalidate: 1,
   }
 }
