@@ -35,8 +35,10 @@ export const generate = () => {
         >
           <MjmlColumn>
             <MjmlImage
+              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/favicons/android-chrome-192x192.png`}
               width="75px"
-              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/logos/logo.svg`}
+              height="75px"
+              alt="Logo"
             />
             <MjmlText align="left" color="#FFF" fontSize="20px">{`{{ subject }}`}</MjmlText>
           </MjmlColumn>
