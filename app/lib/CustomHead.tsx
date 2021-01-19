@@ -7,7 +7,7 @@ export default function CustomHead() {
   return (
     <Head>
       <meta charSet="utf-8" />
-      <meta name="description" content="Site du BDE ISIMA" />
+      <meta name="description" content="Site du BDE ISIMA" key="description" />
 
       <link
         rel="preload"
@@ -46,23 +46,25 @@ export default function CustomHead() {
       <meta name="theme-color" content={theme.palette.primary.main} />
 
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:url" content={process.env.NEXT_PUBLIC_FRONTEND_URL} />
-      <meta name="twitter:title" content={globalThis.appName} />
-      <meta name="twitter:description" content="Site du BDE ISIMA" />
+      <meta name="twitter:url" content={process.env.NEXT_PUBLIC_FRONTEND_URL} key="twitter:url" />
+      <meta name="twitter:title" content={globalThis.appName} key="twitter:title" />
+      <meta name="twitter:description" content="Site du BDE ISIMA" key="twitter:description" />
       <meta
         name="twitter:image"
         content={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/favicons/android-chrome-192x192.png`}
+        key="twitter:image"
       />
-      <meta name="twitter:creator" content="@bde_isima" />
+      <meta name="twitter:creator" content="@bde_isima" key="twitter:creator" />
 
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content={globalThis.appName} />
-      <meta property="og:description" content="Site du BDE ISIMA" />
-      <meta property="og:site_name" content={globalThis.appName} />
-      <meta property="og:url" content={process.env.NEXT_PUBLIC_FRONTEND_URL} />
+      <meta property="og:type" content="website" key="og:type" />
+      <meta property="og:title" content={globalThis.appName} key="og:title" />
+      <meta property="og:description" content="Site du BDE ISIMA" key="og:description" />
+      <meta property="og:site_name" content={globalThis.appName} key="og:site_name" />
+      <meta property="og:url" content={process.env.NEXT_PUBLIC_FRONTEND_URL} key="og:url" />
       <meta
         property="og:image"
         content={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/favicons/android-chrome-512x512.png`}
+        key="og:image"
       />
 
       <script
