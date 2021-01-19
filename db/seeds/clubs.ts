@@ -7,7 +7,7 @@ const clubs = async (db) => {
         name: faker.lorem.word(),
         email: faker.internet.email(),
         description: faker.lorem.sentence(),
-        image: faker.image.imageUrl(100, 100, undefined, false, true),
+        image: faker.image.imageUrl(250, 250, undefined, false, true),
       },
     })
   }

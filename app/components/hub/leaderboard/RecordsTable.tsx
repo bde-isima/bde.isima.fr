@@ -10,7 +10,7 @@ import TableContainer from "@material-ui/core/TableContainer"
 
 import Records from "app/components/hub/leaderboard/Records"
 
-export default function RecordsTable({ leaderboard }) {
+export default function RecordsTable() {
   const FallbackComponent = [...Array(10).keys()].map((x) => (
     <TableRow>
       <TableCell colSpan={5}>
@@ -20,7 +20,7 @@ export default function RecordsTable({ leaderboard }) {
   ))
 
   return (
-    <Card>
+    <Card className="p-4">
       <TableContainer>
         <Table>
           <TableHead>
@@ -35,7 +35,7 @@ export default function RecordsTable({ leaderboard }) {
 
           <TableBody>
             <Suspense fallback={FallbackComponent}>
-              <Records leaderboard={leaderboard} />
+              <Records />
             </Suspense>
           </TableBody>
         </Table>

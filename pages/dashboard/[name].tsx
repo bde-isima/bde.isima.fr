@@ -1,7 +1,6 @@
 import { format } from "date-fns"
 import { CsvBuilder } from "filefy"
 import { useState, Suspense } from "react"
-import { GetStaticProps, GetStaticPaths } from "next"
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
 
@@ -119,7 +118,7 @@ export default function ClubDashboard({ club }) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const clubs = await db.club.findMany()
 
   return {
@@ -128,7 +127,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const club = await db.club.findUnique({
     where: { name: params?.name as string },
   })

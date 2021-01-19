@@ -1,40 +1,38 @@
-import Grid from "@material-ui/core/Grid"
-import { Fragment, useState } from "react"
-import Typography from "@material-ui/core/Typography"
+import { useQuery } from "blitz"
+import { useState } from "react"
 
 import { Election, Candidate } from "db"
 import VoteDialog from "./Vote/VoteDialog"
-import CandidateCard from "./CandidateCard"
+import CandidateItem from "./CandidateItem"
+import NoElections from "app/components/hub/elections/NoElections"
+import getElection from "app/entities/elections/queries/getElection"
 
-type ElectionsProps = {
-  election: Election & { candidates: Candidate[] }
-}
+const now = new Date()
 
-export default function Elections({ election }: ElectionsProps) {
+export default function Elections() {
   const [selected, setSelected] = useState<Candidate | null>(null)
+
+  const [election] = useQuery(
+    getElection,
+    {
+      include: { candidates: { orderBy: { name: "asc" } } },
+      where: { endDate: { gte: now } },
+    },
+    { refetchOnWindowFocus: false }
+  )
 
   const onSelect = (value) => () => setSelected(value)
 
   return (
-    <Grid container className="flex flex-col md:flex-row items-center">
-      {election.candidates.map((c, cIdx) => (
-        <Fragment key={cIdx}>
-          <Grid item xs={12} md={5}>
-            <CandidateCard candidate={c} onSelect={onSelect} />
-          </Grid>
-          {cIdx < election.candidates.length - 1 && (
-            <Grid container item xs={12} md justifyContent="center">
-              <Typography className="m-12" variant="h2" color="primary">
-                <i>
-                  <b>OU</b>
-                </i>
-              </Typography>
-            </Grid>
-          )}
-        </Fragment>
-      ))}
+    <>
+      {!election && <NoElections />}
+
+      {election &&
+        (election as Election & { candidates: Candidate[] }).candidates.map((c, cIdx) => (
+          <CandidateItem key={cIdx} candidate={c} onSelect={onSelect} />
+        ))}
 
       <VoteDialog candidate={selected} onClose={onSelect(null)} />
-    </Grid>
+    </>
   )
 }

@@ -3,7 +3,7 @@ import db, { Prisma } from "db"
 
 type GetArticlesInput = Pick<
   Prisma.FindManyArticleArgs,
-  "include" | "where" | "orderBy" | "skip" | "take"
+  "select" | "include" | "where" | "orderBy" | "skip" | "take"
 >
 
 export default async function getArticles(

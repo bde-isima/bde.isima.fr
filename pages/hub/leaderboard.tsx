@@ -1,20 +1,10 @@
-import fr from "date-fns/locale/fr"
 import Divider from "@material-ui/core/Divider"
 import Typography from "@material-ui/core/Typography"
-import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
-import db, { Analytic } from "db"
 import PageTitle from "app/layouts/PageTitle"
 import RecordsTable from "app/components/hub/leaderboard/RecordsTable"
-import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
 
-type LeaderboardProps = {
-  analytic: Analytic
-}
-
-export default function Leaderboard({ analytic }: LeaderboardProps) {
-  const anltc: Analytic = convertStringsToDate(analytic)
-
+export default function Leaderboard() {
   return (
     <>
       <PageTitle title="Classement" />
@@ -25,31 +15,13 @@ export default function Leaderboard({ analytic }: LeaderboardProps) {
         </Typography>
 
         <Typography variant="caption" color="textSecondary">
-          Dernière mise à jour{" "}
-          {formatDistanceToNow(anltc.updatedAt, { addSuffix: true, locale: fr })}
+          Le classement est mis à jour chaque heure
         </Typography>
 
         <Divider className="m-4" />
 
-        <RecordsTable leaderboard={anltc} />
+        <RecordsTable />
       </div>
     </>
   )
-}
-
-export const getStaticProps = async () => {
-  const analytic = await db.analytic.findUnique({
-    where: { tag: "leaderboard" },
-  })
-
-  if (!analytic) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: { analytic: convertDatesToStrings(analytic) },
-    revalidate: 1,
-  }
 }

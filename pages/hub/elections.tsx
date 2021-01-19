@@ -1,19 +1,15 @@
+import { Suspense } from "react"
+import Grid from "@material-ui/core/Grid"
 import Divider from "@material-ui/core/Divider"
 import Typography from "@material-ui/core/Typography"
 
-import db, { Election, Candidate } from "db"
 import PageTitle from "app/layouts/PageTitle"
 import Elections from "app/components/hub/elections/Elections"
 import HowItWorks from "app/components/hub/elections/HowItWorks"
-import NoElections from "app/components/hub/elections/NoElections"
-import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
+import CandidateItem from "app/components/hub/elections/CandidateItem"
 
-type ElectionsIndexProps = {
-  election: Election & { candidates: Candidate[] }
-}
-
-export default function ElectionsIndex({ election }: ElectionsIndexProps) {
-  const elec: Election = convertStringsToDate(election)
+export default function ElectionsIndex() {
+  const FallbackComponent = [...Array(2).keys()].map((x) => <CandidateItem key={x} isLoading />)
 
   return (
     <>
@@ -28,20 +24,12 @@ export default function ElectionsIndex({ election }: ElectionsIndexProps) {
 
         <HowItWorks />
 
-        {!elec ? <NoElections /> : <Elections election={election} />}
+        <Grid container className="flex flex-col md:flex-row items-center" spacing={5}>
+          <Suspense fallback={FallbackComponent}>
+            <Elections />
+          </Suspense>
+        </Grid>
       </div>
     </>
   )
-}
-
-export const getStaticProps = async () => {
-  const election = await db.election.findFirst({
-    include: { candidates: true },
-    where: { endDate: { gte: new Date() } },
-  })
-
-  return {
-    props: { election: convertDatesToStrings(election) },
-    revalidate: 1,
-  }
 }
