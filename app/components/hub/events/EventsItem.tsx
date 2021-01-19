@@ -28,10 +28,10 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
             isLoading ? (
               <Skeleton variant="circular" width={40} height={40} animation="wave" />
             ) : (
-              event.club?.image && (
+              event?.club?.image && (
                 <Image
                   className="rounded-full"
-                  src={event.club.image}
+                  src={event?.club.image}
                   width={40}
                   height={40}
                   alt="Club organisateur"
@@ -39,9 +39,9 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
               )
             )
           }
-          title={isLoading ? <Skeleton width="100%" animation="wave" /> : event.name}
+          title={isLoading ? <Skeleton width="100%" animation="wave" /> : event?.name}
           titleTypographyProps={{ variant: "subtitle2", noWrap: true }}
-          subheader={isLoading ? <Skeleton width="100%" animation="wave" /> : event.description}
+          subheader={isLoading ? <Skeleton width="100%" animation="wave" /> : event?.description}
           subheaderTypographyProps={{ variant: "caption", noWrap: true }}
         />
         <CardActions className="px-4" disableSpacing>
@@ -56,13 +56,13 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
             >
               <Chip
                 className="rounded-lg mb-2 w-11/12"
-                label={!isLoading && format(event.takes_place_at, "dd/MM/yyyy - hh:mm")}
+                label={!isLoading && format(event?.takes_place_at!, "dd/MM/yyyy - hh:mm")}
                 size="small"
               />
               <Chip
                 className="rounded-lg mb-2 w-11/12"
                 variant="outlined"
-                label={!isLoading && format(event.subscriptions_end_at, "dd/MM/yyyy - hh:mm")}
+                label={!isLoading && format(event?.subscriptions_end_at!, "dd/MM/yyyy - hh:mm")}
                 size="small"
               />
             </Grid>
