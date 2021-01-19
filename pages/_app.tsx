@@ -19,6 +19,7 @@ import getNav from "app/components/nav/getNav"
 import Splash from "app/components/common/Splash"
 import useCustomTheme from "app/styles/useCustomTheme"
 import LoginFallback from "app/components/auth/LoginFallback"
+import InjectTags from "app/components/common/tags/InjectTags"
 import { SessionProvider } from "app/components/auth/SessionProvider"
 
 globalThis.appName = packageJson.appName
@@ -64,6 +65,7 @@ export default function App({ Component, pageProps }: AppProps) {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
           />
+          <InjectTags {...pageProps} />
         </Head>
 
         <MuiThemeProvider theme={theme}>

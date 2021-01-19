@@ -1,6 +1,5 @@
 import Image from "next/image"
 import { useQuery } from "blitz"
-import addDays from "date-fns/addDays"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 
@@ -15,7 +14,7 @@ export default function Events() {
     getEvents,
     {
       where: {
-        AND: [{ takes_place_at: { gte: today } }, { takes_place_at: { lte: addDays(today, 7) } }],
+        AND: [{ subscriptions_end_at: { gte: today } }, { status: "ACCEPTED" }],
       },
       orderBy: { takes_place_at: "asc" },
       include: { club: true },
@@ -26,7 +25,7 @@ export default function Events() {
   return (
     <>
       {events.length === 0 && (
-        <Grid container item justifyContent="center">
+        <Grid container item alignContent="center" direction="column">
           <Image
             src="/static/images/illustrations/NoData.svg"
             height="auto"
@@ -34,7 +33,7 @@ export default function Events() {
             alt="Aucune donnée"
           />
 
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography variant="subtitle2" align="center" gutterBottom>
             Aucun événement à venir !
           </Typography>
         </Grid>

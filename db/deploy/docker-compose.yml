@@ -12,23 +12,11 @@ services:
       - "-c"
       - "shared_buffers=2GB"
     ports:
-      - 6432:5432
+      - 5432:5432
     env_file:
       - .env
     volumes:
       - bde_data:/var/lib/postgresql/data
-
-  bde_pgbouncer:
-    container_name: bde_pgbouncer
-    image: edoburu/pgbouncer
-    env_file:
-      - .env
-    links:
-      - bde_postgres:postgres
-    ports:
-      - 5432:5432
-    depends_on:
-      - bde_postgres
 
   bde_pgadmin:
     container_name: bde_pgadmin
