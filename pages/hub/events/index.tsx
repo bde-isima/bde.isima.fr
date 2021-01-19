@@ -8,7 +8,7 @@ import Events from "app/components/hub/events/Events"
 import EventsItem from "app/components/hub/events/EventsItem"
 
 export default function EventsIndex() {
-  const FallbackComponent = [...Array(8).keys()].map((x) => <EventsItem key={x} isLoading />)
+  const FallbackComponent = [...Array(4).keys()].map((x) => <EventsItem key={x} isLoading />)
 
   return (
     <>

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { useQuery } from "blitz"
 import addDays from "date-fns/addDays"
+import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 
 import { Event as EventDb } from "db"
@@ -25,7 +26,7 @@ export default function Events() {
   return (
     <>
       {events.length === 0 && (
-        <div className="flex flex-col justify-center items-center">
+        <Grid container item justifyContent="center">
           <Image
             src="/static/images/illustrations/NoData.svg"
             height="auto"
@@ -36,7 +37,7 @@ export default function Events() {
           <Typography variant="subtitle2" gutterBottom>
             Aucun événement à venir !
           </Typography>
-        </div>
+        </Grid>
       )}
 
       {events.map((event, idx) => (
