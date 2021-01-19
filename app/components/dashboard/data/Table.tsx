@@ -83,7 +83,7 @@ export default function Table({
   const [selected, setSelected] = useState<string[]>([])
 
   const rows = data ? data[queryKey] : []
-  const count = data ? data["count"] : -1
+  const count = data ? data["count"] : 0
 
   const handleCustomAction = (onClick) => async (e) => {
     e.stopPropagation()

@@ -49,43 +49,47 @@ export default function ProductGroupOption({
   }, [])
 
   return (
-    <FormControl className="m-3 flex flex-col" component="fieldset">
-      <FormLabel component="legend">{groupOption.name}</FormLabel>
+    <>
+      {groupOption.options.length > 0 && (
+        <FormControl className="m-3 flex flex-col" component="fieldset">
+          <FormLabel component="legend">{groupOption.name}</FormLabel>
 
-      {groupOption.type === "combinable" && (
-        <FormGroup className="my-2" aria-label={`Options combinables de ${groupOption.name}`}>
-          {groupOption.options?.map((option: Option, optionIdx: number) => (
-            <FormControlLabel
-              key={optionIdx}
-              control={
-                <Checkbox
-                  value={option.name}
-                  onChange={handleCombinableChange(optionIdx)}
-                  color="primary"
+          {groupOption.type === "combinable" && (
+            <FormGroup className="my-2" aria-label={`Options combinables de ${groupOption.name}`}>
+              {groupOption.options?.map((option: Option, optionIdx: number) => (
+                <FormControlLabel
+                  key={optionIdx}
+                  control={
+                    <Checkbox
+                      value={option.name}
+                      onChange={handleCombinableChange(optionIdx)}
+                      color="primary"
+                    />
+                  }
+                  label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
                 />
-              }
-              label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
-            />
-          ))}
-        </FormGroup>
-      )}
+              ))}
+            </FormGroup>
+          )}
 
-      {groupOption.type === "exclusive" && (
-        <RadioGroup
-          className="my-2"
-          aria-label={`Options exclusives de ${groupOption.name}`}
-          value={exclusiveSelected}
-          onChange={handleExclusiveChange}
-        >
-          {groupOption.options?.map((option: Option, optionIdx: number) => (
-            <FormControlLabel
-              key={optionIdx}
-              control={<Radio value={optionIdx} color="primary" />}
-              label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
-            />
-          ))}
-        </RadioGroup>
+          {groupOption.type === "exclusive" && (
+            <RadioGroup
+              className="my-2"
+              aria-label={`Options exclusives de ${groupOption.name}`}
+              value={exclusiveSelected}
+              onChange={handleExclusiveChange}
+            >
+              {groupOption.options?.map((option: Option, optionIdx: number) => (
+                <FormControlLabel
+                  key={optionIdx}
+                  control={<Radio value={optionIdx} color="primary" />}
+                  label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
+                />
+              ))}
+            </RadioGroup>
+          )}
+        </FormControl>
       )}
-    </FormControl>
+    </>
   )
 }

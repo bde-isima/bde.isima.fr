@@ -56,16 +56,21 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
     const { groupOptions, ...restProduct } = product
 
     setQueryData(
-      (oldData) => ({
-        ...(oldData as EventSubscriptionWithTypedCart),
-        cart: [
-          ...eventSubscription.cart,
+      ({ EventSubscription, ...oldData }) => ({
+        ...oldData,
+        EventSubscription: [
           {
-            ...restProduct,
-            quantity,
-            comment,
-            options: selectedOptions,
-          } as CartItem,
+            ...(EventSubscription[0] as EventSubscriptionWithTypedCart),
+            cart: [
+              ...eventSubscription.cart,
+              {
+                ...restProduct,
+                quantity,
+                comment,
+                options: selectedOptions,
+              } as CartItem,
+            ],
+          },
         ],
       }),
       { refetch: false }
@@ -126,9 +131,9 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
             startIcon={<CartPlus />}
             onClick={handleAddProduct}
             variant="contained"
-            aria-label={`Ajouter pour un total de ${total}`}
+            aria-label={`Ajouter pour un total de ${total.toFixed(2)}`}
           >
-            Total {total} €
+            Total {total.toFixed(2)} €
           </Button>
         </DialogActions>
       </Dialog>

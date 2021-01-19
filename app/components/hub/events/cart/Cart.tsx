@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import Hidden from "@material-ui/core/Hidden"
 
-import { Event } from "db"
 import Mobile from "./Mobile"
 import Desktop from "./Desktop"
 import Snackbar from "app/layouts/Snackbar"
@@ -14,11 +13,7 @@ import { useEventSubscription } from "app/components/hub/events/subscription/Eve
 import upsertEventSubscription from "app/entities/eventSubscriptions/mutations/upsertEventSubscription"
 import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
 
-type CartProps = {
-  event: Event
-}
-
-export default function Cart({ event }: CartProps) {
+export default function Cart() {
   const router = useRouter()
   const [total, setTotal] = useState<number>(0)
   const { open, message, severity, onShow, onClose } = useSnackbar()
@@ -62,9 +57,14 @@ export default function Cart({ event }: CartProps) {
     }
 
     setQueryData(
-      (oldData) => ({
-        ...(oldData as EventSubscriptionWithTypedCart),
-        cart,
+      ({ EventSubscription, ...oldData }) => ({
+        ...oldData,
+        EventSubscription: [
+          {
+            ...(EventSubscription[0] as EventSubscriptionWithTypedCart),
+            cart,
+          },
+        ],
       }),
       { refetch: false }
     )
@@ -86,7 +86,6 @@ export default function Cart({ event }: CartProps) {
     <>
       <Hidden mdDown>
         <Desktop
-          event={event}
           total={total}
           subscribing={subscribing}
           onSubscribe={onSubscribe}
@@ -98,7 +97,6 @@ export default function Cart({ event }: CartProps) {
 
       <Hidden mdUp>
         <Mobile
-          event={event}
           total={total}
           subscribing={subscribing}
           onSubscribe={onSubscribe}

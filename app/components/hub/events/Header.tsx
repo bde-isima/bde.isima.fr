@@ -3,14 +3,11 @@ import { format } from "date-fns"
 import CardHeader from "@material-ui/core/CardHeader"
 import Typography from "@material-ui/core/Typography"
 
-import { Club } from "db"
-import { EventWithTypedProducts } from "types"
+import { useEventSubscription } from "./subscription/EventSubscription"
 
-type HeaderProps = {
-  event: EventWithTypedProducts & { club: Club }
-}
+export default function Header() {
+  const { event } = useEventSubscription()
 
-export default function Header({ event }: HeaderProps) {
   return (
     <CardHeader
       classes={{

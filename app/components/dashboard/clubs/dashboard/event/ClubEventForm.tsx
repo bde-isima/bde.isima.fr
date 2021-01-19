@@ -21,13 +21,13 @@ import GroupOptionsForm from "./GroupOptionsForm"
 import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { EventInput, EventInputType } from "app/components/forms/validations"
 
-type EventFormProps = {
+type ClubEventFormProps = {
   initialValues: Event | null
   onSuccess: (values: EventInputType) => void
   onClose: () => void
 }
 
-export default function EventForm(props: EventFormProps) {
+export default function ClubEventForm(props: ClubEventFormProps) {
   const router = useRouter()
   const [value, setValue] = useState("0")
 

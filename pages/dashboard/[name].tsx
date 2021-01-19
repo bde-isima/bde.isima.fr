@@ -1,23 +1,21 @@
 import { format } from "date-fns"
 import { CsvBuilder } from "filefy"
+import { useRouter } from "next/router"
 import { useState, Suspense } from "react"
 
 import ViewDashboardVariant from "mdi-material-ui/ViewDashboardVariant"
 
-import db from "db"
 import Layout from "app/layouts/PageTitle"
 import Table from "app/components/dashboard/data/Table"
 import getEvents from "app/entities/events/queries/getEvents"
 import upsertEvent from "app/entities/events/mutations/upsertEvent"
 import EventStatus from "app/components/dashboard/events/EventStatus"
 import deleteManyEvents from "app/entities/events/mutations/deleteManyEvents"
-import EventForm from "app/components/dashboard/clubs/dashboard/event/EventForm"
 import Manager from "app/components/dashboard/clubs/dashboard/event/manager/Manager"
-import { convertDatesToStrings, convertStringsToDate } from "app/utils/convertDatesToStrings"
+import ClubEventForm from "app/components/dashboard/clubs/dashboard/event/ClubEventForm"
 
-export default function ClubDashboard({ club }) {
-  const clb = convertStringsToDate(club) as any
-
+export default function ClubDashboard() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
 
@@ -85,7 +83,7 @@ export default function ClubDashboard({ club }) {
 
   return (
     <>
-      <Layout title={`Gestion de ${clb.name}`} />
+      <Layout title={`Gestion de ${router.query.name}`} />
 
       <Table
         title="Événements"
@@ -94,12 +92,12 @@ export default function ClubDashboard({ club }) {
         queryKey="events"
         getQuery={getEvents}
         queryArgs={{
-          where: { clubId: club.id },
+          where: { club: { name: router.query.name } },
           include: { EventSubscription: { include: { user: true } } },
         }}
         upsertQuery={upsertEvent}
         deleteQuery={deleteManyEvents}
-        FormComponent={EventForm}
+        FormComponent={ClubEventForm}
         allowCopy
         onExport={exportCsv}
         actions={[
@@ -118,32 +116,6 @@ export default function ClubDashboard({ club }) {
   )
 }
 
-export const getStaticPaths = async () => {
-  const clubs = await db.club.findMany()
-
-  return {
-    paths: clubs.map((c) => ({ params: { name: c.name } })),
-    fallback: "blocking",
-  }
-}
-
-export const getStaticProps = async ({ params }) => {
-  const club = await db.club.findUnique({
-    where: { name: params?.name as string },
-  })
-
-  if (!club) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: { club: convertDatesToStrings(club) },
-    revalidate: 1,
-  }
-}
-
 const columns = [
   {
     id: "name",
@@ -153,12 +125,12 @@ const columns = [
   {
     id: "takes_place_at",
     headerName: "Date de l'événement",
-    render: (row) => format(row.takes_place_at, "dd/MM/yyyy - hh:mm"),
+    render: (row) => format(row.takes_place_at, "dd/MM/yyyy - HH:mm"),
   },
   {
     id: "subscriptions_end_at",
     headerName: "Date limite d'inscription",
-    render: (row) => format(row.subscriptions_end_at, "dd/MM/yyyy - hh:mm"),
+    render: (row) => format(row.subscriptions_end_at, "dd/MM/yyyy - HH:mm"),
   },
   {
     id: "status",

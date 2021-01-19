@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button"
 import Hidden from "@material-ui/core/Hidden"
 import Divider from "@material-ui/core/Divider"
 import ListItem from "@material-ui/core/ListItem"
-import Skeleton from "@material-ui/core/Skeleton"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
@@ -20,13 +19,11 @@ import Check from "mdi-material-ui/Check"
 import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
 import MinusCircleOutline from "mdi-material-ui/MinusCircleOutline"
 
-import { Event } from "db"
 import { CartItem, Option } from "types"
 import PaymentMethods from "./PaymentMethods"
 import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
 
 type DesktopProps = {
-  event: Event
   total: number
   subscribing: boolean
   onSubscribe: () => void
@@ -36,7 +33,6 @@ type DesktopProps = {
 }
 
 export default function Desktop({
-  event,
   total,
   subscribing,
   onSubscribe,
@@ -44,7 +40,7 @@ export default function Desktop({
   onUnsubscribe,
   onQuantityChange,
 }: DesktopProps) {
-  const { eventSubscription, isFetching } = useEventSubscription()
+  const { event, eventSubscription } = useEventSubscription()
 
   return (
     <Hidden mdDown>
@@ -90,7 +86,7 @@ export default function Desktop({
                 (cartItem.price +
                   (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
               return (
-                <Grow key={idx} in={!isFetching}>
+                <Grow key={idx} in>
                   <ListItem dense disableGutters>
                     <ListItemIcon>
                       <div className="flex items-center">
@@ -126,9 +122,7 @@ export default function Desktop({
 
             <ListItem>
               <ListItemText primary="Total" />
-              <ListItemText className="text-right m-4">
-                {isFetching ? <Skeleton animation="wave" width="100%" /> : `${total.toFixed(2)} €`}
-              </ListItemText>
+              <ListItemText className="text-right m-4">{`${total.toFixed(2)} €`}</ListItemText>
             </ListItem>
 
             <ListItem dense>

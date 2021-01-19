@@ -15,7 +15,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <Grid item xs={6}>
       <Card className="w-full h-full">
-        <CardActionArea onClick={onClick(product)}>
+        <CardActionArea className="w-full h-full" onClick={onClick(product)}>
           <CardContent>
             <Typography variant="subtitle2">{product.name}</Typography>
             <Typography variant="caption" color="textSecondary" component="div" gutterBottom>

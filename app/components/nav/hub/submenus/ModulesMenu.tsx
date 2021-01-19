@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { useState } from "react"
 import Menu from "@material-ui/core/Menu"
-import Badge from "@material-ui/core/Badge"
 import Divider from "@material-ui/core/Divider"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
@@ -21,18 +20,16 @@ export default function ModulesMenu() {
 
   return (
     <>
-      <Badge badgeContent="!" overlap="circular" color="primary">
-        <IconButton
-          className="mx-2"
-          aria-label="Voir les modules"
-          aria-owns={isOpen ? "module-menu" : undefined}
-          aria-haspopup="true"
-          onClick={handleOpen}
-          color="inherit"
-        >
-          <Apps />
-        </IconButton>
-      </Badge>
+      <IconButton
+        className="mx-2"
+        aria-label="Voir les modules"
+        aria-owns={isOpen ? "module-menu" : undefined}
+        aria-haspopup="true"
+        onClick={handleOpen}
+        color="inherit"
+      >
+        <Apps />
+      </IconButton>
 
       <Menu
         id="module-menu"

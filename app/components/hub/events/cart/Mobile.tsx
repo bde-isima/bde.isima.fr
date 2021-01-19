@@ -23,14 +23,12 @@ import CartOutline from "mdi-material-ui/CartOutline"
 import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
 import MinusCircleOutline from "mdi-material-ui/MinusCircleOutline"
 
-import { Event } from "db"
 import { CartItem, Option } from "types"
 import PaymentMethods from "./PaymentMethods"
 import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
 import SlideTransition from "app/layouts/SlideTransition"
 
 type MobileProps = {
-  event: Event
   total: number
   subscribing: boolean
   onSubscribe: () => void
@@ -40,7 +38,6 @@ type MobileProps = {
 }
 
 export default function Mobile({
-  event,
   total,
   subscribing,
   onSubscribe,
@@ -49,7 +46,7 @@ export default function Mobile({
   onQuantityChange,
 }: MobileProps) {
   const [open, setOpen] = useState(false)
-  const { eventSubscription } = useEventSubscription()
+  const { event, eventSubscription } = useEventSubscription()
 
   const handleOpenChange = (value) => () => setOpen(value)
 
