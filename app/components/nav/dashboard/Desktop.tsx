@@ -48,7 +48,10 @@ export default function Desktop() {
 
                   <ListItemText
                     secondary={obj.text}
-                    secondaryTypographyProps={{ color: isActive ? "secondary" : "textPrimary" }}
+                    secondaryTypographyProps={{
+                      color: isActive ? "secondary" : "textPrimary",
+                      noWrap: true,
+                    }}
                   />
                 </ListItem>
               </Button>

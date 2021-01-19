@@ -35,6 +35,10 @@ export default async function upsertEventSubscription(
     throw new Error("Événement plein")
   }
 
+  if (new Date() > event.subscriptions_end_at) {
+    throw new Error("Inscriptions closes")
+  }
+
   const eventSubscription = await db.eventSubscription.upsert({ where, update, create })
 
   return eventSubscription
