@@ -3,6 +3,7 @@ import NoSsr from "@material-ui/core/NoSsr"
 import { useTheme } from "@material-ui/core"
 import Dialog from "@material-ui/core/Dialog"
 import { useSwipeable } from "react-swipeable"
+import TabPanel from "@material-ui/lab/TabPanel"
 import Skeleton from "@material-ui/core/Skeleton"
 import TabContext from "@material-ui/lab/TabContext"
 import IconButton from "@material-ui/core/IconButton"
@@ -19,7 +20,6 @@ import HistoryIcon from "mdi-material-ui/History"
 import CurrencyEur from "mdi-material-ui/CurrencyEur"
 import CartOutline from "mdi-material-ui/CartOutline"
 
-import TabPanel from "app/layouts/TabPanel"
 import getUser from "app/entities/users/queries/getUser"
 import getUsers from "app/entities/users/queries/getUsers"
 import SearchUser from "app/components/dashboard/cashing/SearchUser"
@@ -46,7 +46,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
     onSwipedRight: () => setValue(value < 1 ? value : value - 1),
   })
 
-  const onComplete = () => {
+  const onTransactionComplete = () => {
     invalidateQuery(getUser, { where: { id: user?.id } })
     invalidateQuery(getTransactions)
   }
@@ -87,24 +87,24 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             </Suspense>
           </DialogActions>
 
-          <DialogContent className="flex flex-col overflow-y-hidden">
+          <DialogContent className="p-0 text-center">
             <SuspenseList revealOrder="forwards">
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+              <Suspense fallback={<CircularProgress size={25} />}>
                 <TabPanel className="h-full mb-14" value="0">
-                  <Catalog user={user} onComplete={onComplete} />
+                  <Catalog user={user} onTransactionComplete={onTransactionComplete} />
                 </TabPanel>
               </Suspense>
 
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel value="1" className="flex flex-col items-center">
+              <Suspense fallback={<CircularProgress size={25} />}>
+                <TabPanel value="1">
                   <HistoryHeader />
                   <History userId={user?.id} />
                 </TabPanel>
               </Suspense>
 
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+              <Suspense fallback={<CircularProgress size={25} />}>
                 <TabPanel value="2">
-                  <AdminTransfer user={user} onComplete={onComplete} />
+                  <AdminTransfer user={user} onTransactionComplete={onTransactionComplete} />
                 </TabPanel>
               </Suspense>
             </SuspenseList>

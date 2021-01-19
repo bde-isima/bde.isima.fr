@@ -41,7 +41,7 @@ export default function History({ userId }: HistoryProps) {
       <div className="flex flex-grow" />
 
       <Button
-        className="m-4"
+        className="my-4 w-full"
         onClick={() => fetchMore()}
         color="primary"
         variant="outlined"

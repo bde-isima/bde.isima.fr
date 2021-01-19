@@ -6,7 +6,7 @@ import { Form, FORM_ERROR } from "app/components/forms/Form"
 import { VoteInput, VoteInputType } from "app/components/forms/validations"
 
 type VoteFormProps = {
-  initialValues: Candidate
+  initialValues?: Candidate | null
   onSuccess: (values: VoteInputType) => void
   onClose: () => void
 }
@@ -24,7 +24,13 @@ export default function VoteForm(props: VoteFormProps) {
 
   return (
     <Form<VoteInputType>
-      title={`Voter pour ${props.initialValues?.name}`}
+      title={
+        props.initialValues
+          ? `Voter pour ${props.initialValues?.name}`
+          : props.initialValues === null
+          ? "Voter blanc"
+          : "Voter nul"
+      }
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}
@@ -32,6 +38,8 @@ export default function VoteForm(props: VoteFormProps) {
       initialValues={{
         voteToken: undefined,
         candidateId: props.initialValues?.id,
+        isNull: props.initialValues === null,
+        isBlank: props.initialValues === undefined,
         approve: false,
       }}
       onSubmit={onSubmit}

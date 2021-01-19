@@ -24,7 +24,12 @@ export default function ElectionsIndex() {
 
         <HowItWorks />
 
-        <Grid container className="flex flex-col md:flex-row items-center" spacing={5}>
+        <Grid
+          container
+          className="flex flex-col md:flex-row items-center"
+          justifyContent="center"
+          spacing={5}
+        >
           <Suspense fallback={FallbackComponent}>
             <Elections />
           </Suspense>

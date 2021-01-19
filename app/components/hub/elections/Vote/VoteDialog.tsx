@@ -16,13 +16,14 @@ import createVote from "app/entities/vote/mutations/createVote"
 import VoteForm from "app/components/hub/elections/Vote/VoteForm"
 
 type VoteDialogProps = {
-  candidate: Candidate | null
+  open: boolean
+  candidate?: Candidate | null
   onClose: () => void
 }
 
-export default function VoteDialog({ candidate, onClose }: VoteDialogProps) {
+export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps) {
   const [createVt] = useMutation(createVote)
-  const { open, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
+  const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
@@ -39,7 +40,7 @@ export default function VoteDialog({ candidate, onClose }: VoteDialogProps) {
   return (
     <NoSsr>
       <Dialog
-        open={Boolean(candidate)}
+        open={open}
         onClose={onClose}
         keepMounted
         fullScreen={fullScreen}
@@ -55,7 +56,7 @@ export default function VoteDialog({ candidate, onClose }: VoteDialogProps) {
         <VoteForm initialValues={candidate!} onSuccess={onSuccess} onClose={onClose} />
       </Dialog>
 
-      <Snackbar open={open} message={message} severity={severity} onClose={onSnackClose} />
+      <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
   )
 }

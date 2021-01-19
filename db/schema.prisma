@@ -186,8 +186,8 @@ model User {
     is_member               Boolean   @default(false)
     is_enabled              Boolean   @default(true)
 
-    createdAt               DateTime  @default(now()) @map(name: "created_at")
-    updatedAt               DateTime  @updatedAt @map(name: "updated_at")
+    createdAt               DateTime  @default(now())
+    updatedAt               DateTime  @updatedAt
 }
 
 model Session {
@@ -211,8 +211,8 @@ model LoginRequest {
   token                     String    @unique
   callbackUrl               String
   expires                   DateTime
-  createdAt                 DateTime  @default(now()) @map(name: "created_at")
-  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
 }
 
 model VoteRequest {
@@ -222,31 +222,35 @@ model VoteRequest {
   election                  Election  @relation(fields: [electionId], references: [id])
   electionId                String
   voteToken                 String    @unique
-  createdAt                 DateTime  @default(now()) @map(name: "created_at")
-  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
 }
 
 model Vote {
-  id                        String    @id @default(cuid())
-  candidate                 Candidate      @relation(fields: [candidateId], references: [id])
-  candidateId               String
-  voteToken                 String    @unique
-  createdAt                 DateTime  @default(now()) @map(name: "created_at")
-  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+  id                        String      @id @default(cuid())
+  candidate                 Candidate?  @relation(fields: [candidateId], references: [id])
+  candidateId               String?
+  election                  Election  @relation(fields: [electionId], references: [id])
+  electionId                String
+  isBlank                   Boolean
+  isNull                    Boolean
+  voteToken                 String      @unique
+  createdAt                 DateTime    @default(now())
+  updatedAt                 DateTime    @updatedAt
 }
 
 model Candidate {
   id                        String    @id @default(cuid())
   name                      String
   image                     String
-  createdAt                 DateTime  @default(now()) @map(name: "created_at")
-  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
 }
 
 model Election {
   id                        String    @id @default(cuid())
   candidates                Candidate[]
   endDate                   DateTime
-  createdAt                 DateTime  @default(now()) @map(name: "created_at")
-  updatedAt                 DateTime  @default(now()) @map(name: "updated_at")
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
 }

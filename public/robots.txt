@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /hub
 Disallow: /dashboard
+Sitemap: https://bde.isima.fr/sitemap.xml

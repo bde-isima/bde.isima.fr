@@ -1,5 +1,11 @@
 import { useQuery } from "blitz"
 import { useState } from "react"
+import Grid from "@material-ui/core/Grid"
+import Button from "@material-ui/core/Button"
+import ButtonGroup from "@material-ui/core/ButtonGroup"
+
+import Null from "mdi-material-ui/Null"
+import Ballot from "mdi-material-ui/Ballot"
 
 import { Election, Candidate } from "db"
 import VoteDialog from "./Vote/VoteDialog"
@@ -10,7 +16,8 @@ import getElection from "app/entities/elections/queries/getElection"
 const now = new Date()
 
 export default function Elections() {
-  const [selected, setSelected] = useState<Candidate | null>(null)
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<Candidate | null>()
 
   const [election] = useQuery(
     getElection,
@@ -21,18 +28,39 @@ export default function Elections() {
     { refetchOnWindowFocus: false }
   )
 
-  const onSelect = (value) => () => setSelected(value)
+  const onSelect = (open, value) => () => {
+    setOpen(open)
+    setSelected(value)
+  }
 
   return (
     <>
       {!election && <NoElections />}
 
-      {election &&
-        (election as Election & { candidates: Candidate[] }).candidates.map((c, cIdx) => (
-          <CandidateItem key={cIdx} candidate={c} onSelect={onSelect} />
-        ))}
+      {election && (
+        <>
+          {(election as Election & { candidates: Candidate[] }).candidates.map((c, cIdx) => (
+            <CandidateItem key={cIdx} candidate={c} onSelect={onSelect} />
+          ))}
 
-      <VoteDialog candidate={selected} onClose={onSelect(null)} />
+          <Grid container xs={12} item justifyContent="center">
+            <ButtonGroup variant="outlined" color="primary">
+              <Button
+                className="w-32 md:w-52"
+                startIcon={<Ballot />}
+                onClick={onSelect(true, undefined)}
+              >
+                Vote Blanc
+              </Button>
+              <Button className="w-32 md:w-52" startIcon={<Null />} onClick={onSelect(true, null)}>
+                Vote Nul
+              </Button>
+            </ButtonGroup>
+          </Grid>
+
+          <VoteDialog open={open} candidate={selected} onClose={onSelect(undefined, false)} />
+        </>
+      )}
     </>
   )
 }

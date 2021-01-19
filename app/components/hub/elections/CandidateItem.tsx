@@ -9,8 +9,8 @@ import CardActionArea from "@material-ui/core/CardActionArea"
 import { Candidate } from "db"
 
 type CandidateItemProps = {
-  candidate?: Candidate
-  onSelect?: (value) => () => void
+  candidate?: Partial<Candidate>
+  onSelect?: (open, value) => () => void
   isLoading?: boolean
 }
 
@@ -19,7 +19,7 @@ export default function CandidateItem({ candidate, onSelect, isLoading }: Candid
     <Grid container item xs={12} md={6}>
       <CardActionArea
         className="w-full rounded-full my-4"
-        onClick={onSelect && onSelect(candidate)}
+        onClick={onSelect && onSelect(true, candidate)}
       >
         <Palette src={candidate?.image || ""}>
           {({ data }) => (

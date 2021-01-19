@@ -7,6 +7,10 @@ export default function CustomHead() {
   return (
     <Head>
       <meta charSet="utf-8" />
+      <meta
+        name="robots"
+        content={process.env.NEXT_PUBLIC_FRONTEND_URL === globalThis.website ? "all" : "none"}
+      />
       <meta name="description" content="Site du BDE ISIMA" key="description" />
 
       <link

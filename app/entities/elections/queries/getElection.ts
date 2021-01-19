@@ -1,4 +1,4 @@
-import { Ctx, NotFoundError } from "blitz"
+import { Ctx } from "blitz"
 
 import db, { Prisma } from "db"
 
@@ -8,8 +8,6 @@ export default async function getElection({ where, include }: FindFirstElectionI
   ctx.session.authorize()
 
   const election = await db.election.findFirst({ where, include })
-
-  if (!election) throw new NotFoundError()
 
   return election
 }

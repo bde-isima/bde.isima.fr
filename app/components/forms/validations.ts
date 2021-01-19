@@ -272,7 +272,9 @@ export type ElectionInputType = z.infer<typeof ElectionInput>
 export const VoteInput = z
   .object({
     voteToken: z.string(),
-    candidateId: z.string(),
+    candidateId: z.string().optional().nullable(),
+    isNull: z.boolean(),
+    isBlank: z.boolean(),
     approve: z.boolean().refine((value) => Boolean(value), {
       message: "Veuillez accepter",
     }),

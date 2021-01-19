@@ -14,7 +14,7 @@ export default function NoElections() {
       />
 
       <Typography variant="h4" paragraph>
-        Il n'y a pas d'élection BDE en cours
+        Il n'y a pas d'élections BDE en cours
       </Typography>
     </div>
   )
