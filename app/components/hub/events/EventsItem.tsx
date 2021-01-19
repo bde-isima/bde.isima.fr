@@ -3,6 +3,7 @@ import { format } from "date-fns"
 import Chip from "@material-ui/core/Chip"
 import Grid from "@material-ui/core/Grid"
 import MuiCard from "@material-ui/core/Card"
+import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
 import Skeleton from "@material-ui/core/Skeleton"
 import CardHeader from "@material-ui/core/CardHeader"
@@ -27,16 +28,16 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
           avatar={
             isLoading ? (
               <Skeleton variant="circular" width={40} height={40} animation="wave" />
+            ) : event?.club?.image ? (
+              <Image
+                className="rounded-full"
+                src={event?.club.image}
+                width={40}
+                height={40}
+                alt="Club organisateur"
+              />
             ) : (
-              event?.club?.image && (
-                <Image
-                  className="rounded-full"
-                  src={event?.club.image}
-                  width={40}
-                  height={40}
-                  alt="Club organisateur"
-                />
-              )
+              <Avatar alt="Photo du club" />
             )
           }
           title={isLoading ? <Skeleton width="100%" animation="wave" /> : event?.name}
@@ -56,13 +57,13 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
             >
               <Chip
                 className="rounded-lg mb-2 w-11/12"
-                label={!isLoading && format(event?.takes_place_at!, "dd/MM/yyyy - hh:mm")}
+                label={!isLoading && format(event?.takes_place_at!, "dd/MM/yyyy - HH:mm")}
                 size="small"
               />
               <Chip
                 className="rounded-lg mb-2 w-11/12"
                 variant="outlined"
-                label={!isLoading && format(event?.subscriptions_end_at!, "dd/MM/yyyy - hh:mm")}
+                label={!isLoading && format(event?.subscriptions_end_at!, "dd/MM/yyyy - HH:mm")}
                 size="small"
               />
             </Grid>

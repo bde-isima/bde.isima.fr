@@ -101,12 +101,12 @@ const columns = [
   {
     id: "takes_place_at",
     headerName: "Date de l'événement",
-    render: (row) => format(row.takes_place_at, "dd/MM/yyyy - hh:mm"),
+    render: (row) => format(row.takes_place_at, "dd/MM/yyyy - HH:mm"),
   },
   {
     id: "subscriptions_end_at",
     headerName: "Date limite d'inscription",
-    render: (row) => format(row.subscriptions_end_at, "dd/MM/yyyy - hh:mm"),
+    render: (row) => format(row.subscriptions_end_at, "dd/MM/yyyy - HH:mm"),
   },
   {
     id: "status",

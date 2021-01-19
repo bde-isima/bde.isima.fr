@@ -15,9 +15,14 @@ export default function PaymentMethods() {
 
   const onPaymentMethodChange = (payment_method) => () => {
     setQueryData(
-      (oldData) => ({
-        ...(oldData as EventSubscriptionWithTypedCart),
-        payment_method,
+      ({ EventSubscription, ...oldData }) => ({
+        ...oldData,
+        EventSubscription: [
+          {
+            ...(EventSubscription[0] as EventSubscriptionWithTypedCart),
+            payment_method,
+          },
+        ],
       }),
       { refetch: false }
     )

@@ -42,7 +42,7 @@ export default function TableHead({
           </TableCell>
         ))}
 
-        <TableCell align="right" colSpan={1 + actions.length}>
+        <TableCell align="right" colSpan={actions.length + 2}>
           Actions
         </TableCell>
       </TableRow>

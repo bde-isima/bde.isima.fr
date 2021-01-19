@@ -1,15 +1,13 @@
 import { useState } from "react"
 import Grid from "@material-ui/core/Grid"
 
-import { EventWithTypedProducts, Product } from "types"
+import { Product } from "types"
 import ProductCard from "app/components/hub/events/product/ProductCard"
 import ProductDialog from "app/components/hub/events/product/ProductDialog"
+import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
 
-type ProductsListProps = {
-  event: EventWithTypedProducts
-}
-
-export default function ProductsList({ event }: ProductsListProps) {
+export default function ProductsList() {
+  const { event } = useEventSubscription()
   const [selectedProduct, setSelectedProduct] = useState<Product>()
 
   const changeSelectedProduct = (value) => () => setSelectedProduct(value)

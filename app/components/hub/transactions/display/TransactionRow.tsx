@@ -46,7 +46,7 @@ export default function TransactionRow({ values, dense = false }: TransactionPro
               {values.description || "Aucune description"}
             </Typography>
             <Typography variant="overline" align="center" color="textSecondary">
-              {format(values.createdAt, "dd/MM/yyyy - hh:mm")}
+              {format(values.createdAt, "dd/MM/yyyy - HH:mm")}
             </Typography>
           </>
         ) : (

@@ -1,12 +1,14 @@
 import { useQuery } from "blitz"
+import { useRouter } from "next/router"
 import { createContext, useContext } from "react"
 
-import { EventSubscriptionWithTypedCart } from "types"
+import { Club } from "db"
+import getEvent from "app/entities/events/queries/getEvent"
 import { useBDESession } from "app/components/auth/SessionProvider"
-import getEventSubscription from "app/entities/eventSubscriptions/queries/getEventSubscription"
+import { EventSubscriptionWithTypedCart, EventWithTypedProducts } from "types"
 
 interface EventSubscriptionContextType {
-  isFetching: Boolean
+  event: EventWithTypedProducts & { club: Club }
   eventSubscription: EventSubscriptionWithTypedCart
   setQueryData: any
 }
@@ -17,22 +19,26 @@ export const useEventSubscription = () => {
   return useContext(EventSubscriptionContext)
 }
 
-export function EventSubscriptionProvider({ eventId, children }) {
+export function EventSubscriptionProvider({ children }) {
   const session = useBDESession()
+  const eventId = useRouter().query.id
 
-  const inputArgs = { where: { eventId, userId: session?.userId } }
-
-  const [data, { isFetching, setQueryData }] = useQuery(getEventSubscription, inputArgs, {
-    enabled: Boolean(eventId),
-    refetchOnWindowFocus: false,
-    suspense: false,
-  })
+  const [{ EventSubscription, ...data }, { setQueryData }] = useQuery(
+    getEvent,
+    {
+      where: { id: eventId as string },
+      include: { club: true, EventSubscription: { where: { userId: session?.userId } } },
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
 
   return (
     <EventSubscriptionContext.Provider
       value={{
-        isFetching: isFetching,
-        eventSubscription: data as any,
+        event: data as any,
+        eventSubscription: EventSubscription[0],
         setQueryData,
       }}
     >

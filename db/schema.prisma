@@ -34,7 +34,7 @@ model Event {
     id                        String    @id @default(cuid())
 
     name                      String
-    description               String
+    description               String?
 
     takes_place_at            DateTime
     subscriptions_end_at      DateTime

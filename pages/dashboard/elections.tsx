@@ -74,6 +74,6 @@ const columns = [
   {
     id: "endDate",
     headerName: "Date de fin",
-    render: (row) => format(row.endDate, "dd/MM/yyyy - hh:mm"),
+    render: (row) => format(row.endDate, "dd/MM/yyyy - HH:mm"),
   },
 ]
