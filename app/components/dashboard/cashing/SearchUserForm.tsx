@@ -14,12 +14,12 @@ export default function SearchUserForm() {
   const [selected, setSelected] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
 
-  const onSelection = (event: any, newValue: User | null) => {
+  const onSelection = (_, newValue: User | null) => {
     setSelected(newValue)
     setOpen(true)
   }
 
-  const onDialogSelection = (event: any, newValue: User | null) => setSelected(newValue)
+  const onDialogSelection = (_, newValue: User | null) => setSelected(newValue)
 
   const onClear = () => setSelected(null)
 

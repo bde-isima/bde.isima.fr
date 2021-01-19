@@ -13,17 +13,33 @@ export default async function getResults({ where }: GetResultsInput, ctx: Ctx) {
     throw new Error("Campagne introuvable")
   }
 
-  const results = await db.vote.groupBy({
-    by: ["candidateId"],
-    where: {
-      candidateId: {
-        in: election.candidates.map((x) => x.id),
-      },
-    },
+  const results: any = await db.vote.groupBy({
+    by: ["candidateId", "isBlank", "isNull"],
+    where: { electionId: election.id },
+    count: { id: true },
   })
 
-  return election.candidates.map((x) => ({
-    candidateName: x.name,
-    nbVotes: results.filter((y) => y.candidateId === x.id).length,
-  }))
+  return results.map((x) => {
+    //Group by of a candidate
+    if (x.candidateId) {
+      return {
+        candidateName: election.candidates.find((y) => y.id === x.candidateId)?.name,
+        nbVotes: x.count.id,
+      }
+    }
+    //Group by of a blank vote
+    else if (x.isBlank) {
+      return {
+        candidateName: "Votes blancs",
+        nbVotes: x.count.id,
+      }
+    }
+    //Group by of a Null vote
+    else {
+      return {
+        candidateName: "Votes nuls",
+        nbVotes: x.count.id,
+      }
+    }
+  })
 }

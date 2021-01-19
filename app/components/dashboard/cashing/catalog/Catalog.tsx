@@ -43,7 +43,7 @@ const innerElementType = forwardRef(
   )
 )
 
-export default function Catalog({ user, onComplete }) {
+export default function Catalog({ user, onTransactionComplete }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
@@ -69,7 +69,7 @@ export default function Catalog({ user, onComplete }) {
     deleteT({ where: { id: previousTransaction as string } }).then(() => {
       setPreviousTransaction(null)
       onShow("warning", "Vente annulée")
-      onComplete()
+      onTransactionComplete()
     })
   }
 
@@ -89,7 +89,7 @@ export default function Catalog({ user, onComplete }) {
             setPreviousTransaction(res[0].id)
           }
           onShow("success", "Article vendu")
-          onComplete()
+          onTransactionComplete()
         })
         .catch((err) => onShow("error", err.message))
         .finally(() => setLoading(false))
