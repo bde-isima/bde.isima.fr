@@ -1,7 +1,7 @@
 import faker from "faker"
 
 const articles = async (db) => {
-  for (let i = 0; i < 5; ++i) {
+  for (let i = 0; i < 25; ++i) {
     await db.article.create({
       data: {
         name: faker.lorem.word(),

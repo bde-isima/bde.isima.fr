@@ -90,7 +90,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
           <DialogContent className="p-0 text-center">
             <SuspenseList revealOrder="forwards">
               <Suspense fallback={<CircularProgress size={25} />}>
-                <TabPanel className="h-full mb-14" value="0">
+                <TabPanel className="h-5/6 mb-14" value="0">
                   <Catalog user={user} onTransactionComplete={onTransactionComplete} />
                 </TabPanel>
               </Suspense>
