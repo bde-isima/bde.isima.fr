@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { TextField } from "mui-rff"
 import { useForm } from "react-final-form"
 import Divider from "@material-ui/core/Divider"
