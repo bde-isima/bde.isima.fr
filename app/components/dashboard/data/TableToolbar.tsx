@@ -10,12 +10,20 @@ import DeleteOutline from "mdi-material-ui/DeleteOutline"
 import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
 import ContentSaveMoveOutline from "mdi-material-ui/ContentSaveMoveOutline"
 
+import { useTableProps } from "./TablePropsProvider"
 import TableDeleteConfirm from "./TableDeleteConfirm"
 
-export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport, onSearch }) {
+export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport }) {
+  const { search } = useTableProps()
   const [open, setOpen] = useState(false)
 
   const handleClickOpen = (value) => () => setOpen(value)
+
+  const onSearch = (e) => {
+    if (e.key === "Enter") {
+      search.set(e.target.value)
+    }
+  }
 
   return (
     <Toolbar className="pl-4 pr-2">

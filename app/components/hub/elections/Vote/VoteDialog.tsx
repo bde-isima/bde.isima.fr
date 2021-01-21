@@ -39,22 +39,24 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
 
   return (
     <NoSsr>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        keepMounted
-        fullScreen={fullScreen}
-        PaperProps={{ className: "w-full" }}
-        TransitionComponent={SlideTransition}
-      >
-        <DialogActions>
-          <IconButton onClick={onClose} aria-label="Fermer">
-            <Close />
-          </IconButton>
-        </DialogActions>
+      {open && (
+        <Dialog
+          open={open}
+          onClose={onClose}
+          keepMounted
+          fullScreen={fullScreen}
+          PaperProps={{ className: "w-full" }}
+          TransitionComponent={SlideTransition}
+        >
+          <DialogActions>
+            <IconButton onClick={onClose} aria-label="Fermer">
+              <Close />
+            </IconButton>
+          </DialogActions>
 
-        <VoteForm initialValues={candidate!} onSuccess={onSuccess} onClose={onClose} />
-      </Dialog>
+          <VoteForm initialValues={candidate!} onSuccess={onSuccess} onClose={onClose} />
+        </Dialog>
+      )}
 
       <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>

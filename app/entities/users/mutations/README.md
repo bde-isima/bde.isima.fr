@@ -22,11 +22,11 @@
 
 # upsertUser
 
-- Can be performed by \* or BDE role only
+- Can only be performed by \*
 - card has to be a _number_
 - Should update sessions public data to reflect potential update in roles
 - (Create) Should set a default random password and send an activation email for any new user created
 
 # deleteManyUsers
 
-- Can be performed by \* or BDE role only
+- Can only be performed by \*

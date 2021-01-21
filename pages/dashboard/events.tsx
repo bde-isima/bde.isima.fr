@@ -15,7 +15,7 @@ import EventStatus from "app/components/dashboard/events/EventStatus"
 import checkoutEvent from "app/entities/events/mutations/checkoutEvent"
 import deleteManyEvents from "app/entities/events/mutations/deleteManyEvents"
 
-const today = new Date(new Date().setHours(0, 0, 0, 0))
+const today = new Date()
 
 export default function Events() {
   const { open, message, severity, onShow, onClose } = useSnackbar()

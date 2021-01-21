@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { TextField } from "mui-rff"
+import { useForm } from "react-final-form"
 import Divider from "@material-ui/core/Divider"
-import { useForm, Field } from "react-final-form"
 import FormGroup from "@material-ui/core/FormGroup"
 import FormLabel from "@material-ui/core/FormLabel"
 import { FieldArray } from "react-final-form-arrays"
@@ -55,22 +55,6 @@ export default function CandidatesForm() {
                 <FormLabel component="legend">Candidat n°{candidateIdx + 1}</FormLabel>
                 <Divider className="m-2" />
 
-                <div className="mx-auto">
-                  <Field name={`${candidateName}.image`}>
-                    {(props) =>
-                      props.input.value && (
-                        <Image
-                          className="rounded-full"
-                          src={props.input.value}
-                          width={100}
-                          height={100}
-                          alt="Image du candidat"
-                        />
-                      )
-                    }
-                  </Field>
-                </div>
-
                 <FormGroup aria-label={`Candidat n°${candidateIdx + 1}`}>
                   <TextField
                     className="my-1"
@@ -91,6 +75,7 @@ export default function CandidatesForm() {
                         </InputAdornment>
                       ),
                     }}
+                    helperText="Format PNG obligatoire"
                   />
 
                   <TextField

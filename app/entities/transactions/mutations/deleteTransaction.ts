@@ -21,7 +21,7 @@ export default async function deleteTransaction({ where }: DeleteTransactionInpu
   }
 
   let userStats
-  const amount = Math.abs(transaction.amount)
+  const amount = transaction.amount
 
   if (transaction.user.userStats?.articlesStats) {
     transaction.user.userStats.articlesStats[transaction.articleId] -= 1

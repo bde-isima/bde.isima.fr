@@ -1,6 +1,7 @@
 import cuid from "cuid"
 import { useState } from "react"
 import { format } from "date-fns"
+import { CsvBuilder } from "filefy"
 import { useMutation } from "blitz"
 
 import Eye from "mdi-material-ui/Eye"
@@ -16,16 +17,31 @@ import getElections from "app/entities/elections/queries/getElections"
 import ElectionForm from "app/components/dashboard/elections/ElectionForm"
 import upsertElection from "app/entities/elections/mutations/upsertElection"
 import deleteManyElections from "app/entities/elections/mutations/deleteManyElections"
+import getVoteRequests from "app/entities/voteRequests/queries/getVoteRequests"
 
 export default function Elections() {
   const { open, message, severity, onShow, onClose } = useSnackbar()
   const [results, setResults] = useState<Vote[] | null>(null)
   const [getRslt] = useMutation(getResults)
+  const [getRequests] = useMutation(getVoteRequests)
 
   const seeResults = (rowData) => () => () => {
     return getRslt({ where: { id: rowData.id } })
       .then((res: any) => setResults(res))
       .catch((err) => onShow("error", err.message))
+  }
+
+  const exportCsv = (rowData) => {
+    getRequests({
+      where: { electionId: rowData.id },
+      include: { user: true },
+    }).then(({ voteRequests }) =>
+      new CsvBuilder("campagnes.csv")
+        .setDelimeter(",")
+        .setColumns(["firstname", "lastname", "voteToken"])
+        .addRows(voteRequests.map((v: any) => [v.user.firstname, v.user.lastname, v.voteToken]))
+        .exportFile()
+    )
   }
 
   const resetResult = () => setResults(null)
@@ -43,6 +59,7 @@ export default function Elections() {
         upsertQuery={upsertElection}
         deleteQuery={deleteManyElections}
         FormComponent={ElectionForm}
+        onExport={exportCsv}
         actions={[
           (rowData) => ({
             icon: <Eye />,

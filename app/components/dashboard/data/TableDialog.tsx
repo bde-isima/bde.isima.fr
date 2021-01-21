@@ -6,6 +6,17 @@ import { useMutation, invalidateQuery } from "blitz"
 import Snackbar from "app/layouts/Snackbar"
 import SlideTransition from "app/layouts/SlideTransition"
 
+type TableDialogProps = {
+  open: boolean
+  values: any
+  columns: any[]
+  onClose: () => void
+  getQuery: any
+  upsertQuery: any
+  snackbar: any
+  FormComponent?: any
+}
+
 export default function TableDialog({
   open,
   values,
@@ -15,8 +26,8 @@ export default function TableDialog({
   upsertQuery,
   snackbar,
   FormComponent,
-}) {
-  const { snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
+}: TableDialogProps) {
+  const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
 
   const [upsertMutation] = useMutation(upsertQuery)
 

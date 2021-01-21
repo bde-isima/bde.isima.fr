@@ -28,7 +28,7 @@ export default function RolesForm({ values }) {
   const roles = values?.roles ?? []
   const [checked, setChecked] = useState<string[]>([])
   const [left, setLeft] = useState<string[]>(
-    not([...clubs.map((x) => x.name.toUpperCase()), "BDE", "*"], roles)
+    not(["*", ...clubs.map((x) => x.name.toUpperCase())], roles)
   )
   const [right, setRight] = useState<string[]>(roles)
 
@@ -50,14 +50,20 @@ export default function RolesForm({ values }) {
 
   const handleAllRight = () => {
     const newRight = right.concat(left)
-    form.change("roles", newRight)
+    form.change(
+      "roles",
+      newRight.map((x) => x.toLowerCase())
+    )
     setRight(newRight)
     setLeft([])
   }
 
   const handleCheckedRight = () => {
     const newRight = right.concat(leftChecked)
-    form.change("roles", newRight)
+    form.change(
+      "roles",
+      newRight.map((x) => x.toLowerCase())
+    )
     setRight(newRight)
     setLeft(not(left, leftChecked))
     setChecked(not(checked, leftChecked))
@@ -65,7 +71,10 @@ export default function RolesForm({ values }) {
 
   const handleCheckedLeft = () => {
     const newRight = not(right, rightChecked)
-    form.change("roles", newRight)
+    form.change(
+      "roles",
+      newRight.map((x) => x.toLowerCase())
+    )
     setLeft(left.concat(rightChecked))
     setRight(newRight)
     setChecked(not(checked, rightChecked))

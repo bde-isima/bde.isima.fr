@@ -3,6 +3,7 @@ import NoSsr from "@material-ui/core/NoSsr"
 import { useTheme } from "@material-ui/core"
 import Dialog from "@material-ui/core/Dialog"
 import { useSwipeable } from "react-swipeable"
+import { lazy, Suspense, useState } from "react"
 import TabPanel from "@material-ui/lab/TabPanel"
 import Skeleton from "@material-ui/core/Skeleton"
 import TabContext from "@material-ui/lab/TabContext"
@@ -12,7 +13,6 @@ import useMediaQuery from "@material-ui/core/useMediaQuery"
 import DialogActions from "@material-ui/core/DialogActions"
 import BottomNavigation from "@material-ui/core/BottomNavigation"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import { lazy, Suspense, unstable_SuspenseList, useState } from "react"
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
 
 import Close from "mdi-material-ui/Close"
@@ -27,7 +27,6 @@ import Balance from "app/components/hub/transactions/display/Balance"
 import getTransactions from "app/entities/transactions/queries/getTransactions"
 import HistoryHeader from "app/components/hub/transactions/operations/history/HistoryHeader"
 
-const SuspenseList = unstable_SuspenseList
 const Catalog = lazy(() => import("./catalog/Catalog"))
 const AdminTransfer = lazy(() => import("./adminTransfer/AdminTransfer"))
 const History = lazy(() => import("app/components/hub/transactions/operations/history/History"))
@@ -54,75 +53,75 @@ export default function CashingDialog({ user, onSelection, onClear }) {
   return (
     <NoSsr>
       <TabContext value={value.toString()}>
-        <Dialog
-          open={Boolean(user)}
-          classes={{ paper: "h-full" }}
-          fullScreen={fullScreen}
-          keepMounted
-          fullWidth
-          onClose={onClear}
-          PaperProps={{ className: "w-full" }}
-          aria-labelledby="cashing-dialog-title"
-          aria-describedby="cashing-dialog-description"
-          {...handlers}
-        >
-          <DialogActions className="flex flex-col">
-            <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur">
-              <Close />
-            </IconButton>
+        {user && (
+          <Dialog
+            open={Boolean(user)}
+            classes={{ paper: "h-full" }}
+            fullScreen={fullScreen}
+            keepMounted
+            fullWidth
+            onClose={onClear}
+            PaperProps={{ className: "w-full" }}
+            aria-labelledby="cashing-dialog-title"
+            aria-describedby="cashing-dialog-description"
+            {...handlers}
+          >
+            <DialogActions className="flex flex-col">
+              <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur">
+                <Close />
+              </IconButton>
 
-            <SearchUser
-              name="user"
-              className="w-full m-4"
-              label="Encaisser un membre ..."
-              onSelection={onSelection}
-              getQuery={getUsers}
-              value={user}
-              open={open}
-              setOpen={setOpen}
-            />
+              <SearchUser
+                name="user"
+                className="w-full m-4"
+                label="Encaisser un membre ..."
+                onSelection={onSelection}
+                getQuery={getUsers}
+                value={user}
+                open={open}
+                setOpen={setOpen}
+              />
 
-            <Suspense fallback={<Skeleton width="60%" height={55} />}>
-              <Balance getQuery={getUser} queryArgs={{ where: { id: user?.id } }} variant="h6" />
-            </Suspense>
-          </DialogActions>
-
-          <DialogContent className="p-0 text-center">
-            <SuspenseList revealOrder="forwards">
-              <Suspense fallback={<CircularProgress size={25} />}>
-                <TabPanel className="h-5/6 mb-14" value="0">
-                  <Catalog user={user} onTransactionComplete={onTransactionComplete} />
-                </TabPanel>
+              <Suspense fallback={<Skeleton width="60%" height={55} />}>
+                <Balance getQuery={getUser} queryArgs={{ where: { id: user?.id } }} variant="h6" />
               </Suspense>
+            </DialogActions>
 
-              <Suspense fallback={<CircularProgress size={25} />}>
-                <TabPanel value="1">
+            <DialogContent className="p-0 text-center">
+              <TabPanel className="h-5/6 mb-14" value="0">
+                <Suspense fallback={<CircularProgress size={25} />}>
+                  <Catalog user={user} onTransactionComplete={onTransactionComplete} />
+                </Suspense>
+              </TabPanel>
+
+              <TabPanel value="1">
+                <Suspense fallback={<CircularProgress size={25} />}>
                   <HistoryHeader />
                   <History userId={user?.id} />
-                </TabPanel>
-              </Suspense>
+                </Suspense>
+              </TabPanel>
 
-              <Suspense fallback={<CircularProgress size={25} />}>
-                <TabPanel value="2">
+              <TabPanel value="2">
+                <Suspense fallback={<CircularProgress size={25} />}>
                   <AdminTransfer user={user} onTransactionComplete={onTransactionComplete} />
-                </TabPanel>
-              </Suspense>
-            </SuspenseList>
-          </DialogContent>
+                </Suspense>
+              </TabPanel>
+            </DialogContent>
 
-          <DialogActions className="p-0">
-            <BottomNavigation
-              className="w-full"
-              showLabels={!fullScreen}
-              value={value}
-              onChange={onChange}
-            >
-              <BottomNavigationAction value={0} label="Encaisser" icon={<CartOutline />} />
-              <BottomNavigationAction value={1} label="Historique" icon={<HistoryIcon />} />
-              <BottomNavigationAction value={2} label="Transférer" icon={<CurrencyEur />} />
-            </BottomNavigation>
-          </DialogActions>
-        </Dialog>
+            <DialogActions className="p-0">
+              <BottomNavigation
+                className="w-full"
+                showLabels={!fullScreen}
+                value={value}
+                onChange={onChange}
+              >
+                <BottomNavigationAction value={0} label="Encaisser" icon={<CartOutline />} />
+                <BottomNavigationAction value={1} label="Historique" icon={<HistoryIcon />} />
+                <BottomNavigationAction value={2} label="Transférer" icon={<CurrencyEur />} />
+              </BottomNavigation>
+            </DialogActions>
+          </Dialog>
+        )}
       </TabContext>
     </NoSsr>
   )

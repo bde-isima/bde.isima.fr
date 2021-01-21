@@ -8,7 +8,7 @@ import { MAX_RAND, RandomInBetween } from "app/utils/math-utils"
 type UpsertUserInput = Pick<Prisma.UserUpsertArgs, "where" | "create" | "update">
 
 export default async function upsertUser({ where, create, update }: UpsertUserInput, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+  ctx.session.authorize(["*"])
 
   const user = await db.user.findUnique({ where })
 

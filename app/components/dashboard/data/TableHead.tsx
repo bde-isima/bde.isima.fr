@@ -4,6 +4,19 @@ import TableCell from "@material-ui/core/TableCell"
 import MUITableHead from "@material-ui/core/TableHead"
 import TableSortLabel from "@material-ui/core/TableSortLabel"
 
+type TableHeadProps = {
+  columns: any[]
+  onSelectAllClick: (event) => void
+  order: "desc" | "asc"
+  orderBy: string
+  numSelected: number
+  rowCount: number
+  onRequestSort: (_, property) => void
+  actions?: any[]
+  allowCopy?: boolean
+  onEdit?: (values: any) => void
+}
+
 export default function TableHead({
   columns,
   onSelectAllClick,
@@ -13,7 +26,9 @@ export default function TableHead({
   rowCount,
   onRequestSort,
   actions,
-}) {
+  allowCopy,
+  onEdit,
+}: TableHeadProps) {
   const createSortHandler = (property) => (event) => onRequestSort(event, property)
 
   return (
@@ -42,7 +57,12 @@ export default function TableHead({
           </TableCell>
         ))}
 
-        <TableCell align="right" colSpan={actions.length + 2}>
+        <TableCell
+          align="right"
+          colSpan={
+            (actions?.length ?? 0) + Number(Boolean(allowCopy)) + Number(Boolean(onEdit)) + 1
+          }
+        >
           Actions
         </TableCell>
       </TableRow>

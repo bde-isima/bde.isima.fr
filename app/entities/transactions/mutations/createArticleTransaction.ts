@@ -25,7 +25,7 @@ export default async function createArticleTransaction({ data }: CreateTransacti
     throw new Error("Article introuvable")
   }
 
-  const amount = Math.abs(user?.is_member ? article?.member_price : article?.price)
+  const amount = user?.is_member ? article?.member_price : article?.price
 
   const newStat =
     user.userStats?.articlesStats && user.userStats?.articlesStats[article.id]

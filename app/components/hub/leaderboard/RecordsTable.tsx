@@ -21,7 +21,7 @@ export default function RecordsTable() {
 
   return (
     <Card className="p-4">
-      <TableContainer>
+      <TableContainer className="md:overflow-hidden" aria-label="Tableau des records">
         <Table>
           <TableHead>
             <TableRow>

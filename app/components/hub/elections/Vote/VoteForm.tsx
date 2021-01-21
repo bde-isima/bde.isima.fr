@@ -28,8 +28,8 @@ export default function VoteForm(props: VoteFormProps) {
         props.initialValues
           ? `Voter pour ${props.initialValues?.name}`
           : props.initialValues === null
-          ? "Voter blanc"
-          : "Voter nul"
+          ? "Voter nul"
+          : "Voter blanc"
       }
       submitText="Valider"
       variant="dialog"
