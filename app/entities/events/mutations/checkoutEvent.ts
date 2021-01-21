@@ -1,3 +1,4 @@
+import { format } from "date-fns"
 import { Ctx, NotFoundError } from "blitz"
 
 import db, { Prisma } from "db"
@@ -22,8 +23,6 @@ export default async function checkoutEvent({ where }: UpdateEventInput, ctx: Ct
   const transactionsAndUsers = await Promise.all(
     eventSubscriptions.map((s) => {
       if (s.payment_method === "BDE") {
-        const d = new Date(event?.takes_place_at)
-
         //Compute total amount
         const amount = (s as any).cart.reduce((acc: number, val: CartItem) => {
           return (
@@ -40,7 +39,7 @@ export default async function checkoutEvent({ where }: UpdateEventInput, ctx: Ct
             db.transaction.create({
               data: {
                 amount,
-                description: `${d.getDay()}/${d.getMonth()}/${d.getFullYear()} - ${event.name}`,
+                description: `${format(event?.takes_place_at, "dd/MM/yyyy")} - ${event.name}`,
                 type: "DEBIT",
                 user: { connect: { id: s.userId } },
                 prevBalance: s.user.balance,

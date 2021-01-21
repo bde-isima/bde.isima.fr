@@ -137,7 +137,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                           <FieldArray name={`${cartItemName}.options`}>
                             {({ fields }) =>
                               fields.map((cartItemOptionName, cartItemOptionIdx) => (
-                                <div className="flex flex-col md:flex-row">
+                                <div className="flex flex-col md:flex-row" key={cartItemOptionIdx}>
                                   <EnhancedTextField
                                     className="my-1 md:mr-1"
                                     type="text"

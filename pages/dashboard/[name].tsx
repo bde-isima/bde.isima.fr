@@ -88,7 +88,6 @@ export default function ClubDashboard() {
       <Table
         title="Événements"
         columns={columns}
-        variant="outlined"
         queryKey="events"
         getQuery={getEvents}
         queryArgs={{

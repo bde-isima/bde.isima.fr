@@ -24,7 +24,7 @@ export default function Desktop() {
 
   const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => setValue(newValue)
+  const handleChange = (_, newValue: string) => setValue(newValue)
 
   const Items = ({ config }) =>
     useMemo(

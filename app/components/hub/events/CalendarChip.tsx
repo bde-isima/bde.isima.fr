@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Grid from "@material-ui/core/Grid"
 import Chip from "@material-ui/core/Chip"
+import Avatar from "@material-ui/core/Avatar"
 import Tooltip from "@material-ui/core/Tooltip"
 import Typography from "@material-ui/core/Typography"
 
@@ -37,13 +38,17 @@ export default function CalendarChip({ event }: CalendarCellProps) {
         }
         onDelete={event.EventSubscription.length > 0 ? () => undefined : undefined}
         avatar={
-          <Image
-            className="rounded-full"
-            src={event.club.image}
-            width={40}
-            height={40}
-            alt={`Logo ${event.club.name}`}
-          />
+          event?.club?.image ? (
+            <Image
+              className="rounded-full -m-2"
+              src={event.club.image}
+              width={40}
+              height={40}
+              alt={`Logo ${event.club.name}`}
+            />
+          ) : (
+            <Avatar className="w-10 h-10 -m-2" alt={`Logo ${event.club.name}`} />
+          )
         }
         onClick={pushRoute(`/hub/events/${event.id}`)}
       />
