@@ -14,13 +14,13 @@ export default function HistoryHeader() {
           <Typography variant="caption">Type</Typography>
         </Grid>
       )}
-      <Grid container item xs={fullScreen ? 8 : 6} justifyContent="center">
+      <Grid container item xs={6} justifyContent="center">
         <Typography variant="caption">Description</Typography>
       </Grid>
-      <Grid container item xs={2} justifyContent="center">
+      <Grid container item xs={fullScreen ? 3 : 2} justifyContent="center">
         <Typography variant="caption">Montant</Typography>
       </Grid>
-      <Grid container item xs={2}>
+      <Grid container item xs={fullScreen ? 3 : 2} justifyContent="flex-end">
         <Typography align="right" variant="caption">
           Ancien solde
         </Typography>

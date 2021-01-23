@@ -1,15 +1,27 @@
 import { Fragment } from "react"
+import isValid from "date-fns/isValid"
 import { useInfiniteQuery } from "blitz"
 import Button from "@material-ui/core/Button"
+import { useTheme, useMediaQuery } from "@material-ui/core"
 
-import TransactionRow from "../../display/TransactionRow"
 import getTransactions from "app/entities/transactions/queries/getTransactions"
+import TransactionRow from "app/components/hub/transactions//display/TransactionRow"
 
 type HistoryProps = {
   userId?: string
+  minDate: Date
+  maxDate: Date
 }
 
-export default function History({ userId }: HistoryProps) {
+export default function History({ userId, minDate, maxDate }: HistoryProps) {
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+
+  const AND =
+    isValid(minDate) && isValid(maxDate)
+      ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }]
+      : []
+
   const [
     groupedTransactions,
     { isFetching, isFetchingMore, fetchMore, canFetchMore },
@@ -20,7 +32,7 @@ export default function History({ userId }: HistoryProps) {
         take: 10,
         skip: 0,
       }
-    ) => ({ ...page, where: { userId }, orderBy: { createdAt: "desc" } }),
+    ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: "desc" } }),
     {
       getFetchMore: (lastGroup) => lastGroup.nextPage,
       enabled: Boolean(userId),
@@ -33,7 +45,14 @@ export default function History({ userId }: HistoryProps) {
         groupedTransactions.map((group, i) => (
           <Fragment key={i}>
             {group.transactions.map((t) => (
-              <TransactionRow key={t.id} values={t} />
+              <TransactionRow
+                key={t.id}
+                values={t}
+                type={{ visible: !fullScreen, size: 2 }}
+                description={{ visible: true, size: 6 }}
+                amount={{ visible: true, size: fullScreen ? 3 : 2 }}
+                prevBalance={{ visible: true, size: fullScreen ? 3 : 2 }}
+              />
             ))}
           </Fragment>
         ))}

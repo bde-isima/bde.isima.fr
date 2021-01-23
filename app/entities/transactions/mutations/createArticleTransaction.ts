@@ -10,12 +10,14 @@ type CreateTransactionInput = {
 export default async function createArticleTransaction({ data }: CreateTransactionInput, ctx: Ctx) {
   ctx.session.authorize(["*", "bde"])
 
-  const user = await db.user.findUnique({
+  const { description } = data
+
+  const receiverUser = await db.user.findUnique({
     where: { id: data.user.connect?.id },
     include: { userStats: true },
   })
 
-  if (!user) {
+  if (!receiverUser) {
     throw new Error("Utilisateur introuvable")
   }
 
@@ -25,15 +27,16 @@ export default async function createArticleTransaction({ data }: CreateTransacti
     throw new Error("Article introuvable")
   }
 
-  const amount = user?.is_member ? article?.member_price : article?.price
+  const amount = receiverUser.is_member ? article.member_price : article.price
 
+  // Update the number of articles bought stats
   const newStat =
-    user.userStats?.articlesStats && user.userStats?.articlesStats[article.id]
-      ? user.userStats?.articlesStats[article.id] + 1
+    receiverUser.userStats?.articlesStats && receiverUser.userStats?.articlesStats[article.id]
+      ? receiverUser.userStats?.articlesStats[article.id] + 1
       : 1
   const upsertData = {
     articlesStats: {
-      ...((user.userStats?.articlesStats as JsonObject) ?? {}),
+      ...((receiverUser.userStats?.articlesStats as JsonObject) ?? {}),
       [article.id]: newStat,
     },
   }
@@ -42,27 +45,28 @@ export default async function createArticleTransaction({ data }: CreateTransacti
     // Create DEBIT transaction for the user
     db.transaction.create({
       data: {
-        ...data,
-        type: "DEBIT",
         amount,
-        prevBalance: user.balance,
+        description,
+        type: "DEBIT",
+        userId: receiverUser.id,
+        prevBalance: receiverUser.balance,
       },
     }),
 
     // Update balance of the user
     db.user.update({
       data: { balance: { decrement: amount } },
-      where: { id: data?.user?.connect?.id },
+      where: { id: receiverUser.id },
     }),
 
     // Update userStats of the user
     db.userStats.upsert({
       create: {
         ...upsertData,
-        user: { connect: { id: user.id } },
+        user: { connect: { id: receiverUser.id } },
       },
       update: upsertData,
-      where: { id: user.userStats?.id ?? cuid() },
+      where: { id: receiverUser.userStats?.id ?? cuid() },
     }),
   ])
 
