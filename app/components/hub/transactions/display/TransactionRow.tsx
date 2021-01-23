@@ -1,11 +1,9 @@
 import { Suspense } from "react"
 import { format } from "date-fns"
-import Grid from "@material-ui/core/Grid"
-import { useTheme } from "@material-ui/core"
 import Tooltip from "@material-ui/core/Tooltip"
 import Skeleton from "@material-ui/core/Skeleton"
 import Typography from "@material-ui/core/Typography"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import Grid, { GridSize } from "@material-ui/core/Grid"
 
 import TrendingUp from "mdi-material-ui/TrendingUp"
 import TrendingDown from "mdi-material-ui/TrendingDown"
@@ -13,24 +11,38 @@ import TrendingDown from "mdi-material-ui/TrendingDown"
 import { Transaction } from "db"
 import TransactionAvatar from "./TransactionAvatar"
 
+type ColumnType = {
+  visible: boolean
+  size?: GridSize
+}
+
 type TransactionProps = {
   values: Transaction
+  type: ColumnType
+  description: ColumnType
+  amount: ColumnType
+  prevBalance: ColumnType
   dense?: boolean
 }
 
-export default function TransactionRow({ values, dense = false }: TransactionProps) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+export default function TransactionRow({
+  values,
+  type,
+  description,
+  amount,
+  prevBalance,
+  dense = false,
+}: TransactionProps) {
   const isPositive = values.type === "CREDIT"
 
   return (
-    <Grid className={`${dense ? "my-1" : "my-2"}`} container>
-      {!fullScreen && (
+    <Grid className={dense ? "my-1" : "my-2"} container>
+      {type.visible && (
         <Grid
           className={isPositive ? "text-green-600" : "text-red-700"}
           container
           item
-          xs={dense ? 3 : 2}
+          xs={type.size}
           justifyContent="center"
           alignContent="center"
         >
@@ -46,34 +58,42 @@ export default function TransactionRow({ values, dense = false }: TransactionPro
         </Grid>
       )}
 
-      <Grid container item xs={fullScreen ? 8 : 6} direction="column" justifyContent="center">
-        {!dense ? (
-          <>
-            <Typography variant="caption" align="center">
-              {values.description || "Aucune description"}
-            </Typography>
-            <Typography variant="caption" align="center" color="textSecondary">
-              {format(values.createdAt, "dd/MM/yyyy - HH:mm")}
-            </Typography>
-          </>
-        ) : (
-          <Tooltip title={`${values.description || "Aucune description"}`}>
-            <Typography variant="caption" align="center">
-              {values?.description?.substring(0, 16) || "Aucune description"}
-            </Typography>
+      {description.visible && (
+        <Grid
+          className="overflow-x-hidden"
+          container
+          item
+          xs={description.size}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Tooltip title={dense ? `${values.description || "Aucune description"}` : ""}>
+            <div className="flex flex-col">
+              <Typography variant="caption" align="center" noWrap>
+                {values.description || "Aucune description"}
+              </Typography>
+              {!dense && (
+                <Typography variant="caption" align="center" color="textSecondary">
+                  {format(values.createdAt, "dd/MM/yyyy - HH:mm")}
+                </Typography>
+              )}
+            </div>
           </Tooltip>
-        )}
-      </Grid>
+        </Grid>
+      )}
 
-      <Grid container item xs={dense ? 3 : 2} justifyContent="center" alignItems="center">
-        <Typography className={isPositive ? "text-green-600" : "text-red-700"} variant="caption">
-          {isPositive ? "+" : "-"}
-          {values.amount.toFixed(2)} €
-        </Typography>
-      </Grid>
+      {amount.visible && (
+        <Grid container item xs={amount.size} justifyContent="center" alignItems="center">
+          <Typography className={isPositive ? "text-green-600" : "text-red-700"} variant="caption">
+            {isPositive ? "+" : "-"}
+            {values.amount.toFixed(2)} €
+          </Typography>
+        </Grid>
+      )}
 
-      {!dense && (
-        <Grid container item xs={2} justifyContent="center" alignItems="center">
+      {prevBalance.visible && (
+        <Grid container item xs={prevBalance.size} justifyContent="flex-end" alignItems="center">
           <Typography variant="caption" color="textSecondary">
             {values.prevBalance.toFixed(2)} €
           </Typography>

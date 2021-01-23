@@ -26,6 +26,7 @@ import SearchUser from "app/components/dashboard/cashing/SearchUser"
 import Balance from "app/components/hub/transactions/display/Balance"
 import getTransactions from "app/entities/transactions/queries/getTransactions"
 import HistoryHeader from "app/components/hub/transactions/operations/history/HistoryHeader"
+import HistoryFilter from "app/components/hub/transactions/operations/history/HistoryFilter"
 
 const Catalog = lazy(() => import("./catalog/Catalog"))
 const AdminTransfer = lazy(() => import("./adminTransfer/AdminTransfer"))
@@ -37,6 +38,9 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
   const [value, setValue] = useState(0)
   const [open, setOpen] = useState(false)
+
+  const [minDate, setMinDate] = useState(new Date("01-01-2021"))
+  const [maxDate, setMaxDate] = useState(new Date())
 
   const onChange = (_, newValue: number) => setValue(newValue)
 
@@ -97,7 +101,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
               <TabPanel value="1">
                 <Suspense fallback={<CircularProgress size={25} />}>
                   <HistoryHeader />
-                  <History userId={user?.id} />
+                  <History userId={user?.id} minDate={minDate} maxDate={maxDate} />
                 </Suspense>
               </TabPanel>
 
@@ -107,6 +111,17 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                 </Suspense>
               </TabPanel>
             </DialogContent>
+
+            {value === 1 && (
+              <DialogActions>
+                <HistoryFilter
+                  minDate={minDate}
+                  setMinDate={setMinDate}
+                  maxDate={maxDate}
+                  setMaxDate={setMaxDate}
+                />
+              </DialogActions>
+            )}
 
             <DialogActions className="p-0">
               <BottomNavigation

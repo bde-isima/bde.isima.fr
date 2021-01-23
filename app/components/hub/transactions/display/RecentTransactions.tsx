@@ -17,7 +17,15 @@ export default function RecentTransactions() {
   return (
     <>
       {transactions.map((x) => (
-        <TransactionRow key={x.id} values={x} dense />
+        <TransactionRow
+          key={x.id}
+          values={x}
+          type={{ visible: true, size: 3 }}
+          description={{ visible: true, size: 6 }}
+          amount={{ visible: true, size: 3 }}
+          prevBalance={{ visible: false }}
+          dense
+        />
       ))}
     </>
   )
