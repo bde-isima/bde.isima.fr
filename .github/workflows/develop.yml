@@ -1,14 +1,14 @@
-name: CI/CD Main
+name: CI/CD Develop
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
   workflow_dispatch:
 
 jobs:
   buildAndDeploy:
-    environment: Production
+    environment: Development
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

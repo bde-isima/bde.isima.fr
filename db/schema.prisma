@@ -221,7 +221,8 @@ model VoteRequest {
   userId                    String
   election                  Election  @relation(fields: [electionId], references: [id])
   electionId                String
-  voteToken                 String    @unique
+  voteToken                 String?   @unique
+  proxyVoteCount            Int       @default(0)
   createdAt                 DateTime  @default(now())
   updatedAt                 DateTime  @updatedAt
 }
@@ -230,7 +231,7 @@ model Vote {
   id                        String      @id @default(cuid())
   candidate                 Candidate?  @relation(fields: [candidateId], references: [id])
   candidateId               String?
-  election                  Election  @relation(fields: [electionId], references: [id])
+  election                  Election    @relation(fields: [electionId], references: [id])
   electionId                String
   isBlank                   Boolean
   isNull                    Boolean
