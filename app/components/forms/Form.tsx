@@ -1,4 +1,6 @@
+import cuid from "cuid"
 import * as z from "zod"
+import { useState } from "react"
 import Button from "@material-ui/core/Button"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import React, { ReactNode, PropsWithoutRef } from "react"
@@ -36,6 +38,8 @@ export function Form<FormValues extends Record<string, unknown>>({
   onSubmit,
   ...props
 }: FormProps<FormValues>) {
+  const formId = useState(cuid())
+
   return (
     <FinalForm<FormValues>
       initialValues={initialValues}
@@ -87,7 +91,7 @@ export function Form<FormValues extends Record<string, unknown>>({
 
               <DialogContent>
                 <form
-                  id="dialog-form"
+                  id={`${formId}-dialog-form`}
                   onSubmit={handleSubmit}
                   className="form flex flex-col"
                   {...props}
@@ -110,7 +114,7 @@ export function Form<FormValues extends Record<string, unknown>>({
 
                   <LoadingButton
                     type="submit"
-                    form="dialog-form"
+                    form={`${formId}-dialog-form`}
                     pending={submitting}
                     pendingIndicator={<CircularProgress size={25} color="secondary" />}
                     onClick={handleSubmit}
