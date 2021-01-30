@@ -51,11 +51,11 @@ export default function UserForm(props: UserFormProps) {
       image: props.initialValues?.image,
       email: props.initialValues?.email,
       card: props.initialValues?.card,
-      balance: props.initialValues?.balance || 0,
+      balance: props.initialValues?.id ? props.initialValues?.balance : 0,
       roles: props.initialValues?.roles || [],
       promotionId: props.initialValues?.promotionId,
-      is_member: props.initialValues?.is_member || false,
-      is_enabled: props.initialValues?.is_enabled || true,
+      is_member: props.initialValues?.id ? props.initialValues?.is_member : false,
+      is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }),
     []
