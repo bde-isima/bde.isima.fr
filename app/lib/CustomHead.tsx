@@ -15,9 +15,9 @@ export default function CustomHead() {
 
       <link
         rel="preload"
-        href="/fonts/Montserrat.ttf"
+        href="/fonts/Montserrat.woff2"
         as="font"
-        type="font/ttf"
+        type="font/woff2"
         crossOrigin="anonymous"
       />
       <link href="/static/nprogress.css" rel="stylesheet" />
