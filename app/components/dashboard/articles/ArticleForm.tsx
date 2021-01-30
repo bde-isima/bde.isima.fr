@@ -39,7 +39,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         name: props.initialValues?.name,
         price: props.initialValues?.price,
         member_price: props.initialValues?.member_price,
-        is_enabled: props.initialValues?.is_enabled,
+        is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
