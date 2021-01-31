@@ -6,12 +6,13 @@ export default function MessengerChat() {
   useEffect(() => () => document.getElementById("fb-root")?.remove())
 
   return (
-    <MessengerCustomerChat
-      style={{ zIndex: "999 !important" }}
-      pageId="913191802071318"
-      appId="237417597136510"
-      htmlRef="fb-msgr"
-      language="fr_FR"
-    />
+    <div style={{ zIndex: 999 }}>
+      <MessengerCustomerChat
+        pageId="913191802071318"
+        appId="237417597136510"
+        htmlRef="fb-msgr"
+        language="fr_FR"
+      />
+    </div>
   )
 }
