@@ -6,9 +6,9 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - ../logs:/var/log/nginx
-      - ./app/deploy/conf:/etc/nginx/conf.d
-      - ../ssl:/etc/nginx/certs
+      - ./logs:/var/log/nginx
+      - ./conf:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/certs
     ports:
       - 80:80
       - 443:443
@@ -19,7 +19,18 @@ services:
     restart: always
     working_dir: /usr/app
     volumes:
-      - ./:/usr/app
+      - ../bde.isima.fr:/usr/app
     ports:
       - 3000:3000
+    command: npm start
+
+  bde_app_dev:
+    container_name: bde_app_dev
+    image: node:14
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - ../bde.dev.isima.fr:/usr/app
+    ports:
+      - 3001:3000
     command: npm start
