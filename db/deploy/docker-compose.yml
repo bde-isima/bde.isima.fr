@@ -16,6 +16,7 @@ services:
     env_file:
       - .env
     volumes:
+      - ../databases:/docker-entrypoint-initdb.d
       - bde_data:/var/lib/postgresql/data
 
   bde_pgadmin:
