@@ -12,6 +12,9 @@ services:
     ports:
       - 80:80
       - 443:443
+    depends_on:
+      - bde_app
+      - bde_app_dev
 
   bde_app:
     container_name: bde_app
@@ -20,8 +23,6 @@ services:
     working_dir: /usr/app
     volumes:
       - ../bde.isima.fr:/usr/app
-    ports:
-      - 3000:3000
     command: npm start
 
   bde_app_dev:
@@ -31,6 +32,4 @@ services:
     working_dir: /usr/app
     volumes:
       - ../bde.dev.isima.fr:/usr/app
-    ports:
-      - 3001:3000
     command: npm start
