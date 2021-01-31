@@ -7,7 +7,7 @@ export default function MessengerChat() {
 
   return (
     <MessengerCustomerChat
-      style={{ zIndex: 999 }}
+      style={{ zIndex: "999 !important" }}
       pageId="913191802071318"
       appId="237417597136510"
       htmlRef="fb-msgr"
