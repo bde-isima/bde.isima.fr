@@ -2,7 +2,7 @@
   "name": "bde-isima",
   "appName": "BDE ISIMA",
   "website": "https://bde.isima.fr",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "scripts": {
     "dev": "blitz start",
     "build": "prisma db push --preview-feature && blitz build",

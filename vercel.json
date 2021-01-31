@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/fonts/Montserrat.ttf",
+      "source": "/fonts/Montserrat.woff2",
       "headers": [
         {
           "key": "Cache-Control",

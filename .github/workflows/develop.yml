@@ -1,14 +1,14 @@
-name: CI/CD Main
+name: CI/CD Develop
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
   workflow_dispatch:
 
 jobs:
   buildAndDeploy:
-    environment: Production
+    environment: Development
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -50,7 +50,7 @@ jobs:
         uses: golfzaptw/action-connect-ovpn@master
         id: connect_vpn
         with:
-          PING_URL: "127.0.0.1"
+          PING_URL: "172.16.32.21"
           FILE_OVPN: ".github/vpn/config.ovpn"
           SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
           TLS_KEY: ${{ secrets.TLS_KEY }}
@@ -74,7 +74,7 @@ jobs:
       - name: Restart server
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd servers && docker-compose stop bde_app && docker-compose up -d bde_app
+          command: cd servers && docker-compose stop bde_app_dev && docker-compose up -d bde_app_dev
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           privateKey: ${{ secrets.SERVER_SSH_KEY}}

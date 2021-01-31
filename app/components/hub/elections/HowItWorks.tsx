@@ -59,7 +59,7 @@ export default function HowItWorks() {
               leftText="Réception"
               ItemIcon={<Email />}
               title="Ta carte électorale"
-              rightText="Si tu es cotisant et ancien étudiant de l'ISIMA, tu devrais recevoir lorsque viendra l'heure de voter un jeton de vote sur ta boîte mail personnelle."
+              rightText="Si tu es cotisant et étudiant ou ancien étudiant de l'ISIMA, tu devrais recevoir lorsque viendra l'heure de voter un jeton de vote sur ta boîte mail personnelle."
             />
 
             <HowItWorksItem
