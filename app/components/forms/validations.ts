@@ -1,15 +1,5 @@
 import * as z from "zod"
 
-export const beforeSubmit: any = (values) => {
-  const returnValues = {}
-  Object.keys(values).forEach((x) => {
-    Object.assign(returnValues, { [x]: values[x] ?? null })
-  })
-  console.log(values)
-  console.log(returnValues)
-  return returnValues
-}
-
 export const LoginInput = z.object({
   identifier: z.string(),
 })
@@ -39,7 +29,7 @@ export const AdminTransferInput = z.object({
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
-  amount: z.number().min(5).max(1000),
+  amount: z.number().min(5, { message: "5€ minimum" }).max(1000, { message: "1000€ maximum" }),
   recipient: z
     .string()
     .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),

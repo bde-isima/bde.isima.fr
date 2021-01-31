@@ -27,9 +27,7 @@ export default function RolesForm({ values }) {
   const [{ clubs }] = useQuery(getClubs, {})
   const roles = values?.roles ?? []
   const [checked, setChecked] = useState<string[]>([])
-  const [left, setLeft] = useState<string[]>(
-    not(["*", ...clubs.map((x) => x.name.toUpperCase())], roles)
-  )
+  const [left, setLeft] = useState<string[]>(not(["*", ...clubs.map((x) => x.name)], roles))
   const [right, setRight] = useState<string[]>(roles)
 
   const leftChecked = intersection(checked, left)
@@ -109,7 +107,7 @@ export default function RolesForm({ values }) {
                   color="default"
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
+              <ListItemText id={labelId} primary={value.toUpperCase()} />
             </ListItem>
           )
         })}
