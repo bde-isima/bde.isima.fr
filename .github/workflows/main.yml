@@ -74,7 +74,7 @@ jobs:
       - name: Restart server
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: docker-compose stop bde_app && docker-compose up -d bde_app
+          command: cd servers && docker-compose stop bde_app && docker-compose up -d bde_app
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           privateKey: ${{ secrets.SERVER_SSH_KEY}}
