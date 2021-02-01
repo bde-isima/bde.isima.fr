@@ -1,10 +1,12 @@
 import { useQuery } from "blitz"
+import { useTheme } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
-import { VictoryChart, VictoryPie, VictoryTheme } from "victory"
+import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from "victory"
 
 import getAggregatedBalance from "app/entities/users/queries/getAggregatedBalance"
 
 export default function GlobalBalance() {
+  const theme = useTheme()
   const [data] = useQuery(getAggregatedBalance, {})
 
   const [negatives, positives] = [data?.negatives || 0, data?.positives || 0]
@@ -21,12 +23,20 @@ export default function GlobalBalance() {
         <VictoryPie
           standalone={true}
           theme={VictoryTheme.material}
+          style={{ labels: { fill: theme.palette.text.primary } }}
           colorScale={["#C91F37", "#32CD32"]}
           animate={{ duration: 300 }}
           data={[
             { x: `${negatives} négatifs`, y: negRatio },
             { x: `${positives} positifs`, y: posRatio },
           ]}
+        />
+        <VictoryAxis
+          style={{
+            axis: { stroke: "transparent" },
+            ticks: { stroke: "transparent" },
+            tickLabels: { fill: "transparent" },
+          }}
         />
       </VictoryChart>
     </div>

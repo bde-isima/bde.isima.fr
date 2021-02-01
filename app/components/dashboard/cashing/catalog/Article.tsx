@@ -21,9 +21,9 @@ export default function Article({ user, article, onClick, style }) {
     onClick(() =>
       createTransaction({
         data: {
+          userId: user?.id,
+          articleId: article?.id,
           description: `Achat ${article?.name}`,
-          article: { connect: { id: article?.id } },
-          user: { connect: { id: user?.id } },
         },
       })
     )

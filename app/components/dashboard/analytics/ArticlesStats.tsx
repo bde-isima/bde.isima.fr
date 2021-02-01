@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useQuery } from "blitz"
 import { subDays } from "date-fns"
+import { useTheme } from "@material-ui/core"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from "@material-ui/core/Typography"
@@ -11,6 +12,7 @@ import getArticles from "app/entities/articles/queries/getArticles"
 const now = new Date()
 
 export default function ArticlesStats() {
+  const theme = useTheme()
   const [period, setPeriod] = useState(31)
 
   const [data] = useQuery(getArticles, {
@@ -34,6 +36,7 @@ export default function ArticlesStats() {
 
       <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 10 }}>
         <VictoryBar
+          style={{ data: { fill: theme.palette.text.primary } }}
           horizontal
           animate={{ duration: 300 }}
           data={data?.articles}

@@ -4,16 +4,16 @@ import { Ctx } from "blitz"
 import db, { JsonObject, Prisma } from "db"
 
 type CreateTransactionInput = {
-  data: Omit<Prisma.TransactionCreateInput, "type" | "amount" | "prevBalance">
+  data: Omit<Prisma.TransactionUncheckedCreateInput, "type" | "amount" | "prevBalance">
 }
 
 export default async function createArticleTransaction({ data }: CreateTransactionInput, ctx: Ctx) {
   ctx.session.authorize(["*", "bde"])
 
-  const { description } = data
+  const { userId, articleId, description } = data
 
   const receiverUser = await db.user.findUnique({
-    where: { id: data.user.connect?.id },
+    where: { id: userId },
     include: { userStats: true },
   })
 
@@ -21,7 +21,7 @@ export default async function createArticleTransaction({ data }: CreateTransacti
     throw new Error("Utilisateur introuvable")
   }
 
-  const article = await db.article.findUnique({ where: { id: data.article?.connect?.id } })
+  const article = await db.article.findUnique({ where: { id: articleId! } })
 
   if (!article) {
     throw new Error("Article introuvable")
@@ -49,6 +49,7 @@ export default async function createArticleTransaction({ data }: CreateTransacti
         description,
         type: "DEBIT",
         userId: receiverUser.id,
+        articleId,
         prevBalance: receiverUser.balance,
       },
     }),

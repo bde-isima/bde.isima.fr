@@ -68,7 +68,7 @@ export default function TransactionRow({
           alignItems="center"
         >
           <Tooltip title={dense ? `${values.description || "Aucune description"}` : ""}>
-            <div className="w-32 flex flex-col overflow-x-hidden">
+            <div className={`${dense ? "w-32" : "w-full"} flex flex-col overflow-x-hidden`}>
               <Typography variant="caption" align="left" noWrap={dense}>
                 {values.description || "Aucune description"}
               </Typography>
