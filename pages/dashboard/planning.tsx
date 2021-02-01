@@ -13,7 +13,7 @@ export default function Planning() {
         objectFit="cover"
       />
 
-      <Typography variant="h4" paragraph>
+      <Typography variant="h4" color="textPrimary" paragraph>
         En construction
       </Typography>
     </div>

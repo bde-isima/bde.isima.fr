@@ -15,7 +15,7 @@ export default function EventsIndex() {
       <PageTitle title="Events ZZ" />
 
       <div className="flex flex-col">
-        <Typography variant="h4" paragraph align="right">
+        <Typography variant="h4" align="right" color="textPrimary" paragraph>
           Évènements à venir
         </Typography>
 

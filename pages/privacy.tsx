@@ -142,7 +142,7 @@ export default function Privacy() {
           </p>
           <p>
             Pour pouvoir exercer ces droits, vous pouvez : <br />
-            Code postal : 2, rue de la Chebarde, Aubière 63178
+            Code postal : 1, rue de la Chebarde, Aubière 63178
             <br /> Courriel : bde.isima@gmail.com
             <br /> Section du site web : https://bde.isima.fr/
             <br />{" "}
@@ -159,7 +159,7 @@ export default function Privacy() {
             voire radier les informations les concernant.
             <br />
             L'exercice de ce droit se fera :<br />
-            Code postal : 2, rue de la Chebarde, Aubière 63178
+            Code postal : 1, rue de la Chebarde, Aubière 63178
             <br /> Courriel : bde.isima@gmail.com
             <br /> Section du site web : https://bde.isima.fr/
             <br />{" "}

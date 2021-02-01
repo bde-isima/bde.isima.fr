@@ -16,7 +16,7 @@ export default function ElectionsIndex() {
       <PageTitle title="Élections BDE" />
 
       <div className="flex flex-col">
-        <Typography variant="h4" paragraph align="right">
+        <Typography variant="h4" paragraph align="right" color="textPrimary">
           Élections BDE
         </Typography>
 

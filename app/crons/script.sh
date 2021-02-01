@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd ~/bde-isima
+cd $1
 npx ts-node app/crons/leaderboard.ts

@@ -60,7 +60,6 @@ export default function TransactionRow({
 
       {description.visible && (
         <Grid
-          className="overflow-x-hidden"
           container
           item
           xs={description.size}
@@ -69,12 +68,12 @@ export default function TransactionRow({
           alignItems="center"
         >
           <Tooltip title={dense ? `${values.description || "Aucune description"}` : ""}>
-            <div className="flex flex-col">
-              <Typography variant="caption" align="center" noWrap>
+            <div className="w-32 flex flex-col overflow-x-hidden">
+              <Typography variant="caption" align="left" noWrap={dense}>
                 {values.description || "Aucune description"}
               </Typography>
               {!dense && (
-                <Typography variant="caption" align="center" color="textSecondary">
+                <Typography variant="caption" align="left" color="textSecondary">
                   {format(values.createdAt, "dd/MM/yyyy - HH:mm")}
                 </Typography>
               )}

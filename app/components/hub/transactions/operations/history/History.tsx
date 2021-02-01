@@ -62,7 +62,7 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
       <Button
         className="my-4 w-full"
         onClick={() => fetchMore()}
-        color="primary"
+        color="inherit"
         variant="outlined"
         disabled={!canFetchMore || !!isFetchingMore}
       >

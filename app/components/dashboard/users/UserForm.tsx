@@ -2,10 +2,11 @@ import Image from "next/image"
 import { Suspense } from "react"
 import Tab from "@material-ui/core/Tab"
 import { useMemo, useState } from "react"
+import { useTheme } from "@material-ui/core"
 import { TextField, Switches } from "mui-rff"
 import AppBar from "@material-ui/core/AppBar"
-import Divider from "@material-ui/core/Divider"
 import TabList from "@material-ui/lab/TabList"
+import Divider from "@material-ui/core/Divider"
 import TabContext from "@material-ui/lab/TabContext"
 import IconButton from "@material-ui/core/IconButton"
 import InputAdornment from "@material-ui/core/InputAdornment"
@@ -28,6 +29,7 @@ type UserFormProps = {
 }
 
 export default function UserForm(props: UserFormProps) {
+  const theme = useTheme()
   const [value, setValue] = useState("0")
 
   const handleChange = (_, newValue: string) => setValue(newValue)
@@ -75,9 +77,9 @@ export default function UserForm(props: UserFormProps) {
         <AppBar position="static" color="inherit" elevation={0}>
           <TabList
             onChange={handleChange}
-            textColor="primary"
             variant="fullWidth"
-            indicatorColor="primary"
+            textColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
+            indicatorColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
             aria-label="Nav"
           >
             <Tab label="Infos" value="0" />

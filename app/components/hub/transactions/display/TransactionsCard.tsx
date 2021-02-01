@@ -40,6 +40,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
         <ButtonGroup
           className="my-4"
           aria-label="Groupe de bouton pour le transfert d'argent et consulter son historique"
+          color="inherit"
         >
           <Button
             variant="outlined"
@@ -66,6 +67,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
             startIcon={<CashPlus />}
             aria-label="Recharger"
             onClick={openTopUp}
+            color="inherit"
           >
             Recharger
           </Button>

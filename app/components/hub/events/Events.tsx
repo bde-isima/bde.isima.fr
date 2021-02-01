@@ -33,7 +33,7 @@ export default function Events() {
             alt="Aucune donnée"
           />
 
-          <Typography variant="subtitle2" align="center" gutterBottom>
+          <Typography variant="subtitle2" align="center" color="textPrimary" gutterBottom>
             Aucun événement à venir !
           </Typography>
         </Grid>

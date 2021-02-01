@@ -1,16 +1,18 @@
 const colors = {
   primary: "#2A2E43",
   secondary: "#fff",
+  black: "#303030",
   danger: "#C91F37",
 }
 
 module.exports = {
+  darkMode: "media",
   important: true,
   purge: ["{app,pages}/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       transitionProperty: {
-        'width': 'width',
+        width: "width",
       },
       backgroundImage: (theme) => ({
         background: "url(/static/images/illustrations/Background.svg)",
@@ -42,7 +44,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      width: ['focus'],
+      width: ["focus"],
     },
   },
   plugins: [],

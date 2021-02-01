@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Tab from "@material-ui/core/Tab"
 import List from "@material-ui/core/List"
+import { useTheme } from "@material-ui/core"
 import AppBar from "@material-ui/core/AppBar"
 import Button from "@material-ui/core/Button"
 import Drawer from "@material-ui/core/Drawer"
@@ -21,6 +22,7 @@ export default function Desktop() {
   const bdeConfig = useBDEConfig()
   const clubsConfig = useClubsConfig()
   const { router } = useCustomRouter()
+  const theme = useTheme()
 
   const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`)
 
@@ -68,8 +70,8 @@ export default function Desktop() {
           <AppBar position="static" color="inherit" elevation={0}>
             <TabList
               onChange={handleChange}
-              textColor="primary"
-              indicatorColor="primary"
+              textColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
+              indicatorColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
               aria-label="Nav"
             >
               <Tab

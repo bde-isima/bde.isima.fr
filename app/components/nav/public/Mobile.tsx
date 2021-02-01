@@ -42,7 +42,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
 
                 <ListItemText
                   secondary={obj.text}
-                  secondaryTypographyProps={{ color: isActive ? "secondary" : "primary" }}
+                  secondaryTypographyProps={{ color: isActive ? "secondary" : "textPrimary" }}
                 />
               </ListItem>
             </Button>

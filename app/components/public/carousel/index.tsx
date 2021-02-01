@@ -17,17 +17,17 @@ import CarouselDialog from "./CarouselDialog"
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 4,
     paritialVisibilityGutter: 60,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 3,
     paritialVisibilityGutter: 50,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 2,
     paritialVisibilityGutter: 30,
   },
 }
@@ -57,7 +57,6 @@ export default function Carousel({ getQuery, queryKey }) {
       additionalTransfrom={0}
       autoPlaySpeed={3000}
       minimumTouchDrag={80}
-      centerMode
       containerClass="w-full mt-8"
       dotListClass=""
       focusOnSelect={false}
@@ -74,7 +73,10 @@ export default function Carousel({ getQuery, queryKey }) {
     >
       {data[queryKey].map((item) => (
         <Card key={item.id} className="mx-2 h-full">
-          <CardActionArea className="flex flex-col" onClick={handleSelectionChange(item, true)}>
+          <CardActionArea
+            className="flex flex-col h-full justify-start"
+            onClick={handleSelectionChange(item, true)}
+          >
             <div className="h-40 flex justify-center align-center">
               {item.image && (
                 <img
@@ -100,7 +102,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Facebook"
                 >
-                  <Facebook className="m-2 text-primary" />
+                  <Facebook className="m-2 text-primary dark:text-secondary" />
                 </a>
               )}
               {item.twitterURL && (
@@ -111,7 +113,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Twitter"
                 >
-                  <Twitter className="m-2 text-primary" />
+                  <Twitter className="m-2 text-primary dark:text-secondary" />
                 </a>
               )}
               {item.instagramURL && (
@@ -122,7 +124,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien Instagram"
                 >
-                  <Instagram className="m-2 text-primary" />
+                  <Instagram className="m-2 text-primary dark:text-secondary" />
                 </a>
               )}
               {item.customURL && (
@@ -133,7 +135,7 @@ export default function Carousel({ getQuery, queryKey }) {
                   rel="noopener noreferrer"
                   aria-label="Lien personnalisé"
                 >
-                  <Earth className="m-2 text-primary" />
+                  <Earth className="m-2 text-primary dark:text-secondary" />
                 </a>
               )}
             </CardActions>

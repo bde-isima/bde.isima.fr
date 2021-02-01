@@ -10,7 +10,7 @@ export default function Leaderboard() {
       <PageTitle title="Classement" />
 
       <div className="flex flex-col">
-        <Typography variant="h4" paragraph align="left">
+        <Typography variant="h4" paragraph align="left" color="textPrimary">
           Classement
         </Typography>
 

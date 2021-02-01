@@ -14,7 +14,7 @@ export default function News() {
 
   return (
     <div className="flex flex-col">
-      <Typography align="left" variant="h6">
+      <Typography align="left" variant="h6" color="textPrimary">
         Nouveautés !
       </Typography>
 

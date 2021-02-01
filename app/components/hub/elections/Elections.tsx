@@ -49,10 +49,16 @@ export default function Elections() {
                 className="w-32 md:w-52"
                 startIcon={<Ballot />}
                 onClick={onSelect(true, undefined)}
+                color="inherit"
               >
                 Vote Blanc
               </Button>
-              <Button className="w-32 md:w-52" startIcon={<Null />} onClick={onSelect(true, null)}>
+              <Button
+                className="w-32 md:w-52"
+                startIcon={<Null />}
+                onClick={onSelect(true, null)}
+                color="inherit"
+              >
                 Vote Nul
               </Button>
             </ButtonGroup>

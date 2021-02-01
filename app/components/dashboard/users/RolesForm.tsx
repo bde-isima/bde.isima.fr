@@ -133,6 +133,7 @@ export default function RolesForm({ values }) {
                 onClick={handleAllRight}
                 disabled={left.length === 0}
                 aria-label="Move all right"
+                color="inherit"
               >
                 ≫
               </Button>
@@ -144,6 +145,7 @@ export default function RolesForm({ values }) {
                 onClick={handleCheckedRight}
                 disabled={leftChecked.length === 0}
                 aria-label="Move selected right"
+                color="inherit"
               >
                 &gt;
               </Button>
@@ -155,6 +157,7 @@ export default function RolesForm({ values }) {
                 onClick={handleCheckedLeft}
                 disabled={rightChecked.length === 0}
                 aria-label="Move selected left"
+                color="inherit"
               >
                 &lt;
               </Button>
@@ -166,6 +169,7 @@ export default function RolesForm({ values }) {
                 onClick={handleAllLeft}
                 disabled={right.length === 0}
                 aria-label="Move all left"
+                color="inherit"
               >
                 ≪
               </Button>

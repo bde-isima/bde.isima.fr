@@ -72,7 +72,7 @@ export default function Footer() {
             </Typography>
             -
             <Link href="/privacy">
-              <Typography className="mx-4 text-primary" variant="body2" component="a">
+              <Typography className="mx-4" variant="body2" component="a">
                 Politique de confidentialité
               </Typography>
             </Link>

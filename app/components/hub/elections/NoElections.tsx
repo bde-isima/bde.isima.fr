@@ -13,7 +13,7 @@ export default function NoElections() {
         objectFit="cover"
       />
 
-      <Typography variant="h4" paragraph>
+      <Typography variant="h4" color="textPrimary" paragraph>
         Il n'y a pas d'élections BDE en cours
       </Typography>
     </div>

@@ -6,7 +6,7 @@ import Discord from "mdi-material-ui/Discord"
 export default function DiscordButton() {
   return (
     <CardActionArea
-      href="https://discord.gg/RN6AUYrJ"
+      href="https://discord.gg/fMmaSKavkv"
       target="_blank"
       rel="noopener noreferrer"
       style={{ color: "inherit" }}

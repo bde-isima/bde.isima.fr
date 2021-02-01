@@ -12,13 +12,18 @@ export default function School() {
       <div className="px-2 py-8 md:p-8">
         <a id="school" href="#school" />
 
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" color="textPrimary" gutterBottom>
           <b>L'ISIMA</b>
         </Typography>
 
         <Grid container>
           <Grid item xs={12} md={6}>
-            <Typography className="leading-9" variant="subtitle2" align="justify">
+            <Typography
+              className="leading-9"
+              variant="subtitle2"
+              align="justify"
+              color="textPrimary"
+            >
               Le bureau des étudiants (BDE) à l'ISIMA, c'est une partie incontournable de la vie à
               l'école. D'abord parce qu'on organise pleins de soirées et d'événements au cours de
               l'année mais surtout parce que le BDE est indispensable pour obtenir son diplôme à

@@ -69,14 +69,24 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
                   <HomeOutline />
                 </ListItemIcon>
 
-                <ListItemText secondary="ACCUEIL" secondaryTypographyProps={{ color: "primary" }} />
+                <ListItemText
+                  secondary="ACCUEIL"
+                  secondaryTypographyProps={{ color: "textPrimary" }}
+                />
               </ListItem>
             </Button>
           </Link>
 
           {ItemsList}
 
-          <Suspense fallback={<CircularProgress className="mx-auto my-2" size={25} />}>
+          <Suspense
+            fallback={
+              <CircularProgress
+                className="mx-auto my-2 text-primary dark:text-secondary"
+                size={25}
+              />
+            }
+          >
             <DashboardMobile onClose={onClose} />
           </Suspense>
         </List>

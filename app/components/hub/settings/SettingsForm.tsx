@@ -73,7 +73,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       <TextField
         type="text"
         name="image"
-        label="URL de l'image de l'article"
+        label="URL de l'image de profil"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

@@ -63,7 +63,7 @@ export default function ProductGroupOption({
                     <Checkbox
                       value={option.name}
                       onChange={handleCombinableChange(optionIdx)}
-                      color="primary"
+                      color="default"
                     />
                   }
                   label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
@@ -82,7 +82,7 @@ export default function ProductGroupOption({
               {groupOption.options?.map((option: Option, optionIdx: number) => (
                 <FormControlLabel
                   key={optionIdx}
-                  control={<Radio value={optionIdx} color="primary" />}
+                  control={<Radio value={optionIdx} color="default" />}
                   label={`${option.name} ${option.price > 0 ? `(+${option.price} €)` : ""}`}
                 />
               ))}

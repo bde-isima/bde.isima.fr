@@ -7,9 +7,10 @@ import partners from "./partners"
 import promotions from "./promotions"
 import transactions from "./transactions"
 import eventSubscriptions from "./eventSubscriptions"
-
 ;(async () => {
   const seeds = [
+    "vote",
+    "voteRequest",
     "loginRequest",
     "userStats",
     "analytic",

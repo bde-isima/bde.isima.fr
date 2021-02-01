@@ -4,6 +4,7 @@ import Tab from "@material-ui/core/Tab"
 import { Field } from "react-final-form"
 import frLocale from "date-fns/locale/fr"
 import { useMemo, useState } from "react"
+import { useTheme } from "@material-ui/core"
 import AppBar from "@material-ui/core/AppBar"
 import arrayMutators from "final-form-arrays"
 import TabList from "@material-ui/lab/TabList"
@@ -28,6 +29,7 @@ type ClubEventFormProps = {
 }
 
 export default function ClubEventForm(props: ClubEventFormProps) {
+  const theme = useTheme()
   const router = useRouter()
   const [value, setValue] = useState("0")
 
@@ -94,9 +96,9 @@ export default function ClubEventForm(props: ClubEventFormProps) {
         <AppBar position="static" color="inherit" elevation={0}>
           <TabList
             onChange={handleChange}
-            textColor="primary"
             variant="fullWidth"
-            indicatorColor="primary"
+            textColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
+            indicatorColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
             aria-label="Nav"
           >
             <Tab label="Infos" value="0" />

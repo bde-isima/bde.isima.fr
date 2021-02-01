@@ -63,9 +63,9 @@ export default function Nav() {
           <Hidden mdUp>
             <div className="flex lg:flex-grow justify-start">
               <IconButton
+                className="text-primary dark:text-secondary"
                 aria-label="Menu"
                 onClick={toggleDrawer(setIsMobileMenuOpen, true)}
-                color="inherit"
               >
                 <Menu />
               </IconButton>

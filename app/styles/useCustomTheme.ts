@@ -42,7 +42,6 @@ export default function useCustomTheme() {
             },
             palette: {
               mode: prefersDarkMode ? "dark" : "light",
-              common: { black: "#222222" },
               primary: { main: "#2A2E43" },
               secondary: { main: "#fff" },
               error: { main: "#C91F37" },

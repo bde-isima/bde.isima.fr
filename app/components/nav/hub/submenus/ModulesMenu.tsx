@@ -21,12 +21,11 @@ export default function ModulesMenu() {
   return (
     <>
       <IconButton
-        className="mx-2"
+        className="mx-2 text-primary dark:text-secondary"
         aria-label="Voir les modules"
         aria-owns={isOpen ? "module-menu" : undefined}
         aria-haspopup="true"
         onClick={handleOpen}
-        color="inherit"
       >
         <Apps />
       </IconButton>

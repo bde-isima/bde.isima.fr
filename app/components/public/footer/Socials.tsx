@@ -13,7 +13,7 @@ export default function Socials() {
         rel="noopener noreferrer"
         aria-label="Lien Facebook BDE ISIMA"
       >
-        <Facebook className="m-4 text-primary" />
+        <Facebook className="m-4 text-primary dark:text-secondary" />
       </a>
       <a
         href="https://twitter.com/bde_isima"
@@ -21,7 +21,7 @@ export default function Socials() {
         rel="noopener noreferrer"
         aria-label="Lien Twitter BDE ISIMA"
       >
-        <Twitter className="m-4 text-primary" />
+        <Twitter className="m-4 text-primary dark:text-secondary" />
       </a>
       <a
         href="https://www.instagram.com/bde_isima"
@@ -29,7 +29,7 @@ export default function Socials() {
         rel="noopener noreferrer"
         aria-label="Lien Instagram BDE ISIMA"
       >
-        <Instagram className="m-4 text-primary" />
+        <Instagram className="m-4 text-primary dark:text-secondary" />
       </a>
     </Grid>
   )

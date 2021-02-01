@@ -20,7 +20,7 @@ export default function MarketIndex() {
       <PageTitle title="Classement" />
 
       <div className="flex flex-col">
-        <Typography variant="h4" paragraph align="right">
+        <Typography variant="h4" paragraph align="right" color="textPrimary">
           Articles disponibles au BDE
         </Typography>
 

@@ -28,8 +28,12 @@ export default function Header() {
       }
       title={
         <>
-          <Typography gutterBottom>{event?.club.name.toUpperCase()}</Typography>
-          <Typography variant="h6">{event.name}</Typography>
+          <Typography color="textPrimary" gutterBottom>
+            {event?.club.name.toUpperCase()}
+          </Typography>
+          <Typography color="textPrimary" variant="h6">
+            {event.name}
+          </Typography>
           {event.description && (
             <Typography color="textSecondary" gutterBottom>
               {event.description}

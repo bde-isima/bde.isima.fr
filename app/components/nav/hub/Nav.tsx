@@ -25,7 +25,11 @@ export default function Nav() {
 
         <Hidden mdUp>
           <div className="flex flex-grow justify-start">
-            <IconButton aria-label="Menu" onClick={toggleDrawer(true)} color="inherit">
+            <IconButton
+              className="text-primary dark:text-secondary"
+              aria-label="Menu"
+              onClick={toggleDrawer(true)}
+            >
               <Menu />
             </IconButton>
           </div>

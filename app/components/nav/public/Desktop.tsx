@@ -15,8 +15,8 @@ export default function Desktop() {
         return (
           <Link key={obj.to} href={obj.to}>
             <Button
-              className={`p-2 h-16 rounded-none ${
-                isActive && "border-b border-solid border-primary"
+              className={`p-2 h-16 rounded-none  text-primary dark:text-secondary ${
+                isActive && "border-b border-solid border-primary dark:border-secondary"
               }`}
               aria-label={obj.text}
             >

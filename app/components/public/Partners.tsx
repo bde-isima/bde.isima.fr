@@ -16,19 +16,24 @@ export default function Partners() {
       <div className="px-2 py-8 md:p-8">
         <a id="partners" href="#partners" />
 
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" color="textPrimary" gutterBottom>
           <b>LES PARTENAIRES DU BDE</b>
         </Typography>
 
         <Grid container>
           <Grid container item xs={12} md={6} alignItems="center">
-            <Typography className="leading-9" variant="subtitle2" align="justify">
+            <Typography
+              className="leading-9"
+              variant="subtitle2"
+              align="justify"
+              color="textPrimary"
+            >
               Le BDE dispose d'un membre responsable des partenariats, chargé de trouver et négocier
               des partenariats tout au long de l'année afin de proposer aux élèves toutes sortes
               d'avantages (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
-              Envoyez-nous un message via le
+              Envoyez-nous un message via le{" "}
               <Link href="/#contact">
                 <Button>
                   <strong>formulaire de contact</strong>

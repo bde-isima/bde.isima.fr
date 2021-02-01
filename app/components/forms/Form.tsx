@@ -108,7 +108,7 @@ export function Form<FormValues extends Record<string, unknown>>({
                     </div>
                   )}
 
-                  <Button onClick={onClose} aria-label="Annuler">
+                  <Button onClick={onClose} aria-label="Annuler" color="inherit">
                     Annuler
                   </Button>
 

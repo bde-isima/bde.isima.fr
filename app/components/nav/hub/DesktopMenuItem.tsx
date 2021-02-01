@@ -16,13 +16,19 @@ export default function DesktopMenuItem({ item }: DesktopMenuItemProps) {
   return (
     <Link href={item.to}>
       <Button
-        className={`w-full p-2 h-16 rounded-none ${
-          isActive && "border-b border-solid border-primary"
+        className={`w-full p-2 h-16 rounded-none text-primary dark:text-secondary ${
+          isActive && "border-b border-solid border-primary dark:border-secondary"
         }`}
         aria-label={item.text}
       >
         {item.icon}
-        <Typography className={`m-2 ${isActive ? "bold" : "normal"}`} variant="subtitle2" color="textPrimary">{item.text}</Typography>
+        <Typography
+          className={`m-2 ${isActive ? "bold" : "normal"}`}
+          variant="subtitle2"
+          color="textPrimary"
+        >
+          {item.text}
+        </Typography>
       </Button>
     </Link>
   )

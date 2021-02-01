@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
       <Html lang="fr">
         <CustomHead />
 
-        <body>
+        <body className="dark:bg-black">
           <Main />
           <NextScript />
         </body>

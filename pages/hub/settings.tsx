@@ -37,7 +37,7 @@ export default function Settings() {
       <PageTitle title="Paramètres" />
 
       <Paper className="p-4">
-        <Typography variant="h4" paragraph>
+        <Typography variant="h4" color="textPrimary" paragraph>
           Paramètres
         </Typography>
 

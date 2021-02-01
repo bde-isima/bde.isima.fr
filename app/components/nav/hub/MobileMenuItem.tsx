@@ -32,7 +32,7 @@ export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
 
           <ListItemText
             secondary={item.text}
-            secondaryTypographyProps={{ color: isActive ? "secondary" : "primary" }}
+            secondaryTypographyProps={{ color: isActive ? "secondary" : "textPrimary" }}
           />
         </ListItem>
       </Button>
