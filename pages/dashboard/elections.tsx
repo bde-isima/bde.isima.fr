@@ -38,8 +38,15 @@ export default function Elections() {
     }).then(({ voteRequests }) =>
       new CsvBuilder("campagnes.csv")
         .setDelimeter(",")
-        .setColumns(["firstname", "lastname", "voteToken"])
-        .addRows(voteRequests.map((v: any) => [v.user.firstname, v.user.lastname, v.voteToken]))
+        .setColumns(["firstname", "lastname", "email", "voteToken"])
+        .addRows(
+          voteRequests.map((v: any) => [
+            v.user.firstname,
+            v.user.lastname,
+            v.user.email,
+            v.voteToken,
+          ])
+        )
         .exportFile()
     )
   }
