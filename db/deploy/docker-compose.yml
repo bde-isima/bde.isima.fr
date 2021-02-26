@@ -18,6 +18,8 @@ services:
     volumes:
       - ../databases:/docker-entrypoint-initdb.d
       - bde_data:/var/lib/postgresql/data
+    networks:
+      - bde-isima
 
   bde_pgadmin:
     container_name: bde_pgadmin
@@ -30,6 +32,8 @@ services:
       - .env
     volumes:
       - bde_pgadmin:/var/lib/pgadmin
+    networks:
+      - bde-isima
     links:
       - bde_postgres:postgres
     depends_on:
@@ -38,3 +42,7 @@ services:
 volumes:
   bde_data:
   bde_pgadmin:
+
+networks:
+  bde-isima:
+    external: true

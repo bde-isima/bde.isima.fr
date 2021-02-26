@@ -5,7 +5,7 @@
   "version": "4.1.0",
   "scripts": {
     "dev": "blitz start",
-    "build": "prisma db push --preview-feature && blitz build",
+    "build": "blitz build",
     "start": "blitz start --production",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": ""

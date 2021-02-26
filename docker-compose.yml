@@ -9,6 +9,8 @@ services:
       - ./logs:/var/log/nginx
       - ./conf:/etc/nginx/conf.d
       - ./ssl:/etc/nginx/certs
+    networks:
+      - bde-isima
     ports:
       - 80:80
       - 443:443
@@ -23,6 +25,8 @@ services:
     working_dir: /usr/app
     volumes:
       - ../bde.isima.fr:/usr/app
+    networks:
+      - bde-isima
     command: npm start
 
   bde_app_dev:
@@ -32,4 +36,10 @@ services:
     working_dir: /usr/app
     volumes:
       - ../bde.dev.isima.fr:/usr/app
+    networks:
+      - bde-isima
     command: npm start
+
+networks:
+  bde-isima:
+    external: true
