@@ -11,8 +11,6 @@ services:
       - "max_connections=100"
       - "-c"
       - "shared_buffers=2GB"
-    ports:
-      - 5432:5432
     env_file:
       - .env
     volumes:
@@ -34,10 +32,6 @@ services:
       - bde_pgadmin:/var/lib/pgadmin
     networks:
       - bde-isima
-    links:
-      - bde_postgres:postgres
-    depends_on:
-      - bde_postgres
 
 volumes:
   bde_data:
