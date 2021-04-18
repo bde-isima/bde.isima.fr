@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton"
 import Apps from "mdi-material-ui/Apps"
 import Vote from "mdi-material-ui/Vote"
 import PuzzleOutline from "mdi-material-ui/PuzzleOutline"
+import CalculatorVariantOutline from "mdi-material-ui/CalculatorVariantOutline"
 
 export default function ModulesMenu() {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -63,6 +64,20 @@ export default function ModulesMenu() {
               color="textPrimary"
             >
               Élections BDE
+            </Typography>
+          </MenuItem>
+        </Link>
+
+        <Link href="/hub/modules/average">
+          <MenuItem className="p-3" onClick={handleClose}>
+            <CalculatorVariantOutline className="mx-3" />
+            <Typography
+              className="flex flex-grow items-center justify-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Calculez votre moyenne !
             </Typography>
           </MenuItem>
         </Link>
