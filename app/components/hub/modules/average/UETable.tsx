@@ -12,8 +12,6 @@ import Paper from "@material-ui/core/Paper"
 import MenuUp from "mdi-material-ui/MenuUp"
 import MenuDown from "mdi-material-ui/MenuDown"
 
-import Box from "@material-ui/core/Box"
-
 import { UEData } from "./AverageData"
 import UEForm from "./UEForm/UEForm"
 

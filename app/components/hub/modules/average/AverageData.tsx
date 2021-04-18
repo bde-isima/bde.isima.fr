@@ -20,6 +20,10 @@ interface MCCData {
   ZZ3: SectorData[]
 }
 
+function instanceOfSectorData(object: any): object is SectorData {
+  return "semesters" in object
+}
+
 export let AverageData: MCCData = {
   ZZ1: [
     [
@@ -266,8 +270,52 @@ export let AverageData: MCCData = {
       ],
     },
   ],
-  ZZ3: [],
+  ZZ3: [
+    {
+      name: "Tronc commun",
+      semesters: [
+        [
+          {
+            name: "Sciences humaines et sociales",
+            subjects: [
+              {
+                name: "Anglais",
+                coefficient: 4,
+                mark: null,
+              },
+              {
+                name: "LV2",
+                coefficient: 4,
+                mark: null,
+              },
+              {
+                name: "Droit",
+                coefficient: 2,
+                mark: null,
+              },
+              {
+                name: "Expression et communication",
+                coefficient: 2,
+                mark: null,
+              },
+              {
+                name: "Gestion",
+                coefficient: 2,
+                mark: null,
+              },
+              {
+                name: "Conduite de projet",
+                coefficient: 2,
+                mark: null,
+              },
+            ],
+          },
+        ],
+      ],
+    },
+  ],
 }
 
 export default AverageData
-export type { SubjectData, UEData, MCCData }
+export type { SectorData, SubjectData, UEData, MCCData }
+export { instanceOfSectorData }

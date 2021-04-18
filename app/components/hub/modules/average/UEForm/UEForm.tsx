@@ -41,9 +41,6 @@ const columns: Column[] = [
 ]
 
 const useStyles = makeStyles({
-  root: {
-    // width: '100%',
-  },
   container: {
     maxHeight: "50em",
   },
@@ -70,8 +67,6 @@ export default function UEForm(props: { name: string; data: UEData }) {
     let coefficients_sum = 0
 
     for (const row_index in data.rows) {
-      // console.log(value);
-      // console.log(data.rows[row_index].mark);
       if (value.target.id === data.rows[row_index].id) {
         updated_rows[row_index].mark = value.target.valueAsNumber
       } else if (data.rows[row_index].mark === null) {
@@ -90,7 +85,7 @@ export default function UEForm(props: { name: string; data: UEData }) {
   }
 
   return (
-    <Paper className={classes.root}>
+    <Paper>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -108,7 +103,6 @@ export default function UEForm(props: { name: string; data: UEData }) {
           </TableHead>
           <TableBody>
             {data.rows.map((row) => {
-              // console.log("Row " + row.id);
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id + "-row"}>
                   {columns.map((column) => {
