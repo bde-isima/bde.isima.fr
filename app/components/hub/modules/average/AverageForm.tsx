@@ -1,58 +1,99 @@
-import { useState } from "react"
-import TextField from "@material-ui/core/TextField"
-import MenuItem from "@material-ui/core/MenuItem"
+import React, { useState } from "react"
+import { InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core"
 
-import { useBDESession } from "../../../auth/SessionProvider"
-import UETable from "./UETable"
-import { AverageData, instanceOfSectorData } from "./AverageData"
-import SectorForm from "./SectorForm"
+import AverageData from "./data/AverageData"
+import { Year } from "./data/AverageDataTypes"
+import FormControl from "@material-ui/core/FormControl"
 
-export default function AverageForm() {
-  const session = useBDESession()
-  const [currentYear, setCurrentYear] = useState<string>("")
-
-  const onChange = (value) => {
-    setCurrentYear(value.target.value)
+const importData = () => {
+  let data: any = localStorage.getItem("average_data")
+  if (data === null) {
+    data = AverageData
+  } else {
+    data = JSON.parse(data)
   }
 
-  const innerContent =
-    currentYear !== "" ? (
-      instanceOfSectorData(AverageData[currentYear][0]) ? (
-        <SectorForm data={AverageData[currentYear]} />
-      ) : (
-        Object.keys(AverageData[currentYear]).map((_, semester) => (
-          <>
-            <UETable
-              name={"Semestre " + (semester + 1)}
-              rows={AverageData[currentYear][semester]}
-            />
-            <br />
-          </>
-        ))
-      )
-    ) : (
-      <></>
+  return data as Year[]
+}
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}))
+
+function AverageForm(props) {
+  const classes = useStyles()
+
+  const [averageFormState, setAverageFormState] = useState({
+    averageData: importData(),
+    currentYear: 0,
+    currentSector: 0,
+  })
+
+  const handleYearChange = (event) => {
+    setAverageFormState({
+      ...averageFormState,
+      currentYear: event.target.value,
+    })
+  }
+
+  const handleSectorChange = (event) => {
+    setAverageFormState({
+      ...averageFormState,
+      currentSector: event.target.value,
+    })
+  }
+
+  const yearInput = (
+    <FormControl className={classes.formControl}>
+      <InputLabel shrink>Année</InputLabel>
+      <Select value={averageFormState.currentYear} onChange={handleYearChange}>
+        {averageFormState.averageData.map((year, index) => {
+          return (
+            <MenuItem key={"avg-year-" + index} value={index}>
+              {year.name}
+            </MenuItem>
+          )
+        })}
+      </Select>
+    </FormControl>
+  )
+
+  const sectorInput = (() => {
+    const sectors = averageFormState.averageData[averageFormState.currentYear].semesters[0].sectors
+
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel shrink>Filière</InputLabel>
+        <Select
+          value={averageFormState.currentSector}
+          onChange={handleSectorChange}
+          disabled={!sectors}
+        >
+          {sectors
+            ? averageFormState.averageData[averageFormState.currentYear].semesters[0].sectors?.map(
+                (sector, index) => {
+                  return (
+                    <MenuItem key={"avg-sector-" + index} value={index}>
+                      {sector.name}
+                    </MenuItem>
+                  )
+                }
+              )
+            : null}
+        </Select>
+      </FormControl>
     )
+  })()
 
   return (
-    <>
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Année"
-        value={currentYear}
-        onChange={onChange}
-        helperText="Veuillez sélectionner votre année"
-        variant="outlined"
-      >
-        {Object.keys(AverageData).map((name) => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>
-        ))}
-      </TextField>
-
-      {innerContent}
-    </>
+    <div>
+      {yearInput}
+      {sectorInput}
+    </div>
   )
 }
+
+export default AverageForm
