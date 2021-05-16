@@ -5,6 +5,8 @@ import AverageData from "./data/AverageData"
 import { Year } from "./data/AverageDataTypes"
 import FormControl from "@material-ui/core/FormControl"
 
+import Semesters from "./Semesters"
+
 const importData = () => {
   let data: any = localStorage.getItem("average_data")
   if (data === null) {
@@ -92,6 +94,11 @@ function AverageForm(props) {
     <div>
       {yearInput}
       {sectorInput}
+
+      <Semesters
+        year={averageFormState.averageData[averageFormState.currentYear]}
+        sectorIndex={averageFormState.currentSector}
+      />
     </div>
   )
 }
