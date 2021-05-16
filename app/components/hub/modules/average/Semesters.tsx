@@ -1,6 +1,6 @@
 import React from "react"
 import Typography from "@material-ui/core/Typography"
-import { SemesterData, Year } from "./data/AverageDataTypes"
+import { SemesterData, Year } from "./mcc_data/AverageDataTypes"
 import SectorTable from "./SectorTable"
 
 function Semester(props: { semester: SemesterData; number: Number; sectorIndex: number }) {

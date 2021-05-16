@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core"
 
-import AverageData from "./data/AverageData"
-import { Year } from "./data/AverageDataTypes"
+import AverageData from "./mcc_data/AverageData"
+import { Year } from "./mcc_data/AverageDataTypes"
 import FormControl from "@material-ui/core/FormControl"
 
 import Semesters from "./Semesters"

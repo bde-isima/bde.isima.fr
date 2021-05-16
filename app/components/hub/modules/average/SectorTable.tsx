@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import ChevronDown from "mdi-material-ui/ChevronDown"
 import ChevronUp from "mdi-material-ui/ChevronUp"
-import { UEData } from "./data/AverageDataTypes"
+import { UEData } from "./mcc_data/AverageDataTypes"
 
 import Subjects from "./Subjects"
 
