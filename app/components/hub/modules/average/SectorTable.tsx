@@ -42,31 +42,6 @@ function UE(props: {
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
-  const computeAverage = (): number | undefined => {
-    let average = 0
-    let coefSum = 0
-
-    for (let subjectIndex in ue.subjects) {
-      if (ue.subjects[subjectIndex].mark == null) {
-        continue
-      }
-
-      // @ts-ignore
-      average += ue.subjects[subjectIndex].mark * ue.subjects[subjectIndex].coef
-      coefSum += ue.subjects[subjectIndex].coef
-    }
-
-    if (coefSum === 0) {
-      return undefined
-    }
-
-    average /= coefSum
-
-    return Math.round(average * 1000) / 1000
-  }
-
-  const average = computeAverage()
-
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -78,7 +53,7 @@ function UE(props: {
         <TableCell component="th" scope="row">
           {ue.name}
         </TableCell>
-        <TableCell align={"center"}>{average}</TableCell>
+        <TableCell align={"center"}>{ue.average ?? "N/A"}</TableCell>
         <TableCell align="right">{ue.ects}</TableCell>
       </TableRow>
       <TableRow>
@@ -109,7 +84,7 @@ function UE(props: {
                     </TableCell>
                     <TableCell align="center" colSpan={2}>
                       {/*{computeAverage(ue.subjects)}*/}
-                      {average}
+                      {ue.average ?? "N/A"}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -130,7 +105,6 @@ export default function SectorTable(props: {
   const { yearIndex, semesterIndex, sectorIndex } = props
 
   const averageContext = useContext(AverageContext)
-
   const sector = averageContext.data[yearIndex].semesters[semesterIndex].sectors[sectorIndex]
 
   if (sector == null) {
@@ -162,6 +136,15 @@ export default function SectorTable(props: {
                 ueIndex={ueIndex}
               />
             ))}
+            <TableRow>
+              <TableCell component="th" scope="row"></TableCell>
+              <TableCell component="th" scope="row">
+                Moyenne de la filière
+              </TableCell>
+              <TableCell component="th" scope="row" align={"center"}>
+                {sector.average ?? "N/A"}
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
