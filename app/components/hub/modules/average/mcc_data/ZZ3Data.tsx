@@ -1,65 +1,68 @@
 import { SubjectData, UEData, SectorData, SemesterData, Year } from "./AverageDataTypes"
 
 const ZZ3_Semester1: SemesterData = {
-  ues: [
+  sectors: [
     {
-      name: "Langues",
-      subjects: [
+      name: "Tronc commun",
+      ues: [
         {
-          name: "Anglais",
-          coef: 2.0,
+          name: "Langues",
+          subjects: [
+            {
+              name: "Anglais",
+              coef: 2.0,
+            },
+            {
+              name: "LV2",
+              coef: 2.0,
+            },
+          ],
+          ects: 3,
         },
         {
-          name: "LV2",
-          coef: 2.0,
+          name: "Tertiaire",
+          subjects: [
+            {
+              name: "Droit",
+              coef: 2.0,
+            },
+            {
+              name: "Communication",
+              coef: 3.0,
+            },
+            {
+              name: "Intelligence économique",
+              coef: 1.0,
+            },
+            {
+              name: "Ethique, déontologie et développement durable",
+              coef: 2.0,
+            },
+          ],
+          ects: 4,
         },
-      ],
-      ects: 3,
-    },
-    {
-      name: "Tertiaire",
-      subjects: [
-        {
-          name: "Droit",
-          coef: 2.0,
-        },
-        {
-          name: "Communication",
-          coef: 3.0,
-        },
-        {
-          name: "Intelligence économique",
-          coef: 1.0,
-        },
-        {
-          name: "Ethique, déontologie et développement durable",
-          coef: 2.0,
-        },
-      ],
-      ects: 4,
-    },
-    {
-      name: "Méthodes et outils de développement logiciel",
-      subjects: [
         {
           name: "Méthodes et outils de développement logiciel",
-          coef: 4.0,
+          subjects: [
+            {
+              name: "Méthodes et outils de développement logiciel",
+              coef: 4.0,
+            },
+          ],
+          ects: 3,
         },
-      ],
-      ects: 3,
-    },
-    {
-      name: "Projet",
-      subjects: [
         {
           name: "Projet",
-          coef: 5.0,
+          subjects: [
+            {
+              name: "Projet",
+              coef: 5.0,
+            },
+          ],
+          ects: 5,
         },
       ],
-      ects: 5,
     },
-  ],
-  sectors: [
     {
       name: "F1",
       ues: [
@@ -421,16 +424,21 @@ const ZZ3_Semester1: SemesterData = {
 }
 
 const ZZ3_Semester2: SemesterData = {
-  ues: [
+  sectors: [
     {
-      name: "Projet de fin d'étude",
-      subjects: [
+      name: "Tronc commun",
+      ues: [
         {
           name: "Projet de fin d'étude",
-          coef: 1.0,
+          subjects: [
+            {
+              name: "Projet de fin d'étude",
+              coef: 1.0,
+            },
+          ],
+          ects: 30,
         },
       ],
-      ects: 30,
     },
   ],
 }

@@ -1,5 +1,5 @@
 import { SubjectData } from "./mcc_data/AverageDataTypes"
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import { TextField } from "@material-ui/core"
@@ -8,15 +8,39 @@ import Box from "@material-ui/core/Box"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
+import { AverageContext } from "./AverageForm"
 
-function Subject(props: { subject: SubjectData }) {
-  const { subject } = props
+function Subject(props: {
+  yearIndex: number
+  semesterIndex: number
+  sectorIndex: number
+  ueIndex: number
+  subjectIndex: number
+}) {
+  const { yearIndex, semesterIndex, sectorIndex, ueIndex, subjectIndex } = props
 
-  const [mark, setMark] = useState<Number | undefined>(subject.mark)
+  const averageContext = useContext(AverageContext)
+  const subject =
+    averageContext.data[yearIndex].semesters[semesterIndex].sectors[sectorIndex].ues[ueIndex]
+      .subjects[subjectIndex]
+
+  const [mark, setMark] = useState<number | undefined>(subject.mark)
 
   const handleMarkChange = (event) => {
-    if (event.target.value <= 20) {
-      setMark(event.target.value)
+    if (event.target.valueAsNumber >= 0 && event.target.valueAsNumber <= 20) {
+      const newMark: number = event.target.valueAsNumber
+
+      averageContext.updateData(
+        yearIndex,
+        semesterIndex,
+        sectorIndex,
+        ueIndex,
+        subjectIndex,
+        newMark
+      )
+      setMark(newMark)
+    } else if (event.target.value == "") {
+      setMark(undefined)
     }
   }
 
@@ -42,27 +66,4 @@ function Subject(props: { subject: SubjectData }) {
   )
 }
 
-function Subjects(props: { subjects: SubjectData[] }) {
-  const { subjects } = props
-
-  return (
-    <Box>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Nom</TableCell>
-            <TableCell>Coefficient</TableCell>
-            <TableCell align="right">Note</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {subjects.map((subject) => (
-            <Subject subject={subject} />
-          ))}
-        </TableBody>
-      </Table>
-    </Box>
-  )
-}
-
-export default Subjects
+export default Subject

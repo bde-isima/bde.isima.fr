@@ -1,55 +1,48 @@
-import React from "react"
+import React, { useContext } from "react"
 import Typography from "@material-ui/core/Typography"
-import { SemesterData, Year } from "./mcc_data/AverageDataTypes"
 import SectorTable from "./SectorTable"
+import { AverageContext } from "./AverageForm"
+import { SemesterData } from "./mcc_data/AverageDataTypes"
 
-function Semester(props: { semester: SemesterData; number: Number; sectorIndex: number }) {
-  const { semester, number, sectorIndex } = props
-
-  const sector = (() => {
-    if (semester.sectors) {
-      const sector = semester.sectors[sectorIndex]
-
-      return <SectorTable name={sector.name} ues={sector.ues} />
-    } else {
-      return null
-    }
-  })()
+function Semester(props: { yearIndex: number; semesterIndex: number; sectorIndex: number }) {
+  const { yearIndex, semesterIndex, sectorIndex } = props
 
   return (
     <React.Fragment>
-      <Typography variant="subtitle1">Semestre {number}</Typography>
+      <Typography variant="subtitle1">Semestre {semesterIndex + 1}</Typography>
 
-      {semester.ues ? <SectorTable name={"Tronc commun"} ues={semester.ues} /> : null}
+      <SectorTable yearIndex={yearIndex} semesterIndex={semesterIndex} sectorIndex={0} />
 
-      {sector}
+      {sectorIndex !== 0 ? (
+        <SectorTable
+          yearIndex={yearIndex}
+          semesterIndex={semesterIndex}
+          sectorIndex={sectorIndex}
+        />
+      ) : null}
     </React.Fragment>
   )
 }
 
-interface SemestersTableProps {
-  year: Year
-  sectorIndex: number
-}
+export default function Semesters(props: { yearIndex: number; sectorIndex: number }) {
+  const { yearIndex, sectorIndex } = props
 
-export default function Semesters(props: SemestersTableProps) {
-  const { year, sectorIndex } = props
+  const averageContext = useContext(AverageContext)
+  const year = averageContext.data[yearIndex]
 
   return (
     <>
-      {year.semesters.map((semester, index) => {
-        return (
-          <>
-            <br />
-            <Semester
-              key={"semester" + index}
-              semester={semester}
-              number={index + 1}
-              sectorIndex={sectorIndex}
-            />
-          </>
-        )
-      })}
+      {year.semesters.map((semester, semesterIndex) => (
+        <>
+          <br />
+          <Semester
+            key={"semester" + semesterIndex}
+            yearIndex={yearIndex}
+            semesterIndex={semesterIndex}
+            sectorIndex={sectorIndex}
+          />
+        </>
+      ))}
     </>
   )
 }

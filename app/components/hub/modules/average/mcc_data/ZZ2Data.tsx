@@ -1,65 +1,68 @@
 import { SubjectData, UEData, SectorData, SemesterData, Year } from "./AverageDataTypes"
 
 const ZZ2_Semester1: SemesterData = {
-  ues: [
-    {
-      name: "Sciences Humaines et Sociales",
-      subjects: [
-        {
-          name: "Anglais",
-          coef: 4.0,
-        },
-        {
-          name: "LV2",
-          coef: 4.0,
-        },
-        {
-          name: "Droit",
-          coef: 2.0,
-        },
-        {
-          name: "Communication",
-          coef: 2.0,
-        },
-        {
-          name: "Gestion",
-          coef: 2.0,
-        },
-        {
-          name: "Conduite de projets",
-          coef: 2.0,
-        },
-      ],
-      ects: 8,
-    },
-    {
-      name: "Scientifique",
-      subjects: [
-        {
-          name: "C++",
-          coef: 4.0,
-        },
-        {
-          name: "UML",
-          coef: 2.0,
-        },
-        {
-          name: "Java",
-          coef: 2.0,
-        },
-        {
-          name: "Internet des Objets",
-          coef: 1.0,
-        },
-        {
-          name: "Réseaux",
-          coef: 2.0,
-        },
-      ],
-      ects: 6,
-    },
-  ],
   sectors: [
+    {
+      name: "Tronc commun",
+      ues: [
+        {
+          name: "Sciences Humaines et Sociales",
+          subjects: [
+            {
+              name: "Anglais",
+              coef: 4.0,
+            },
+            {
+              name: "LV2",
+              coef: 4.0,
+            },
+            {
+              name: "Droit",
+              coef: 2.0,
+            },
+            {
+              name: "Communication",
+              coef: 2.0,
+            },
+            {
+              name: "Gestion",
+              coef: 2.0,
+            },
+            {
+              name: "Conduite de projets",
+              coef: 2.0,
+            },
+          ],
+          ects: 8,
+        },
+        {
+          name: "Scientifique",
+          subjects: [
+            {
+              name: "C++",
+              coef: 4.0,
+            },
+            {
+              name: "UML",
+              coef: 2.0,
+            },
+            {
+              name: "Java",
+              coef: 2.0,
+            },
+            {
+              name: "Internet des Objets",
+              coef: 1.0,
+            },
+            {
+              name: "Réseaux",
+              coef: 2.0,
+            },
+          ],
+          ects: 6,
+        },
+      ],
+    },
     {
       name: "F1",
       ues: [
@@ -415,26 +418,31 @@ const ZZ2_Semester1: SemesterData = {
 }
 
 const ZZ2_Semester2: SemesterData = {
-  ues: [
+  sectors: [
     {
-      name: "Projet",
-      subjects: [
+      name: "Tronc commun",
+      ues: [
         {
           name: "Projet",
-          coef: 1.0,
+          subjects: [
+            {
+              name: "Projet",
+              coef: 1.0,
+            },
+          ],
+          ects: 3,
         },
-      ],
-      ects: 3,
-    },
-    {
-      name: "Stage",
-      subjects: [
         {
           name: "Stage",
-          coef: 1.0,
+          subjects: [
+            {
+              name: "Stage",
+              coef: 1.0,
+            },
+          ],
+          ects: 27,
         },
       ],
-      ects: 27,
     },
   ],
 }

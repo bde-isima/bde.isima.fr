@@ -1,29 +1,28 @@
 interface SubjectData {
-  name: String
-  coef: Number
-  mark?: Number
+  name: string
+  coef: number
+  mark?: number
 }
 
 interface UEData {
-  name: String
+  name: string
   subjects: SubjectData[]
-  ects: Number
+  ects: number
 }
 
 interface SectorData {
-  name: String
+  name: string
   ues: UEData[]
 
   isCurrent?: boolean
 }
 
 interface SemesterData {
-  ues?: UEData[]
-  sectors?: SectorData[]
+  sectors: SectorData[]
 }
 
 interface Year {
-  name: String
+  name: string
   semesters: SemesterData[]
 
   isCurrent?: boolean
