@@ -68,6 +68,16 @@ function UERow(props: {
                 <TableBody>
                   {ue.subjects.map((subject, subjectIndex) => (
                     <Subject
+                      key={
+                        "sem_" +
+                        semesterIndex +
+                        "sect_" +
+                        sectorIndex +
+                        "_ue_" +
+                        ueIndex +
+                        "_subj_" +
+                        subjectIndex
+                      }
                       yearIndex={yearIndex}
                       semesterIndex={semesterIndex}
                       sectorIndex={sectorIndex}
@@ -80,7 +90,6 @@ function UERow(props: {
                       Moyenne
                     </TableCell>
                     <TableCell align="center" colSpan={2}>
-                      {/*{computeAverage(ue.subjects)}*/}
                       {ue.average ?? "N/A"}
                     </TableCell>
                   </TableRow>
@@ -127,6 +136,7 @@ export default function SectorTable(props: {
           <TableBody>
             {sector.ues.map((ue, ueIndex) => (
               <UERow
+                key={"sem_" + semesterIndex + "sect_" + sectorIndex + "_ue_" + ueIndex}
                 yearIndex={yearIndex}
                 semesterIndex={semesterIndex}
                 sectorIndex={sectorIndex}
@@ -134,7 +144,7 @@ export default function SectorTable(props: {
               />
             ))}
             <TableRow>
-              <TableCell component="th" scope="row"></TableCell>
+              <TableCell component="th" scope="row" />
               <TableCell component="th" scope="row">
                 Moyenne de la filière
               </TableCell>

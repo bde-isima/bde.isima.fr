@@ -10,15 +10,23 @@ function Semester(props: { yearIndex: number; semesterIndex: number; sectorIndex
   const semester = averageContext.data[yearIndex].semesters[semesterIndex]
 
   return (
-    <React.Fragment>
-      <br />
+    <>
+      <br key={"semester_index_" + semesterIndex} />
 
-      <Typography variant="h4">Semestre {semesterIndex + 1}</Typography>
+      <Typography key={"semester_title_" + semesterIndex} variant="h4">
+        Semestre {semesterIndex + 1}
+      </Typography>
 
-      <SectorTable yearIndex={yearIndex} semesterIndex={semesterIndex} sectorIndex={0} />
+      <SectorTable
+        key={"semester_sector_common_" + semesterIndex}
+        yearIndex={yearIndex}
+        semesterIndex={semesterIndex}
+        sectorIndex={0}
+      />
 
       {sectorIndex !== 0 ? (
         <SectorTable
+          key={"semester_sector_" + semesterIndex}
           yearIndex={yearIndex}
           semesterIndex={semesterIndex}
           sectorIndex={sectorIndex}
@@ -26,10 +34,10 @@ function Semester(props: { yearIndex: number; semesterIndex: number; sectorIndex
       ) : null}
 
       <br />
-      <Typography variant="h6">
+      <Typography key={"semester_avg_" + semesterIndex} variant="h6">
         Moyenne du semestre {semesterIndex + 1} : {semester.average ?? "N/A"}
       </Typography>
-    </React.Fragment>
+    </>
   )
 }
 
@@ -41,16 +49,14 @@ export default function Semesters(props: { yearIndex: number; sectorIndex: numbe
 
   return (
     <>
+      <br />
       {year.semesters.map((semester, semesterIndex) => (
-        <>
-          <br />
-          <Semester
-            key={"semester" + semesterIndex}
-            yearIndex={yearIndex}
-            semesterIndex={semesterIndex}
-            sectorIndex={sectorIndex}
-          />
-        </>
+        <Semester
+          key={"semester_" + semesterIndex}
+          yearIndex={yearIndex}
+          semesterIndex={semesterIndex}
+          sectorIndex={sectorIndex}
+        />
       ))}
     </>
   )
