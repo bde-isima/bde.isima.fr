@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react"
 import { InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core"
 
 import AverageData from "./mcc_data/AverageData"
-import { SectorData, SemesterData, SubjectData, Year } from "./mcc_data/AverageDataTypes"
+import { SectorData, SemesterData, SubjectData, Year } from "./types"
 import FormControl from "@material-ui/core/FormControl"
 
 import Semesters from "./Semesters"
-import { useBDESession } from "../../../auth/SessionProvider"
 import Typography from "@material-ui/core/Typography"
 
-const importData = (): { averageData: Year[]; currentYear: number; currentSector: number } => {
+const importAverageData = (): {
+  averageData: Year[]
+  currentYear: number
+  currentSector: number
+} => {
   let data: any = localStorage.getItem("average_data")
   if (data === null) {
     data = {
@@ -24,7 +27,7 @@ const importData = (): { averageData: Year[]; currentYear: number; currentSector
   return data
 }
 
-const saveData = (averageData: Year[], currentYear: number, currentSector: number) => {
+const saveAverageData = (averageData: Year[], currentYear: number, currentSector: number) => {
   const dataToStore = {
     averageData: averageData,
     currentYear: currentYear,
@@ -58,9 +61,7 @@ export const AverageContext = React.createContext({
 function AverageForm(props) {
   const classes = useStyles()
 
-  // const sessionContext = useBDESession();
-
-  const savedData = importData()
+  const savedData = importAverageData()
 
   const [averageFormState, setAverageFormState] = useState({
     currentYear: savedData.currentYear,
@@ -208,8 +209,8 @@ function AverageForm(props) {
   }
 
   useEffect(() => {
-    saveData(averageDataState, averageFormState.currentYear, averageFormState.currentSector)
-  }, [averageDataState])
+    saveAverageData(averageDataState, averageFormState.currentYear, averageFormState.currentSector)
+  }, [averageDataState, averageFormState])
 
   const averageContextValue = {
     data: averageDataState,

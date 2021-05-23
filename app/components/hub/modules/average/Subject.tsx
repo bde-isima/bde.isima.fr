@@ -1,13 +1,8 @@
-import { SubjectData } from "./mcc_data/AverageDataTypes"
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import { TextField } from "@material-ui/core"
 import InputAdornment from "@material-ui/core/InputAdornment"
-import Box from "@material-ui/core/Box"
-import Table from "@material-ui/core/Table"
-import TableHead from "@material-ui/core/TableHead"
-import TableBody from "@material-ui/core/TableBody"
 import { AverageContext } from "./AverageForm"
 
 function Subject(props: {

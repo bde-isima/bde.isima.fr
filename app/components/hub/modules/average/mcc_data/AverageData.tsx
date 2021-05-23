@@ -1,4 +1,4 @@
-import { Year } from "./AverageDataTypes"
+import { Year } from "../types"
 
 import ZZ1Data from "./ZZ1Data"
 import ZZ2Data from "./ZZ2Data"

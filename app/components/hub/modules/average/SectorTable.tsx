@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Collapse from "@material-ui/core/Collapse"
 import IconButton from "@material-ui/core/IconButton"
@@ -12,9 +12,6 @@ import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import ChevronDown from "mdi-material-ui/ChevronDown"
 import ChevronUp from "mdi-material-ui/ChevronUp"
-import { SectorData, SubjectData, UEData } from "./mcc_data/AverageDataTypes"
-
-import Subjects from "./Subject"
 import { AverageContext } from "./AverageForm"
 import Box from "@material-ui/core/Box"
 import Subject from "./Subject"
@@ -27,7 +24,7 @@ const useRowStyles = makeStyles({
   },
 })
 
-function UE(props: {
+function UERow(props: {
   yearIndex: number
   semesterIndex: number
   sectorIndex: number
@@ -129,7 +126,7 @@ export default function SectorTable(props: {
           </TableHead>
           <TableBody>
             {sector.ues.map((ue, ueIndex) => (
-              <UE
+              <UERow
                 yearIndex={yearIndex}
                 semesterIndex={semesterIndex}
                 sectorIndex={sectorIndex}
