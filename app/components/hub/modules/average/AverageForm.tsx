@@ -9,20 +9,31 @@ import Semesters from "./Semesters"
 import { useBDESession } from "../../../auth/SessionProvider"
 import Typography from "@material-ui/core/Typography"
 
-const importData = (): Year[] => {
+const importData = (): { averageData: Year[]; currentYear: number; currentSector: number } => {
   let data: any = localStorage.getItem("average_data")
   if (data === null) {
-    data = AverageData
+    data = {
+      averageData: AverageData,
+      currentYear: 0,
+      currentSector: 0,
+    }
   } else {
     data = JSON.parse(data)
   }
 
-  return data as Year[]
+  return data
 }
 
-const saveData = (averageData: Year[]) => {
-  const averageDataString = JSON.stringify(averageData)
-  localStorage.setItem("average_data", averageDataString)
+const saveData = (averageData: Year[], currentYear: number, currentSector: number) => {
+  const dataToStore = {
+    averageData: averageData,
+    currentYear: currentYear,
+    currentSector: currentSector,
+  }
+
+  const dataToStoreStr = JSON.stringify(dataToStore)
+
+  localStorage.setItem("average_data", dataToStoreStr)
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -49,12 +60,14 @@ function AverageForm(props) {
 
   // const sessionContext = useBDESession();
 
+  const savedData = importData()
+
   const [averageFormState, setAverageFormState] = useState({
-    currentYear: 0,
-    currentSector: 0,
+    currentYear: savedData.currentYear,
+    currentSector: savedData.currentSector,
   })
 
-  const [averageDataState, setAverageDataState] = useState<Year[]>(importData())
+  const [averageDataState, setAverageDataState] = useState<Year[]>(savedData.averageData)
 
   const computeAverage = (subjects: SubjectData[]): number | undefined => {
     let average = 0
@@ -195,7 +208,7 @@ function AverageForm(props) {
   }
 
   useEffect(() => {
-    saveData(averageDataState)
+    saveData(averageDataState, averageFormState.currentYear, averageFormState.currentSector)
   }, [averageDataState])
 
   const averageContextValue = {
