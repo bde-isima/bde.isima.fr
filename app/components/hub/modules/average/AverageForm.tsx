@@ -2,42 +2,18 @@ import React, { useEffect, useState } from "react"
 import { InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core"
 
 import AverageData from "./mcc_data/AverageData"
-import { SectorData, SemesterData, SubjectData, Year } from "./types"
+import { Year } from "./types"
 import FormControl from "@material-ui/core/FormControl"
 
 import Semesters from "./Semesters"
 import Typography from "@material-ui/core/Typography"
-
-const importAverageData = (): {
-  averageData: Year[]
-  currentYear: number
-  currentSector: number
-} => {
-  let data: any = localStorage.getItem("average_data")
-  if (data === null) {
-    data = {
-      averageData: AverageData,
-      currentYear: 0,
-      currentSector: 0,
-    }
-  } else {
-    data = JSON.parse(data)
-  }
-
-  return data
-}
-
-const saveAverageData = (averageData: Year[], currentYear: number, currentSector: number) => {
-  const dataToStore = {
-    averageData: averageData,
-    currentYear: currentYear,
-    currentSector: currentSector,
-  }
-
-  const dataToStoreStr = JSON.stringify(dataToStore)
-
-  localStorage.setItem("average_data", dataToStoreStr)
-}
+import { importAverageData, saveAverageData } from "./DataStorage"
+import {
+  computeUEAverage,
+  computeSectorAverage,
+  computeSemesterAverage,
+  computeYearAverage,
+} from "./AverageComputing"
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -58,112 +34,17 @@ export const AverageContext = React.createContext({
   ) => {},
 })
 
-function AverageForm(props) {
+function AverageForm() {
   const classes = useStyles()
 
   const savedData = importAverageData()
 
   const [averageFormState, setAverageFormState] = useState({
-    currentYear: savedData.currentYear,
-    currentSector: savedData.currentSector,
+    currentYearIndex: savedData.currentYearIndex,
+    currentSectorIndex: savedData.currentSectorIndex,
   })
 
   const [averageDataState, setAverageDataState] = useState<Year[]>(savedData.averageData)
-
-  const computeAverage = (subjects: SubjectData[]): number | undefined => {
-    let average = 0
-    let coefSum = 0
-
-    for (let subjectIndex in subjects) {
-      if (subjects[subjectIndex].mark == null) {
-        continue
-      }
-
-      // @ts-ignore
-      average += subjects[subjectIndex].mark * subjects[subjectIndex].coef
-      coefSum += subjects[subjectIndex].coef
-    }
-
-    if (coefSum === 0) {
-      return undefined
-    }
-
-    average /= coefSum
-
-    return Math.round(average * 1000) / 1000
-  }
-
-  const computeSectorAverage = (sector: SectorData): number | undefined => {
-    let average = 0
-    let sum = 0
-
-    for (let ueIndex in sector.ues) {
-      if (sector.ues[ueIndex].average == null) {
-        continue
-      }
-
-      // @ts-ignore
-      average += sector.ues[ueIndex].average
-      sum++
-    }
-
-    if (sum === 0) {
-      return undefined
-    }
-
-    average /= sum
-
-    return Math.round(average * 1000) / 1000
-  }
-
-  const computeSemesterAverage = (semester: SemesterData): number | undefined => {
-    let average = 0
-    let count = 0
-
-    // Tronc commun
-    if (semester.sectors[0].average) {
-      // @ts-ignore
-      average += semester.sectors[0].average
-      count++
-    }
-
-    if (semester.sectors[averageFormState.currentSector].average) {
-      // @ts-ignore
-      average += semester.sectors[averageFormState.currentSector].average
-      count++
-    }
-
-    if (average === 0) {
-      return undefined
-    }
-
-    average /= 2
-
-    return Math.round(average * 1000) / 1000
-  }
-
-  const computeYearAverage = (year: Year): number | undefined => {
-    let average = 0
-    let sum = 0
-
-    for (let semesterIndex in year.semesters) {
-      if (year.semesters[semesterIndex].average == null) {
-        continue
-      }
-
-      // @ts-ignore
-      average += year.semesters[semesterIndex].average
-      sum++
-    }
-
-    if (sum === 0) {
-      return undefined
-    }
-
-    average /= sum
-
-    return Math.round(average * 1000) / 1000
-  }
 
   const updateSubjectMark = (
     yearIndex: number,
@@ -189,7 +70,7 @@ function AverageForm(props) {
 
             ue.subjects[subjectIndex].mark = mark
 
-            ue.average = computeAverage(ue.subjects)
+            ue.average = computeUEAverage(ue)
             sector.ues[ueIndex] = ue
           }
 
@@ -197,7 +78,7 @@ function AverageForm(props) {
           semester.sectors[sectorIndex] = sector
         }
 
-        semester.average = computeSemesterAverage(semester)
+        semester.average = computeSemesterAverage(semester, averageFormState.currentSectorIndex)
         year.semesters[semesterIndex] = semester
       }
 
@@ -209,7 +90,11 @@ function AverageForm(props) {
   }
 
   useEffect(() => {
-    saveAverageData(averageDataState, averageFormState.currentYear, averageFormState.currentSector)
+    saveAverageData(
+      averageDataState,
+      averageFormState.currentYearIndex,
+      averageFormState.currentSectorIndex
+    )
   }, [averageDataState, averageFormState])
 
   const averageContextValue = {
@@ -220,21 +105,21 @@ function AverageForm(props) {
   const handleYearChange = (event) => {
     setAverageFormState({
       ...averageFormState,
-      currentYear: event.target.value,
+      currentYearIndex: event.target.value,
     })
   }
 
   const handleSectorChange = (event) => {
     setAverageFormState({
       ...averageFormState,
-      currentSector: event.target.value,
+      currentSectorIndex: event.target.value,
     })
   }
 
   const yearInput = (
     <FormControl className={classes.formControl}>
       <InputLabel shrink>Année</InputLabel>
-      <Select value={averageFormState.currentYear} onChange={handleYearChange}>
+      <Select value={averageFormState.currentYearIndex} onChange={handleYearChange}>
         {averageDataState.map((year, index) => {
           return (
             <MenuItem key={"avg-year-" + index} value={index}>
@@ -246,20 +131,20 @@ function AverageForm(props) {
     </FormControl>
   )
 
-  const currentYear = averageDataState[averageFormState.currentYear]
+  const currentYear = averageDataState[averageFormState.currentYearIndex]
 
   const sectorInput = (() => {
-    const sectors = averageDataState[averageFormState.currentYear].semesters[0].sectors
+    const sectors = averageDataState[averageFormState.currentYearIndex].semesters[0].sectors
 
     return (
       <FormControl className={classes.formControl}>
         <InputLabel shrink>Filière</InputLabel>
         <Select
-          value={averageFormState.currentSector}
+          value={averageFormState.currentSectorIndex}
           onChange={handleSectorChange}
           disabled={!(sectors.length > 1)}
         >
-          {averageDataState[averageFormState.currentYear].semesters[0].sectors?.map(
+          {averageDataState[averageFormState.currentYearIndex].semesters[0].sectors?.map(
             (sector, index) => {
               if (index === 0) {
                 return null
@@ -285,8 +170,8 @@ function AverageForm(props) {
         {sectorInput}
 
         <Semesters
-          yearIndex={averageFormState.currentYear}
-          sectorIndex={averageFormState.currentSector}
+          yearIndex={averageFormState.currentYearIndex}
+          sectorIndex={averageFormState.currentSectorIndex}
         />
 
         <br />
