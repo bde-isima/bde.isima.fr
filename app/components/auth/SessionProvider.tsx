@@ -1,7 +1,7 @@
-import { PublicData, useSession } from "blitz"
+import { ClientSession, useSession } from "blitz"
 import { createContext, useContext } from "react"
 
-const SessionContext = createContext<PublicData>({} as any)
+const SessionContext = createContext<Omit<ClientSession, "isLoading">>({} as any)
 
 export const useBDESession = () => {
   return useContext(SessionContext)
