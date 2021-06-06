@@ -1,4 +1,4 @@
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
 
 import { mail } from "mail"
 
@@ -8,21 +8,22 @@ type FeedbackInput = {
   from: string
 }
 
-export default async function feedback({ subject, message, from }: FeedbackInput, ctx: Ctx) {
-  ctx.session.authorize()
-
-  try {
-    await mail.send({
-      subject: from,
-      to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
-      view: "feedback",
-      variables: {
+export default resolver.pipe(
+  resolver.authorize(),
+  async ({ subject, message, from }: FeedbackInput) => {
+    try {
+      await mail.send({
         subject: from,
-        message,
-        from,
-      },
-    })
-  } catch (err) {
-    console.log(err)
+        to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
+        view: "feedback",
+        variables: {
+          subject: from,
+          message,
+          from,
+        },
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
-}
+)

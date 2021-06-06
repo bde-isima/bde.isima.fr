@@ -7,31 +7,10 @@ import partners from "./partners"
 import promotions from "./promotions"
 import transactions from "./transactions"
 import eventSubscriptions from "./eventSubscriptions"
-;(async () => {
-  const seeds = [
-    "vote",
-    "voteRequest",
-    "loginRequest",
-    "userStats",
-    "analytic",
-    "eventSubscription",
-    "transaction",
-    "partner",
-    "article",
-    "event",
-    "user",
-    "club",
-    "promotion",
-  ]
+
+const seed = async () => {
   try {
-    await db.$connect()
-
-    for (const s of seeds) {
-      await db[s].deleteMany()
-    }
-
-    console.log("Done resetting")
-
+    await db.$reset()
     await promotions(db)
     await clubs(db)
     await users(db)
@@ -40,11 +19,11 @@ import eventSubscriptions from "./eventSubscriptions"
     await partners(db)
     await transactions(db)
     await eventSubscriptions(db)
-
-    console.log("Done seeding")
   } catch (err) {
     console.error(err)
   } finally {
-    await db.$disconnect()
+    db.$disconnect()
   }
-})()
+}
+
+export default seed

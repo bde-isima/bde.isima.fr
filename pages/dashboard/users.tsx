@@ -69,6 +69,7 @@ const columns = [
   {
     id: "balance",
     headerName: "Solde",
+    render: (row) => row.balance.toFixed(2),
   },
   {
     id: "promotion",
@@ -78,7 +79,7 @@ const columns = [
   },
   {
     id: "roles",
-    headerName: "Rôles",
+    headerName: "Roles",
     render: (row) => row.roles.join(", "),
   },
   {

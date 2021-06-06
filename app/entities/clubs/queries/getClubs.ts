@@ -1,14 +1,10 @@
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
+
 import db, { Prisma } from "db"
 
-type GetClubsInput = Pick<Prisma.FindManyClubArgs, "where" | "orderBy" | "skip" | "take">
+type GetClubsInput = Pick<Prisma.ClubFindManyArgs, "where" | "orderBy" | "skip" | "take">
 
-export default async function getClubs(
-  { where, orderBy, skip = 0, take }: GetClubsInput,
-  ctx: Ctx
-) {
-  //ctx.session.authorize()
-
+export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetClubsInput) => {
   const clubs = await db.club.findMany({
     where,
     orderBy,
@@ -26,4 +22,4 @@ export default async function getClubs(
     hasMore,
     count,
   }
-}
+})

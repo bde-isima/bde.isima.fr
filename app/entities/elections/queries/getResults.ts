@@ -1,17 +1,15 @@
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
 
 import db, { Prisma } from "db"
 
-type GetResultsInput = Pick<Prisma.FindUniqueElectionArgs, "where">
+type GetResultsInput = Pick<Prisma.ElectionFindUniqueArgs, "where">
 
-export default async function getResults({ where }: GetResultsInput, ctx: Ctx) {
-  ctx.session.authorize(["*"])
-
-  const election = await db.election.findUnique({ where, include: { candidates: true } })
-
-  if (!election) {
-    throw new Error("Campagne introuvable")
-  }
+export default resolver.pipe(resolver.authorize(["*"]), async ({ where }: GetResultsInput) => {
+  const election = await db.election.findUnique({
+    where,
+    include: { candidates: true },
+    rejectOnNotFound: true,
+  })
 
   const results: any = await db.vote.groupBy({
     by: ["candidateId", "isBlank", "isNull"],
@@ -42,4 +40,4 @@ export default async function getResults({ where }: GetResultsInput, ctx: Ctx) {
       }
     }
   })
-}
+})

@@ -7,8 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["uncheckedScalarInputs", "groupBy"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["groupBy"]
 }
 
 // --------------------------------------
@@ -31,227 +31,240 @@ enum TransactionType {
 }
 
 model Event {
-    id                        String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    name                      String
-    description               String?
+  name        String
+  description String?
 
-    takes_place_at            DateTime
-    subscriptions_end_at      DateTime
+  takes_place_at       DateTime
+  subscriptions_end_at DateTime
 
-    status                    State
-    max_subscribers           Int?
+  status          State
+  max_subscribers Int?
 
-    club                      Club      @relation(name: "EventClub", fields: [clubId], references: [id])
-    clubId                    String
+  club   Club   @relation(name: "EventClub", fields: [clubId], references: [id])
+  clubId String
 
-    products                  Json[]
+  products Json[]
 
-    createdAt                 DateTime  @default(now())
-    updatedAt                 DateTime  @updatedAt
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  EventSubscription EventSubscription[] @relation("SubscriptionEvent")
 }
 
 model EventSubscription {
-    id                        String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    event                     Event     @relation(name: "SubscriptionEvent", fields: [eventId], references: [id])
-    eventId                   String
+  event   Event  @relation(name: "SubscriptionEvent", fields: [eventId], references: [id])
+  eventId String
 
-    user                      User      @relation(name: "SubscriptionUser", fields: [userId], references: [id])
-    userId                    String
+  user   User   @relation(name: "SubscriptionUser", fields: [userId], references: [id])
+  userId String
 
-    payment_method            PaymentMethod
-    cart                      Json[]
+  payment_method PaymentMethod
+  cart           Json[]
 
-    createdAt                 DateTime  @default(now())
-    updatedAt                 DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Transaction {
-    id                      String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    amount                  Float
-    description             String?
-    type                    TransactionType
+  amount      Float
+  description String?
+  type        TransactionType
 
-    emitter                 User?     @relation(name: "TransactionEmitter", fields: [emitterId], references: [id])
-    emitterId               String?
+  emitter   User?   @relation(name: "TransactionEmitter", fields: [emitterId], references: [id])
+  emitterId String?
 
-    user                    User      @relation(name: "TransactionUser", fields: [userId], references: [id])
-    userId                  String
-    prevBalance             Float
+  user        User   @relation(name: "TransactionUser", fields: [userId], references: [id])
+  userId      String
+  prevBalance Float
 
-    article                 Article?  @relation(name: "TransactionArticle", fields: [articleId], references: [id])
-    articleId               String?
+  article   Article? @relation(name: "TransactionArticle", fields: [articleId], references: [id])
+  articleId String?
 
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Article {
-    id             String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    name           String
-    price          Float
-    member_price   Float
-    image          String?
-    is_enabled     Boolean   @default(true)
+  name         String
+  price        Float
+  member_price Float
+  image        String?
+  is_enabled   Boolean @default(true)
 
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Transaction Transaction[] @relation("TransactionArticle")
 }
 
 model Club {
-    id             String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    name           String    @unique
-    email          String?
-    description    String?
-    image          String?
+  name        String  @unique
+  email       String?
+  description String?
+  image       String?
 
-    facebookURL    String?
-    twitterURL     String?
-    instagramURL   String?
-    customURL      String?
+  facebookURL  String?
+  twitterURL   String?
+  instagramURL String?
+  customURL    String?
 
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Event     Event[]  @relation("EventClub")
 }
 
 model Partner {
-    id             String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    name           String
-    description    String?
-    image          String?
+  name        String
+  description String?
+  image       String?
 
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Promotion {
-    id             String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    year           Int       @unique
-    fb_group_id    Int?      @unique
-    list_email     String?   @unique
+  year        Int     @unique
+  fb_group_id Int?    @unique
+  list_email  String? @unique
 
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User[]
 }
 
 model Analytic {
-    id                      String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    tag                     String    @unique
-    data                    Json
+  tag  String @unique
+  data Json
 
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserStats {
-    id                      String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    user                    User      @relation(fields: [userId], references: [id])
-    userId                  String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-    articlesStats           Json
+  articlesStats Json
 
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-    id                      String    @id @default(cuid())
+  id String @id @default(cuid())
 
-    lastname                String
-    firstname               String
-    nickname                String?
+  lastname  String
+  firstname String
+  nickname  String?
 
-    email                   String    @unique
-    card                    Int       @unique
-    balance                 Float
+  email   String @unique
+  card    Int    @unique
+  balance Float
 
-    roles                   String[]
-    sessions                Session[]
+  roles    String[]
+  sessions Session[]
 
-    promotion               Promotion? @relation(fields: [promotionId], references: [id])
-    promotionId             String?
+  promotion   Promotion? @relation(fields: [promotionId], references: [id])
+  promotionId String?
 
-    transactions            Transaction[] @relation("TransactionUser")
-    userStats               UserStats?
+  transactions Transaction[] @relation("TransactionUser")
+  userStats    UserStats?
 
-    image                   String?
-    is_member               Boolean   @default(false)
-    is_enabled              Boolean   @default(true)
+  image      String?
+  is_member  Boolean @default(false)
+  is_enabled Boolean @default(true)
 
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  EventSubscription EventSubscription[] @relation("SubscriptionUser")
+  Transaction       Transaction[]       @relation("TransactionEmitter")
+  LoginRequest      LoginRequest[]
+  VoteRequest       VoteRequest[]
 }
 
 model Session {
-    id                      String    @id @default(cuid())
-    user                    User?     @relation(fields: [userId], references: [id])
-    userId                  String?
-    handle                  String    @unique
-    hashedSessionToken      String?
-    antiCSRFToken           String?
-    expiresAt               DateTime?
-    publicData              String?
-    privateData             String?
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
+  id                 String    @id @default(cuid())
+  user               User?     @relation(fields: [userId], references: [id])
+  userId             String?
+  handle             String    @unique
+  hashedSessionToken String?
+  antiCSRFToken      String?
+  expiresAt          DateTime?
+  publicData         String?
+  privateData        String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model LoginRequest {
-  id                        String    @id @default(cuid())
-  user                      User      @relation(fields: [userId], references: [id])
-  userId                    String
-  token                     String    @unique
-  callbackUrl               String
-  expires                   DateTime
-  createdAt                 DateTime  @default(now())
-  updatedAt                 DateTime  @updatedAt
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  token       String   @unique
+  callbackUrl String
+  expires     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model VoteRequest {
-  id                        String    @id @default(cuid())
-  user                      User      @relation(fields: [userId], references: [id])
-  userId                    String
-  election                  Election  @relation(fields: [electionId], references: [id])
-  electionId                String
-  voteToken                 String?   @unique
-  proxyVoteCount            Int       @default(0)
-  createdAt                 DateTime  @default(now())
-  updatedAt                 DateTime  @updatedAt
+  id             String   @id @default(cuid())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  election       Election @relation(fields: [electionId], references: [id])
+  electionId     String
+  voteToken      String?  @unique
+  proxyVoteCount Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Vote {
-  id                        String      @id @default(cuid())
-  candidate                 Candidate?  @relation(fields: [candidateId], references: [id])
-  candidateId               String?
-  election                  Election    @relation(fields: [electionId], references: [id])
-  electionId                String
-  isBlank                   Boolean
-  isNull                    Boolean
-  voteToken                 String      @unique
-  createdAt                 DateTime    @default(now())
-  updatedAt                 DateTime    @updatedAt
+  id          String     @id @default(cuid())
+  candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId String?
+  election    Election   @relation(fields: [electionId], references: [id])
+  electionId  String
+  isBlank     Boolean
+  isNull      Boolean
+  voteToken   String     @unique
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Candidate {
-  id                        String    @id @default(cuid())
-  name                      String
-  image                     String
-  createdAt                 DateTime  @default(now())
-  updatedAt                 DateTime  @updatedAt
+  id         String    @id @default(cuid())
+  name       String
+  image      String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Vote       Vote[]
+  Election   Election? @relation(fields: [electionId], references: [id])
+  electionId String?
 }
 
 model Election {
-  id                        String    @id @default(cuid())
-  candidates                Candidate[]
-  endDate                   DateTime
-  createdAt                 DateTime  @default(now())
-  updatedAt                 DateTime  @updatedAt
+  id          String        @id @default(cuid())
+  candidates  Candidate[]
+  endDate     DateTime
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  VoteRequest VoteRequest[]
+  Vote        Vote[]
 }

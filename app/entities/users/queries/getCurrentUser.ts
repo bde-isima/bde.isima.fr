@@ -1,18 +1,20 @@
-import { Ctx } from "blitz"
+import { Ctx, resolver } from "blitz"
 
 import db, { Prisma } from "db"
 
-type GetCurrentUserInput = Pick<Prisma.FindUniqueUserArgs, "include">
+type GetCurrentUserInput = Pick<Prisma.UserFindUniqueArgs, "include">
 
-export default async function getCurrentUser({ include }: GetCurrentUserInput, ctx: Ctx) {
-  ctx.session.authorize() //Custom addition to ensure all pages that use this query are authorized
+export default resolver.pipe(
+  resolver.authorize(),
+  async ({ include }: GetCurrentUserInput, { session }: Ctx) => {
+    if (!session.userId) {
+      return null
+    }
 
-  if (!ctx.session.userId) {
-    return null
+    return await db.user.findUnique({
+      where: { id: session.userId },
+      include,
+      rejectOnNotFound: true,
+    })
   }
-
-  return db.user.findUnique({
-    where: { id: ctx.session.userId },
-    include,
-  })
-}
+)

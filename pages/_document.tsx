@@ -1,7 +1,7 @@
 import { Children } from "react"
 import { ServerStyleSheets } from "@material-ui/core/styles"
-import Document, { Html, Main, NextScript } from "next/document"
 import createEmotionServer from "@emotion/server/create-instance"
+import { Document, Html, DocumentHead, Main, BlitzScript, DocumentContext } from "blitz"
 
 import { cache } from "./_app"
 import CustomHead from "app/lib/CustomHead"
@@ -12,18 +12,19 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="fr">
+        <DocumentHead />
         <CustomHead />
 
         <body className="dark:bg-black">
           <Main />
-          <NextScript />
+          <BlitzScript />
         </body>
       </Html>
     )
   }
 }
 
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
 

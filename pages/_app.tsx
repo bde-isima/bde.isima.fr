@@ -74,11 +74,9 @@ export default function App({ Component, pageProps }: AppProps) {
             resetKeys={[router.asPath]}
             onReset={() => queryCache.resetErrorBoundaries()}
           >
-            <SessionProvider>
-              <Suspense fallback={<Splash />}>
-                {getNav(router, <Component {...pageProps} />)}
-              </Suspense>
-            </SessionProvider>
+            <Suspense fallback={<Splash />}>
+              <SessionProvider>{getNav(router, <Component {...pageProps} />)}</SessionProvider>
+            </Suspense>
           </ErrorBoundary>
         </MuiThemeProvider>
       </CacheProvider>

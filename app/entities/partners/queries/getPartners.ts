@@ -1,15 +1,10 @@
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
 
 import db, { Prisma } from "db"
 
-type GetPartnersInput = Pick<Prisma.FindManyPartnerArgs, "where" | "orderBy" | "skip" | "take">
+type GetPartnersInput = Pick<Prisma.PartnerFindManyArgs, "where" | "orderBy" | "skip" | "take">
 
-export default async function getPartners(
-  { where, orderBy, skip = 0, take }: GetPartnersInput,
-  ctx: Ctx
-) {
-  //ctx.session.authorize()
-
+export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetPartnersInput) => {
   const partners = await db.partner.findMany({
     where,
     orderBy,
@@ -27,4 +22,4 @@ export default async function getPartners(
     hasMore,
     count,
   }
-}
+})

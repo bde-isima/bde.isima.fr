@@ -25,15 +25,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
   const session = await getSessionContext(req, res)
 
   await Promise.all([
-    session.create({
+    session.$create({
       userId: request.user.id,
-      roles: request.user.roles,
       firstname: request.user.firstname,
       lastname: request.user.lastname,
       nickname: request.user.nickname,
       image: request.user.image,
       email: request.user.email,
       card: request.user.card,
+      roles: request.user.roles,
     }),
     db.loginRequest.delete({ where: { id: request.id } }),
   ])

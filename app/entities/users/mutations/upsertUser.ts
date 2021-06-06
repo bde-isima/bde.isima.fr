@@ -1,5 +1,5 @@
 import cuid from "cuid"
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
 
 import { mail } from "mail"
 import db, { Prisma } from "db"
@@ -7,75 +7,72 @@ import { MAX_RAND, RandomInBetween } from "app/utils/math-utils"
 
 type UpsertUserInput = Pick<Prisma.UserUpsertArgs, "where" | "create" | "update">
 
-export default async function upsertUser({ where, create, update }: UpsertUserInput, ctx: Ctx) {
-  ctx.session.authorize(["*"])
+export default resolver.pipe(
+  resolver.authorize(["*"]),
+  async ({ where, create, update }: UpsertUserInput) => {
+    const user = await db.user.findUnique({ where })
 
-  const user = await db.user.findUnique({ where })
+    if (!user) {
+      create.card |= await generateCardNumber()
+      const newUser = await db.user.create({ data: create })
 
-  if (!user) {
-    if (!create.card) {
-      create.card = await generateCardNumber()
-    }
+      try {
+        const token = cuid()
+        const subject = "Activation de ton compte BDE"
+        const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
 
-    const newUser = await db.user.create({ data: create })
-
-    try {
-      const token = cuid()
-      const subject = "Activation de ton compte BDE"
-      const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-
-      await Promise.all([
-        db.loginRequest.create({
-          data: {
-            userId: newUser.id,
-            token,
-            callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
-            expires: inAWeek,
-          },
-        }),
-        mail.send({
-          subject,
-          to: newUser.email,
-          view: "activation",
-          variables: {
+        await Promise.all([
+          db.loginRequest.create({
+            data: {
+              userId: newUser.id,
+              token,
+              callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
+              expires: inAWeek,
+            },
+          }),
+          mail.send({
             subject,
-            firstname: newUser.firstname,
-            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+            to: newUser.email,
+            view: "activation",
+            variables: {
+              subject,
+              firstname: newUser.firstname,
+              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
+            },
+          }),
+        ])
+      } catch (err) {
+        console.log(err)
+      }
+
+      return newUser
+    } else {
+      return await Promise.all([
+        //Update user
+        db.user.update({ where, data: update }),
+
+        //Update public data in existing user sessions
+        db.session.updateMany({
+          where: { userId: user.id },
+          data: {
+            publicData: {
+              set: JSON.stringify({
+                userId: user.id,
+                roles: user.roles,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                nickname: user.nickname,
+                image: user.image,
+                email: user.email,
+                card: user.card,
+              }),
+            },
           },
         }),
       ])
-    } catch (err) {
-      console.log(err)
-    }
-
-    return newUser
-  } else {
-    const newUser = await db.user.update({ where, data: update })
-
-    const sessions = await db.session.updateMany({
-      where: { userId: user.id },
-      data: {
-        publicData: {
-          set: JSON.stringify({
-            userId: user.id,
-            roles: user.roles,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            nickname: user.nickname,
-            image: user.image,
-            email: user.email,
-            card: user.card,
-          }),
-        },
-      },
-    })
-
-    return {
-      newUser,
-      sessions,
     }
   }
-}
+)
 
 async function generateCardNumber() {
   const users = await db.user.findMany({ select: { card: true } })

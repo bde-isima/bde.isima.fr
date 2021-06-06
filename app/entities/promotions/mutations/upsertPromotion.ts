@@ -1,15 +1,12 @@
-import { Ctx } from "blitz"
+import { resolver } from "blitz"
 
 import db, { Prisma } from "db"
 
 type UpsertPromotionInput = Pick<Prisma.PromotionUpsertArgs, "where" | "create" | "update">
-export default async function upsertPromotion(
-  { where, create, update }: UpsertPromotionInput,
-  ctx: Ctx
-) {
-  ctx.session.authorize(["*", "bde"])
 
-  const promotion = await db.promotion.upsert({ where, update, create })
-
-  return promotion
-}
+export default resolver.pipe(
+  resolver.authorize(["*", "bde"]),
+  async ({ where, create, update }: UpsertPromotionInput) => {
+    return await db.promotion.upsert({ where, update, create })
+  }
+)

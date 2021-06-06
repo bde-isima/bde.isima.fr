@@ -1,9 +1,16 @@
-import { Ctx } from "blitz"
+import { Ctx, resolver } from "blitz"
+
 import db, { Prisma } from "db"
 
-type CreateVoteInput = { data: Prisma.VoteUncheckedCreateInput }
-export default async function createVote({ data }: CreateVoteInput, ctx: Ctx) {
-  ctx.session.authorize()
+type CreateVoteInput = {
+  data: Prisma.VoteUncheckedCreateInput
+}
+
+export default resolver.pipe(resolver.authorize(), async ({ data }: CreateVoteInput, ctx: Ctx) => {
+  //No null, undefined or empty userId
+  if (!ctx.session.userId) {
+    throw new Error("Non autorisé")
+  }
 
   //No null, undefined or empty token
   if (!data.voteToken) {
@@ -68,4 +75,4 @@ export default async function createVote({ data }: CreateVoteInput, ctx: Ctx) {
   })
 
   return newVote
-}
+})

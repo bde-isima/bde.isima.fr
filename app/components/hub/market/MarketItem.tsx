@@ -30,14 +30,14 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
           isLoading ? (
             <Skeleton width="100%" animation="wave" />
           ) : (
-            `${article?.name} • ${article?.member_price}€`
+            `${article?.name} • ${article?.member_price.toFixed(2)}€`
           )
         }
         subtitle={
           isLoading ? (
             <Skeleton width="100%" animation="wave" />
           ) : (
-            `Non-cotisant • ${article?.price}€`
+            `Non-cotisant • ${article?.price.toFixed(2)}€`
           )
         }
       />

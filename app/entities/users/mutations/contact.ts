@@ -1,3 +1,5 @@
+import { resolver } from "blitz"
+
 import { mail } from "mail"
 
 type ContactInput = {
@@ -6,7 +8,7 @@ type ContactInput = {
   email: string
 }
 
-export default async function contact({ subject, message, email }: ContactInput) {
+export default resolver.pipe(async ({ subject, message, email }: ContactInput) => {
   try {
     await mail.send({
       subject,
@@ -21,4 +23,4 @@ export default async function contact({ subject, message, email }: ContactInput)
   } catch (err) {
     console.log(err)
   }
-}
+})

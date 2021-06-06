@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const clubs = await db.club.findMany()
   const session: SessionContext = await getSessionContext(req, res)
 
-  if (!session.isAuthorized()) {
+  if (!session.$isAuthorized()) {
     return {
       redirect: {
         permanent: false,
