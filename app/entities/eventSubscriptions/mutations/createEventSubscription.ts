@@ -1,8 +1,8 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type CreateEventSubscriptionInput = Pick<Prisma.EventSubscriptionCreateArgs, "data">
+type CreateEventSubscriptionInput = Pick<Prisma.EventSubscriptionCreateArgs, 'data'>
 
 export default resolver.pipe(
   resolver.authorize(),
@@ -13,7 +13,7 @@ export default resolver.pipe(
       rejectOnNotFound: true,
     })
 
-    ctx.session.$authorize(["*", "bde", event.club.name])
+    ctx.session.$authorize(['*', 'bde', event.club.name])
 
     const user = await db.user.findUnique({
       where: { id: data.user?.connect?.id },
@@ -28,7 +28,7 @@ export default resolver.pipe(
     })
 
     if (existingSub) {
-      throw new Error("Déjà inscrit")
+      throw new Error('Déjà inscrit')
     }
 
     return await db.eventSubscription.create({ data })

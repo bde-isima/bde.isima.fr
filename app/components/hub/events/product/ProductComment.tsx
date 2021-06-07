@@ -1,7 +1,7 @@
-import TextField from "@material-ui/core/TextField"
-import FormControl from "@material-ui/core/FormControl"
+import TextField from '@material-ui/core/TextField'
+import FormControl from '@material-ui/core/FormControl'
 
-import { Product } from "types"
+import { Product } from 'types'
 
 type ProductCommentProps = {
   product: Product

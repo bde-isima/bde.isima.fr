@@ -1,6 +1,6 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import { mail } from "mail"
+import { mail } from 'mail'
 
 type ContactInput = {
   message: string
@@ -13,7 +13,7 @@ export default resolver.pipe(async ({ subject, message, email }: ContactInput) =
     await mail.send({
       subject,
       to: `${process.env.SMTP_USER}@gmail.com`,
-      view: "contact",
+      view: 'contact',
       variables: {
         subject,
         message,

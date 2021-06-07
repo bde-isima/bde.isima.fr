@@ -1,4 +1,4 @@
-import faker from "faker"
+import faker from 'faker'
 
 const clubs = async (db) => {
   for (let i = 0; i < 7; ++i) {

@@ -1,15 +1,15 @@
-import Image from "next/image"
-import Card from "@material-ui/core/Card"
-import { useTheme } from "@material-ui/core"
-import Divider from "@material-ui/core/Divider"
-import Typography from "@material-ui/core/Typography"
-import CardContent from "@material-ui/core/CardContent"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
-import CardActionArea from "@material-ui/core/CardActionArea"
+import Image from 'next/image'
+import Card from '@material-ui/core/Card'
+import { useTheme } from '@material-ui/core'
+import Divider from '@material-ui/core/Divider'
+import Typography from '@material-ui/core/Typography'
+import CardContent from '@material-ui/core/CardContent'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import CardActionArea from '@material-ui/core/CardActionArea'
 
 export default function News() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const size = fullScreen ? 64 : 128
 
   return (
@@ -25,7 +25,7 @@ export default function News() {
         href="https://guzlr.fr"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: "inherit" }}
+        style={{ color: 'inherit' }}
       >
         <Card className="flex">
           <div className="flex flex-col flex-grow">
@@ -64,7 +64,7 @@ export default function News() {
         href="https://www.ubereats.com/"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: "inherit" }}
+        style={{ color: 'inherit' }}
       >
         <Card className="flex">
           <div className="flex flex-col flex-grow">
@@ -83,7 +83,7 @@ export default function News() {
           </div>
           <div
             className="flex justify-center items-center"
-            style={{ backgroundColor: "#132326", width: size, minWidth: size }}
+            style={{ backgroundColor: '#132326', width: size, minWidth: size }}
           >
             <Image
               src="/static/images/logos/uber_eats.jpg"

@@ -1,14 +1,13 @@
-import { useQuery } from "blitz"
-import addDays from "date-fns/addDays"
+import addDays from 'date-fns/addDays'
+import { useQuery, useAuthenticatedSession } from 'blitz'
 
-import getEvents from "app/entities/events/queries/getEvents"
-import CalendarCell from "app/components/hub/events/CalendarCell"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import getEvents from 'app/entities/events/queries/getEvents'
+import CalendarCell from 'app/components/hub/events/CalendarCell'
 
 const today = new Date(new Date().setHours(0, 0, 0, 0))
 
 export default function Calendar() {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
 
   const [{ events }] = useQuery(getEvents, {
     where: {

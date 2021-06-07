@@ -1,20 +1,20 @@
-import Image from "next/image"
-import Paper from "@material-ui/core/Paper"
-import { useTheme } from "@material-ui/core"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import Image from 'next/image'
+import Paper from '@material-ui/core/Paper'
+import { useTheme } from '@material-ui/core'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export default function Landing() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <Paper className="min-h-main relative">
       <a id="landing" href="#landing" />
       <Image
         alt="Fond d'écran"
-        src={`/static/images/illustrations/${fullScreen ? "MobileBackground" : "Background"}.svg`}
+        src={`/static/images/illustrations/${fullScreen ? 'MobileBackground' : 'Background'}.svg`}
         layout="fill"
         objectFit="cover"
         quality={100}

@@ -1,9 +1,9 @@
-import { isSameDay } from "date-fns"
-import Grid from "@material-ui/core/Grid"
-import Skeleton from "@material-ui/core/Skeleton"
-import Typography from "@material-ui/core/Typography"
+import { isSameDay } from 'date-fns'
+import Grid from '@material-ui/core/Grid'
+import Skeleton from '@material-ui/core/Skeleton'
+import Typography from '@material-ui/core/Typography'
 
-import CalendarChip from "app/components/hub/events/CalendarChip"
+import CalendarChip from 'app/components/hub/events/CalendarChip'
 
 type CalendarCellProps = {
   idx: number
@@ -30,11 +30,10 @@ export default function CalendarCell({
     >
       <Grid item container xs={12} justifyContent="center">
         <Typography variant="subtitle1" align="center" gutterBottom>
-          {`${date
-            .toLocaleString("fr-FR", { weekday: "short" })
-            .toUpperCase()} ${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
+          {`${date.toLocaleString('fr-FR', { weekday: 'short' }).toUpperCase()} ${date
+            .getDate()
             .toString()
-            .padStart(2, "0")}`}
+            .padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`}
         </Typography>
       </Grid>
 

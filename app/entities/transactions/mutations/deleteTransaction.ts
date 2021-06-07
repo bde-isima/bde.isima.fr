@@ -1,11 +1,11 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type DeleteTransactionInput = Pick<Prisma.TransactionDeleteArgs, "where">
+type DeleteTransactionInput = Pick<Prisma.TransactionDeleteArgs, 'where'>
 
 export default resolver.pipe(
-  resolver.authorize(["*", "bde"]),
+  resolver.authorize(['*', 'bde']),
   async ({ where }: DeleteTransactionInput) => {
     const transaction = await db.transaction.findUnique({
       where,
@@ -14,7 +14,7 @@ export default resolver.pipe(
     })
 
     if (!transaction.articleId) {
-      throw new Error("Transaction non annulable")
+      throw new Error('Transaction non annulable')
     }
 
     let userStats
@@ -33,7 +33,7 @@ export default resolver.pipe(
     const [user, oldTransaction] = await Promise.all([
       // Refund user
       db.user.update({
-        data: { balance: { [transaction.type === "CREDIT" ? "decrement" : "increment"]: amount } },
+        data: { balance: { [transaction.type === 'CREDIT' ? 'decrement' : 'increment']: amount } },
         where: { id: transaction.userId },
       }),
       //Delete transaction

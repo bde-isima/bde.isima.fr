@@ -1,11 +1,11 @@
-import { useMemo } from "react"
-import Divider from "@material-ui/core/Divider"
+import { useMemo } from 'react'
+import Divider from '@material-ui/core/Divider'
 
-import ViewDashboardOutline from "mdi-material-ui/ViewDashboardOutline"
+import ViewDashboardOutline from 'mdi-material-ui/ViewDashboardOutline'
 
-import MobileMenuItem from "app/components/nav/hub/MobileMenuItem"
-import { useBDEConfig } from "app/components/nav/dashboard/useBDEConfig"
-import { useClubsConfig } from "app/components/nav/dashboard/useClubsConfig"
+import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
+import { useBDEConfig } from 'app/components/nav/dashboard/useBDEConfig'
+import { useClubsConfig } from 'app/components/nav/dashboard/useClubsConfig'
 
 export default function Mobile({ onClose }) {
   const bdeConfig = useBDEConfig()
@@ -29,9 +29,9 @@ export default function Mobile({ onClose }) {
         <MobileMenuItem
           item={{
             icon: <ViewDashboardOutline />,
-            text: "DASHBOARD",
-            to: "/dashboard",
-            isActive: (pathname: String, hash: String) => pathname === "/dashboard",
+            text: 'DASHBOARD',
+            to: '/dashboard',
+            isActive: (pathname: String, hash: String) => pathname === '/dashboard',
           }}
           onClose={onClose}
         />

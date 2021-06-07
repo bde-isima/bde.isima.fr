@@ -1,15 +1,15 @@
-import frLocale from "date-fns/locale/fr"
-import { Dispatch, SetStateAction } from "react"
-import TextField from "@material-ui/core/TextField"
-import Accordion from "@material-ui/core/Accordion"
-import Typography from "@material-ui/core/Typography"
-import DateTimePicker from "@material-ui/lab/DateTimePicker"
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
+import frLocale from 'date-fns/locale/fr'
+import { Dispatch, SetStateAction } from 'react'
+import TextField from '@material-ui/core/TextField'
+import Accordion from '@material-ui/core/Accordion'
+import Typography from '@material-ui/core/Typography'
+import DateTimePicker from '@material-ui/lab/DateTimePicker'
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
 
-import ChevronUp from "mdi-material-ui/ChevronUp"
+import ChevronUp from 'mdi-material-ui/ChevronUp'
 
 type HistoryFilterProps = {
   minDate: Date
@@ -41,7 +41,7 @@ export default function HistoryFilter({
               label="De"
               value={minDate}
               onChange={setMinDate}
-              minDateTime={new Date("01-01-2021")}
+              minDateTime={new Date('01-01-2021')}
             />
             <DateTimePicker
               renderInput={(props) => <TextField className="m-2" {...props} />}

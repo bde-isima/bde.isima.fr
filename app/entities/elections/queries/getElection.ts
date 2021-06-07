@@ -1,8 +1,8 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type FindFirstElectionInput = Pick<Prisma.ElectionFindFirstArgs, "where" | "include">
+type FindFirstElectionInput = Pick<Prisma.ElectionFindFirstArgs, 'where' | 'include'>
 
 export default resolver.pipe(
   resolver.authorize(),

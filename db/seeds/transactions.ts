@@ -1,4 +1,4 @@
-import faker from "faker"
+import faker from 'faker'
 
 const transactions = async (db) => {
   let prevBalance = 0
@@ -14,8 +14,8 @@ const transactions = async (db) => {
         data: {
           amount,
           description: faker.lorem.sentence(),
-          type: "DEBIT",
-          user: { connect: { id: "123456789" } },
+          type: 'DEBIT',
+          user: { connect: { id: '123456789' } },
           prevBalance,
           article: { connect: { id: article.id } },
         },
@@ -24,7 +24,7 @@ const transactions = async (db) => {
       prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
     }
   } else {
-    throw new Error("No article found")
+    throw new Error('No article found')
   }
 
   if (emitter) {
@@ -36,9 +36,9 @@ const transactions = async (db) => {
         data: {
           amount,
           description: faker.lorem.sentence(),
-          type: i % 2 === 0 ? "CREDIT" : "DEBIT",
+          type: i % 2 === 0 ? 'CREDIT' : 'DEBIT',
           ...(i % 2 === 0 ? { emitter: { connect: { id: emitter.id } } } : {}),
-          user: { connect: { id: "123456789" } },
+          user: { connect: { id: '123456789' } },
           prevBalance,
         },
       })
@@ -46,7 +46,7 @@ const transactions = async (db) => {
       prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
     }
   } else {
-    throw new Error("No emitter found")
+    throw new Error('No emitter found')
   }
 }
 

@@ -1,16 +1,16 @@
-import { useMemo } from "react"
-import { Field } from "react-final-form"
-import frLocale from "date-fns/locale/fr"
-import arrayMutators from "final-form-arrays"
-import MuiTextField from "@material-ui/core/TextField"
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
-import DateTimePicker from "@material-ui/lab/DateTimePicker"
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
+import { useMemo } from 'react'
+import { Field } from 'react-final-form'
+import frLocale from 'date-fns/locale/fr'
+import arrayMutators from 'final-form-arrays'
+import MuiTextField from '@material-ui/core/TextField'
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
+import DateTimePicker from '@material-ui/lab/DateTimePicker'
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
 
-import { Election, Candidate } from "db"
-import CandidatesForm from "./CandidatesForm"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { ElectionInput, ElectionInputType } from "app/components/forms/validations"
+import { Election, Candidate } from 'db'
+import CandidatesForm from './CandidatesForm'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { ElectionInput, ElectionInputType } from 'app/components/forms/validations'
 
 type ElectionFormProps = {
   initialValues: (Election & { candidates: Candidate[] }) | null
@@ -24,7 +24,7 @@ export default function ElectionForm(props: ElectionFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }

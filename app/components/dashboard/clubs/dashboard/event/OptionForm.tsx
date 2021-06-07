@@ -1,12 +1,12 @@
-import { TextField } from "mui-rff"
-import { useForm } from "react-final-form"
-import FormGroup from "@material-ui/core/FormGroup"
-import { FieldArray } from "react-final-form-arrays"
-import IconButton from "@material-ui/core/IconButton"
+import { TextField } from 'mui-rff'
+import { useForm } from 'react-final-form'
+import FormGroup from '@material-ui/core/FormGroup'
+import { FieldArray } from 'react-final-form-arrays'
+import IconButton from '@material-ui/core/IconButton'
 
-import Close from "mdi-material-ui/Close"
+import Close from 'mdi-material-ui/Close'
 
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
 export default function OptionForm({ groupOptionName, groupOptionIdx }) {
   const form = useForm()

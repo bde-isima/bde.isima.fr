@@ -1,10 +1,10 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type GetResultsInput = Pick<Prisma.ElectionFindUniqueArgs, "where">
+type GetResultsInput = Pick<Prisma.ElectionFindUniqueArgs, 'where'>
 
-export default resolver.pipe(resolver.authorize(["*"]), async ({ where }: GetResultsInput) => {
+export default resolver.pipe(resolver.authorize(['*']), async ({ where }: GetResultsInput) => {
   const election = await db.election.findUnique({
     where,
     include: { candidates: true },
@@ -12,7 +12,7 @@ export default resolver.pipe(resolver.authorize(["*"]), async ({ where }: GetRes
   })
 
   const results: any = await db.vote.groupBy({
-    by: ["candidateId", "isBlank", "isNull"],
+    by: ['candidateId', 'isBlank', 'isNull'],
     where: { electionId: election.id },
     count: { id: true },
   })
@@ -28,14 +28,14 @@ export default resolver.pipe(resolver.authorize(["*"]), async ({ where }: GetRes
     //Group by of a blank vote
     else if (x.isBlank) {
       return {
-        candidateName: "Votes blancs",
+        candidateName: 'Votes blancs',
         nbVotes: x.count.id,
       }
     }
     //Group by of a Null vote
     else {
       return {
-        candidateName: "Votes nuls",
+        candidateName: 'Votes nuls',
         nbVotes: x.count.id,
       }
     }

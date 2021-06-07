@@ -1,8 +1,8 @@
-import { TextField } from "mui-rff"
+import { TextField } from 'mui-rff'
 
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
-import { AdminTransferInput, AdminTransferInputType } from "app/components/forms/validations"
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import { AdminTransferInput, AdminTransferInputType } from 'app/components/forms/validations'
 
 type AdminTransferFormProps = {
   onSuccess: (values: AdminTransferInputType) => void
@@ -14,7 +14,7 @@ export default function AdminTransferForm({ onSuccess }: AdminTransferFormProps)
       await onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }

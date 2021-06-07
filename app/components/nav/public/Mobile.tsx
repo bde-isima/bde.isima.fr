@@ -1,26 +1,26 @@
-import Link from "next/link"
-import Image from "next/image"
-import { cloneElement } from "react"
-import Fab from "@material-ui/core/Fab"
-import List from "@material-ui/core/List"
-import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
+import Link from 'next/link'
+import Image from 'next/image'
+import { cloneElement } from 'react'
+import Fab from '@material-ui/core/Fab'
+import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
+import { useAuthenticatedSession } from 'blitz'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 
-import LoginVariant from "mdi-material-ui/LoginVariant"
-import AccountArrowRightOutline from "mdi-material-ui/AccountArrowRightOutline"
+import LoginVariant from 'mdi-material-ui/LoginVariant'
+import AccountArrowRightOutline from 'mdi-material-ui/AccountArrowRightOutline'
 
-import config from "./config"
-import { useCustomRouter } from "app/hooks/useCustomRouter"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import config from './config'
+import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   const { router, pushRoute } = useCustomRouter()
 
-  const iOS = typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   const ItemsList = () => (
     <>
@@ -30,19 +30,19 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         return (
           <Link key={obj.text} href={obj.to}>
             <Button
-              className={`${isActive && "bg-primary"} w-11/12 rounded-full my-1`}
-              variant={isActive ? "contained" : "text"}
+              className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
+              variant={isActive ? 'contained' : 'text'}
               size="small"
               onClick={onClose}
             >
               <ListItem dense disableGutters>
                 <ListItemIcon>
-                  {cloneElement(obj.icon, { className: isActive ? "text-white" : undefined })}
+                  {cloneElement(obj.icon, { className: isActive ? 'text-white' : undefined })}
                 </ListItemIcon>
 
                 <ListItemText
                   secondary={obj.text}
-                  secondaryTypographyProps={{ color: isActive ? "secondary" : "textPrimary" }}
+                  secondaryTypographyProps={{ color: isActive ? 'secondary' : 'textPrimary' }}
                 />
               </ListItem>
             </Button>
@@ -60,7 +60,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: "w-3/4" }}
+      PaperProps={{ className: 'w-3/4' }}
     >
       <div className="text-center">
         <List>
@@ -86,7 +86,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
             {session?.userId ? (
               <Fab
                 variant="extended"
-                onClick={pushRoute("/hub")}
+                onClick={pushRoute('/hub')}
                 aria-label="Mon compte"
                 color="primary"
               >
@@ -110,7 +110,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         <ListItem>
           <ListItemText
             secondary={`Version ${globalThis.appVersion}`}
-            secondaryTypographyProps={{ align: "center" }}
+            secondaryTypographyProps={{ align: 'center' }}
           />
         </ListItem>
       </div>

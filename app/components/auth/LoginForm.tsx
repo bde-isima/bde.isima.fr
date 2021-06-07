@@ -1,33 +1,33 @@
-import { useState } from "react"
-import { TextField } from "mui-rff"
-import { useRouter } from "next/router"
-import Typography from "@material-ui/core/Typography"
-import { useMutation, AuthenticationError } from "blitz"
+import { useState } from 'react'
+import { TextField } from 'mui-rff'
+import { useRouter } from 'next/router'
+import Typography from '@material-ui/core/Typography'
+import { useMutation, AuthenticationError } from 'blitz'
 
-import login from "app/entities/auth/mutations/login"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { LoginInput, LoginInputType } from "app/components/forms/validations"
+import login from 'app/entities/auth/mutations/login'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { LoginInput, LoginInputType } from 'app/components/forms/validations'
 
 export default function LoginForm() {
   const router = useRouter()
   const [signIn] = useMutation(login)
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState('')
 
   const onSubmit = async (values) => {
     try {
       return signIn({
         ...values,
         callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${
-          router.route === "/login" ? "/hub" : router.asPath
+          router.route === '/login' ? '/hub' : router.asPath
         }`,
       }).then((res) => setMessage(res))
     } catch (error) {
       if (error instanceof AuthenticationError) {
-        return { [FORM_ERROR]: "Identifiants incorrects" }
+        return { [FORM_ERROR]: 'Identifiants incorrects' }
       } else {
         return {
           [FORM_ERROR]:
-            "Sorry, we had an unexpected error. Please try again. - " + JSON.stringify(error),
+            'Sorry, we had an unexpected error. Please try again. - ' + JSON.stringify(error),
         }
       }
     }
@@ -52,10 +52,10 @@ export default function LoginForm() {
 
       <Typography
         className="m-2"
-        variant={router.query.invalid && !message ? "error" : "success"}
+        variant={router.query.invalid && !message ? 'error' : 'success'}
         align="center"
       >
-        <b>{message || (router.query.invalid ? "Jeton invalide" : "")}</b>
+        <b>{message || (router.query.invalid ? 'Jeton invalide' : '')}</b>
       </Typography>
     </Form>
   )

@@ -1,20 +1,20 @@
-import sanitizeHtml from "sanitize-html"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import DialogActions from "@material-ui/core/DialogActions"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
+import sanitizeHtml from 'sanitize-html'
+import Dialog from '@material-ui/core/Dialog'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogActions from '@material-ui/core/DialogActions'
+import { useTheme, useMediaQuery } from '@material-ui/core'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 
-import Close from "mdi-material-ui/Close"
+import Close from 'mdi-material-ui/Close'
 
-import SlideTransition from "app/layouts/SlideTransition"
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function CarouselDialog({ selected, onClose }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     selected && (
@@ -23,7 +23,7 @@ export default function CarouselDialog({ selected, onClose }) {
         fullScreen={fullScreen}
         onClose={onClose}
         TransitionComponent={SlideTransition}
-        PaperProps={{ className: "w-full" }}
+        PaperProps={{ className: 'w-full' }}
         aria-labelledby="carousel-dialog-title"
       >
         <DialogActions id="carousel-dialog-title" className="text-right">
@@ -50,53 +50,53 @@ export default function CarouselDialog({ selected, onClose }) {
               dangerouslySetInnerHTML={{
                 __html: sanitizeHtml(selected.description, {
                   allowedTags: [
-                    "h1",
-                    "h2",
-                    "h3",
-                    "h4",
-                    "h5",
-                    "h6",
-                    "blockquote",
-                    "p",
-                    "a",
-                    "ul",
-                    "ol",
-                    "nl",
-                    "li",
-                    "b",
-                    "i",
-                    "strong",
-                    "em",
-                    "strike",
-                    "code",
-                    "hr",
-                    "br",
-                    "div",
-                    "table",
-                    "thead",
-                    "caption",
-                    "tbody",
-                    "tr",
-                    "th",
-                    "td",
-                    "pre",
-                    "iframe",
-                    "img",
+                    'h1',
+                    'h2',
+                    'h3',
+                    'h4',
+                    'h5',
+                    'h6',
+                    'blockquote',
+                    'p',
+                    'a',
+                    'ul',
+                    'ol',
+                    'nl',
+                    'li',
+                    'b',
+                    'i',
+                    'strong',
+                    'em',
+                    'strike',
+                    'code',
+                    'hr',
+                    'br',
+                    'div',
+                    'table',
+                    'thead',
+                    'caption',
+                    'tbody',
+                    'tr',
+                    'th',
+                    'td',
+                    'pre',
+                    'iframe',
+                    'img',
                   ],
                   allowedAttributes: {
-                    a: ["href", "target"],
-                    img: ["src", "alt", "style"],
+                    a: ['href', 'target'],
+                    img: ['src', 'alt', 'style'],
                     iframe: [
-                      "width",
-                      "height",
-                      "src",
-                      "frameborder",
-                      "allow",
-                      "allowfullscreen",
-                      "style",
+                      'width',
+                      'height',
+                      'src',
+                      'frameborder',
+                      'allow',
+                      'allowfullscreen',
+                      'style',
                     ],
                   },
-                  allowedIframeHostnames: ["www.youtube.com"],
+                  allowedIframeHostnames: ['www.youtube.com'],
                 }),
               }}
             />

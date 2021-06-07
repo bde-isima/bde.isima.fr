@@ -1,8 +1,8 @@
-import Grid from "@material-ui/core/Grid"
+import Grid from '@material-ui/core/Grid'
 
-import Facebook from "mdi-material-ui/Facebook"
-import Twitter from "mdi-material-ui/Twitter"
-import Instagram from "mdi-material-ui/Instagram"
+import Facebook from 'mdi-material-ui/Facebook'
+import Twitter from 'mdi-material-ui/Twitter'
+import Instagram from 'mdi-material-ui/Instagram'
 
 export default function Socials() {
   return (

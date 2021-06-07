@@ -1,15 +1,15 @@
-import Image from "next/image"
-import { TextField } from "mui-rff"
-import Divider from "@material-ui/core/Divider"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import Image from 'next/image'
+import { TextField } from 'mui-rff'
+import Divider from '@material-ui/core/Divider'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from 'mdi-material-ui/OpenInNew'
 
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { SettingsInput, SettingsInputType } from "app/components/forms/validations"
+import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { SettingsInput, SettingsInputType } from 'app/components/forms/validations'
 
 type SettingsFormProps = {
   onSuccess: (values: SettingsInputType) => void
@@ -24,7 +24,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
@@ -42,8 +42,8 @@ export default function SettingsForm(props: SettingsFormProps) {
       autoComplete="off"
     >
       <Typography variant="h6" color="textSecondary">
-        {user?.lastname} {user?.firstname} (n° {user?.card}) -{" "}
-        {user?.is_member ? "Cotisant" : "Non-cotisant"}
+        {user?.lastname} {user?.firstname} (n° {user?.card}) -{' '}
+        {user?.is_member ? 'Cotisant' : 'Non-cotisant'}
       </Typography>
 
       <Divider className="m-2" />
@@ -52,7 +52,7 @@ export default function SettingsForm(props: SettingsFormProps) {
         type="text"
         name="nickname"
         label="Surnom"
-        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
+        fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
       <TextField type="email" name="email" label="Adresse email" />
 
@@ -88,7 +88,7 @@ export default function SettingsForm(props: SettingsFormProps) {
             </InputAdornment>
           ),
         }}
-        fieldProps={{ allowNull: true, parse: (value) => (value === "" ? null : value) }}
+        fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
     </Form>
   )

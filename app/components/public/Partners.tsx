@@ -1,14 +1,14 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Suspense } from "react"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import Link from 'next/link'
+import Image from 'next/image'
+import { Suspense } from 'react'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-import Carousel from "./carousel"
-import getPartners from "app/entities/partners/queries/getPartners"
+import Carousel from './carousel'
+import getPartners from 'app/entities/partners/queries/getPartners'
 
 export default function Partners() {
   return (
@@ -33,7 +33,7 @@ export default function Partners() {
               d'avantages (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
-              Envoyez-nous un message via le{" "}
+              Envoyez-nous un message via le{' '}
               <Link href="/#contact">
                 <Button>
                   <strong>formulaire de contact</strong>

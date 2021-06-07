@@ -1,13 +1,13 @@
-import Image from "next/image"
-import { useQuery } from "blitz"
-import Badge from "@material-ui/core/Badge"
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
+import Image from 'next/image'
+import { useQuery } from 'blitz'
+import Badge from '@material-ui/core/Badge'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
 
-import CrownOutline from "mdi-material-ui/CrownOutline"
+import CrownOutline from 'mdi-material-ui/CrownOutline'
 
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-import getAnalytic from "app/entities/analytic/queries/getAnalytic"
+import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
+import getAnalytic from 'app/entities/analytic/queries/getAnalytic'
 
 export default function Records() {
   const [user] = useCurrentUser({
@@ -15,7 +15,7 @@ export default function Records() {
   })
 
   const [leaderboard] = useQuery(getAnalytic, {
-    where: { tag: "leaderboard" },
+    where: { tag: 'leaderboard' },
   })
 
   return (

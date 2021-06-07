@@ -1,12 +1,12 @@
-import db from "../index"
-import clubs from "./clubs"
-import users from "./users"
-import events from "./events"
-import articles from "./articles"
-import partners from "./partners"
-import promotions from "./promotions"
-import transactions from "./transactions"
-import eventSubscriptions from "./eventSubscriptions"
+import db from '../index'
+import clubs from './clubs'
+import users from './users'
+import events from './events'
+import articles from './articles'
+import partners from './partners'
+import promotions from './promotions'
+import transactions from './transactions'
+import eventSubscriptions from './eventSubscriptions'
 
 const seed = async () => {
   try {

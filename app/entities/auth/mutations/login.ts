@@ -1,19 +1,19 @@
-import cuid from "cuid"
-import { resolver } from "blitz"
+import cuid from 'cuid'
+import { resolver } from 'blitz'
 
-import db from "db"
-import { mail } from "mail"
+import db from 'db'
+import { mail } from 'mail'
 import {
   LoginWithCallbackInput,
   LoginWithCallbackInputType,
-} from "app/components/forms/validations"
+} from 'app/components/forms/validations'
 
 export default resolver.pipe(
   resolver.zod(LoginWithCallbackInput),
   async ({ identifier, callbackUrl }: LoginWithCallbackInputType) => {
     const card = parseInt(identifier)
-    const key = Number.isNaN(card) ? "email" : "card"
-    const value = key === "card" ? card : identifier
+    const key = Number.isNaN(card) ? 'email' : 'card'
+    const value = key === 'card' ? card : identifier
 
     const user = await db.user.findUnique({ where: { [key]: value } })
 
@@ -30,7 +30,7 @@ export default resolver.pipe(
           mail.send({
             subject,
             to: user.email,
-            view: "login",
+            view: 'login',
             variables: {
               subject,
               firstname: user.firstname,
@@ -44,6 +44,6 @@ export default resolver.pipe(
       }
     }
 
-    return "Vérifiez votre boîte mail. Un lien de connexion vous a été envoyé."
+    return 'Vérifiez votre boîte mail. Un lien de connexion vous a été envoyé.'
   }
 )

@@ -1,11 +1,11 @@
-import { useQuery } from "blitz"
-import { useEffect } from "react"
-import { Dispatch, SetStateAction } from "react"
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
+import { useQuery } from 'blitz'
+import { useEffect } from 'react'
+import { Dispatch, SetStateAction } from 'react'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
 
-import TableRows from "./TableRows"
-import { useTableProps } from "./TablePropsProvider"
+import TableRows from './TableRows'
+import { useTableProps } from './TablePropsProvider'
 
 type TableCoreProps = {
   rows: any[]
@@ -24,7 +24,7 @@ export default function TableCore(props: TableCoreProps) {
   const { order, orderBy, page, search, rowsPerPage } = useTableProps()
   const { rows, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props
 
-  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== "equals")
+  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== 'equals')
 
   const [res] = useQuery(getQuery, {
     skip: page.value * rowsPerPage,
@@ -36,7 +36,7 @@ export default function TableCore(props: TableCoreProps) {
             OR: filteringColumns.map((x) => ({
               [x.id]: {
                 [x.searchCriteria]: search.value,
-                mode: "insensitive",
+                mode: 'insensitive',
               },
             })),
           },

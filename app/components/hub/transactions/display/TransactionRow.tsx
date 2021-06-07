@@ -1,15 +1,15 @@
-import { Suspense } from "react"
-import { format } from "date-fns"
-import Tooltip from "@material-ui/core/Tooltip"
-import Skeleton from "@material-ui/core/Skeleton"
-import Typography from "@material-ui/core/Typography"
-import Grid, { GridSize } from "@material-ui/core/Grid"
+import { Suspense } from 'react'
+import { format } from 'date-fns'
+import Tooltip from '@material-ui/core/Tooltip'
+import Skeleton from '@material-ui/core/Skeleton'
+import Typography from '@material-ui/core/Typography'
+import Grid, { GridSize } from '@material-ui/core/Grid'
 
-import TrendingUp from "mdi-material-ui/TrendingUp"
-import TrendingDown from "mdi-material-ui/TrendingDown"
+import TrendingUp from 'mdi-material-ui/TrendingUp'
+import TrendingDown from 'mdi-material-ui/TrendingDown'
 
-import { Transaction } from "db"
-import TransactionAvatar from "./TransactionAvatar"
+import { Transaction } from 'db'
+import TransactionAvatar from './TransactionAvatar'
 
 type ColumnType = {
   visible: boolean
@@ -33,13 +33,13 @@ export default function TransactionRow({
   prevBalance,
   dense = false,
 }: TransactionProps) {
-  const isPositive = values.type === "CREDIT"
+  const isPositive = values.type === 'CREDIT'
 
   return (
-    <Grid className={dense ? "my-1" : "my-2"} container>
+    <Grid className={dense ? 'my-1' : 'my-2'} container>
       {type.visible && (
         <Grid
-          className={isPositive ? "text-green-600" : "text-red-700"}
+          className={isPositive ? 'text-green-600' : 'text-red-700'}
           container
           item
           xs={type.size}
@@ -67,14 +67,14 @@ export default function TransactionRow({
           justifyContent="center"
           alignItems="center"
         >
-          <Tooltip title={dense ? `${values.description || "Aucune description"}` : ""}>
-            <div className={`${dense ? "w-32" : "w-full"} flex flex-col overflow-x-hidden`}>
+          <Tooltip title={dense ? `${values.description || 'Aucune description'}` : ''}>
+            <div className={`${dense ? 'w-32' : 'w-full'} flex flex-col overflow-x-hidden`}>
               <Typography variant="caption" align="left" noWrap={dense}>
-                {values.description || "Aucune description"}
+                {values.description || 'Aucune description'}
               </Typography>
               {!dense && (
                 <Typography variant="caption" align="left" color="textSecondary">
-                  {format(values.createdAt, "dd/MM/yyyy - HH:mm")}
+                  {format(values.createdAt, 'dd/MM/yyyy - HH:mm')}
                 </Typography>
               )}
             </div>
@@ -84,8 +84,8 @@ export default function TransactionRow({
 
       {amount.visible && (
         <Grid container item xs={amount.size} justifyContent="center" alignItems="center">
-          <Typography className={isPositive ? "text-green-600" : "text-red-700"} variant="caption">
-            {isPositive ? "+" : "-"}
+          <Typography className={isPositive ? 'text-green-600' : 'text-red-700'} variant="caption">
+            {isPositive ? '+' : '-'}
             {values.amount.toFixed(2)} €
           </Typography>
         </Grid>

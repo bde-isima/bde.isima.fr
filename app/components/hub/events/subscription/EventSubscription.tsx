@@ -1,11 +1,10 @@
-import { useQuery } from "blitz"
-import { useRouter } from "next/router"
-import { createContext, useContext } from "react"
+import { useRouter } from 'next/router'
+import { createContext, useContext } from 'react'
+import { useQuery, useAuthenticatedSession } from 'blitz'
 
-import { Club } from "db"
-import getEvent from "app/entities/events/queries/getEvent"
-import { useBDESession } from "app/components/auth/SessionProvider"
-import { EventSubscriptionWithTypedCart, EventWithTypedProducts } from "types"
+import { Club } from 'db'
+import getEvent from 'app/entities/events/queries/getEvent'
+import { EventSubscriptionWithTypedCart, EventWithTypedProducts } from 'types'
 
 interface EventSubscriptionContextType {
   event: EventWithTypedProducts & { club: Club }
@@ -20,7 +19,7 @@ export const useEventSubscription = () => {
 }
 
 export function EventSubscriptionProvider({ children }) {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   const eventId = useRouter().query.id
 
   const [{ EventSubscription, ...data }, { setQueryData }] = useQuery(

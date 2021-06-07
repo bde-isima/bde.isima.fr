@@ -1,13 +1,13 @@
-import { resolver } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
+import db, { Prisma } from 'db'
 
 type GetElectionsInput = Pick<
   Prisma.ElectionFindManyArgs,
-  "where" | "orderBy" | "skip" | "take" | "include"
+  'where' | 'orderBy' | 'skip' | 'take' | 'include'
 >
 
 export default resolver.pipe(
-  resolver.authorize(["*"]),
+  resolver.authorize(['*']),
   async ({ include, where, orderBy, skip = 0, take }: GetElectionsInput) => {
     const elections = await db.election.findMany({
       where,
@@ -18,7 +18,7 @@ export default resolver.pipe(
     })
 
     const count = await db.election.count({ where })
-    const hasMore = typeof take === "number" ? skip + take < count : false
+    const hasMore = typeof take === 'number' ? skip + take < count : false
     const nextPage = hasMore ? { take, skip: skip + take! } : null
 
     return {

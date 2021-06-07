@@ -1,18 +1,18 @@
-import Image from "next/image"
-import { useMutation } from "blitz"
-import { useTheme } from "@material-ui/core"
-import Skeleton from "@material-ui/core/Skeleton"
-import ButtonBase from "@material-ui/core/ButtonBase"
-import Typography from "@material-ui/core/Typography"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import Image from 'next/image'
+import { useMutation } from 'blitz'
+import { useTheme } from '@material-ui/core'
+import Skeleton from '@material-ui/core/Skeleton'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import createArticleTransaction from "app/entities/transactions/mutations/createArticleTransaction"
+import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction'
 
 const GUTTER_SIZE = 16
 
 export default function Article({ user, article, onClick, style }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const size = fullScreen ? 40 : 50
 
   const [createTransaction] = useMutation(createArticleTransaction)

@@ -1,13 +1,13 @@
-import Image from "next/image"
-import Grid from "@material-ui/core/Grid"
-import Chip from "@material-ui/core/Chip"
-import Avatar from "@material-ui/core/Avatar"
-import Tooltip from "@material-ui/core/Tooltip"
-import Typography from "@material-ui/core/Typography"
+import Image from 'next/image'
+import Grid from '@material-ui/core/Grid'
+import Chip from '@material-ui/core/Chip'
+import Avatar from '@material-ui/core/Avatar'
+import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
 
-import Check from "mdi-material-ui/Check"
+import Check from 'mdi-material-ui/Check'
 
-import { useCustomRouter } from "app/hooks/useCustomRouter"
+import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 
 type CalendarCellProps = {
   event: any

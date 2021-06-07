@@ -1,8 +1,8 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type DeleteEventSubscriptionInput = Pick<Prisma.EventSubscriptionDeleteArgs, "where">
+type DeleteEventSubscriptionInput = Pick<Prisma.EventSubscriptionDeleteArgs, 'where'>
 
 export default resolver.pipe(async ({ where }: DeleteEventSubscriptionInput, ctx: Ctx) => {
   const eventSubscription = await db.eventSubscription.findUnique({
@@ -13,7 +13,7 @@ export default resolver.pipe(async ({ where }: DeleteEventSubscriptionInput, ctx
 
   // If the request is done by another person than the subscriber, check for admin rights
   if (ctx.session.userId !== eventSubscription.userId) {
-    ctx.session.$authorize(["*", "bde", eventSubscription.event.club.name])
+    ctx.session.$authorize(['*', 'bde', eventSubscription.event.club.name])
   }
   // The user tries to unsubscribe
   else {

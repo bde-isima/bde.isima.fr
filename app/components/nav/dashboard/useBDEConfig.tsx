@@ -1,78 +1,78 @@
-import Vote from "mdi-material-ui/Vote"
-import Earth from "mdi-material-ui/Earth"
-import Store from "mdi-material-ui/Store"
-import Finance from "mdi-material-ui/Finance"
-import ClipboardText from "mdi-material-ui/ClipboardText"
-import CalendarToday from "mdi-material-ui/CalendarToday"
-import AccountDetails from "mdi-material-ui/AccountDetails"
-import BookOpenVariant from "mdi-material-ui/BookOpenVariant"
-import AccountGroupOutline from "mdi-material-ui/AccountGroupOutline"
+import { useAuthenticatedSession } from 'blitz'
 
-import { useBDESession } from "app/components/auth/SessionProvider"
+import Vote from 'mdi-material-ui/Vote'
+import Earth from 'mdi-material-ui/Earth'
+import Store from 'mdi-material-ui/Store'
+import Finance from 'mdi-material-ui/Finance'
+import ClipboardText from 'mdi-material-ui/ClipboardText'
+import CalendarToday from 'mdi-material-ui/CalendarToday'
+import AccountDetails from 'mdi-material-ui/AccountDetails'
+import BookOpenVariant from 'mdi-material-ui/BookOpenVariant'
+import AccountGroupOutline from 'mdi-material-ui/AccountGroupOutline'
 
 const config = [
   {
     icon: <ClipboardText />,
-    text: "EVENTS",
-    to: "/dashboard/events",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/events",
+    text: 'EVENTS',
+    to: '/dashboard/events',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/events',
   },
   {
     icon: <Finance />,
-    text: "STATISTIQUES",
-    to: "/dashboard/analytics",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/analytics",
+    text: 'STATISTIQUES',
+    to: '/dashboard/analytics',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/analytics',
   },
   {
     icon: <AccountGroupOutline />,
-    text: "CLUBS",
-    to: "/dashboard/clubs",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/clubs",
+    text: 'CLUBS',
+    to: '/dashboard/clubs',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/clubs',
   },
   {
     icon: <Store />,
-    text: "MARCHÉ",
-    to: "/dashboard/articles",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/articles",
+    text: 'MARCHÉ',
+    to: '/dashboard/articles',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/articles',
   },
   {
     icon: <AccountDetails />,
-    text: "MEMBRES",
-    to: "/dashboard/users",
-    only: ["*"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/users",
+    text: 'MEMBRES',
+    to: '/dashboard/users',
+    only: ['*'],
+    isActive: (pathname: String) => pathname === '/dashboard/users',
   },
   {
     icon: <Earth />,
-    text: "PARTENAIRES",
-    to: "/dashboard/partners",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/partners",
+    text: 'PARTENAIRES',
+    to: '/dashboard/partners',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/partners',
   },
   {
     icon: <CalendarToday />,
-    text: "PLANNING",
-    to: "/dashboard/planning",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/planning",
+    text: 'PLANNING',
+    to: '/dashboard/planning',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/planning',
   },
   {
     icon: <BookOpenVariant />,
-    text: "PROMOTIONS",
-    to: "/dashboard/promotions",
-    only: ["*", "bde"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/promotions",
+    text: 'PROMOTIONS',
+    to: '/dashboard/promotions',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/promotions',
   },
   {
     icon: <Vote />,
-    text: "CAMPAGNES",
-    to: "/dashboard/elections",
-    only: ["*"],
-    isActive: (pathname: String, hash: String) => pathname === "/dashboard/elections",
+    text: 'CAMPAGNES',
+    to: '/dashboard/elections',
+    only: ['*'],
+    isActive: (pathname: String) => pathname === '/dashboard/elections',
   },
 ]
 
@@ -85,7 +85,7 @@ function filter(roles) {
 }
 
 export function useBDEConfig() {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   return filter(session?.roles)
 }
 

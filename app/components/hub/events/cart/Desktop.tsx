@@ -2,7 +2,6 @@ import Card from "@material-ui/core/Card"
 import List from "@material-ui/core/List"
 import Grow from "@material-ui/core/Grow"
 import Button from "@material-ui/core/Button"
-import Hidden from "@material-ui/core/Hidden"
 import Divider from "@material-ui/core/Divider"
 import ListItem from "@material-ui/core/ListItem"
 import IconButton from "@material-ui/core/IconButton"
@@ -12,6 +11,7 @@ import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 import Close from "mdi-material-ui/Close"
@@ -40,99 +40,98 @@ export default function Desktop({
   onUnsubscribe,
   onQuantityChange,
 }: DesktopProps) {
+  const hidden = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
   const { event, eventSubscription } = useEventSubscription()
 
-  return (
-    <Hidden mdDown>
-      <Card className="w-11/12 mt-4">
-        <CardActions className="p-0">
-          <ButtonGroup className="w-full" aria-label="Inscription/Désinscription">
-            {eventSubscription?.id && (
-              <Button
-                className="w-full h-12"
-                startIcon={<Close />}
-                aria-label="Se désinscrire"
-                color="inherit"
-                onClick={onUnsubscribe}
-                disabled={unsubscribing || subscribing}
-              >
-                {unsubscribing ? <CircularProgress size={25} color="primary" /> : "Se désinscrire"}
-              </Button>
-            )}
+  return !hidden && (
+    <Card className="w-11/12 mt-4">
+      <CardActions className="p-0">
+        <ButtonGroup className="w-full" aria-label="Inscription/Désinscription">
+          {eventSubscription?.id && (
             <Button
               className="w-full h-12"
-              startIcon={<Check />}
-              variant="contained"
-              aria-label={eventSubscription?.id ? "Modifier" : "S'inscrire"}
-              onClick={onSubscribe}
-              disabled={subscribing || unsubscribing}
+              startIcon={<Close />}
+              aria-label="Se désinscrire"
+              color="inherit"
+              onClick={onUnsubscribe}
+              disabled={unsubscribing || subscribing}
             >
-              {subscribing ? (
-                <CircularProgress size={25} color="secondary" />
-              ) : eventSubscription?.id ? (
-                "Modifier"
-              ) : (
-                "S'inscrire"
-              )}
+              {unsubscribing ? <CircularProgress size={25} color="primary" /> : 'Se désinscrire'}
             </Button>
-          </ButtonGroup>
-        </CardActions>
+          )}
+          <Button
+            className="w-full h-12"
+            startIcon={<Check />}
+            variant="contained"
+            aria-label={eventSubscription?.id ? 'Modifier' : "S'inscrire"}
+            onClick={onSubscribe}
+            disabled={subscribing || unsubscribing}
+          >
+            {subscribing ? (
+              <CircularProgress size={25} color="secondary" />
+            ) : eventSubscription?.id ? (
+              'Modifier'
+            ) : (
+              "S'inscrire"
+            )}
+          </Button>
+        </ButtonGroup>
+      </CardActions>
 
-        <CardContent>
-          <List>
-            {eventSubscription?.cart.map((cartItem: CartItem, idx: number) => {
-              const price =
-                cartItem.quantity *
-                (cartItem.price +
-                  (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
-              return (
-                <Grow key={idx} in>
-                  <ListItem dense disableGutters>
-                    <ListItemIcon>
-                      <div className="flex items-center">
-                        <IconButton
-                          onClick={onQuantityChange(cartItem, -1)}
-                          aria-label={`Supprimer 1 ${cartItem.name}`}
-                        >
-                          <MinusCircleOutline />
-                        </IconButton>
-                        <Typography variant="overline">{cartItem.quantity}</Typography>
-                        <IconButton
-                          onClick={onQuantityChange(cartItem, 1)}
-                          aria-label={`Ajouter 1 ${cartItem.name}`}
-                        >
-                          <PlusCircleOutline />
-                        </IconButton>
-                      </div>
-                    </ListItemIcon>
+      <CardContent>
+        <List>
+          {eventSubscription?.cart.map((cartItem: CartItem, idx: number) => {
+            const price =
+              cartItem.quantity *
+              (cartItem.price +
+                (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
+            return (
+              <Grow key={idx} in>
+                <ListItem dense disableGutters>
+                  <ListItemIcon>
+                    <div className="flex items-center">
+                      <IconButton
+                        onClick={onQuantityChange(cartItem, -1)}
+                        aria-label={`Supprimer 1 ${cartItem.name}`}
+                      >
+                        <MinusCircleOutline />
+                      </IconButton>
+                      <Typography variant="overline">{cartItem.quantity}</Typography>
+                      <IconButton
+                        onClick={onQuantityChange(cartItem, 1)}
+                        aria-label={`Ajouter 1 ${cartItem.name}`}
+                      >
+                        <PlusCircleOutline />
+                      </IconButton>
+                    </div>
+                  </ListItemIcon>
 
-                    <ListItemText
-                      className="text-right m-4"
-                      primary={cartItem.name}
-                      secondary={cartItem.options?.map((o) => o.name).join(", ")}
-                    />
+                  <ListItemText
+                    className="text-right m-4"
+                    primary={cartItem.name}
+                    secondary={cartItem.options?.map((o) => o.name).join(', ')}
+                  />
 
-                    <ListItemText className="text-right m-4" primary={`${price.toFixed(2)} €`} />
-                  </ListItem>
-                </Grow>
-              )
-            })}
+                  <ListItemText className="text-right m-4" primary={`${price.toFixed(2)} €`} />
+                </ListItem>
+              </Grow>
+            )
+          })}
 
-            <Divider />
+          <Divider />
 
-            <ListItem>
-              <ListItemText primary="Total" />
-              <ListItemText className="text-right m-4">{`${total.toFixed(2)} €`}</ListItemText>
-            </ListItem>
+          <ListItem>
+            <ListItemText primary="Total" />
+            <ListItemText className="text-right m-4">{`${total.toFixed(2)} €`}</ListItemText>
+          </ListItem>
 
-            <ListItem dense>
-              <ListItemText secondary="Le prélèvement n'est pas immédiat." />
-            </ListItem>
-          </List>
-        </CardContent>
+          <ListItem dense>
+            <ListItemText secondary="Le prélèvement n'est pas immédiat." />
+          </ListItem>
+        </List>
+      </CardContent>
 
-        <CardActions>{event.products.length > 0 && <PaymentMethods />}</CardActions>
-      </Card>
-    </Hidden>
+      <CardActions>{event.products.length > 0 && <PaymentMethods />}</CardActions>
+    </Card>
   )
 }

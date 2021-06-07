@@ -1,9 +1,9 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type CreateTransactionInput = {
-  data: Omit<Prisma.TransactionCreateInput, "type" | "prevBalance">
+  data: Omit<Prisma.TransactionCreateInput, 'type' | 'prevBalance'>
 }
 
 export default resolver.pipe(
@@ -16,7 +16,7 @@ export default resolver.pipe(
     }
 
     if (amount < 0) {
-      throw new Error("Montant incorrect")
+      throw new Error('Montant incorrect')
     }
 
     if (data.user.connect?.id === data?.emitter?.connect?.id) {
@@ -34,7 +34,7 @@ export default resolver.pipe(
     })
 
     if (amount > emitterUser.balance) {
-      throw new Error("Solde insuffisant")
+      throw new Error('Solde insuffisant')
     }
 
     const transactionsAndUsers = await Promise.all([
@@ -43,7 +43,7 @@ export default resolver.pipe(
         data: {
           amount,
           description,
-          type: "CREDIT",
+          type: 'CREDIT',
           userId: receiverUser.id,
           emitterId: emitterUser.id,
           prevBalance: receiverUser.balance,
@@ -55,7 +55,7 @@ export default resolver.pipe(
         data: {
           amount,
           description,
-          type: "DEBIT",
+          type: 'DEBIT',
           userId: emitterUser.id,
           prevBalance: emitterUser.balance,
         },

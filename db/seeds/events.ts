@@ -1,4 +1,4 @@
-import faker from "faker"
+import faker from 'faker'
 
 const events = async (db) => {
   const club = await db.club.findFirst()
@@ -6,33 +6,33 @@ const events = async (db) => {
 
   const groupOptions = [
     {
-      name: "Suppléments",
-      type: "combinable",
+      name: 'Suppléments',
+      type: 'combinable',
       options: [
         {
-          name: "Mozzarella",
-          description: "Lorem ipsum",
+          name: 'Mozzarella',
+          description: 'Lorem ipsum',
           price: 3,
         },
         {
-          name: "Peperroni",
-          description: "Lorem ipsum",
+          name: 'Peperroni',
+          description: 'Lorem ipsum',
           price: 2.5,
         },
       ],
     },
     {
-      name: "Type de pâte",
-      type: "exclusive",
+      name: 'Type de pâte',
+      type: 'exclusive',
       options: [
         {
-          name: "Medium",
-          description: "Lorem ipsum",
+          name: 'Medium',
+          description: 'Lorem ipsum',
           price: 0,
         },
         {
-          name: "Medium Cheezy Crust",
-          description: "Lorem ipsum",
+          name: 'Medium Cheezy Crust',
+          description: 'Lorem ipsum',
           price: 2,
         },
       ],
@@ -50,19 +50,19 @@ const events = async (db) => {
           today.getMonth(),
           today.getDate() + i - 1
         ),
-        status: "ACCEPTED",
+        status: 'ACCEPTED',
         max_subscribers: 1,
         club: { connect: { id: club?.id } },
         products: [
           {
-            name: "Provençale",
-            description: "Lorem ipsum",
+            name: 'Provençale',
+            description: 'Lorem ipsum',
             price: 5,
             groupOptions,
           },
           {
-            name: "Chicken BBQ",
-            description: "Lorem ipsum",
+            name: 'Chicken BBQ',
+            description: 'Lorem ipsum',
             price: 0.5,
             groupOptions,
           },

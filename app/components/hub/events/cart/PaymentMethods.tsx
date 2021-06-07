@@ -1,14 +1,14 @@
-import Button from "@material-ui/core/Button"
-import Tooltip from "@material-ui/core/Tooltip"
-import Typography from "@material-ui/core/Typography"
-import ButtonGroup from "@material-ui/core/ButtonGroup"
+import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 
-import Cellphone from "mdi-material-ui/Cellphone"
-import CardBulleted from "mdi-material-ui/CardBulleted"
-import CashMultiple from "mdi-material-ui/CashMultiple"
+import Cellphone from 'mdi-material-ui/Cellphone'
+import CardBulleted from 'mdi-material-ui/CardBulleted'
+import CashMultiple from 'mdi-material-ui/CashMultiple'
 
-import { EventSubscriptionWithTypedCart } from "types"
-import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
+import { EventSubscriptionWithTypedCart } from 'types'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 
 export default function PaymentMethods() {
   const { eventSubscription, setQueryData } = useEventSubscription()
@@ -35,9 +35,9 @@ export default function PaymentMethods() {
           className="w-full"
           startIcon={<Cellphone />}
           aria-label="Payer par LYDIA"
-          variant={eventSubscription?.payment_method === "LYDIA" ? "contained" : "outlined"}
-          onClick={onPaymentMethodChange("LYDIA")}
-          color={eventSubscription?.payment_method === "LYDIA" ? "primary" : "inherit"}
+          variant={eventSubscription?.payment_method === 'LYDIA' ? 'contained' : 'outlined'}
+          onClick={onPaymentMethodChange('LYDIA')}
+          color={eventSubscription?.payment_method === 'LYDIA' ? 'primary' : 'inherit'}
         >
           <Typography variant="caption">LYDIA</Typography>
         </Button>
@@ -48,9 +48,9 @@ export default function PaymentMethods() {
           className="w-full"
           startIcon={<CardBulleted />}
           aria-label="Payer par carte BDE"
-          variant={eventSubscription?.payment_method === "BDE" ? "contained" : "outlined"}
-          onClick={onPaymentMethodChange("BDE")}
-          color={eventSubscription?.payment_method === "BDE" ? "primary" : "inherit"}
+          variant={eventSubscription?.payment_method === 'BDE' ? 'contained' : 'outlined'}
+          onClick={onPaymentMethodChange('BDE')}
+          color={eventSubscription?.payment_method === 'BDE' ? 'primary' : 'inherit'}
         >
           <Typography variant="caption">BDE</Typography>
         </Button>
@@ -61,9 +61,9 @@ export default function PaymentMethods() {
           className="w-full"
           startIcon={<CashMultiple />}
           aria-label="Payer en liquide"
-          variant={eventSubscription?.payment_method === "CASH" ? "contained" : "outlined"}
-          onClick={onPaymentMethodChange("CASH")}
-          color={eventSubscription?.payment_method === "CASH" ? "primary" : "inherit"}
+          variant={eventSubscription?.payment_method === 'CASH' ? 'contained' : 'outlined'}
+          onClick={onPaymentMethodChange('CASH')}
+          color={eventSubscription?.payment_method === 'CASH' ? 'primary' : 'inherit'}
         >
           <Typography variant="caption">LIQUIDE</Typography>
         </Button>

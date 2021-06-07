@@ -1,14 +1,14 @@
-import cuid from "cuid"
-import { resolver } from "blitz"
+import cuid from 'cuid'
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type CreateTransactionInput = {
-  data: Omit<Prisma.TransactionUncheckedCreateInput, "type" | "amount" | "prevBalance">
+  data: Omit<Prisma.TransactionUncheckedCreateInput, 'type' | 'amount' | 'prevBalance'>
 }
 
 export default resolver.pipe(
-  resolver.authorize(["*", "bde"]),
+  resolver.authorize(['*', 'bde']),
   async ({ data }: CreateTransactionInput) => {
     const { userId, articleId, description } = data
 
@@ -43,7 +43,7 @@ export default resolver.pipe(
         data: {
           amount,
           description,
-          type: "DEBIT",
+          type: 'DEBIT',
           userId: receiverUser.id,
           articleId,
           prevBalance: receiverUser.balance,

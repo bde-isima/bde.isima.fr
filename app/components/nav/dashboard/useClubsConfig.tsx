@@ -1,13 +1,12 @@
-import Image from "next/image"
-import { useQuery } from "blitz"
-import Avatar from "@material-ui/core/Avatar"
+import Image from 'next/image'
+import Avatar from '@material-ui/core/Avatar'
+import { useQuery, useAuthenticatedSession } from 'blitz'
 
-import getClubs from "app/entities/clubs/queries/getClubs"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import getClubs from 'app/entities/clubs/queries/getClubs'
 
 function createConfig(clubs, user) {
   return clubs
-    .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === "*"))
+    .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === '*'))
     .map((x) => ({
       icon: x.image ? (
         <Image src={x.image} width={40} height={40} alt={`Logo ${x.name}`} />
@@ -17,13 +16,13 @@ function createConfig(clubs, user) {
       text: x.name.toUpperCase(),
       to: `/dashboard/${x.name.toLowerCase()}`,
       role: x.name,
-      isActive: (pathname: String, hash: String) =>
+      isActive: (pathname: String) =>
         pathname === `/dashboard/${x.name.toLowerCase()}`,
     }))
 }
 
 export function useClubsConfig() {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   const [{ clubs }] = useQuery(getClubs, {})
 
   return createConfig(clubs, session)

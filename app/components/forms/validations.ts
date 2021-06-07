@@ -1,4 +1,4 @@
-import * as z from "zod"
+import * as z from 'zod'
 
 export const LoginInput = z.object({
   identifier: z.string(),
@@ -29,10 +29,10 @@ export const AdminTransferInput = z.object({
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
-  amount: z.number().min(5, { message: "5€ minimum" }).max(1000, { message: "1000€ maximum" }),
+  amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' }),
   recipient: z
     .string()
-    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: "Numéro invalide" }),
+    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: 'Numéro invalide' }),
 })
 export type TopUpInputType = z.infer<typeof TopUpInput>
 
@@ -171,7 +171,7 @@ export const EventInput = z
     description: z.string().max(3000).optional().nullable(),
     takes_place_at: z.date(),
     subscriptions_end_at: z.date(),
-    status: z.enum(["WAITING_APPROVAL", "ACCEPTED", "CHECKED_OUT"]),
+    status: z.enum(['WAITING_APPROVAL', 'ACCEPTED', 'CHECKED_OUT']),
     club: z.object({
       connect: z.object({
         name: z.string(),
@@ -179,7 +179,7 @@ export const EventInput = z
     }),
     max_subscribers: z
       .string()
-      .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: "Nombre invalide" })
+      .regex(/^[+]?([.]\d+|\d+([.]\d+)?)$/, { message: 'Nombre invalide' })
       .optional()
       .nullable(),
     products: z.array(
@@ -190,7 +190,7 @@ export const EventInput = z
         groupOptions: z.array(
           z.object({
             name: z.string().max(255),
-            type: z.enum(["exclusive", "combinable"]),
+            type: z.enum(['exclusive', 'combinable']),
             options: z.array(
               z.object({
                 name: z.string().max(255),
@@ -208,7 +208,7 @@ export type EventInputType = z.infer<typeof EventInput>
 
 export const EventSubscriptionInput = z
   .object({
-    payment_method: z.enum(["BDE", "LYDIA", "CASH"]),
+    payment_method: z.enum(['BDE', 'LYDIA', 'CASH']),
     cart: z.array(
       z.object({
         name: z.string().max(255),
@@ -266,7 +266,7 @@ export const VoteInput = z
     isNull: z.boolean(),
     isBlank: z.boolean(),
     approve: z.boolean().refine((value) => Boolean(value), {
-      message: "Veuillez accepter",
+      message: 'Veuillez accepter',
     }),
   })
   .nonstrict()

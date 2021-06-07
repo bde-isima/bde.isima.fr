@@ -1,18 +1,18 @@
-import { TextField } from "mui-rff"
-import { useForm } from "react-final-form"
-import Divider from "@material-ui/core/Divider"
-import FormGroup from "@material-ui/core/FormGroup"
-import FormLabel from "@material-ui/core/FormLabel"
-import { FieldArray } from "react-final-form-arrays"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import FormControl from "@material-ui/core/FormControl"
+import { TextField } from 'mui-rff'
+import { useForm } from 'react-final-form'
+import Divider from '@material-ui/core/Divider'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormLabel from '@material-ui/core/FormLabel'
+import { FieldArray } from 'react-final-form-arrays'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import FormControl from '@material-ui/core/FormControl'
 
-import Plus from "mdi-material-ui/Plus"
-import Close from "mdi-material-ui/Close"
-import ContentCopy from "mdi-material-ui/ContentCopy"
+import Plus from 'mdi-material-ui/Plus'
+import Close from 'mdi-material-ui/Close'
+import ContentCopy from 'mdi-material-ui/ContentCopy'
 
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
 export default function ProductsForm() {
   const form = useForm()
@@ -32,7 +32,7 @@ export default function ProductsForm() {
         <Typography>Produits</Typography>
         <IconButton
           className="m-2"
-          onClick={onAddItem("products")}
+          onClick={onAddItem('products')}
           aria-label="Ajouter un produit"
           size="small"
         >
@@ -46,7 +46,7 @@ export default function ProductsForm() {
             <div key={productIdx} className="relative flex flex-col p-4 m-4 border border-gray-200">
               <IconButton
                 className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
-                onClick={onDeleteItem("products", productIdx)}
+                onClick={onDeleteItem('products', productIdx)}
                 aria-label="Supprimer"
                 size="small"
               >
@@ -55,7 +55,7 @@ export default function ProductsForm() {
 
               <IconButton
                 className="absolute top-0 right-9 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
-                onClick={onDuplicateItem("products", productIdx)}
+                onClick={onDuplicateItem('products', productIdx)}
                 aria-label="Dupliquer"
                 size="small"
               >
@@ -95,7 +95,7 @@ export default function ProductsForm() {
               {(!fields.length || productIdx === fields.length - 1) && (
                 <IconButton
                   className="absolute bottom-0 right-0 transform-gpu translate-x-1/2 translate-y-1/2 bg-white border border-solid border-gray-200"
-                  onClick={onAddItem("products")}
+                  onClick={onAddItem('products')}
                   aria-label="Ajouter un produit"
                   size="small"
                 >

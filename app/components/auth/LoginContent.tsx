@@ -1,8 +1,8 @@
-import Image from "next/image"
-import Typography from "@material-ui/core/Typography"
-import DialogContent from "@material-ui/core/DialogContent"
+import Image from 'next/image'
+import Typography from '@material-ui/core/Typography'
+import DialogContent from '@material-ui/core/DialogContent'
 
-import LoginForm from "./LoginForm"
+import LoginForm from './LoginForm'
 
 export default function LoginContent() {
   return (

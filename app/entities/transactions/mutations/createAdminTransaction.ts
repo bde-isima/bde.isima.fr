@@ -1,13 +1,13 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type CreateTransactionInput = {
-  data: Omit<Prisma.TransactionCreateInput, "type" | "prevBalance">
+  data: Omit<Prisma.TransactionCreateInput, 'type' | 'prevBalance'>
 }
 
 export default resolver.pipe(
-  resolver.authorize(["*", "bde"]),
+  resolver.authorize(['*', 'bde']),
   async ({ data }: CreateTransactionInput) => {
     const user = await db.user.findUnique({
       where: { id: data?.user?.connect?.id },
@@ -21,7 +21,7 @@ export default resolver.pipe(
       db.transaction.create({
         data: {
           ...data,
-          type: data.amount > 0 ? "CREDIT" : "DEBIT",
+          type: data.amount > 0 ? 'CREDIT' : 'DEBIT',
           amount,
           prevBalance: user.balance,
         },
@@ -29,7 +29,7 @@ export default resolver.pipe(
 
       // Update balance of the receiver
       db.user.update({
-        data: { balance: { [data.amount > 0 ? "increment" : "decrement"]: amount } },
+        data: { balance: { [data.amount > 0 ? 'increment' : 'decrement']: amount } },
         where: { id: data?.user?.connect?.id },
       }),
     ])

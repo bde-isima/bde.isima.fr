@@ -1,37 +1,37 @@
-import { useQuery } from "blitz"
-import NoSsr from "@material-ui/core/NoSsr"
-import Dialog from "@material-ui/core/Dialog"
-import TabContext from "@material-ui/lab/TabContext"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import BottomNavigation from "@material-ui/core/BottomNavigation"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { useState, Suspense, unstable_SuspenseList, lazy } from "react"
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
+import { useQuery } from 'blitz'
+import NoSsr from '@material-ui/core/NoSsr'
+import Dialog from '@material-ui/core/Dialog'
+import TabContext from '@material-ui/lab/TabContext'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import { useTheme, useMediaQuery } from '@material-ui/core'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { useState, Suspense, unstable_SuspenseList, lazy } from 'react'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 
-import Close from "mdi-material-ui/Close"
-import Finance from "mdi-material-ui/Finance"
-import LayersTriple from "mdi-material-ui/LayersTriple"
-import FormatListBulletedSquare from "mdi-material-ui/FormatListBulletedSquare"
+import Close from 'mdi-material-ui/Close'
+import Finance from 'mdi-material-ui/Finance'
+import LayersTriple from 'mdi-material-ui/LayersTriple'
+import FormatListBulletedSquare from 'mdi-material-ui/FormatListBulletedSquare'
 
-import TabPanel from "app/layouts/TabPanel"
-import SlideTransition from "app/layouts/SlideTransition"
-import getEventSubscriptions from "app/entities/eventSubscriptions/queries/getEventSubscriptions"
+import TabPanel from 'app/core/layouts/TabPanel'
+import SlideTransition from 'app/core/layouts/SlideTransition'
+import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 
 const SuspenseList = unstable_SuspenseList
-const SubscriptionRecap = lazy(() => import("./recap/SubscriptionRecap"))
-const SubscriptionsList = lazy(() => import("./list/SubscriptionsList"))
-const SubscriptionsAnalytics = lazy(() => import("./analytics/SubscriptionsAnalytics"))
+const SubscriptionRecap = lazy(() => import('./recap/SubscriptionRecap'))
+const SubscriptionsList = lazy(() => import('./list/SubscriptionsList'))
+const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnalytics'))
 
 export default function Manager({ open, event, onClose }) {
   const [value, setValue] = useState(0)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const [data]: any = useQuery(
     getEventSubscriptions,

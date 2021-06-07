@@ -1,22 +1,22 @@
-import Link from "next/link"
-import Image from "next/image"
-import { useMemo, Suspense } from "react"
-import List from "@material-ui/core/List"
-import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import Link from 'next/link'
+import Image from 'next/image'
+import { useMemo, Suspense } from 'react'
+import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-import HomeOutline from "mdi-material-ui/HomeOutline"
+import HomeOutline from 'mdi-material-ui/HomeOutline'
 
-import config from "./config"
-import DashboardMobile from "app/components/nav/dashboard/Mobile"
-import MobileMenuItem from "app/components/nav/hub/MobileMenuItem"
+import config from './config'
+import DashboardMobile from 'app/components/nav/dashboard/Mobile'
+import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
 
 export default function Mobile({ isOpen, onOpen, onClose }) {
-  const iOS = typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   const ItemsList = useMemo(
     () => (
@@ -37,7 +37,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: "w-3/4" }}
+      PaperProps={{ className: 'w-3/4' }}
     >
       <div className="text-center">
         <List>
@@ -71,7 +71,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
 
                 <ListItemText
                   secondary="ACCUEIL"
-                  secondaryTypographyProps={{ color: "textPrimary" }}
+                  secondaryTypographyProps={{ color: 'textPrimary' }}
                 />
               </ListItem>
             </Button>
@@ -94,7 +94,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
         <ListItem>
           <ListItemText
             secondary={`Version ${globalThis.appVersion}`}
-            secondaryTypographyProps={{ align: "center" }}
+            secondaryTypographyProps={{ align: 'center' }}
           />
         </ListItem>
       </div>

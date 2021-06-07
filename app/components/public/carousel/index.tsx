@@ -1,18 +1,18 @@
-import { useState } from "react"
-import { useQuery } from "blitz"
-import Card from "@material-ui/core/Card"
-import Earth from "mdi-material-ui/Earth"
-import Twitter from "mdi-material-ui/Twitter"
-import Facebook from "mdi-material-ui/Facebook"
-import MultiCarousel from "react-multi-carousel"
-import Instagram from "mdi-material-ui/Instagram"
-import Typography from "@material-ui/core/Typography"
-import CardContent from "@material-ui/core/CardContent"
-import CardActions from "@material-ui/core/CardActions"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import CardActionArea from "@material-ui/core/CardActionArea"
+import { useState } from 'react'
+import { useQuery } from 'blitz'
+import Card from '@material-ui/core/Card'
+import Earth from 'mdi-material-ui/Earth'
+import Twitter from 'mdi-material-ui/Twitter'
+import Facebook from 'mdi-material-ui/Facebook'
+import MultiCarousel from 'react-multi-carousel'
+import Instagram from 'mdi-material-ui/Instagram'
+import Typography from '@material-ui/core/Typography'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import { useTheme, useMediaQuery } from '@material-ui/core'
+import CardActionArea from '@material-ui/core/CardActionArea'
 
-import CarouselDialog from "./CarouselDialog"
+import CarouselDialog from './CarouselDialog'
 
 const responsive = {
   desktop: {
@@ -34,7 +34,7 @@ const responsive = {
 
 export default function Carousel({ getQuery, queryKey }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [isMoving, setIsMoving] = useState(false)
   const [selected, setSelected] = useState(null)
 

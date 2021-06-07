@@ -1,10 +1,10 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type GetEventsInput = Pick<
   Prisma.EventFindManyArgs,
-  "include" | "where" | "orderBy" | "skip" | "take"
+  'include' | 'where' | 'orderBy' | 'skip' | 'take'
 >
 
 export default resolver.pipe(
@@ -19,7 +19,7 @@ export default resolver.pipe(
     })
 
     const count = await db.event.count({ where })
-    const hasMore = typeof take === "number" ? skip + take < count : false
+    const hasMore = typeof take === 'number' ? skip + take < count : false
     const nextPage = hasMore ? { take, skip: skip + take! } : null
 
     return {

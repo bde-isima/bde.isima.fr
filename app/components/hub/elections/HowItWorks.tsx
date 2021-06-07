@@ -1,28 +1,28 @@
-import { useState } from "react"
-import NoSsr from "@material-ui/core/NoSsr"
-import { useTheme } from "@material-ui/core"
-import Button from "@material-ui/core/Button"
-import Dialog from "@material-ui/core/Dialog"
-import Timeline from "@material-ui/lab/Timeline"
-import IconButton from "@material-ui/core/IconButton"
-import DialogActions from "@material-ui/core/DialogActions"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import { useState } from 'react'
+import NoSsr from '@material-ui/core/NoSsr'
+import { useTheme } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import Timeline from '@material-ui/lab/Timeline'
+import IconButton from '@material-ui/core/IconButton'
+import DialogActions from '@material-ui/core/DialogActions'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import Vote from "mdi-material-ui/Vote"
-import Alert from "mdi-material-ui/Alert"
-import Close from "mdi-material-ui/Close"
-import Email from "mdi-material-ui/Email"
-import Incognito from "mdi-material-ui/Incognito"
-import HelpCircle from "mdi-material-ui/HelpCircle"
+import Vote from 'mdi-material-ui/Vote'
+import Alert from 'mdi-material-ui/Alert'
+import Close from 'mdi-material-ui/Close'
+import Email from 'mdi-material-ui/Email'
+import Incognito from 'mdi-material-ui/Incognito'
+import HelpCircle from 'mdi-material-ui/HelpCircle'
 
-import HowItWorksItem from "./HowItWorksItem"
-import SlideTransition from "app/layouts/SlideTransition"
+import HowItWorksItem from './HowItWorksItem'
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function HowItWorks() {
   const [isOpen, setIsOpen] = useState(false)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const toggleDialog = (open) => () => setIsOpen(open)
 
@@ -45,7 +45,7 @@ export default function HowItWorks() {
           onClose={toggleDialog(false)}
           keepMounted
           fullScreen={fullScreen}
-          PaperProps={{ className: "w-full" }}
+          PaperProps={{ className: 'w-full' }}
           TransitionComponent={SlideTransition}
         >
           <DialogActions>

@@ -1,22 +1,22 @@
-import { Suspense } from "react"
-import Card from "@material-ui/core/Card"
-import Badge from "@material-ui/core/Badge"
-import Button from "@material-ui/core/Button"
-import Skeleton from "@material-ui/core/Skeleton"
-import Typography from "@material-ui/core/Typography"
-import ButtonGroup from "@material-ui/core/ButtonGroup"
+import { Suspense } from 'react'
+import Card from '@material-ui/core/Card'
+import Badge from '@material-ui/core/Badge'
+import Button from '@material-ui/core/Button'
+import { useAuthenticatedSession } from 'blitz'
+import Skeleton from '@material-ui/core/Skeleton'
+import Typography from '@material-ui/core/Typography'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 
-import CashPlus from "mdi-material-ui/CashPlus"
-import CubeSend from "mdi-material-ui/CubeSend"
-import HistoryIcon from "mdi-material-ui/History"
+import CashPlus from 'mdi-material-ui/CashPlus'
+import CubeSend from 'mdi-material-ui/CubeSend'
+import HistoryIcon from 'mdi-material-ui/History'
 
-import { useBDESession } from "app/components/auth/SessionProvider"
-import Balance from "app/components/hub/transactions/display/Balance"
-import getCurrentUser from "app/entities/users/queries/getCurrentUser"
-import RecentTransactions from "app/components/hub/transactions/display/RecentTransactions"
+import Balance from 'app/components/hub/transactions/display/Balance'
+import getCurrentUser from 'app/entities/users/queries/getCurrentUser'
+import RecentTransactions from 'app/components/hub/transactions/display/RecentTransactions'
 
 export default function TransactionsCard({ openTransfer, openHistory, openTopUp }) {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
 
   const FallbackComponent = [...Array(10).keys()].map((x) => (
     <Skeleton className="m-1" key={x} height={24} width="80%" />

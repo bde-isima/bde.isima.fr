@@ -1,36 +1,36 @@
-import cuid from "cuid"
-import * as z from "zod"
-import { useState } from "react"
-import Button from "@material-ui/core/Button"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import React, { ReactNode, PropsWithoutRef } from "react"
-import LoadingButton from "@material-ui/lab/LoadingButton"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
+import cuid from 'cuid'
+import * as z from 'zod'
+import { useState } from 'react'
+import Button from '@material-ui/core/Button'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import React, { ReactNode, PropsWithoutRef } from 'react'
+import LoadingButton from '@material-ui/lab/LoadingButton'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form'
 
-import errorMap from "./errorMap"
+import errorMap from './errorMap'
 
-export { FORM_ERROR } from "final-form"
+export { FORM_ERROR } from 'final-form'
 
 type FormProps<FormValues> = {
   children: ReactNode
   submitText?: string
   title?: string
-  variant?: "button" | "dialog"
+  variant?: 'button' | 'dialog'
   onClose?: () => void
-  onSubmit: FinalFormProps<FormValues>["onSubmit"]
-  initialValues?: FinalFormProps<FormValues>["initialValues"]
+  onSubmit: FinalFormProps<FormValues>['onSubmit']
+  initialValues?: FinalFormProps<FormValues>['initialValues']
   schema?: z.ZodType<any, any>
   mutators?: any
-} & Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit">
+} & Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'>
 
 export function Form<FormValues extends Record<string, unknown>>({
   children,
-  submitText = "",
-  title = "",
-  variant = "button",
+  submitText = '',
+  title = '',
+  variant = 'button',
   onClose,
   mutators,
   schema,
@@ -56,12 +56,12 @@ export function Form<FormValues extends Record<string, unknown>>({
       mutators={mutators}
       render={({ handleSubmit, submitting, pristine, submitError }) => (
         <>
-          {variant === "button" && (
+          {variant === 'button' && (
             <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
               {children}
 
               {submitError && (
-                <div role="alert" style={{ color: "red" }}>
+                <div role="alert" style={{ color: 'red' }}>
                   {submitError}
                 </div>
               )}
@@ -69,8 +69,8 @@ export function Form<FormValues extends Record<string, unknown>>({
               {submitText && (
                 <LoadingButton
                   type="submit"
-                  pending={submitting}
-                  pendingIndicator={<CircularProgress size={25} color="secondary" />}
+                  loading={submitting}
+                  loadingIndicator={<CircularProgress size={25} color="secondary" />}
                   onClick={handleSubmit}
                   aria-label={submitText}
                   variant="contained"
@@ -83,10 +83,10 @@ export function Form<FormValues extends Record<string, unknown>>({
             </form>
           )}
 
-          {variant === "dialog" && (
+          {variant === 'dialog' && (
             <>
               <DialogTitle id="table-dialog-title">
-                {title ? title : initialValues?.id ? "Édition" : "Ajout"}
+                {title ? title : initialValues?.id ? 'Édition' : 'Ajout'}
               </DialogTitle>
 
               <DialogContent>
@@ -103,7 +103,7 @@ export function Form<FormValues extends Record<string, unknown>>({
               {submitText && (
                 <DialogActions>
                   {submitError && (
-                    <div role="alert" style={{ color: "red" }}>
+                    <div role="alert" style={{ color: 'red' }}>
                       {submitError}
                     </div>
                   )}
@@ -115,8 +115,8 @@ export function Form<FormValues extends Record<string, unknown>>({
                   <LoadingButton
                     type="submit"
                     form={`${formId}-dialog-form`}
-                    pending={submitting}
-                    pendingIndicator={<CircularProgress size={25} color="secondary" />}
+                    loading={submitting}
+                    loadingIndicator={<CircularProgress size={25} color="secondary" />}
                     onClick={handleSubmit}
                     aria-label={submitText}
                     variant="contained"

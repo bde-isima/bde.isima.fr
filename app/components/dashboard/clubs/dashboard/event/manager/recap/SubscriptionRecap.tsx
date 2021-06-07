@@ -1,11 +1,11 @@
-import List from "@material-ui/core/List"
-import Divider from "@material-ui/core/Divider"
-import ListItem from "@material-ui/core/ListItem"
-import Typography from "@material-ui/core/Typography"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import Typography from '@material-ui/core/Typography'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 
-import { EventSubscriptionWithTypedCart, CartItem } from "types"
+import { EventSubscriptionWithTypedCart, CartItem } from 'types'
 
 type SubscriptionRecapProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]
@@ -24,8 +24,8 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
 
           //Default to [] or we won't get comparable result for undefined arrays
           //Undefined would give undefined, whereas [] would give empty string
-          const exitOptions = (exist.options || []).map((x) => x.name).join(", ")
-          const itemOptions = (item.options || []).map((x) => x.name).join(", ")
+          const exitOptions = (exist.options || []).map((x) => x.name).join(', ')
+          const itemOptions = (item.options || []).map((x) => x.name).join(', ')
 
           const hasSameName = exist.name === item.name
           const hasIdenticalOptions = exitOptions === itemOptions
@@ -60,7 +60,7 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
 
             <ListItemText
               primary={cartItem.name}
-              secondary={cartItem.options?.map((x) => x.name).join(", ")}
+              secondary={cartItem.options?.map((x) => x.name).join(', ')}
             />
           </ListItem>
         ))}

@@ -1,12 +1,12 @@
-import { Palette } from "react-palette"
-import Card from "@material-ui/core/Card"
-import Grid from "@material-ui/core/Grid"
-import Skeleton from "@material-ui/core/Skeleton"
-import Typography from "@material-ui/core/Typography"
-import CardContent from "@material-ui/core/CardContent"
-import CardActionArea from "@material-ui/core/CardActionArea"
+import { Palette } from 'react-palette'
+import Card from '@material-ui/core/Card'
+import Grid from '@material-ui/core/Grid'
+import Skeleton from '@material-ui/core/Skeleton'
+import Typography from '@material-ui/core/Typography'
+import CardContent from '@material-ui/core/CardContent'
+import CardActionArea from '@material-ui/core/CardActionArea'
 
-import { Candidate } from "db"
+import { Candidate } from 'db'
 
 type CandidateItemProps = {
   candidate?: Partial<Candidate>
@@ -21,7 +21,7 @@ export default function CandidateItem({ candidate, onSelect, isLoading }: Candid
         className="w-full rounded-full my-4"
         onClick={onSelect && onSelect(true, candidate)}
       >
-        <Palette src={candidate?.image || ""}>
+        <Palette src={candidate?.image || ''}>
           {({ data }) => (
             <Card
               className="flex h-28 md:h-52 rounded-full"

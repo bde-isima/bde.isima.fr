@@ -1,12 +1,11 @@
-import { Autocomplete } from "mui-rff"
-import { useQuery } from "blitz"
-import TextField from "@material-ui/core/TextField"
-import { useState, Dispatch, SetStateAction } from "react"
-import MuiAutocomplete from "@material-ui/core/Autocomplete"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import { Autocomplete } from 'mui-rff'
+import TextField from '@material-ui/core/TextField'
+import { useQuery, useAuthenticatedSession } from 'blitz'
+import { useState, Dispatch, SetStateAction } from 'react'
+import MuiAutocomplete from '@material-ui/core/Autocomplete'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-import { User } from "db"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import { User } from 'db'
 
 type SearchUserProps = {
   className?: string
@@ -22,7 +21,7 @@ type SearchUserProps = {
 }
 
 export default function SearchUser({
-  className = "",
+  className = '',
   name,
   label,
   value,
@@ -33,7 +32,7 @@ export default function SearchUser({
   disableSelf = false,
   withForm = false,
 }: SearchUserProps) {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   const [options, setOptions] = useState<User[]>([])
   const loading = open && options.length === 0
 
@@ -52,7 +51,7 @@ export default function SearchUser({
     open,
     options,
     loading,
-    loadingText: "Chargement des membres ...",
+    loadingText: 'Chargement des membres ...',
     onChange: onSelection,
     onOpen: toggleOpen(true),
     onClose: toggleOpen(false),
@@ -61,9 +60,9 @@ export default function SearchUser({
     getOptionLabel: (option: User) =>
       option
         ? `${option.card} - ${option.lastname} ${option.firstname} ${
-            option.nickname ? `(${option.nickname})` : ""
+            option.nickname ? `(${option.nickname})` : ''
           }`
-        : "",
+        : '',
     renderInput: (params) => (
       <TextField
         {...params}

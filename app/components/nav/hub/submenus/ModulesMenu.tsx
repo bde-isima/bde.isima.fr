@@ -1,14 +1,14 @@
-import Link from "next/link"
-import { useState } from "react"
-import Menu from "@material-ui/core/Menu"
-import Divider from "@material-ui/core/Divider"
-import MenuItem from "@material-ui/core/MenuItem"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
+import Link from 'next/link'
+import { useState } from 'react'
+import Menu from '@material-ui/core/Menu'
+import Divider from '@material-ui/core/Divider'
+import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
 
-import Apps from "mdi-material-ui/Apps"
-import Vote from "mdi-material-ui/Vote"
-import PuzzleOutline from "mdi-material-ui/PuzzleOutline"
+import Apps from 'mdi-material-ui/Apps'
+import Vote from 'mdi-material-ui/Vote'
+import PuzzleOutline from 'mdi-material-ui/PuzzleOutline'
 
 export default function ModulesMenu() {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -23,7 +23,7 @@ export default function ModulesMenu() {
       <IconButton
         className="mx-2 text-primary dark:text-secondary"
         aria-label="Voir les modules"
-        aria-owns={isOpen ? "module-menu" : undefined}
+        aria-owns={isOpen ? 'module-menu' : undefined}
         aria-haspopup="true"
         onClick={handleOpen}
       >
@@ -35,9 +35,8 @@ export default function ModulesMenu() {
         anchorEl={anchorEl}
         open={isOpen}
         onClose={handleClose}
-        getContentAnchorEl={null}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         MenuListProps={{ disablePadding: true }}
         PaperProps={{
           style: {

@@ -1,4 +1,4 @@
-import faker from "faker"
+import faker from 'faker'
 
 const users = async (db) => {
   const promotion = await db.promotion.findFirst()
@@ -6,15 +6,15 @@ const users = async (db) => {
   //User to log in with
   await db.user.create({
     data: {
-      id: "123456789",
-      lastname: "Lenoir",
-      firstname: "Adrien",
+      id: '123456789',
+      lastname: 'Lenoir',
+      firstname: 'Adrien',
       nickname: faker.name.findName(),
       image: faker.image.imageUrl(100, 100, undefined, false, true),
-      email: "adrien.lenoir42440@gmail.com",
+      email: 'adrien.lenoir42440@gmail.com',
       card: 941,
       balance: 0,
-      roles: "*",
+      roles: '*',
       promotionId: promotion.id,
     },
   })

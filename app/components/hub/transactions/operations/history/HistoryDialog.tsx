@@ -1,19 +1,19 @@
-import { useState } from "react"
-import NoSsr from "@material-ui/core/NoSsr"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import { useTheme, useMediaQuery } from "@material-ui/core"
+import { useState } from 'react'
+import NoSsr from '@material-ui/core/NoSsr'
+import Dialog from '@material-ui/core/Dialog'
+import { useAuthenticatedSession } from 'blitz'
+import IconButton from '@material-ui/core/IconButton'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import { useTheme, useMediaQuery } from '@material-ui/core'
 
-import Close from "mdi-material-ui/Close"
+import Close from 'mdi-material-ui/Close'
 
-import SlideTransition from "app/layouts/SlideTransition"
-import { useBDESession } from "app/components/auth/SessionProvider"
-import History from "app/components/hub/transactions/operations/history/History"
-import HistoryHeader from "app/components/hub/transactions/operations/history/HistoryHeader"
-import HistoryFilter from "app/components/hub/transactions/operations/history/HistoryFilter"
+import SlideTransition from 'app/core/layouts/SlideTransition'
+import History from 'app/components/hub/transactions/operations/history/History'
+import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader'
+import HistoryFilter from 'app/components/hub/transactions/operations/history/HistoryFilter'
 
 type HistoryDialogProps = {
   isOpen: boolean
@@ -21,13 +21,13 @@ type HistoryDialogProps = {
 }
 
 export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
 
-  const [minDate, setMinDate] = useState(new Date("01-01-2021"))
+  const [minDate, setMinDate] = useState(new Date('01-01-2021'))
   const [maxDate, setMaxDate] = useState(new Date())
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <NoSsr>
@@ -36,7 +36,7 @@ export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
         onClose={onClose}
         keepMounted
         fullScreen={fullScreen}
-        PaperProps={{ className: "w-full" }}
+        PaperProps={{ className: 'w-full' }}
         TransitionComponent={SlideTransition}
         aria-labelledby="history-dialog-title"
       >

@@ -1,9 +1,9 @@
-import { TextField, Checkboxes } from "mui-rff"
-import Typography from "@material-ui/core/Typography"
+import { TextField, Checkboxes } from 'mui-rff'
+import Typography from '@material-ui/core/Typography'
 
-import { Candidate } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { VoteInput, VoteInputType } from "app/components/forms/validations"
+import { Candidate } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { VoteInput, VoteInputType } from 'app/components/forms/validations'
 
 type VoteFormProps = {
   initialValues?: Candidate | null
@@ -17,7 +17,7 @@ export default function VoteForm(props: VoteFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
@@ -28,8 +28,8 @@ export default function VoteForm(props: VoteFormProps) {
         props.initialValues
           ? `Voter pour ${props.initialValues?.name}`
           : props.initialValues === null
-          ? "Voter nul"
-          : "Voter blanc"
+          ? 'Voter nul'
+          : 'Voter blanc'
       }
       submitText="Valider"
       variant="dialog"
@@ -57,7 +57,7 @@ export default function VoteForm(props: VoteFormProps) {
               que celui-ci est définitif.
             </Typography>
           ),
-          value: "approve",
+          value: 'approve',
         }}
         color="primary"
       />

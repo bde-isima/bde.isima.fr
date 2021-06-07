@@ -1,13 +1,13 @@
-import { useState } from "react"
-import { useQuery } from "blitz"
-import { subDays } from "date-fns"
-import { useTheme } from "@material-ui/core"
-import Select from "@material-ui/core/Select"
-import MenuItem from "@material-ui/core/MenuItem"
-import Typography from "@material-ui/core/Typography"
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory"
+import { useState } from 'react'
+import { useQuery } from 'blitz'
+import { subDays } from 'date-fns'
+import { useTheme } from '@material-ui/core'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
 
-import getArticles from "app/entities/articles/queries/getArticles"
+import getArticles from 'app/entities/articles/queries/getArticles'
 
 const now = new Date()
 

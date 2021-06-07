@@ -1,14 +1,14 @@
-import Image from "next/image"
-import { TextField, Switches } from "mui-rff"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import Image from 'next/image'
+import { TextField, Switches } from 'mui-rff'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from 'mdi-material-ui/OpenInNew'
 
-import { Article } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
-import { ArticleInput, ArticleInputType } from "app/components/forms/validations"
+import { Article } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import { ArticleInput, ArticleInputType } from 'app/components/forms/validations'
 
 type ArticleFormProps = {
   initialValues: Article | null
@@ -22,7 +22,7 @@ export default function ArticleForm(props: ArticleFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
@@ -85,7 +85,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         inputProps={{ step: 0.01 }}
       />
 
-      <Switches name="is_enabled" data={{ label: "Activé", value: "is_enabled" }} color="primary" />
+      <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
     </Form>
   )
 }

@@ -1,9 +1,9 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type UpdateUserInput = {
-  data: Pick<Prisma.UserUpdateInput, "id" | "nickname" | "email" | "image">
+  data: Pick<Prisma.UserUpdateInput, 'id' | 'nickname' | 'email' | 'image'>
   where: Prisma.UserWhereUniqueInput
 }
 
@@ -11,7 +11,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ where, data }: UpdateUserInput, { session }: Ctx) => {
     if (session.userId !== where?.id) {
-      throw new Error("Non autorisé")
+      throw new Error('Non autorisé')
     }
 
     const user = await db.user.update({ where, data })

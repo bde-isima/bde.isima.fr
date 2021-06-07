@@ -1,13 +1,13 @@
-import Image from "next/image"
-import { TextField } from "mui-rff"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import Image from 'next/image'
+import { TextField } from 'mui-rff'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from 'mdi-material-ui/OpenInNew'
 
-import { Partner } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { PartnerInput, PartnerInputType } from "app/components/forms/validations"
+import { Partner } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { PartnerInput, PartnerInputType } from 'app/components/forms/validations'
 
 type PartnerFormProps = {
   initialValues: Partner | null
@@ -21,7 +21,7 @@ export default function PartnerForm(props: PartnerFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }

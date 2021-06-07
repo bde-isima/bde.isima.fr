@@ -1,10 +1,10 @@
-import Link from "next/link"
-import Image from "next/image"
-import Grid from "@material-ui/core/Grid"
-import Paper from "@material-ui/core/Paper"
-import Typography from "@material-ui/core/Typography"
+import Link from 'next/link'
+import Image from 'next/image'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 
-import Socials from "./Socials"
+import Socials from './Socials'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()

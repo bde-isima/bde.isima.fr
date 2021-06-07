@@ -1,47 +1,47 @@
-import Link from "next/link"
-import Image from "next/image"
-import Fab from "@material-ui/core/Fab"
-import { useState, useEffect } from "react"
-import Slide from "@material-ui/core/Slide"
-import AppBar from "@material-ui/core/AppBar"
-import Dialog from "@material-ui/core/Dialog"
-import Hidden from "@material-ui/core/Hidden"
-import Toolbar from "@material-ui/core/Toolbar"
-import IconButton from "@material-ui/core/IconButton"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import DialogActions from "@material-ui/core/DialogActions"
-import useScrollTrigger from "@material-ui/core/useScrollTrigger"
+import Link from 'next/link'
+import Image from 'next/image'
+import Fab from '@material-ui/core/Fab'
+import { useState, useEffect } from 'react'
+import Slide from '@material-ui/core/Slide'
+import AppBar from '@material-ui/core/AppBar'
+import Dialog from '@material-ui/core/Dialog'
+import Hidden from '@material-ui/core/Hidden'
+import Toolbar from '@material-ui/core/Toolbar'
+import { useAuthenticatedSession } from 'blitz'
+import IconButton from '@material-ui/core/IconButton'
+import { useTheme, useMediaQuery } from '@material-ui/core'
+import DialogActions from '@material-ui/core/DialogActions'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 
-import Menu from "mdi-material-ui/Menu"
-import ArrowLeft from "mdi-material-ui/ArrowLeft"
-import LoginVariant from "mdi-material-ui/LoginVariant"
-import AccountArrowRightOutline from "mdi-material-ui/AccountArrowRightOutline"
+import Menu from 'mdi-material-ui/Menu'
+import ArrowLeft from 'mdi-material-ui/ArrowLeft'
+import LoginVariant from 'mdi-material-ui/LoginVariant'
+import AccountArrowRightOutline from 'mdi-material-ui/AccountArrowRightOutline'
 
-import Mobile from "./Mobile"
-import Desktop from "./Desktop"
-import LoginContent from "app/components/auth/LoginContent"
-import { useCustomRouter } from "app/hooks/useCustomRouter"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import Mobile from './Mobile'
+import Desktop from './Desktop'
+import LoginContent from 'app/components/auth/LoginContent'
+import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 
 export default function Nav() {
-  const session = useBDESession()
   const { pushRoute } = useCustomRouter()
+  const session = useAuthenticatedSession()
   const [isOnTop, setIsOnTop] = useState(
-    typeof window === "undefined" ? true : window.scrollY === 0
+    typeof window === 'undefined' ? true : window.scrollY === 0
   )
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const toggleDrawer = (fn, open) => () => fn(open)
 
   const onScroll = () => setIsOnTop(window.scrollY === 0)
 
   useEffect(() => {
-    window.addEventListener("scroll", onScroll)
-    return () => window.removeEventListener("onScroll", onScroll)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('onScroll', onScroll)
   })
 
   return (
@@ -92,27 +92,27 @@ export default function Nav() {
 
           {!session?.userId ? (
             <Fab
-              className={`${!fullScreen && "ml-4"}`}
-              variant={fullScreen ? "circular" : "extended"}
+              className={`${!fullScreen && 'ml-4'}`}
+              variant={fullScreen ? 'circular' : 'extended'}
               onClick={toggleDrawer(setIsLoginMenuOpen, true)}
               aria-label="Se connecter"
-              size={fullScreen ? "small" : "large"}
+              size={fullScreen ? 'small' : 'large'}
               color="primary"
             >
               <LoginVariant />
-              {!fullScreen && "Se connecter"}
+              {!fullScreen && 'Se connecter'}
             </Fab>
           ) : (
             <Fab
-              className={`${!fullScreen && "ml-4"}`}
-              variant={fullScreen ? "circular" : "extended"}
-              onClick={pushRoute("/hub")}
+              className={`${!fullScreen && 'ml-4'}`}
+              variant={fullScreen ? 'circular' : 'extended'}
+              onClick={pushRoute('/hub')}
               aria-label="Mon compte"
-              size={fullScreen ? "small" : "large"}
+              size={fullScreen ? 'small' : 'large'}
               color="primary"
             >
               <AccountArrowRightOutline />
-              {!fullScreen && "Mon compte"}
+              {!fullScreen && 'Mon compte'}
             </Fab>
           )}
 
@@ -120,7 +120,7 @@ export default function Nav() {
             <Dialog
               open={isLoginMenuOpen}
               fullScreen={fullScreen}
-              PaperProps={{ className: "w-full" }}
+              PaperProps={{ className: 'w-full' }}
               onClose={toggleDrawer(setIsLoginMenuOpen, false)}
             >
               <DialogActions>

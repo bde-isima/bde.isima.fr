@@ -1,15 +1,15 @@
-import Tooltip from "@material-ui/core/Tooltip"
-import { Dispatch, SetStateAction } from "react"
-import TableRow from "@material-ui/core/TableRow"
-import Checkbox from "@material-ui/core/Checkbox"
-import TableCell from "@material-ui/core/TableCell"
-import IconButton from "@material-ui/core/IconButton"
+import Tooltip from '@material-ui/core/Tooltip'
+import { Dispatch, SetStateAction } from 'react'
+import TableRow from '@material-ui/core/TableRow'
+import Checkbox from '@material-ui/core/Checkbox'
+import TableCell from '@material-ui/core/TableCell'
+import IconButton from '@material-ui/core/IconButton'
 
-import ContentCopy from "mdi-material-ui/ContentCopy"
-import CircleEditOutline from "mdi-material-ui/CircleEditOutline"
+import ContentCopy from 'mdi-material-ui/ContentCopy'
+import CircleEditOutline from 'mdi-material-ui/CircleEditOutline'
 
-import { stableSort, getComparator } from "./sort"
-import { useTableProps } from "./TablePropsProvider"
+import { stableSort, getComparator } from './sort'
+import { useTableProps } from './TablePropsProvider'
 
 type TableCoreProps = {
   rows: any[]
@@ -82,7 +82,7 @@ export default function TableRows({
         <TableCell padding="checkbox">
           <Checkbox
             checked={isItemSelected}
-            inputProps={{ "aria-labelledby": labelId }}
+            inputProps={{ 'aria-labelledby': labelId }}
             color="default"
           />
         </TableCell>

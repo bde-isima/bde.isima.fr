@@ -1,11 +1,11 @@
-import { Fragment } from "react"
-import isValid from "date-fns/isValid"
-import { useInfiniteQuery } from "blitz"
-import Button from "@material-ui/core/Button"
-import { useTheme, useMediaQuery } from "@material-ui/core"
+import { Fragment } from 'react'
+import isValid from 'date-fns/isValid'
+import { useInfiniteQuery } from 'blitz'
+import Button from '@material-ui/core/Button'
+import { useTheme, useMediaQuery } from '@material-ui/core'
 
-import getTransactions from "app/entities/transactions/queries/getTransactions"
-import TransactionRow from "app/components/hub/transactions//display/TransactionRow"
+import getTransactions from 'app/entities/transactions/queries/getTransactions'
+import TransactionRow from 'app/components/hub/transactions//display/TransactionRow'
 
 type HistoryProps = {
   userId?: string
@@ -15,29 +15,27 @@ type HistoryProps = {
 
 export default function History({ userId, minDate, maxDate }: HistoryProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const AND =
     isValid(minDate) && isValid(maxDate)
       ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }]
       : []
 
-  const [
-    groupedTransactions,
-    { isFetching, isFetchingMore, fetchMore, canFetchMore },
-  ] = useInfiniteQuery(
-    getTransactions,
-    (
-      page = {
-        take: 10,
-        skip: 0,
+  const [groupedTransactions, { isFetching, isFetchingMore, fetchMore, canFetchMore }] =
+    useInfiniteQuery(
+      getTransactions,
+      (
+        page = {
+          take: 10,
+          skip: 0,
+        }
+      ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: 'desc' } }),
+      {
+        getFetchMore: (lastGroup) => lastGroup.nextPage,
+        enabled: Boolean(userId),
       }
-    ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: "desc" } }),
-    {
-      getFetchMore: (lastGroup) => lastGroup.nextPage,
-      enabled: Boolean(userId),
-    }
-  )
+    )
 
   return (
     <>
@@ -67,10 +65,10 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
         disabled={!canFetchMore || !!isFetchingMore}
       >
         {isFetching || isFetchingMore
-          ? "Chargement ..."
+          ? 'Chargement ...'
           : canFetchMore
-          ? "Charger plus"
-          : "Plus rien à charger"}
+          ? 'Charger plus'
+          : 'Plus rien à charger'}
       </Button>
     </>
   )

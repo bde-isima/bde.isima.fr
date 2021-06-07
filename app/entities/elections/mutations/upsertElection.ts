@@ -1,12 +1,12 @@
-import cuid from "cuid"
-import { resolver } from "blitz"
+import cuid from 'cuid'
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type UpsertElectionInput = Pick<Prisma.ElectionUpsertArgs, "where" | "create" | "update">
+type UpsertElectionInput = Pick<Prisma.ElectionUpsertArgs, 'where' | 'create' | 'update'>
 
 export default resolver.pipe(
-  resolver.authorize(["*"]),
+  resolver.authorize(['*']),
   async ({ where, create, update }: UpsertElectionInput) => {
     const [election, eligibleVoters] = await Promise.all([
       db.election.upsert({

@@ -1,27 +1,27 @@
-import Image from "next/image"
-import { useState } from "react"
-import Menu from "@material-ui/core/Menu"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import Divider from "@material-ui/core/Divider"
-import MenuItem from "@material-ui/core/MenuItem"
-import { useMutation, invalidateQuery } from "blitz"
-import Typography from "@material-ui/core/Typography"
+import Image from 'next/image'
+import { useState } from 'react'
+import Menu from '@material-ui/core/Menu'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import MenuItem from '@material-ui/core/MenuItem'
+import { useMutation, invalidateQuery } from 'blitz'
+import Typography from '@material-ui/core/Typography'
 
-import Plus from "mdi-material-ui/Plus"
+import Plus from 'mdi-material-ui/Plus'
 
-import { Event } from "db"
-import Snackbar from "app/layouts/Snackbar"
-import useSnackbar from "app/hooks/useSnackbar"
-import SubscriptionCard from "./SubscriptionCard"
-import { EventSubscriptionWithTypedCart } from "types"
-import AddSubscriptionDialog from "./add/AddSubscriptionDialog"
-import { AddSubscriptionInputType } from "app/components/forms/validations"
-import getEventSubscriptions from "app/entities/eventSubscriptions/queries/getEventSubscriptions"
-import createEventSubscription from "app/entities/eventSubscriptions/mutations/createEventSubscription"
-import updateEventSubscription from "app/entities/eventSubscriptions/mutations/updateEventSubscription"
-import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
-import SubscriptionForm from "app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm"
+import { Event } from 'db'
+import Snackbar from 'app/core/layouts/Snackbar'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import SubscriptionCard from './SubscriptionCard'
+import { EventSubscriptionWithTypedCart } from 'types'
+import AddSubscriptionDialog from './add/AddSubscriptionDialog'
+import { AddSubscriptionInputType } from 'app/components/forms/validations'
+import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
+import createEventSubscription from 'app/entities/eventSubscriptions/mutations/createEventSubscription'
+import updateEventSubscription from 'app/entities/eventSubscriptions/mutations/updateEventSubscription'
+import deleteEventSubscription from 'app/entities/eventSubscriptions/mutations/deleteEventSubscription'
+import SubscriptionForm from 'app/components/dashboard/clubs/dashboard/event/manager/list/SubscriptionForm'
 
 type SubscriptionsListProps = {
   event: Event
@@ -48,17 +48,17 @@ export default function SubscriptionsList({
   const onAddSuccess = async (data: AddSubscriptionInputType) => {
     await createSub({
       data: {
-        payment_method: "BDE",
+        payment_method: 'BDE',
         cart: [],
         event: { connect: { id: event?.id } },
         user: { connect: { id: data.subscriber.id } },
       },
     })
       .then(() => {
-        onShow("success", "Ajoutée")
+        onShow('success', 'Ajoutée')
         invalidateQuery(getEventSubscriptions)
       })
-      .catch((err) => onShow("error", err.message))
+      .catch((err) => onShow('error', err.message))
   }
 
   const onStopAdd = () => setIsAddSubscriptionOpen(false)
@@ -76,10 +76,10 @@ export default function SubscriptionsList({
       .then(() => {
         setSelected(null)
         setIsEditMode(false)
-        onShow("success", "Sauvegardée")
+        onShow('success', 'Sauvegardée')
         invalidateQuery(getEventSubscriptions)
       })
-      .catch((err) => onShow("error", err.message))
+      .catch((err) => onShow('error', err.message))
   }
 
   const onStopEdit = () => {
@@ -92,10 +92,10 @@ export default function SubscriptionsList({
     await deleteSub({ where: { id: selected?.id } })
       .then(() => {
         setSelected(null)
-        onShow("success", "Supprimée")
+        onShow('success', 'Supprimée')
         invalidateQuery(getEventSubscriptions)
       })
-      .catch((err) => onShow("error", err.message))
+      .catch((err) => onShow('error', err.message))
   }
 
   const onMenuClick = (target, subscription) => {

@@ -1,14 +1,14 @@
-import cuid from "cuid"
-import { resolver } from "blitz"
+import cuid from 'cuid'
+import { resolver } from 'blitz'
 
-import { mail } from "mail"
-import db, { Prisma } from "db"
-import { MAX_RAND, RandomInBetween } from "app/utils/math-utils"
+import { mail } from 'mail'
+import db, { Prisma } from 'db'
+import { MAX_RAND, RandomInBetween } from 'app/core/utils/math-utils'
 
-type UpsertUserInput = Pick<Prisma.UserUpsertArgs, "where" | "create" | "update">
+type UpsertUserInput = Pick<Prisma.UserUpsertArgs, 'where' | 'create' | 'update'>
 
 export default resolver.pipe(
-  resolver.authorize(["*"]),
+  resolver.authorize(['*']),
   async ({ where, create, update }: UpsertUserInput) => {
     const user = await db.user.findUnique({ where })
 
@@ -18,7 +18,7 @@ export default resolver.pipe(
 
       try {
         const token = cuid()
-        const subject = "Activation de ton compte BDE"
+        const subject = 'Activation de ton compte BDE'
         const inAWeek = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
 
         await Promise.all([
@@ -33,7 +33,7 @@ export default resolver.pipe(
           mail.send({
             subject,
             to: newUser.email,
-            view: "activation",
+            view: 'activation',
             variables: {
               subject,
               firstname: newUser.firstname,
@@ -84,7 +84,7 @@ async function generateCardNumber() {
   while (!card) {
     if (iteration > 2000) {
       //Prevent infinite loop
-      throw new Error("Could not generate card number")
+      throw new Error('Could not generate card number')
     }
 
     const tmp = parseInt(RandomInBetween(1, MAX_RAND).toString().substr(0, 4))

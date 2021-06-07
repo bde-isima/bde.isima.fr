@@ -1,8 +1,8 @@
-import Card from "@material-ui/core/Card"
-import Divider from "@material-ui/core/Divider"
-import Typography from "@material-ui/core/Typography"
+import Card from '@material-ui/core/Card'
+import Divider from '@material-ui/core/Divider'
+import Typography from '@material-ui/core/Typography'
 
-import { EventSubscriptionWithTypedCart, Option, CartItem } from "types"
+import { EventSubscriptionWithTypedCart, Option, CartItem } from 'types'
 
 type SubscriptionsAnalyticsProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]

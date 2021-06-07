@@ -1,11 +1,11 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type UpsertArticleInput = Pick<Prisma.ArticleUpsertArgs, "where" | "create" | "update">
+type UpsertArticleInput = Pick<Prisma.ArticleUpsertArgs, 'where' | 'create' | 'update'>
 
 export default resolver.pipe(
-  resolver.authorize(["*", "bde"]),
+  resolver.authorize(['*', 'bde']),
   async ({ where, create, update }: UpsertArticleInput, _: Ctx) => {
     return await db.article.upsert({ where, update, create })
   }

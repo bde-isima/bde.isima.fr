@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Fab from "@material-ui/core/Fab"
-import Grid from "@material-ui/core/Grid"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
+import Image from 'next/image'
+import Fab from '@material-ui/core/Fab'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
 
-import Link from "mdi-material-ui/Link"
+import Link from 'mdi-material-ui/Link'
 
 export default function School() {
   return (

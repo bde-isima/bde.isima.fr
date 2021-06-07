@@ -1,17 +1,17 @@
-import { TextField } from "mui-rff"
-import { useForm } from "react-final-form"
-import Divider from "@material-ui/core/Divider"
-import FormGroup from "@material-ui/core/FormGroup"
-import FormLabel from "@material-ui/core/FormLabel"
-import { FieldArray } from "react-final-form-arrays"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
-import FormControl from "@material-ui/core/FormControl"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import { TextField } from 'mui-rff'
+import { useForm } from 'react-final-form'
+import Divider from '@material-ui/core/Divider'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormLabel from '@material-ui/core/FormLabel'
+import { FieldArray } from 'react-final-form-arrays'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import FormControl from '@material-ui/core/FormControl'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-import Plus from "mdi-material-ui/Plus"
-import Close from "mdi-material-ui/Close"
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import Plus from 'mdi-material-ui/Plus'
+import Close from 'mdi-material-ui/Close'
+import OpenInNew from 'mdi-material-ui/OpenInNew'
 
 export default function CandidatesForm() {
   const form = useForm()
@@ -26,7 +26,7 @@ export default function CandidatesForm() {
         <Typography>Candidats</Typography>
         <IconButton
           className="m-2"
-          onClick={onAddItem("candidates")}
+          onClick={onAddItem('candidates')}
           aria-label="Ajouter un candidat"
           size="small"
         >
@@ -43,7 +43,7 @@ export default function CandidatesForm() {
             >
               <IconButton
                 className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
-                onClick={onDeleteItem("candidates", candidateIdx)}
+                onClick={onDeleteItem('candidates', candidateIdx)}
                 aria-label="Supprimer un candidat"
                 size="small"
               >
@@ -89,7 +89,7 @@ export default function CandidatesForm() {
               {(!fields.length || candidateIdx === fields.length - 1) && (
                 <IconButton
                   className="absolute bottom-0 right-0 transform-gpu translate-x-1/2 translate-y-1/2 bg-white border border-solid border-gray-200"
-                  onClick={onAddItem("candidates")}
+                  onClick={onAddItem('candidates')}
                   aria-label="Ajouter un candidat"
                   size="small"
                 >

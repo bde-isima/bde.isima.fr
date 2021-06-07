@@ -1,11 +1,11 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type DeleteManyElectionInput = Pick<Prisma.ElectionDeleteManyArgs, "where">
+type DeleteManyElectionInput = Pick<Prisma.ElectionDeleteManyArgs, 'where'>
 
 export default resolver.pipe(
-  resolver.authorize(["*"]),
+  resolver.authorize(['*']),
   async ({ where }: DeleteManyElectionInput) => {
     return await Promise.all([
       db.voteRequest.deleteMany({

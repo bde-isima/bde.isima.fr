@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Skeleton from "@material-ui/core/Skeleton"
-import ImageListItem from "@material-ui/core/ImageListItem"
-import ImageListItemBar from "@material-ui/core/ImageListItemBar"
+import Image from 'next/image'
+import Skeleton from '@material-ui/core/Skeleton'
+import ImageListItem from '@material-ui/core/ImageListItem'
+import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 
-import { Article } from "db"
+import { Article } from 'db'
 
 type MarketItemProps = {
   article?: Article | null

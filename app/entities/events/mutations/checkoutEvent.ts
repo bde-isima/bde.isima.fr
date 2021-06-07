@@ -1,13 +1,13 @@
-import { resolver } from "blitz"
-import { format } from "date-fns"
+import { resolver } from 'blitz'
+import { format } from 'date-fns'
 
-import db, { Prisma } from "db"
-import { CartItem, Option } from "types"
+import db, { Prisma } from 'db'
+import { CartItem, Option } from 'types'
 
-type UpdateEventInput = Pick<Prisma.EventUpdateArgs, "where">
+type UpdateEventInput = Pick<Prisma.EventUpdateArgs, 'where'>
 
 export default resolver.pipe(
-  resolver.authorize(["*", "bde"]),
+  resolver.authorize(['*', 'bde']),
   async ({ where }: UpdateEventInput) => {
     const event = await db.event.findUnique({ where, rejectOnNotFound: true })
 
@@ -18,7 +18,7 @@ export default resolver.pipe(
 
     const transactionsAndUsers = await Promise.all(
       eventSubscriptions.map((s) => {
-        if (s.payment_method === "BDE") {
+        if (s.payment_method === 'BDE') {
           //Compute total amount
           const amount = (s as any).cart.reduce((acc: number, val: CartItem) => {
             return (
@@ -35,8 +35,8 @@ export default resolver.pipe(
               db.transaction.create({
                 data: {
                   amount,
-                  description: `${format(event?.takes_place_at, "dd/MM/yyyy")} - ${event.name}`,
-                  type: "DEBIT",
+                  description: `${format(event?.takes_place_at, 'dd/MM/yyyy')} - ${event.name}`,
+                  type: 'DEBIT',
                   user: { connect: { id: s.userId } },
                   prevBalance: s.user.balance,
                 },
@@ -56,7 +56,7 @@ export default resolver.pipe(
 
     const newEvent = await db.event.update({
       where,
-      data: { status: "CHECKED_OUT" },
+      data: { status: 'CHECKED_OUT' },
     })
 
     return {

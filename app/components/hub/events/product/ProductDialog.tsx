@@ -1,28 +1,28 @@
-import { useState, useEffect } from "react"
-import Button from "@material-ui/core/Button"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
+import { useState, useEffect } from 'react'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import { useTheme, useMediaQuery } from '@material-ui/core'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
 
-import CartPlus from "mdi-material-ui/CartPlus"
-import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
-import MinusCircleOutline from "mdi-material-ui/MinusCircleOutline"
+import CartPlus from 'mdi-material-ui/CartPlus'
+import PlusCircleOutline from 'mdi-material-ui/PlusCircleOutline'
+import MinusCircleOutline from 'mdi-material-ui/MinusCircleOutline'
 
-import ProductComment from "app/components/hub/events/product/ProductComment"
-import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from "types"
-import ProductGroupOption from "app/components/hub/events/product/ProductGroupOption"
-import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
+import ProductComment from 'app/components/hub/events/product/ProductComment'
+import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from 'types'
+import ProductGroupOption from 'app/components/hub/events/product/ProductGroupOption'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 
 type ProductGroupOptionProps = {
   product: Product
   onClose: () => void
 }
 
-const types = ["exclusive", "combinable"]
+const types = ['exclusive', 'combinable']
 
 export default function ProductDialog({ product, onClose }: ProductGroupOptionProps) {
   const [total, setTotal] = useState(0)
@@ -32,7 +32,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   const onQuantityChange = (value: number) => () => {
     if (quantity + value > 0) {

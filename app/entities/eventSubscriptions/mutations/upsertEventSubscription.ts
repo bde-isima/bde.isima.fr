@@ -1,7 +1,7 @@
 import { resolver } from "blitz"
 
 import db, { Prisma } from "db"
-import { assertArrayNonEmpty } from "app/utils/assert"
+import { assertArrayNonEmpty } from "app/core/utils/assert"
 
 type upsertEventSubscriptionInput = Pick<
   Prisma.EventSubscriptionUpsertArgs,

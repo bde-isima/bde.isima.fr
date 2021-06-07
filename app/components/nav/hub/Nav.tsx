@@ -1,17 +1,17 @@
-import Link from "next/link"
-import Image from "next/image"
-import { useState } from "react"
-import AppBar from "@material-ui/core/AppBar"
-import Hidden from "@material-ui/core/Hidden"
-import Toolbar from "@material-ui/core/Toolbar"
-import IconButton from "@material-ui/core/IconButton"
+import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Hidden from '@material-ui/core/Hidden'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
 
-import Menu from "mdi-material-ui/Menu"
+import Menu from 'mdi-material-ui/Menu'
 
-import Mobile from "./Mobile"
-import Desktop from "./Desktop"
-import AvatarMenu from "app/components/nav/hub/submenus/AvatarMenu"
-import ModulesMenu from "app/components/nav/hub/submenus/ModulesMenu"
+import Mobile from './Mobile'
+import Desktop from './Desktop'
+import AvatarMenu from 'app/components/nav/hub/submenus/AvatarMenu'
+import ModulesMenu from 'app/components/nav/hub/submenus/ModulesMenu'
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false)

@@ -1,8 +1,8 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type GetCurrentUserInput = Pick<Prisma.UserFindUniqueArgs, "include">
+type GetCurrentUserInput = Pick<Prisma.UserFindUniqueArgs, 'include'>
 
 export default resolver.pipe(
   resolver.authorize(),

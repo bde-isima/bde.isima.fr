@@ -1,13 +1,13 @@
-import { useMutation } from "blitz"
-import Paper from "@material-ui/core/Paper"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
+import { useMutation } from 'blitz'
+import Paper from '@material-ui/core/Paper'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
 
-import Snackbar from "app/layouts/Snackbar"
-import useSnackbar from "app/hooks/useSnackbar"
-import contact from "app/entities/users/mutations/contact"
-import { ContactInputType } from "app/components/forms/validations"
-import ContactForm from "app/components/public/contact/ContactForm"
+import Snackbar from 'app/core/layouts/Snackbar'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import contact from 'app/entities/users/mutations/contact'
+import { ContactInputType } from 'app/components/forms/validations'
+import ContactForm from 'app/components/public/contact/ContactForm'
 
 export default function Contact() {
   const { open, message, severity, onShow, onClose } = useSnackbar()
@@ -16,8 +16,8 @@ export default function Contact() {
 
   const onSuccess = async (data: ContactInputType) => {
     await sendContact(data)
-      .then(() => onShow("success", "Envoyé"))
-      .catch((err) => onShow("error", err.message))
+      .then(() => onShow('success', 'Envoyé'))
+      .catch((err) => onShow('error', err.message))
   }
 
   return (

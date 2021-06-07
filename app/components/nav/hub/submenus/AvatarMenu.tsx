@@ -1,22 +1,21 @@
-import Link from "next/link"
-import Image from "next/image"
-import { useState } from "react"
-import { useMutation } from "blitz"
-import Menu from "@material-ui/core/Menu"
-import Avatar from "@material-ui/core/Avatar"
-import Divider from "@material-ui/core/Divider"
-import MenuItem from "@material-ui/core/MenuItem"
-import Typography from "@material-ui/core/Typography"
+import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
+import Menu from '@material-ui/core/Menu'
+import Avatar from '@material-ui/core/Avatar'
+import Divider from '@material-ui/core/Divider'
+import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import { useMutation, useAuthenticatedSession } from 'blitz'
 
-import Logout from "mdi-material-ui/Logout"
-import CogOutline from "mdi-material-ui/CogOutline"
-import MessageAlertOutline from "mdi-material-ui/MessageAlertOutline"
+import Logout from 'mdi-material-ui/Logout'
+import CogOutline from 'mdi-material-ui/CogOutline'
+import MessageAlertOutline from 'mdi-material-ui/MessageAlertOutline'
 
-import logout from "app/entities/auth/mutations/logout"
-import { useBDESession } from "app/components/auth/SessionProvider"
+import logout from 'app/entities/auth/mutations/logout'
 
 export default function ModulesMenu() {
-  const session = useBDESession()
+  const session = useAuthenticatedSession()
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
@@ -51,8 +50,8 @@ export default function ModulesMenu() {
         open={isOpen}
         onClose={handleClose}
         getContentAnchorEl={null}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         MenuListProps={{ disablePadding: true }}
         PaperProps={{
           style: {

@@ -1,9 +1,9 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type DeleteManyUserInput = Pick<Prisma.UserDeleteManyArgs, "where">
+type DeleteManyUserInput = Pick<Prisma.UserDeleteManyArgs, 'where'>
 
-export default resolver.pipe(resolver.authorize(["*"]), async ({ where }: DeleteManyUserInput) => {
+export default resolver.pipe(resolver.authorize(['*']), async ({ where }: DeleteManyUserInput) => {
   return await db.user.deleteMany({ where })
 })

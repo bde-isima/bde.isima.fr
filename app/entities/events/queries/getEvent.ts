@@ -1,8 +1,8 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma, PaymentMethod } from "db"
+import db, { Prisma, PaymentMethod } from 'db'
 
-type FindUniqueEventInput = Pick<Prisma.EventFindUniqueArgs, "where" | "include">
+type FindUniqueEventInput = Pick<Prisma.EventFindUniqueArgs, 'where' | 'include'>
 
 export default resolver.pipe(
   resolver.authorize(),

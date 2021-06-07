@@ -1,8 +1,8 @@
-import { Ctx, resolver } from "blitz"
+import { Ctx, resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type UpdateEventSubscriptionInput = Pick<Prisma.EventSubscriptionUpdateArgs, "where" | "data">
+type UpdateEventSubscriptionInput = Pick<Prisma.EventSubscriptionUpdateArgs, 'where' | 'data'>
 
 export default resolver.pipe(async ({ where, data }: UpdateEventSubscriptionInput, ctx: Ctx) => {
   const eventSubscription = await db.eventSubscription.findUnique({
@@ -11,7 +11,7 @@ export default resolver.pipe(async ({ where, data }: UpdateEventSubscriptionInpu
     rejectOnNotFound: true,
   })
 
-  ctx.session.$authorize(["*", "bde", eventSubscription.event.club.name])
+  ctx.session.$authorize(['*', 'bde', eventSubscription.event.club.name])
 
   return await db.eventSubscription.update({ where, data })
 })

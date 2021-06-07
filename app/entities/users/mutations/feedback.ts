@@ -1,6 +1,6 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import { mail } from "mail"
+import { mail } from 'mail'
 
 type FeedbackInput = {
   subject: string
@@ -15,7 +15,7 @@ export default resolver.pipe(
       await mail.send({
         subject: from,
         to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
-        view: "feedback",
+        view: 'feedback',
         variables: {
           subject: from,
           message,

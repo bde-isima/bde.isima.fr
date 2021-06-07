@@ -1,12 +1,12 @@
-import Image from "next/image"
-import { TextField } from "mui-rff"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
+import Image from 'next/image'
+import { TextField } from 'mui-rff'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
-import { PaymentMethod } from "./TopUp"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { TopUpInput, TopUpInputType } from "app/components/forms/validations"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
+import { PaymentMethod } from './TopUp'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { TopUpInput, TopUpInputType } from 'app/components/forms/validations'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void
@@ -19,7 +19,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
@@ -31,7 +31,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       schema={TopUpInput}
       initialValues={{
         amount: 5,
-        recipient: process.env.NODE_ENV === "development" ? "+33621491838" : undefined,
+        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -45,7 +45,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       <TextField type="tel" name="recipient" label="Numéro de téléphone" />
 
       <div className="flex justify-center">
-        <Button onClick={props.beforeSubmit("cb")}>
+        <Button onClick={props.beforeSubmit('cb')}>
           <Image
             src="/static/images/logos/mastercard.svg"
             width={100}
@@ -54,7 +54,7 @@ export default function TopUpForm(props: TopUpFormProps) {
           />
         </Button>
 
-        <Button onClick={props.beforeSubmit("lydia")}>
+        <Button onClick={props.beforeSubmit('lydia')}>
           <Image src="/static/images/logos/lydia.svg" width={100} height={25} alt="Lydia logo" />
         </Button>
       </div>

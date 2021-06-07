@@ -1,26 +1,26 @@
-import { TextField } from "mui-rff"
-import { useRouter } from "next/router"
-import Tab from "@material-ui/core/Tab"
-import { Field } from "react-final-form"
-import frLocale from "date-fns/locale/fr"
-import { useMemo, useState } from "react"
-import { useTheme } from "@material-ui/core"
-import AppBar from "@material-ui/core/AppBar"
-import arrayMutators from "final-form-arrays"
-import TabList from "@material-ui/lab/TabList"
-import Divider from "@material-ui/core/Divider"
-import TabPanel from "@material-ui/lab/TabPanel"
-import TabContext from "@material-ui/lab/TabContext"
-import MuiTextField from "@material-ui/core/TextField"
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
-import DateTimePicker from "@material-ui/lab/DateTimePicker"
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
+import { TextField } from 'mui-rff'
+import { useRouter } from 'next/router'
+import Tab from '@material-ui/core/Tab'
+import { Field } from 'react-final-form'
+import frLocale from 'date-fns/locale/fr'
+import { useMemo, useState } from 'react'
+import { useTheme } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import arrayMutators from 'final-form-arrays'
+import TabList from '@material-ui/lab/TabList'
+import Divider from '@material-ui/core/Divider'
+import TabPanel from '@material-ui/lab/TabPanel'
+import TabContext from '@material-ui/lab/TabContext'
+import MuiTextField from '@material-ui/core/TextField'
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
+import DateTimePicker from '@material-ui/lab/DateTimePicker'
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
 
-import { Event } from "db"
-import ProductsForm from "./ProductsForm"
-import GroupOptionsForm from "./GroupOptionsForm"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { EventInput, EventInputType } from "app/components/forms/validations"
+import { Event } from 'db'
+import ProductsForm from './ProductsForm'
+import GroupOptionsForm from './GroupOptionsForm'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { EventInput, EventInputType } from 'app/components/forms/validations'
 
 type ClubEventFormProps = {
   initialValues: Event | null
@@ -31,7 +31,7 @@ type ClubEventFormProps = {
 export default function ClubEventForm(props: ClubEventFormProps) {
   const theme = useTheme()
   const router = useRouter()
-  const [value, setValue] = useState("0")
+  const [value, setValue] = useState('0')
 
   const handleChange = (_, newValue: string) => setValue(newValue)
 
@@ -43,7 +43,7 @@ export default function ClubEventForm(props: ClubEventFormProps) {
       })
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
@@ -57,7 +57,7 @@ export default function ClubEventForm(props: ClubEventFormProps) {
       description: props.initialValues?.description,
       takes_place_at: new Date(props.initialValues?.takes_place_at ?? new Date()),
       subscriptions_end_at: new Date(props.initialValues?.subscriptions_end_at ?? new Date()),
-      status: props.initialValues?.status || "WAITING_APPROVAL",
+      status: props.initialValues?.status || 'WAITING_APPROVAL',
       max_subscribers: props.initialValues?.max_subscribers?.toString(),
       club: { connect: { name: `${router.query.name}` } },
       products: props.initialValues?.products
@@ -97,8 +97,8 @@ export default function ClubEventForm(props: ClubEventFormProps) {
           <TabList
             onChange={handleChange}
             variant="fullWidth"
-            textColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
-            indicatorColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
+            textColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
+            indicatorColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
             aria-label="Nav"
           >
             <Tab label="Infos" value="0" />

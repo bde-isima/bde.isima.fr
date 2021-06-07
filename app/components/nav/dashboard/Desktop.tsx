@@ -1,22 +1,22 @@
-import Link from "next/link"
-import Tab from "@material-ui/core/Tab"
-import List from "@material-ui/core/List"
-import { useTheme } from "@material-ui/core"
-import AppBar from "@material-ui/core/AppBar"
-import Button from "@material-ui/core/Button"
-import Drawer from "@material-ui/core/Drawer"
-import Hidden from "@material-ui/core/Hidden"
-import TabList from "@material-ui/lab/TabList"
-import TabPanel from "@material-ui/lab/TabPanel"
-import ListItem from "@material-ui/core/ListItem"
-import TabContext from "@material-ui/lab/TabContext"
-import { cloneElement, useMemo, useState } from "react"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import Link from 'next/link'
+import Tab from '@material-ui/core/Tab'
+import List from '@material-ui/core/List'
+import { useTheme } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import Button from '@material-ui/core/Button'
+import Drawer from '@material-ui/core/Drawer'
+import Hidden from '@material-ui/core/Hidden'
+import TabList from '@material-ui/lab/TabList'
+import TabPanel from '@material-ui/lab/TabPanel'
+import ListItem from '@material-ui/core/ListItem'
+import TabContext from '@material-ui/lab/TabContext'
+import { cloneElement, useMemo, useState } from 'react'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 
-import { useBDEConfig } from "./useBDEConfig"
-import { useClubsConfig } from "./useClubsConfig"
-import { useCustomRouter } from "app/hooks/useCustomRouter"
+import { useBDEConfig } from './useBDEConfig'
+import { useClubsConfig } from './useClubsConfig'
+import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 
 export default function Desktop() {
   const bdeConfig = useBDEConfig()
@@ -37,21 +37,21 @@ export default function Desktop() {
           return (
             <Link key={obj.text} href={obj.to}>
               <Button
-                className={`${isActive && "bg-primary"} w-11/12 rounded-full my-1`}
-                variant={isActive ? "contained" : "text"}
+                className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
+                variant={isActive ? 'contained' : 'text'}
                 size="small"
               >
                 <ListItem dense disableGutters>
                   <ListItemIcon>
                     {cloneElement(obj.icon, {
-                      className: `${isActive ? "text-white" : undefined} rounded-full`,
+                      className: `${isActive ? 'text-white' : undefined} rounded-full`,
                     })}
                   </ListItemIcon>
 
                   <ListItemText
                     secondary={obj.text}
                     secondaryTypographyProps={{
-                      color: isActive ? "secondary" : "textPrimary",
+                      color: isActive ? 'secondary' : 'textPrimary',
                       noWrap: true,
                     }}
                   />
@@ -65,23 +65,23 @@ export default function Desktop() {
 
   return (
     <Hidden smDown>
-      <Drawer open classes={{ paper: "w-60 z-50 mt-16" }} variant="permanent">
+      <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
         <TabContext value={value}>
           <AppBar position="static" color="inherit" elevation={0}>
             <TabList
               onChange={handleChange}
-              textColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
-              indicatorColor={theme.palette.mode === "dark" ? "secondary" : "primary"}
+              textColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
+              indicatorColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
               aria-label="Nav"
             >
               <Tab
-                classes={{ root: "min-w-1/2" }}
+                classes={{ root: 'min-w-1/2' }}
                 label="BDE"
                 value="0"
                 disabled={!bdeConfig.length}
               />
               <Tab
-                classes={{ root: "min-w-1/2" }}
+                classes={{ root: 'min-w-1/2' }}
                 label="Clubs"
                 value="1"
                 disabled={!clubsConfig.length}

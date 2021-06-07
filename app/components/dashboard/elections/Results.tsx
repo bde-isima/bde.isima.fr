@@ -1,20 +1,20 @@
-import NoSsr from "@material-ui/core/NoSsr"
-import { useTheme } from "@material-ui/core"
-import Dialog from "@material-ui/core/Dialog"
-import Divider from "@material-ui/core/Divider"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogActions from "@material-ui/core/DialogActions"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import NoSsr from '@material-ui/core/NoSsr'
+import { useTheme } from '@material-ui/core'
+import Dialog from '@material-ui/core/Dialog'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import Close from "mdi-material-ui/Close"
+import Close from 'mdi-material-ui/Close'
 
-import SlideTransition from "app/layouts/SlideTransition"
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function Results({ results, onClose }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <NoSsr>
@@ -23,7 +23,7 @@ export default function Results({ results, onClose }) {
         onClose={onClose}
         keepMounted
         fullScreen={fullScreen}
-        PaperProps={{ className: "w-full" }}
+        PaperProps={{ className: 'w-full' }}
         TransitionComponent={SlideTransition}
       >
         <DialogActions>
