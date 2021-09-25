@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { TextField } from 'mui-rff'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 
 import OpenInNew from 'mdi-material-ui/OpenInNew'
 
@@ -71,7 +71,7 @@ export default function ClubForm(props: ClubFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-              >
+                size="large">
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -90,5 +90,5 @@ export default function ClubForm(props: ClubFormProps) {
       <TextField type="text" name="instagramURL" label="Instagram" />
       <TextField type="text" name="customURL" label="Site web" />
     </Form>
-  )
+  );
 }

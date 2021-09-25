@@ -1,5 +1,5 @@
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
+import Card from '@mui/material/Card'
+import CardActionArea from '@mui/material/CardActionArea'
 
 import Discord from 'mdi-material-ui/Discord'
 

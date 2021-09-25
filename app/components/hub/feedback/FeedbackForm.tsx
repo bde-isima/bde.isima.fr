@@ -1,5 +1,5 @@
 import { TextField, Select } from 'mui-rff'
-import MenuItem from '@material-ui/core/MenuItem'
+import MenuItem from '@mui/material/MenuItem'
 
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import { FeedbackInput, FeedbackInputType } from 'app/components/forms/validations'

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { TextField, Switches } from 'mui-rff'
-import IconButton from '@material-ui/core/IconButton'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 
 import OpenInNew from 'mdi-material-ui/OpenInNew'
 
@@ -68,7 +68,7 @@ export default function ArticleForm(props: ArticleFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-              >
+                size="large">
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -87,5 +87,5 @@ export default function ArticleForm(props: ArticleFormProps) {
 
       <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
     </Form>
-  )
+  );
 }

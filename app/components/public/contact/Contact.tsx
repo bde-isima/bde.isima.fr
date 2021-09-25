@@ -1,7 +1,7 @@
 import { useMutation } from 'blitz'
-import Paper from '@material-ui/core/Paper'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
+import Paper from '@mui/material/Paper'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
 
 import Snackbar from 'app/core/layouts/Snackbar'
 import useSnackbar from 'app/entities/hooks/useSnackbar'

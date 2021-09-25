@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import Paper from '@material-ui/core/Paper'
-import { useTheme } from '@material-ui/core'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import Paper from '@mui/material/Paper'
+import { useTheme } from '@mui/material'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function Landing() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   return (
     <Paper className="min-h-main relative">

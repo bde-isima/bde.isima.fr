@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { useQuery } from 'blitz'
-import Badge from '@material-ui/core/Badge'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import Badge from '@mui/material/Badge'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
 
 import CrownOutline from 'mdi-material-ui/CrownOutline'
 

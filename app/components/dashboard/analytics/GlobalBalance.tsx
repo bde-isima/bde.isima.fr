@@ -1,6 +1,6 @@
 import { useQuery } from 'blitz'
-import { useTheme } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
+import { useTheme } from '@mui/material'
+import Typography from '@mui/material/Typography'
 import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from 'victory'
 
 import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance'

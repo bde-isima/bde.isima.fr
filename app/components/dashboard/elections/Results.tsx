@@ -1,12 +1,12 @@
-import NoSsr from '@material-ui/core/NoSsr'
-import { useTheme } from '@material-ui/core'
-import Dialog from '@material-ui/core/Dialog'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogActions from '@material-ui/core/DialogActions'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import NoSsr from '@mui/material/NoSsr'
+import { useTheme } from '@mui/material'
+import Dialog from '@mui/material/Dialog'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import Close from 'mdi-material-ui/Close'
 
@@ -14,7 +14,7 @@ import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function Results({ results, onClose }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   return (
     <NoSsr>
@@ -27,7 +27,7 @@ export default function Results({ results, onClose }) {
         TransitionComponent={SlideTransition}
       >
         <DialogActions>
-          <IconButton onClick={onClose} aria-label="Fermer">
+          <IconButton onClick={onClose} aria-label="Fermer" size="large">
             <Close />
           </IconButton>
         </DialogActions>
@@ -47,5 +47,5 @@ export default function Results({ results, onClose }) {
         </DialogContent>
       </Dialog>
     </NoSsr>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import { Children } from 'react'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import { ServerStyleSheets } from '@material-ui/core/styles'
+import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
 import createEmotionServer from '@emotion/server/create-instance'
 import { Document, Html, DocumentHead, Main, BlitzScript, DocumentContext } from 'blitz'
 

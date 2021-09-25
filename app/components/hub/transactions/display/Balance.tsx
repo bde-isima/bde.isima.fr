@@ -2,8 +2,8 @@ import { useQuery } from 'blitz'
 import Typography, {
   TypographyPropsVariantOverrides,
   TypographyVariantDefaults,
-} from '@material-ui/core/Typography'
-import { OverridableStringUnion } from '@material-ui/types'
+} from '@mui/material/Typography'
+import { OverridableStringUnion } from '@mui/types'
 
 type BalanceProps = {
   getQuery: any

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
 
 import PageTitle from 'app/core/layouts/PageTitle'
 import ArticlesStats from 'app/components/dashboard/analytics/ArticlesStats'

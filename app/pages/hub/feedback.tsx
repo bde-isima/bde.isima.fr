@@ -1,6 +1,6 @@
-import Paper from '@material-ui/core/Paper'
-import NoSsr from '@material-ui/core/NoSsr'
-import Typography from '@material-ui/core/Typography'
+import Paper from '@mui/material/Paper'
+import NoSsr from '@mui/material/NoSsr'
+import Typography from '@mui/material/Typography'
 import { useMutation, useAuthenticatedSession } from 'blitz'
 
 import Snackbar from 'app/core/layouts/Snackbar'

@@ -1,6 +1,6 @@
 import { useField, FieldProps } from 'react-final-form'
 import { ShowErrorFunc, showErrorOnChange } from 'mui-rff'
-import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from '@material-ui/core'
+import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from '@mui/material'
 
 export type EnhancedTextFieldProps = Partial<Omit<MuiTextFieldProps, 'type' | 'onChange'>> & {
   name: string

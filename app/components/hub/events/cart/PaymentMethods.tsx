@@ -1,7 +1,7 @@
-import Button from '@material-ui/core/Button'
-import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import ButtonGroup from '@mui/material/ButtonGroup'
 
 import Cellphone from 'mdi-material-ui/Cellphone'
 import CardBulleted from 'mdi-material-ui/CardBulleted'

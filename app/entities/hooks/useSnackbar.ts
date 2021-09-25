@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Color } from '@material-ui/core/Alert'
+import { Color } from '@mui/material/Alert'
 
 export default function useSnackbar() {
   const [open, setOpen] = useState(false)

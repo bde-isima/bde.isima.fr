@@ -1,10 +1,10 @@
-import Typography from '@material-ui/core/Typography'
-import TimelineDot from '@material-ui/lab/TimelineDot'
-import TimelineItem from '@material-ui/lab/TimelineItem'
-import TimelineContent from '@material-ui/lab/TimelineContent'
-import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
-import TimelineConnector from '@material-ui/lab/TimelineConnector'
-import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent'
+import Typography from '@mui/material/Typography'
+import TimelineDot from '@mui/lab/TimelineDot'
+import TimelineItem from '@mui/lab/TimelineItem'
+import TimelineContent from '@mui/lab/TimelineContent'
+import TimelineSeparator from '@mui/lab/TimelineSeparator'
+import TimelineConnector from '@mui/lab/TimelineConnector'
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 
 export default function HowItWorksItem({ leftText, ItemIcon, title, rightText }) {
   return (

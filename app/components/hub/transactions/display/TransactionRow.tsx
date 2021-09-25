@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import { format } from 'date-fns'
-import Tooltip from '@material-ui/core/Tooltip'
-import Skeleton from '@material-ui/core/Skeleton'
-import Typography from '@material-ui/core/Typography'
-import Grid, { GridSize } from '@material-ui/core/Grid'
+import Tooltip from '@mui/material/Tooltip'
+import Skeleton from '@mui/material/Skeleton'
+import Typography from '@mui/material/Typography'
+import Grid, { GridSize } from '@mui/material/Grid'
 
 import TrendingUp from 'mdi-material-ui/TrendingUp'
 import TrendingDown from 'mdi-material-ui/TrendingDown'

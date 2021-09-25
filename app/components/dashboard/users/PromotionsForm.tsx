@@ -1,6 +1,6 @@
 import { useQuery } from 'blitz'
 import { Select } from 'mui-rff'
-import MenuItem from '@material-ui/core/MenuItem'
+import MenuItem from '@mui/material/MenuItem'
 
 import getPromotions from 'app/entities/promotions/queries/getPromotions'
 

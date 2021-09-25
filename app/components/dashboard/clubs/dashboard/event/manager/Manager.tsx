@@ -1,17 +1,17 @@
 import { useQuery } from 'blitz'
-import NoSsr from '@material-ui/core/NoSsr'
-import Dialog from '@material-ui/core/Dialog'
-import TabContext from '@material-ui/lab/TabContext'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import { useTheme, useMediaQuery } from '@material-ui/core'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import TabContext from '@mui/lab/TabContext'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import { useTheme, useMediaQuery } from '@mui/material'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useState, Suspense, unstable_SuspenseList, lazy } from 'react'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
 import Close from 'mdi-material-ui/Close'
 import Finance from 'mdi-material-ui/Finance'
@@ -31,7 +31,7 @@ export default function Manager({ open, event, onClose }) {
   const [value, setValue] = useState(0)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const [data]: any = useQuery(
     getEventSubscriptions,
@@ -52,12 +52,16 @@ export default function Manager({ open, event, onClose }) {
           aria-labelledby="manager-dialog-title"
           aria-describedby="manager-dialog-description"
         >
-          <DialogTitle className="flex items-center" id="manager-dialog-title" disableTypography>
+          <DialogTitle className="flex items-center" id="manager-dialog-title">
             <Typography variant="h6" color="inherit">
               Manager d'évènements
             </Typography>
 
-            <IconButton className="ml-auto" onClick={onClose} aria-label="Fermer le manager">
+            <IconButton
+              className="ml-auto"
+              onClick={onClose}
+              aria-label="Fermer le manager"
+              size="large">
               <Close />
             </IconButton>
           </DialogTitle>
@@ -99,5 +103,5 @@ export default function Manager({ open, event, onClose }) {
         </Dialog>
       </TabContext>
     </NoSsr>
-  )
+  );
 }

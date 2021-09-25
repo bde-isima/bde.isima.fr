@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import Fab from '@material-ui/core/Fab'
-import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
+import Fab from '@mui/material/Fab'
+import Grid from '@mui/material/Grid'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
 
 import Link from 'mdi-material-ui/Link'
 

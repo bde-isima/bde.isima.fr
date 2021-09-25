@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Hidden from '@material-ui/core/Hidden'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
+import AppBar from '@mui/material/AppBar'
+import Hidden from '@mui/material/Hidden'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
 
 import Menu from 'mdi-material-ui/Menu'
 
@@ -29,13 +29,13 @@ export default function Nav() {
               className="text-primary dark:text-secondary"
               aria-label="Menu"
               onClick={toggleDrawer(true)}
-            >
+              size="large">
               <Menu />
             </IconButton>
           </div>
         </Hidden>
 
-        <Hidden mdDown>
+        <Hidden lgDown>
           <Link href="/" passHref>
             <div className="flex mr-4">
               <Image
@@ -57,5 +57,5 @@ export default function Nav() {
         <AvatarMenu />
       </Toolbar>
     </AppBar>
-  )
+  );
 }

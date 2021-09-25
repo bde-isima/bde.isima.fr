@@ -1,7 +1,7 @@
 import { forwardRef, SyntheticEvent } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import MuiAlert, { AlertProps, Color } from '@material-ui/core/Alert'
-import MuiSnackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar'
+import IconButton from '@mui/material/IconButton'
+import MuiAlert, { AlertProps, Color } from '@mui/material/Alert'
+import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar'
 
 import Undo from 'mdi-material-ui/Undo'
 import Close from 'mdi-material-ui/Close'

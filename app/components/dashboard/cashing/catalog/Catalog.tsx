@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from 'blitz'
-import { useTheme } from '@material-ui/core'
+import { useTheme } from '@mui/material'
 import { VariableSizeGrid } from 'react-window'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from 'react'
 
 import Article from './Article'
@@ -45,7 +45,7 @@ const innerElementType = forwardRef(
 
 export default function Catalog({ user, onTransactionComplete }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const [loading, setLoading] = useState(false)
   const [previousTransaction, setPreviousTransaction] = useState<string | null>(null)

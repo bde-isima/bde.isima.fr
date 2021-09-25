@@ -1,18 +1,18 @@
 import Link from 'next/link'
-import Tab from '@material-ui/core/Tab'
-import List from '@material-ui/core/List'
-import { useTheme } from '@material-ui/core'
-import AppBar from '@material-ui/core/AppBar'
-import Button from '@material-ui/core/Button'
-import Drawer from '@material-ui/core/Drawer'
-import Hidden from '@material-ui/core/Hidden'
-import TabList from '@material-ui/lab/TabList'
-import TabPanel from '@material-ui/lab/TabPanel'
-import ListItem from '@material-ui/core/ListItem'
-import TabContext from '@material-ui/lab/TabContext'
+import Tab from '@mui/material/Tab'
+import List from '@mui/material/List'
+import { useTheme } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Button from '@mui/material/Button'
+import Drawer from '@mui/material/Drawer'
+import Hidden from '@mui/material/Hidden'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import ListItem from '@mui/material/ListItem'
+import TabContext from '@mui/lab/TabContext'
 import { cloneElement, useMemo, useState } from 'react'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 
 import { useBDEConfig } from './useBDEConfig'
 import { useClubsConfig } from './useClubsConfig'
@@ -64,7 +64,7 @@ export default function Desktop() {
     )
 
   return (
-    <Hidden smDown>
+    <Hidden mdDown>
       <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
         <TabContext value={value}>
           <AppBar position="static" color="inherit" elevation={0}>
@@ -107,5 +107,5 @@ export default function Desktop() {
         </TabContext>
       </Drawer>
     </Hidden>
-  )
+  );
 }

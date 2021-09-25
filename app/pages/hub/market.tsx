@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
-import { useTheme } from '@material-ui/core'
-import Divider from '@material-ui/core/Divider'
-import ImageList from '@material-ui/core/ImageList'
-import Typography from '@material-ui/core/Typography'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import ImageList from '@mui/material/ImageList'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import PageTitle from 'app/core/layouts/PageTitle'
 import Market from 'app/components/hub/market/Market'
@@ -11,7 +11,7 @@ import MarketItem from 'app/components/hub/market/MarketItem'
 
 export default function MarketIndex() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const FallbackComponent = [...Array(20).keys()].map((x) => <MarketItem key={x} isLoading />)
 

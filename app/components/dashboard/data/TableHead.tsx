@@ -1,8 +1,8 @@
-import Checkbox from '@material-ui/core/Checkbox'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
-import MUITableHead from '@material-ui/core/TableHead'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import Checkbox from '@mui/material/Checkbox'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import MUITableHead from '@mui/material/TableHead'
+import TableSortLabel from '@mui/material/TableSortLabel'
 
 type TableHeadProps = {
   columns: any[]

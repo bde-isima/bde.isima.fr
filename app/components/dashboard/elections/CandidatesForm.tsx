@@ -1,13 +1,13 @@
 import { TextField } from 'mui-rff'
 import { useForm } from 'react-final-form'
-import Divider from '@material-ui/core/Divider'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormLabel from '@material-ui/core/FormLabel'
+import Divider from '@mui/material/Divider'
+import FormGroup from '@mui/material/FormGroup'
+import FormLabel from '@mui/material/FormLabel'
 import { FieldArray } from 'react-final-form-arrays'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import FormControl from '@material-ui/core/FormControl'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import FormControl from '@mui/material/FormControl'
+import InputAdornment from '@mui/material/InputAdornment'
 
 import Plus from 'mdi-material-ui/Plus'
 import Close from 'mdi-material-ui/Close'
@@ -68,7 +68,7 @@ export default function CandidatesForm() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Ouvrir Imgur"
-                          >
+                            size="large">
                             <OpenInNew />
                           </IconButton>
                         </InputAdornment>
@@ -101,5 +101,5 @@ export default function CandidatesForm() {
         }
       </FieldArray>
     </FormControl>
-  )
+  );
 }

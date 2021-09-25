@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Typography from '@material-ui/core/Typography'
-import DialogContent from '@material-ui/core/DialogContent'
+import Typography from '@mui/material/Typography'
+import DialogContent from '@mui/material/DialogContent'
 
 import LoginForm from './LoginForm'
 

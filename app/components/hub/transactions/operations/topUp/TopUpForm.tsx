@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { TextField } from 'mui-rff'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 
 import { PaymentMethod } from './TopUp'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'

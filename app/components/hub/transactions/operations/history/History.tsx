@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import isValid from 'date-fns/isValid'
 import { useInfiniteQuery } from 'blitz'
-import Button from '@material-ui/core/Button'
-import { useTheme, useMediaQuery } from '@material-ui/core'
+import Button from '@mui/material/Button'
+import { useTheme, useMediaQuery } from '@mui/material'
 
 import getTransactions from 'app/entities/transactions/queries/getTransactions'
 import TransactionRow from 'app/components/hub/transactions//display/TransactionRow'
@@ -15,7 +15,7 @@ type HistoryProps = {
 
 export default function History({ userId, minDate, maxDate }: HistoryProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const AND =
     isValid(minDate) && isValid(maxDate)

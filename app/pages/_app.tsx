@@ -6,9 +6,9 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import { ThemeProvider } from '@material-ui/core'
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
 import { StrictMode, Suspense, useEffect } from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import CssBaseline from '@mui/material/CssBaseline'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import {
   ErrorComponent,
@@ -23,6 +23,13 @@ import getNav from 'app/components/nav/getNav'
 import Splash from 'app/components/common/Splash'
 import useCustomTheme from 'app/core/styles/useCustomTheme'
 import LoginFallback from 'app/components/auth/LoginFallback'
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 (({
     appName: globalThis.appName,
@@ -71,22 +78,24 @@ export default function App({ Component, pageProps }: AppProps) {
           />
         </Head>
 
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
 
-          <ErrorBoundary
-            FallbackComponent={RootErrorFallback}
-            resetKeys={[router.asPath]}
-            onReset={useQueryErrorResetBoundary().reset}
-          >
-            <Suspense fallback={<Splash />}>
-              {getNav(router, <Component {...pageProps} />)}
-            </Suspense>
-          </ErrorBoundary>
-        </ThemeProvider>
+            <ErrorBoundary
+              FallbackComponent={RootErrorFallback}
+              resetKeys={[router.asPath]}
+              onReset={useQueryErrorResetBoundary().reset}
+            >
+              <Suspense fallback={<Splash />}>
+                {getNav(router, <Component {...pageProps} />)}
+              </Suspense>
+            </ErrorBoundary>
+          </ThemeProvider>
+        </StyledEngineProvider>
       </CacheProvider>
     </StrictMode>
-  )
+  );
 }
 
 function RootErrorFallback({ error }: FallbackProps) {

@@ -1,5 +1,5 @@
 import { TextField, Checkboxes } from 'mui-rff'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 
 import { Candidate } from 'db'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'

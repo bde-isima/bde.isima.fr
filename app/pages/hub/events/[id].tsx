@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import Divider from '@material-ui/core/Divider'
+import Divider from '@mui/material/Divider'
 
 import Header from 'app/components/hub/events/Header'
 import Cart from 'app/components/hub/events/cart/Cart'

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import { useTheme, useMediaQuery } from '@material-ui/core'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogTitle from '@mui/material/DialogTitle'
+import { useTheme, useMediaQuery } from '@mui/material'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
 
 import CartPlus from 'mdi-material-ui/CartPlus'
 import PlusCircleOutline from 'mdi-material-ui/PlusCircleOutline'
@@ -32,7 +32,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const onQuantityChange = (value: number) => () => {
     if (quantity + value > 0) {
@@ -87,56 +87,54 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
 
   product.groupOptions.sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
 
-  return (
-    product && (
-      <Dialog
-        open={Boolean(product)}
-        fullScreen={fullScreen}
-        onClose={onClose}
-        aria-labelledby="alert-dialog-product-title"
-        aria-describedby="alert-dialog-product-description"
-      >
-        <DialogTitle id="alert-dialog-product-title">{product.name}</DialogTitle>
+  return product && (
+    <Dialog
+      open={Boolean(product)}
+      fullScreen={fullScreen}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-product-title"
+      aria-describedby="alert-dialog-product-description"
+    >
+      <DialogTitle id="alert-dialog-product-title">{product.name}</DialogTitle>
 
-        <DialogContent>
-          {product.groupOptions.map((groupOption, groupOptionIdx) => (
-            <ProductGroupOption
-              key={groupOptionIdx}
-              groupOption={groupOption}
-              addOption={addOption}
-              removeOption={removeOption}
-            />
-          ))}
+      <DialogContent>
+        {product.groupOptions.map((groupOption, groupOptionIdx) => (
+          <ProductGroupOption
+            key={groupOptionIdx}
+            groupOption={groupOption}
+            addOption={addOption}
+            removeOption={removeOption}
+          />
+        ))}
 
-          <ProductComment product={product} onChange={onCommentChange} />
-        </DialogContent>
+        <ProductComment product={product} onChange={onCommentChange} />
+      </DialogContent>
 
-        <DialogActions className="flex justify-center items-center">
-          <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1">
-            <MinusCircleOutline />
-          </IconButton>
-          <Typography variant="subtitle1" color="textSecondary">
-            {quantity}
-          </Typography>
-          <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1">
-            <PlusCircleOutline />
-          </IconButton>
-        </DialogActions>
+      <DialogActions className="flex justify-center items-center">
+        <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
+          <MinusCircleOutline />
+        </IconButton>
+        <Typography variant="subtitle1" color="textSecondary">
+          {quantity}
+        </Typography>
+        <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
+          <PlusCircleOutline />
+        </IconButton>
+      </DialogActions>
 
-        <DialogActions>
-          <Button aria-label="Annuler" onClick={onClose} color="inherit">
-            Annuler
-          </Button>
-          <Button
-            startIcon={<CartPlus />}
-            onClick={handleAddProduct}
-            variant="contained"
-            aria-label={`Ajouter pour un total de ${total.toFixed(2)}`}
-          >
-            Total {total.toFixed(2)} €
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  )
+      <DialogActions>
+        <Button aria-label="Annuler" onClick={onClose} color="inherit">
+          Annuler
+        </Button>
+        <Button
+          startIcon={<CartPlus />}
+          onClick={handleAddProduct}
+          variant="contained"
+          aria-label={`Ajouter pour un total de ${total.toFixed(2)}`}
+        >
+          Total {total.toFixed(2)} €
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }

@@ -1,6 +1,6 @@
 import cuid from 'cuid'
-import NoSsr from '@material-ui/core/NoSsr'
-import Dialog from '@material-ui/core/Dialog'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
 import { useMutation, invalidateQuery } from 'blitz'
 
 import Snackbar from 'app/core/layouts/Snackbar'

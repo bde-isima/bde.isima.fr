@@ -1,7 +1,7 @@
 import { isSameDay } from 'date-fns'
-import Grid from '@material-ui/core/Grid'
-import Skeleton from '@material-ui/core/Skeleton'
-import Typography from '@material-ui/core/Typography'
+import Grid from '@mui/material/Grid'
+import Skeleton from '@mui/material/Skeleton'
+import Typography from '@mui/material/Typography'
 
 import CalendarChip from 'app/components/hub/events/CalendarChip'
 

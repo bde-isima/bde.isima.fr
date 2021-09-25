@@ -1,16 +1,16 @@
 import Image from 'next/image'
 import { Suspense } from 'react'
-import Tab from '@material-ui/core/Tab'
+import Tab from '@mui/material/Tab'
 import { useMemo, useState } from 'react'
-import { useTheme } from '@material-ui/core'
+import { useTheme } from '@mui/material'
 import { TextField, Switches } from 'mui-rff'
-import AppBar from '@material-ui/core/AppBar'
-import TabList from '@material-ui/lab/TabList'
-import Divider from '@material-ui/core/Divider'
-import TabContext from '@material-ui/lab/TabContext'
-import IconButton from '@material-ui/core/IconButton'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import AppBar from '@mui/material/AppBar'
+import TabList from '@mui/lab/TabList'
+import Divider from '@mui/material/Divider'
+import TabContext from '@mui/lab/TabContext'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import OpenInNew from 'mdi-material-ui/OpenInNew'
 
@@ -112,7 +112,7 @@ export default function UserForm(props: UserFormProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Ouvrir Imgur"
-                  >
+                    size="large">
                     <OpenInNew />
                   </IconButton>
                 </InputAdornment>
@@ -167,5 +167,5 @@ export default function UserForm(props: UserFormProps) {
         </TabPanel>
       </TabContext>
     </Form>
-  )
+  );
 }

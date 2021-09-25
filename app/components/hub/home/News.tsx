@@ -1,15 +1,15 @@
 import Image from 'next/image'
-import Card from '@material-ui/core/Card'
-import { useTheme } from '@material-ui/core'
-import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
-import CardContent from '@material-ui/core/CardContent'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import CardActionArea from '@material-ui/core/CardActionArea'
+import Card from '@mui/material/Card'
+import { useTheme } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
+import CardContent from '@mui/material/CardContent'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import CardActionArea from '@mui/material/CardActionArea'
 
 export default function News() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
   const size = fullScreen ? 64 : 128
 
   return (

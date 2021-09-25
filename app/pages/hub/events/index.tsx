@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
-import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
+import Grid from '@mui/material/Grid'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 
 import PageTitle from 'app/core/layouts/PageTitle'
 import Events from 'app/components/hub/events/Events'

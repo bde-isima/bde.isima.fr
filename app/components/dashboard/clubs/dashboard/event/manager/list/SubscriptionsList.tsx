@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import { useState } from 'react'
-import Menu from '@material-ui/core/Menu'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@mui/material/Menu'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import MenuItem from '@mui/material/MenuItem'
 import { useMutation, invalidateQuery } from 'blitz'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 
 import Plus from 'mdi-material-ui/Plus'
 

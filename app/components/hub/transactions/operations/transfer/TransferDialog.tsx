@@ -1,8 +1,8 @@
-import NoSsr from '@material-ui/core/NoSsr'
-import Dialog from '@material-ui/core/Dialog'
-import IconButton from '@material-ui/core/IconButton'
-import DialogActions from '@material-ui/core/DialogActions'
-import { useTheme, useMediaQuery } from '@material-ui/core'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import IconButton from '@mui/material/IconButton'
+import DialogActions from '@mui/material/DialogActions'
+import { useTheme, useMediaQuery } from '@mui/material'
 
 import Close from 'mdi-material-ui/Close'
 
@@ -16,7 +16,7 @@ type TransferDialogProps = {
 
 export default function TransferDialog({ isOpen, onClose }: TransferDialogProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   return (
     <NoSsr>
@@ -28,7 +28,7 @@ export default function TransferDialog({ isOpen, onClose }: TransferDialogProps)
         TransitionComponent={SlideTransition}
       >
         <DialogActions>
-          <IconButton onClick={onClose} aria-label="Fermer">
+          <IconButton onClick={onClose} aria-label="Fermer" size="large">
             <Close />
           </IconButton>
         </DialogActions>
@@ -36,5 +36,5 @@ export default function TransferDialog({ isOpen, onClose }: TransferDialogProps)
         <Transfer onClose={onClose} />
       </Dialog>
     </NoSsr>
-  )
+  );
 }

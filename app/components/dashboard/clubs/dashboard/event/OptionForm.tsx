@@ -1,8 +1,8 @@
 import { TextField } from 'mui-rff'
 import { useForm } from 'react-final-form'
-import FormGroup from '@material-ui/core/FormGroup'
+import FormGroup from '@mui/material/FormGroup'
 import { FieldArray } from 'react-final-form-arrays'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@mui/material/IconButton'
 
 import Close from 'mdi-material-ui/Close'
 

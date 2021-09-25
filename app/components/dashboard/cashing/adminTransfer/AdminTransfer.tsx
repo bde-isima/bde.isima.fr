@@ -1,6 +1,6 @@
 import { useMutation } from 'blitz'
-import { useTheme } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { User } from 'db'
 import Snackbar from 'app/core/layouts/Snackbar'
@@ -16,7 +16,7 @@ type AdminTransferProps = {
 
 export default function AdminTransfer({ user, onTransactionComplete }: AdminTransferProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const { open, message, severity, onShow, onClose } = useSnackbar()
 

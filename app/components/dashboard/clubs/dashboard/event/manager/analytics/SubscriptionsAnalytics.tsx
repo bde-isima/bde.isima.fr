@@ -1,6 +1,6 @@
-import Card from '@material-ui/core/Card'
-import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
+import Card from '@mui/material/Card'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 
 import { EventSubscriptionWithTypedCart, Option, CartItem } from 'types'
 

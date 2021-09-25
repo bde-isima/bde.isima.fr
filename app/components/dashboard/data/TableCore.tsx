@@ -1,8 +1,8 @@
 import { useQuery } from 'blitz'
 import { useEffect } from 'react'
 import { Dispatch, SetStateAction } from 'react'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
 
 import TableRows from './TableRows'
 import { useTableProps } from './TablePropsProvider'

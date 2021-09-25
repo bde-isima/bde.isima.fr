@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from '@mui/material/CircularProgress'
 
 export default function Splash() {
   return (

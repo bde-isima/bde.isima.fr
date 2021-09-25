@@ -1,19 +1,19 @@
 import { invalidateQuery } from 'blitz'
-import NoSsr from '@material-ui/core/NoSsr'
-import { useTheme } from '@material-ui/core'
-import Dialog from '@material-ui/core/Dialog'
+import NoSsr from '@mui/material/NoSsr'
+import { useTheme } from '@mui/material'
+import Dialog from '@mui/material/Dialog'
 import { useSwipeable } from 'react-swipeable'
 import { lazy, Suspense, useState } from 'react'
-import TabPanel from '@material-ui/lab/TabPanel'
-import Skeleton from '@material-ui/core/Skeleton'
-import TabContext from '@material-ui/lab/TabContext'
-import IconButton from '@material-ui/core/IconButton'
-import DialogContent from '@material-ui/core/DialogContent'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import DialogActions from '@material-ui/core/DialogActions'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import TabPanel from '@mui/lab/TabPanel'
+import Skeleton from '@mui/material/Skeleton'
+import TabContext from '@mui/lab/TabContext'
+import IconButton from '@mui/material/IconButton'
+import DialogContent from '@mui/material/DialogContent'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import DialogActions from '@mui/material/DialogActions'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import CircularProgress from '@mui/material/CircularProgress'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
 import Close from 'mdi-material-ui/Close'
 import HistoryIcon from 'mdi-material-ui/History'
@@ -34,7 +34,7 @@ const History = lazy(() => import('app/components/hub/transactions/operations/hi
 
 export default function CashingDialog({ user, onSelection, onClear }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const [value, setValue] = useState(0)
   const [open, setOpen] = useState(false)
@@ -71,7 +71,11 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             {...handlers}
           >
             <DialogActions className="flex flex-col">
-              <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur">
+              <IconButton
+                className="ml-auto"
+                onClick={onClear}
+                aria-label="Fermer l'encaisseur"
+                size="large">
                 <Close />
               </IconButton>
 
@@ -166,5 +170,5 @@ export default function CashingDialog({ user, onSelection, onClear }) {
         )}
       </TabContext>
     </NoSsr>
-  )
+  );
 }

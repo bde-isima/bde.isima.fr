@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import Fab from '@material-ui/core/Fab'
-import Typography from '@material-ui/core/Typography'
+import Fab from '@mui/material/Fab'
+import Typography from '@mui/material/Typography'
 
 import ArrowLeft from 'mdi-material-ui/ArrowLeft'
 

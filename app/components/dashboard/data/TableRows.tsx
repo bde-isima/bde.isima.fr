@@ -1,9 +1,9 @@
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 import { Dispatch, SetStateAction } from 'react'
-import TableRow from '@material-ui/core/TableRow'
-import Checkbox from '@material-ui/core/Checkbox'
-import TableCell from '@material-ui/core/TableCell'
-import IconButton from '@material-ui/core/IconButton'
+import TableRow from '@mui/material/TableRow'
+import Checkbox from '@mui/material/Checkbox'
+import TableCell from '@mui/material/TableCell'
+import IconButton from '@mui/material/IconButton'
 
 import ContentCopy from 'mdi-material-ui/ContentCopy'
 import CircleEditOutline from 'mdi-material-ui/CircleEditOutline'
@@ -107,19 +107,19 @@ export default function TableRows({
                     aria-label={tooltip}
                     onClick={handleCustomAction(onClick(row))}
                     disabled={disabled}
-                  >
+                    size="large">
                     {icon}
                   </IconButton>
                 </span>
               </Tooltip>
             </TableCell>
-          )
+          );
         })}
 
         {allowCopy && (
           <TableCell align="right">
             <Tooltip title="Copier">
-              <IconButton aria-label="Copier" onClick={copyClick(row)}>
+              <IconButton aria-label="Copier" onClick={copyClick(row)} size="large">
                 <ContentCopy />
               </IconButton>
             </Tooltip>
@@ -129,13 +129,13 @@ export default function TableRows({
         {onEdit && (
           <TableCell align="right">
             <Tooltip title="Éditer">
-              <IconButton aria-label="Éditer" onClick={editClick(row)}>
+              <IconButton aria-label="Éditer" onClick={editClick(row)} size="large">
                 <CircleEditOutline />
               </IconButton>
             </Tooltip>
           </TableCell>
         )}
       </TableRow>
-    )
-  })
+    );
+  });
 }

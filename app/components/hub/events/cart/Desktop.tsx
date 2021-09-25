@@ -1,18 +1,18 @@
-import Card from "@material-ui/core/Card"
-import List from "@material-ui/core/List"
-import Grow from "@material-ui/core/Grow"
-import Button from "@material-ui/core/Button"
-import Divider from "@material-ui/core/Divider"
-import ListItem from "@material-ui/core/ListItem"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import ButtonGroup from "@material-ui/core/ButtonGroup"
-import CardActions from "@material-ui/core/CardActions"
-import CardContent from "@material-ui/core/CardContent"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@mui/material/Card"
+import List from "@mui/material/List"
+import Grow from "@mui/material/Grow"
+import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
+import ListItem from "@mui/material/ListItem"
+import IconButton from "@mui/material/IconButton"
+import Typography from "@mui/material/Typography"
+import ButtonGroup from "@mui/material/ButtonGroup"
+import CardActions from "@mui/material/CardActions"
+import CardContent from "@mui/material/CardContent"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
+import useMediaQuery from '@mui/material/useMediaQuery'
+import CircularProgress from "@mui/material/CircularProgress"
 
 import Close from "mdi-material-ui/Close"
 import Check from "mdi-material-ui/Check"
@@ -40,7 +40,7 @@ export default function Desktop({
   onUnsubscribe,
   onQuantityChange,
 }: DesktopProps) {
-  const hidden = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+  const hidden = useMediaQuery((theme: any) => theme.breakpoints.down('lg'))
   const { event, eventSubscription } = useEventSubscription()
 
   return !hidden && (
@@ -93,14 +93,14 @@ export default function Desktop({
                       <IconButton
                         onClick={onQuantityChange(cartItem, -1)}
                         aria-label={`Supprimer 1 ${cartItem.name}`}
-                      >
+                        size="large">
                         <MinusCircleOutline />
                       </IconButton>
                       <Typography variant="overline">{cartItem.quantity}</Typography>
                       <IconButton
                         onClick={onQuantityChange(cartItem, 1)}
                         aria-label={`Ajouter 1 ${cartItem.name}`}
-                      >
+                        size="large">
                         <PlusCircleOutline />
                       </IconButton>
                     </div>
@@ -115,7 +115,7 @@ export default function Desktop({
                   <ListItemText className="text-right m-4" primary={`${price.toFixed(2)} €`} />
                 </ListItem>
               </Grow>
-            )
+            );
           })}
 
           <Divider />
@@ -133,5 +133,5 @@ export default function Desktop({
 
       <CardActions>{event.products.length > 0 && <PaymentMethods />}</CardActions>
     </Card>
-  )
+  );
 }

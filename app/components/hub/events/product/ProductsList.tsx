@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 
 import { Product } from 'types'
 import ProductCard from 'app/components/hub/events/product/ProductCard'

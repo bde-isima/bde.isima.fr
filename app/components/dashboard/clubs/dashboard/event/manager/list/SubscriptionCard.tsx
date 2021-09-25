@@ -1,13 +1,13 @@
-import List from '@material-ui/core/List'
-import Grid from '@material-ui/core/Grid'
-import MuiCard from '@material-ui/core/Card'
-import ListItem from '@material-ui/core/ListItem'
-import IconButton from '@material-ui/core/IconButton'
-import CardHeader from '@material-ui/core/CardHeader'
-import Typography from '@material-ui/core/Typography'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import List from '@mui/material/List'
+import Grid from '@mui/material/Grid'
+import MuiCard from '@mui/material/Card'
+import ListItem from '@mui/material/ListItem'
+import IconButton from '@mui/material/IconButton'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
@@ -35,7 +35,7 @@ export default function SubscriptionCard({ subscription, onMenuClick }: CardProp
           subheader={`Paiement par ${subscription.payment_method}`}
           subheaderTypographyProps={{ variant: 'caption' }}
           action={
-            <IconButton aria-label="Options" onClick={onPopupMenu}>
+            <IconButton aria-label="Options" onClick={onPopupMenu} size="large">
               <DotsVertical />
             </IconButton>
           }
@@ -69,5 +69,5 @@ export default function SubscriptionCard({ subscription, onMenuClick }: CardProp
         </List>
       </MuiCard>
     </Grid>
-  )
+  );
 }

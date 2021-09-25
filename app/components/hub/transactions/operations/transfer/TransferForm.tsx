@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { TextField } from 'mui-rff'
-import Divider from '@material-ui/core/Divider'
+import Divider from '@mui/material/Divider'
 
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import SearchUser from 'app/components/dashboard/cashing/SearchUser'

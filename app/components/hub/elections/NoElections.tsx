@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 
 export default function NoElections() {
   return (

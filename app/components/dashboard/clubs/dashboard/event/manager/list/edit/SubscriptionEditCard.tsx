@@ -1,17 +1,17 @@
 import { Select } from 'mui-rff'
 import { useForm } from 'react-final-form'
-import MuiCard from '@material-ui/core/Card'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormLabel from '@material-ui/core/FormLabel'
+import MuiCard from '@mui/material/Card'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import MenuItem from '@mui/material/MenuItem'
+import FormGroup from '@mui/material/FormGroup'
+import FormLabel from '@mui/material/FormLabel'
 import { FieldArray } from 'react-final-form-arrays'
-import IconButton from '@material-ui/core/IconButton'
-import CardHeader from '@material-ui/core/CardHeader'
-import Typography from '@material-ui/core/Typography'
-import FormControl from '@material-ui/core/FormControl'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import IconButton from '@mui/material/IconButton'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
+import FormControl from '@mui/material/FormControl'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import Plus from 'mdi-material-ui/Plus'
 import Check from 'mdi-material-ui/Check'
@@ -55,11 +55,19 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         subheaderTypographyProps={{ className: 'flex flex-grow items-end', variant: 'caption' }}
         action={
           <div className="flex">
-            <IconButton aria-label="Annuler" onClick={onStopEdit} disabled={submitting}>
+            <IconButton
+              aria-label="Annuler"
+              onClick={onStopEdit}
+              disabled={submitting}
+              size="large">
               <Close />
             </IconButton>
 
-            <IconButton aria-label="Sauvegarder" disabled={submitting} onClick={onSubmit}>
+            <IconButton
+              aria-label="Sauvegarder"
+              disabled={submitting}
+              onClick={onSubmit}
+              size="large">
               {submitting ? <CircularProgress size={25} color="inherit" /> : <Check />}
             </IconButton>
           </div>
@@ -203,5 +211,5 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         )}
       </FieldArray>
     </MuiCard>
-  )
+  );
 }

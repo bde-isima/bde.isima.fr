@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
-import { getPanelId, getTabId, useTabContext } from '@material-ui/lab/TabContext'
+import { getPanelId, getTabId, useTabContext } from '@mui/lab/TabContext'
 
 interface TabPanelProps {
   children?: ReactNode

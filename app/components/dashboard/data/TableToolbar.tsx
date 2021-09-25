@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
-import InputBase from '@material-ui/core/InputBase'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
+import InputBase from '@mui/material/InputBase'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 
 import Magnify from 'mdi-material-ui/Magnify'
 import DeleteOutline from 'mdi-material-ui/DeleteOutline'
@@ -43,14 +43,14 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
         <div className="flex ml-4 items-center">
           {onExport && (
             <Tooltip title="Exporter en CSV">
-              <IconButton aria-label="Exporter en CSV" onClick={onExport}>
+              <IconButton aria-label="Exporter en CSV" onClick={onExport} size="large">
                 <ContentSaveMoveOutline />
               </IconButton>
             </Tooltip>
           )}
 
           <Tooltip title="Supprimer">
-            <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)}>
+            <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)} size="large">
               <DeleteOutline />
             </IconButton>
           </Tooltip>
@@ -72,7 +72,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
           {onAdd && (
             <div>
               <Tooltip title="Ajouter">
-                <IconButton aria-label="Ajouter" onClick={onAdd}>
+                <IconButton aria-label="Ajouter" onClick={onAdd} size="large">
                   <PlusCircleOutline />
                 </IconButton>
               </Tooltip>
@@ -81,5 +81,5 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
         </div>
       )}
     </Toolbar>
-  )
+  );
 }

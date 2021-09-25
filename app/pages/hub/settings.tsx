@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useMutation, invalidateQuery, useAuthenticatedSession } from 'blitz'
 
 import Snackbar from 'app/core/layouts/Snackbar'

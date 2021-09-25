@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { cloneElement } from 'react'
-import Button from '@material-ui/core/Button'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
+import Button from '@mui/material/Button'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
 
 import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 

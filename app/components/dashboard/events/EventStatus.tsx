@@ -1,4 +1,4 @@
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 
 import Check from 'mdi-material-ui/Check'
 import History from 'mdi-material-ui/History'

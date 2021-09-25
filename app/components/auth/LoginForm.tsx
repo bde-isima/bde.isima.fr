@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TextField } from 'mui-rff'
 import { useRouter } from 'next/router'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import { useMutation, AuthenticationError } from 'blitz'
 
 import login from 'app/entities/auth/mutations/login'

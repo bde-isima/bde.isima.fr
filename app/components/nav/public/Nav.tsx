@@ -1,17 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import Fab from '@material-ui/core/Fab'
+import Fab from '@mui/material/Fab'
 import { useState, useEffect } from 'react'
-import Slide from '@material-ui/core/Slide'
-import AppBar from '@material-ui/core/AppBar'
-import Dialog from '@material-ui/core/Dialog'
-import Hidden from '@material-ui/core/Hidden'
-import Toolbar from '@material-ui/core/Toolbar'
+import Slide from '@mui/material/Slide'
+import AppBar from '@mui/material/AppBar'
+import Dialog from '@mui/material/Dialog'
+import Hidden from '@mui/material/Hidden'
+import Toolbar from '@mui/material/Toolbar'
 import { useAuthenticatedSession } from 'blitz'
-import IconButton from '@material-ui/core/IconButton'
-import { useTheme, useMediaQuery } from '@material-ui/core'
-import DialogActions from '@material-ui/core/DialogActions'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import IconButton from '@mui/material/IconButton'
+import { useTheme, useMediaQuery } from '@mui/material'
+import DialogActions from '@mui/material/DialogActions'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import Menu from 'mdi-material-ui/Menu'
 import ArrowLeft from 'mdi-material-ui/ArrowLeft'
@@ -33,7 +33,7 @@ export default function Nav() {
   const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const toggleDrawer = (fn, open) => () => fn(open)
 
@@ -66,7 +66,7 @@ export default function Nav() {
                 className="text-primary dark:text-secondary"
                 aria-label="Menu"
                 onClick={toggleDrawer(setIsMobileMenuOpen, true)}
-              >
+                size="large">
                 <Menu />
               </IconButton>
             </div>
@@ -84,7 +84,7 @@ export default function Nav() {
             </div>
           </Link>
 
-          <Hidden mdDown>
+          <Hidden lgDown>
             <div className="h-full w-full flex items-center justify-center md:justify-end">
               <Desktop />
             </div>
@@ -128,7 +128,7 @@ export default function Nav() {
                   className="mr-auto"
                   onClick={toggleDrawer(setIsLoginMenuOpen, false)}
                   aria-label="Retour"
-                >
+                  size="large">
                   <ArrowLeft />
                 </IconButton>
               </DialogActions>
@@ -139,5 +139,5 @@ export default function Nav() {
         </Toolbar>
       </AppBar>
     </Slide>
-  )
+  );
 }

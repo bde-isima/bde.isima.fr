@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Checkbox from '@material-ui/core/Checkbox'
+import Checkbox from '@mui/material/Checkbox'
 
 import PageTitle from 'app/core/layouts/PageTitle'
 import Table from 'app/components/dashboard/data/Table'

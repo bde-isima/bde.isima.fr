@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Avatar from '@material-ui/core/Avatar'
+import Avatar from '@mui/material/Avatar'
 import { useQuery, useAuthenticatedSession } from 'blitz'
 
 import getClubs from 'app/entities/clubs/queries/getClubs'

@@ -1,10 +1,10 @@
 import { useMutation } from 'blitz'
-import NoSsr from '@material-ui/core/NoSsr'
-import { useTheme } from '@material-ui/core'
-import Dialog from '@material-ui/core/Dialog'
-import IconButton from '@material-ui/core/IconButton'
-import DialogActions from '@material-ui/core/DialogActions'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import NoSsr from '@mui/material/NoSsr'
+import { useTheme } from '@mui/material'
+import Dialog from '@mui/material/Dialog'
+import IconButton from '@mui/material/IconButton'
+import DialogActions from '@mui/material/DialogActions'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import Close from 'mdi-material-ui/Close'
 
@@ -26,7 +26,7 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
   const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
   const onSuccess = async ({ approve, ...data }: any) => {
     await createVt({ data })
@@ -49,7 +49,7 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
           TransitionComponent={SlideTransition}
         >
           <DialogActions>
-            <IconButton onClick={onClose} aria-label="Fermer">
+            <IconButton onClick={onClose} aria-label="Fermer" size="large">
               <Close />
             </IconButton>
           </DialogActions>
@@ -60,5 +60,5 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
 
       <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { format } from 'date-fns'
-import CardHeader from '@material-ui/core/CardHeader'
-import Typography from '@material-ui/core/Typography'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
 
 import { useEventSubscription } from './subscription/EventSubscription'
 

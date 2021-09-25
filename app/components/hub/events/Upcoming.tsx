@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import addDays from 'date-fns/addDays'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Tooltip from '@material-ui/core/Tooltip'
-import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Tooltip from '@mui/material/Tooltip'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
@@ -46,12 +46,12 @@ export default function Upcoming() {
             className="mr-2"
             aria-label="Voir plus d'événements"
             onClick={pushRoute('/hub/events')}
-          >
+            size="large">
             <DotsVertical />
           </IconButton>
         </Tooltip>
         <Typography color="textPrimary">Tous les évènements</Typography>
       </div>
     </div>
-  )
+  );
 }
