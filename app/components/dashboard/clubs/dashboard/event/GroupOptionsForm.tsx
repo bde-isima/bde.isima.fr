@@ -1,5 +1,5 @@
 import { useForm } from 'react-final-form'
-import { TextField, Select } from 'mui-rff'
+import { TextField, Select } from 'bde-isima-mui-rff'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import FormGroup from '@mui/material/FormGroup'

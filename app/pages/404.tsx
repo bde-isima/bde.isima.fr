@@ -24,8 +24,6 @@ export default function Page404() {
           alt={title}
           width={500}
           height={500}
-          layout="intrinsic"
-          objectFit="cover"
         />
 
         <Typography variant="h4" paragraph>

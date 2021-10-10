@@ -19,9 +19,9 @@ export default function SubscriptionsAnalytics({
           acc +
           cartItem.quantity *
             (cartItem.price +
-              cartItem.options?.reduce((acc: number, o: Option) => {
+              (cartItem.options?.reduce((acc: number, o: Option) => {
                 return acc + o.price
-              }, 0) || 0)
+              }, 0) || 0))
         )
       }, 0)
     )

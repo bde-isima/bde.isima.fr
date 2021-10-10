@@ -17,13 +17,9 @@ import CarouselDialog from './CarouselDialog'
 import { useTheme } from 'app/core/styles/theme'
 
 const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 7,
-  },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5,
+    items: 3,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -68,6 +64,12 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
     }
   }
 
+  const aProps = (target) => ({
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    'aria-label': `Lien ${target}`,
+  })
+
   const onClose = () => setOpen(false)
 
   const handleChange = (value) => () => setIsMoving(value)
@@ -80,7 +82,7 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
         additionalTransfrom={0}
         autoPlaySpeed={3000}
         minimumTouchDrag={80}
-        containerClass="absolute left-0 right-0 mt-8"
+        containerClass="my-4 py-1"
         dotListClass=""
         focusOnSelect={false}
         infinite
@@ -115,46 +117,22 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
 
               <CardActions className="flex flex-wrap justify-center" disableSpacing>
                 {item.facebookURL && (
-                  <a
-                    href={item.facebookURL}
-                    onClick={stopPropagation}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Lien Facebook"
-                  >
+                  <a href={item.facebookURL} onClick={stopPropagation} {...aProps('Facebook')}>
                     <Facebook className="m-2 text-primary dark:text-secondary" />
                   </a>
                 )}
                 {item.twitterURL && (
-                  <a
-                    href={item.twitterURL}
-                    onClick={stopPropagation}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Lien Twitter"
-                  >
+                  <a href={item.twitterURL} onClick={stopPropagation} {...aProps('Twitter')}>
                     <Twitter className="m-2 text-primary dark:text-secondary" />
                   </a>
                 )}
                 {item.instagramURL && (
-                  <a
-                    href={item.instagramURL}
-                    onClick={stopPropagation}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Lien Instagram"
-                  >
+                  <a href={item.instagramURL} onClick={stopPropagation} {...aProps('Instagram')}>
                     <Instagram className="m-2 text-primary dark:text-secondary" />
                   </a>
                 )}
                 {item.customURL && (
-                  <a
-                    href={item.customURL}
-                    onClick={stopPropagation}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Lien personnalisé"
-                  >
+                  <a href={item.customURL} onClick={stopPropagation} {...aProps('personnalisé')}>
                     <Public className="m-2 text-primary dark:text-secondary" />
                   </a>
                 )}

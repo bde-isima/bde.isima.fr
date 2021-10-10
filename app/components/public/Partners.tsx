@@ -13,10 +13,10 @@ import getPartners from 'app/entities/partners/queries/getPartners'
 
 export default function Partners() {
   return (
-    <Container className="min-h-screen">
-      <div className="px-2 py-8 md:p-8">
-        <a id="partners" href="#partners" />
+    <div className="flex flex-col px-2 py-8 md:p-8 min-h-screen">
+      <a id="partners" href="#partners" />
 
+      <Container>
         <Typography variant="h3" color="textPrimary" gutterBottom>
           <b>LES PARTENAIRES DU BDE</b>
         </Typography>
@@ -53,11 +53,11 @@ export default function Partners() {
             />
           </Grid>
         </Grid>
+      </Container>
 
-        <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-          <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
-        </Suspense>
-      </div>
-    </Container>
+      <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+        <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
+      </Suspense>
+    </div>
   )
 }

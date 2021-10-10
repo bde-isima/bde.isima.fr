@@ -15,6 +15,7 @@ import SubscriptionCard from './SubscriptionCard'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import type { EventSubscriptionWithTypedCart } from 'global'
 import AddSubscriptionDialog from './add/AddSubscriptionDialog'
+import noData from 'public/static/images/illustrations/NoData.svg'
 import { AddSubscriptionInputType } from 'app/components/forms/validations'
 import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 import createEventSubscription from 'app/entities/eventSubscriptions/mutations/createEventSubscription'
@@ -126,12 +127,7 @@ export default function SubscriptionsList({
 
       {eventSubscriptions.length === 0 && (
         <div className="flex flex-col justify-center items-center">
-          <Image
-            src="/static/images/illustrations/NoData.svg"
-            width={300}
-            layout="fill"
-            alt="Aucune donnée"
-          />
+          <Image src={noData} width={300} height={300} alt="Aucune donnée" />
           <Typography variant="subtitle2" gutterBottom>
             Aucun inscrit
           </Typography>

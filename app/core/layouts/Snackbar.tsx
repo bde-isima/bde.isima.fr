@@ -1,10 +1,12 @@
+import { SyntheticEvent } from 'react'
 import IconButton from '@mui/material/IconButton'
-import { forwardRef, SyntheticEvent } from 'react'
 import Alert, { AlertColor } from '@mui/material/Alert'
 import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar'
 
 import Undo from '@mui/icons-material/UndoTwoTone'
 import Close from '@mui/icons-material/CloseTwoTone'
+
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 type SnackbarProps = {
   className?: string
@@ -35,6 +37,7 @@ export default function Snackbar({
       message={message}
       autoHideDuration={loading ? null : 6000}
       anchorOrigin={anchorOrigin}
+      TransitionComponent={SlideTransition}
     >
       <Alert
         elevation={6}
@@ -42,22 +45,16 @@ export default function Snackbar({
         severity={severity}
         variant="filled"
         action={
-          <>
+          <div>
             {onUndo && (
-              <IconButton
-                className="m-1"
-                size="small"
-                aria-label="Annuler"
-                color="inherit"
-                onClick={onUndo}
-              >
+              <IconButton size="small" aria-label="Annuler" color="inherit" onClick={onUndo}>
                 <Undo />
               </IconButton>
             )}
             <IconButton size="small" aria-label="Fermer" color="inherit" onClick={onClose}>
               <Close />
             </IconButton>
-          </>
+          </div>
         }
       >
         {message}

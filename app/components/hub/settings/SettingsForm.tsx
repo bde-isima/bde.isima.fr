@@ -1,5 +1,5 @@
 import { Image } from 'blitz'
-import { TextField } from 'mui-rff'
+import { TextField } from 'bde-isima-mui-rff'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'

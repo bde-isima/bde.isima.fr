@@ -50,13 +50,6 @@ const config: BlitzConfig = withPWA({
       },
     ]
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'mui-rff': path.resolve(__dirname, 'node_modules/bde-isima-mui-rff'), // FIXME : Temporary alias to custom mui-rff package until mui-rff merges MUI 5 changes
-    }
-    return config
-  },
 })
 
 // https://securityheaders.com

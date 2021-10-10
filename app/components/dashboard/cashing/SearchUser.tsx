@@ -1,4 +1,4 @@
-import { Autocomplete } from 'mui-rff'
+import { Autocomplete } from 'bde-isima-mui-rff'
 import TextField from '@mui/material/TextField'
 import { useQuery, useAuthenticatedSession } from 'blitz'
 import { useState, Dispatch, SetStateAction } from 'react'
@@ -56,7 +56,7 @@ export default function SearchUser({
     onOpen: toggleOpen(true),
     onClose: toggleOpen(false),
     getOptionDisabled: (option: User) => disableSelf && option.id === session?.userId,
-    getOptionSelected: (option: User, value: User) => option.id === value.id,
+    isOptionEqualToValue: (option: User, value: User) => option.id === value.id,
     getOptionLabel: (option: User) =>
       option
         ? `${option.card} - ${option.lastname} ${option.firstname} ${

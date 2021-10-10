@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <Paper className="p-6">
       <Grid className="py-4" spacing={3} container>
-        <Grid container item xs={12} md={4} justifyContent="center" alignContent="center">
+        <Grid container item xs={12} md={4} justifyContent="center" alignContent="center" gap={2}>
           <Grid container item xs={12} md={6} justifyContent="center">
             <Image
               src={bde}

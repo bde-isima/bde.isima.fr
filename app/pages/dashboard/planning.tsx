@@ -8,14 +8,7 @@ import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config
 const Planning: BlitzPage = () => {
   return (
     <div className="flex flex-col place-self-center items-center">
-      <Image
-        src={wip}
-        alt="Work In Progress"
-        width={500}
-        height={500}
-        layout="intrinsic"
-        objectFit="cover"
-      />
+      <Image src={wip} alt="Work In Progress" width={500} height={500} />
 
       <Typography variant="h4" color="textPrimary" paragraph>
         En construction

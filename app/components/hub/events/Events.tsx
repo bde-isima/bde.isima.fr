@@ -26,9 +26,9 @@ export default function Events() {
     <>
       {events.length === 0 && (
         <Grid container item alignContent="center" direction="column">
-          <Image src={noData} alt="Aucune donnée" layout="intrinsic" />
+          <Image src={noData} width={300} height={300} alt="Aucune donnée" />
 
-          <Typography variant="subtitle2" align="center" color="textPrimary" gutterBottom>
+          <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
             Aucun événement à venir !
           </Typography>
         </Grid>

@@ -1,5 +1,5 @@
 import { useQuery } from 'blitz'
-import { Select } from 'mui-rff'
+import { Select } from 'bde-isima-mui-rff'
 import MenuItem from '@mui/material/MenuItem'
 
 import getPromotions from 'app/entities/promotions/queries/getPromotions'

@@ -1,9 +1,9 @@
 import Fab from '@mui/material/Fab'
+import Box from '@mui/material/Box'
 import Slide from '@mui/material/Slide'
 import { Image, useSession } from 'blitz'
 import AppBar from '@mui/material/AppBar'
 import Dialog from '@mui/material/Dialog'
-import Hidden from '@mui/material/Hidden'
 import Toolbar from '@mui/material/Toolbar'
 import { useState, useEffect } from 'react'
 import IconButton from '@mui/material/IconButton'
@@ -59,36 +59,28 @@ export default function Nav() {
             onLoginRequested={toggleDrawer(setIsLoginMenuOpen, true)}
           />
 
-          <Hidden mdUp>
-            <div className="flex lg:flex-grow justify-start">
-              <IconButton
-                className="text-primary dark:text-secondary"
-                aria-label="Menu"
-                onClick={toggleDrawer(setIsMobileMenuOpen, true)}
-                size="large"
-              >
-                <Menu />
-              </IconButton>
-            </div>
-          </Hidden>
+          {fullScreen && (
+            <IconButton
+              className="text-primary dark:text-secondary"
+              aria-label="Menu"
+              onClick={toggleDrawer(setIsMobileMenuOpen, true)}
+              size="large"
+            >
+              <Menu />
+            </IconButton>
+          )}
 
-          <Link href="/">
-            <div className="mx-auto lg:ml-0">
-              <Image
-                className="rounded-full"
-                src="/static/images/logos/logo.svg"
-                width={40}
-                height={40}
-                alt="Logo BDE ISIMA"
-              />
-            </div>
+          <Link className="mx-auto lg:ml-0" href="/">
+            <Image
+              className="rounded-full"
+              src="/static/images/logos/logo.svg"
+              width={40}
+              height={40}
+              alt="Logo BDE ISIMA"
+            />
           </Link>
 
-          <Hidden xlDown>
-            <div className="h-full w-full flex items-center justify-center md:justify-end">
-              <Desktop />
-            </div>
-          </Hidden>
+          {!fullScreen && <Desktop />}
 
           {!session.userId ? (
             <Fab
@@ -99,7 +91,7 @@ export default function Nav() {
               size={fullScreen ? 'small' : 'large'}
               color="primary"
             >
-              <Login />
+              <Login className={`${!fullScreen && 'mr-2'}`} />
               {!fullScreen && 'Se connecter'}
             </Fab>
           ) : (
@@ -111,7 +103,7 @@ export default function Nav() {
               size={fullScreen ? 'small' : 'large'}
               color="primary"
             >
-              <Account />
+              <Account className={`${!fullScreen && 'mr-2'}`} />
               {!fullScreen && 'Mon compte'}
             </Fab>
           )}

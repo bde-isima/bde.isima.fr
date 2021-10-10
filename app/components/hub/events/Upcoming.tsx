@@ -32,7 +32,7 @@ export default function Upcoming() {
 
       <Divider className="m-4" />
 
-      <Paper square>
+      <Paper className="mx-4" square>
         <Grid container>
           <Suspense fallback={FallbackComponent}>
             <Calendar />

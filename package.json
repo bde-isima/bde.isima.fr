@@ -15,7 +15,7 @@
   },
   "prisma": {
     "schema": "db/schema.prisma",
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} db/seeds/index.ts"
+    "seed": "ts-node db/seeds/index.ts"
   },
   "prettier": {
     "semi": false,

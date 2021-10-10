@@ -1,4 +1,4 @@
-import { TextField, Checkboxes } from 'mui-rff'
+import { TextField, Checkboxes } from 'bde-isima-mui-rff'
 import Typography from '@mui/material/Typography'
 
 import { Candidate } from 'db'

@@ -1,4 +1,9 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -21,10 +26,7 @@
     "strictNullChecks": true,
     "downlevelIteration": true,
     "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "paths": {
-      "mui-rff": ["./node_modules/bde-isima-mui-rff"] // FIXME : Temporary alias to custom mui-rff package until mui-rff merges MUI 5 changes
-    }
+    "tsBuildInfoFile": ".tsbuildinfo"
   },
   "exclude": ["node_modules"],
   "include": ["global.d.ts", "**/*.ts", "**/*.tsx"]

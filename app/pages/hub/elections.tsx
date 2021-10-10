@@ -26,7 +26,7 @@ const ElectionsIndex: BlitzPage = () => {
         container
         className="flex flex-col md:flex-row items-center"
         justifyContent="center"
-        spacing={5}
+        gap={5}
       >
         <Suspense fallback={FallbackComponent}>
           <Elections />

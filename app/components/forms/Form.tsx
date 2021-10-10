@@ -48,7 +48,9 @@ export function Form<FormValues extends Record<string, unknown>>({
         try {
           schema.parse(values, { errorMap })
         } catch (error) {
-          //console.log(error.message)
+          if (process.env.NODE_ENV === 'development') {
+            console.log(error.message)
+          }
           return error.formErrors.fieldErrors
         }
       }}

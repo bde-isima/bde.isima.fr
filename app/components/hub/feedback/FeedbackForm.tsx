@@ -1,4 +1,4 @@
-import { TextField, Select } from 'mui-rff'
+import { TextField, Select } from 'bde-isima-mui-rff'
 import MenuItem from '@mui/material/MenuItem'
 
 import { Form, FORM_ERROR } from 'app/components/forms/Form'

@@ -9,9 +9,9 @@ import Link from '@mui/icons-material/LinkTwoTone'
 export default function School() {
   return (
     <Container className="min-h-screen">
-      <div className="px-2 py-8 md:p-8">
-        <a id="school" href="#school" />
+      <a id="school" href="#school" />
 
+      <div className="px-2 py-8 md:p-8">
         <Typography variant="h3" color="textPrimary" gutterBottom>
           <b>L&apos;ISIMA</b>
         </Typography>

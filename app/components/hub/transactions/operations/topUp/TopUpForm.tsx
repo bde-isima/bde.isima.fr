@@ -1,5 +1,5 @@
 import { Image } from 'blitz'
-import { TextField } from 'mui-rff'
+import { TextField } from 'bde-isima-mui-rff'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
@@ -34,7 +34,6 @@ export default function TopUpForm(props: TopUpFormProps) {
         recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
       }}
       onSubmit={onSubmit}
-      autoComplete="off"
     >
       <EnhancedTextField
         type="number"

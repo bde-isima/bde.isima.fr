@@ -23,11 +23,14 @@ const clientSideEmotionCache = createEmotionCache()
   version: globalThis.version,
 } = packageJson)
 
-export default function App(props: BDEAppProps) {
+export default function App({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}: BDEAppProps) {
   const theme = useTheme()
   const { router } = useRouter()
 
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   const getLayout = Component.getLayout || ((page) => page)
 
   useEffect(() => {

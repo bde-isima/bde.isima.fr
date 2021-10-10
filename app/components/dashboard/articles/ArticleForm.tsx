@@ -1,5 +1,5 @@
 import { Image } from 'blitz'
-import { TextField, Switches } from 'mui-rff'
+import { TextField, Switches } from 'bde-isima-mui-rff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 

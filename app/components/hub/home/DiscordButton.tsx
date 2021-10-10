@@ -1,4 +1,5 @@
 import Card from '@mui/material/Card'
+import Tooltip from '@mui/material/Tooltip'
 import { createSvgIcon } from '@mui/material'
 import CardActionArea from '@mui/material/CardActionArea'
 
@@ -28,19 +29,21 @@ const Discord = createSvgIcon(
 
 export default function DiscordButton() {
   return (
-    <CardActionArea
-      href="https://discord.gg/fMmaSKavkv"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: 'inherit' }}
-    >
-      <Card
-        className="flex flex-grow justify-center rounded-b-md p-2"
-        style={{ backgroundColor: '#7289DA' }}
-        square
+    <Tooltip title="Rejoins le Discord du BDE !" placement="bottom" arrow>
+      <CardActionArea
+        href="https://discord.gg/fMmaSKavkv"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: 'inherit' }}
       >
-        <Discord />
-      </Card>
-    </CardActionArea>
+        <Card
+          className="flex flex-grow justify-center rounded-b-md p-2"
+          style={{ backgroundColor: '#7289DA' }}
+          square
+        >
+          <Discord />
+        </Card>
+      </CardActionArea>
+    </Tooltip>
   )
 }
