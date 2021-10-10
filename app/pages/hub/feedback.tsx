@@ -33,6 +33,7 @@ const Feedback: BlitzPage = () => {
       <Typography color="textSecondary" variant="caption" paragraph>
         Vous pouvez aussi ouvrir une issue sur le{' '}
         <a
+          className="text-blue-400"
           href="https://github.com/IraSkyx/bde-isima/issues"
           target="_blank"
           rel="noopener noreferrer"

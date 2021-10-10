@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Menu from '@mui/material/Menu'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
@@ -10,6 +9,7 @@ import Apps from '@mui/icons-material/AppsTwoTone'
 import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
 import Extension from '@mui/icons-material/ExtensionTwoTone'
 
+import Menu from './Menu'
 import Link from 'app/core/lib/Link'
 
 export default function ModulesMenu() {
@@ -33,40 +33,7 @@ export default function ModulesMenu() {
         <Apps />
       </IconButton>
 
-      <Menu
-        id="module-menu"
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
+      <Menu id="modules-menu" anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         <Typography className="pl-4 pt-2" variant="subtitle1">
           Modules
         </Typography>
@@ -78,7 +45,14 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <HowToVote />
             </ListItemIcon>
-            Élections BDE
+            <Typography
+              className="flex flex-grow items-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Élections BDE
+            </Typography>
           </MenuItem>
         </Link>
 
@@ -87,7 +61,14 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <Extension />
             </ListItemIcon>
-            Proposez vos extensions !
+            <Typography
+              className="flex flex-grow items-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Proposez vos extensions !
+            </Typography>
           </MenuItem>
         </Link>
       </Menu>

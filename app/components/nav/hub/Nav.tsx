@@ -10,7 +10,7 @@ import Menu from '@mui/icons-material/MenuTwoTone'
 import Mobile from './Mobile'
 import Desktop from './Desktop'
 import Link from 'app/core/lib/Link'
-import AvatarMenu from 'app/components/nav/hub/submenus/AvatarMenu'
+import AccountMenu from 'app/components/nav/hub/submenus/AccountMenu'
 import ModulesMenu from 'app/components/nav/hub/submenus/ModulesMenu'
 
 export default function Nav() {
@@ -55,7 +55,7 @@ export default function Nav() {
         </Hidden>
 
         <ModulesMenu />
-        <AvatarMenu />
+        <AccountMenu />
       </Toolbar>
     </AppBar>
   )

@@ -1,19 +1,20 @@
 import { useState } from 'react'
-import Menu from '@mui/material/Menu'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import { Image, useMutation, useAuthenticatedSession } from 'blitz'
 
 import Logout from '@mui/icons-material/LogoutTwoTone'
 import Feedback from '@mui/icons-material/FeedbackTwoTone'
 import SettingsApplications from '@mui/icons-material/SettingsApplicationsTwoTone'
 
+import Menu from './Menu'
 import Link from 'app/core/lib/Link'
 import logout from 'app/entities/auth/mutations/logout'
 
-export default function ModulesMenu() {
+export default function AccountMenu() {
   const session = useAuthenticatedSession()
   const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
@@ -43,22 +44,7 @@ export default function ModulesMenu() {
         <Avatar onClick={handleOpen} alt="Photo de profil" />
       )}
 
-      <Menu
-        id="avatar-menu"
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        MenuListProps={{ disablePadding: true }}
-        PaperProps={{
-          style: {
-            maxHeight: 72 * 5,
-            maxWidth: 200,
-          },
-        }}
-        disableAutoFocusItem
-      >
+      <Menu id="account-menu" anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         <Typography className="pt-4 pl-4 pr-4" variant="subtitle1" noWrap>
           {session?.nickname || `${session?.firstname} ${session?.lastname}`}
         </Typography>
@@ -67,7 +53,9 @@ export default function ModulesMenu() {
 
         <Link href="/hub/settings">
           <MenuItem className="p-3" onClick={handleClose}>
-            <SettingsApplications className="mx-3" />
+            <ListItemIcon>
+              <SettingsApplications />
+            </ListItemIcon>
             <Typography
               className="flex flex-grow items-center"
               variant="subtitle2"
@@ -81,7 +69,9 @@ export default function ModulesMenu() {
 
         <Link href="/hub/feedback">
           <MenuItem className="p-3" onClick={handleClose}>
-            <Feedback className="mx-3" />
+            <ListItemIcon>
+              <Feedback />
+            </ListItemIcon>
             <Typography
               className="flex flex-grow items-center"
               variant="subtitle2"
@@ -94,7 +84,9 @@ export default function ModulesMenu() {
         </Link>
 
         <MenuItem className="p-3" onClick={onLogout}>
-          <Logout className="mx-3" />
+          <ListItemIcon>
+            <Logout />
+          </ListItemIcon>
           <Typography
             className="flex flex-grow items-center"
             variant="subtitle2"
