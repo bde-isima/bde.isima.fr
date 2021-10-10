@@ -4,7 +4,7 @@ import FormGroup from '@mui/material/FormGroup'
 import { FieldArray } from 'react-final-form-arrays'
 import IconButton from '@mui/material/IconButton'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 

@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { TextField } from 'mui-rff'
-import { useRouter } from 'next/router'
 import Typography from '@mui/material/Typography'
 import { useMutation, AuthenticationError } from 'blitz'
 
+import { useRouter } from 'app/core/lib/router'
 import login from 'app/entities/auth/mutations/login'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import { LoginInput, LoginInputType } from 'app/components/forms/validations'
 
 export default function LoginForm() {
-  const router = useRouter()
+  const { router } = useRouter()
   const [signIn] = useMutation(login)
   const [message, setMessage] = useState('')
 

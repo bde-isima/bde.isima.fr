@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 export default function MessengerChat() {
-  //On unmount, cleans up the messenger-chat from the DOM
   useEffect(() => () => document.getElementById('fb-root')?.remove())
 
   return (

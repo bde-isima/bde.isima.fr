@@ -1,13 +1,14 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import Paper from '@mui/material/Paper'
-import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
+import { useTheme } from 'app/core/styles/theme'
+
 export default function Landing() {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   return (
     <Paper className="min-h-main relative">
@@ -25,7 +26,7 @@ export default function Landing() {
             <b>BDE ISIMA</b>
           </Typography>
           <Typography className="text-xl text-center md:text-left" paragraph>
-            L'Association des Étudiants Ingénieurs de l'ISIMA
+            L&apos;Association des Étudiants Ingénieurs de l&apos;ISIMA
           </Typography>
         </div>
       </Container>

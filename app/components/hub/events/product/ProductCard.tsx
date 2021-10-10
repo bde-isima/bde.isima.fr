@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardActionArea from '@mui/material/CardActionArea'
 
-import { Product } from 'types'
+import { Product } from 'global'
 
 type ProductCardProps = {
   product: Product

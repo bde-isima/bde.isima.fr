@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { format } from 'date-fns'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -47,7 +47,7 @@ export default function Header() {
             Date: {format(event.takes_place_at, 'dd/MM/yyyy à HH:mm')}
           </Typography>
           <Typography variant="subtitle2">
-            Limite d'inscription : {format(event.subscriptions_end_at, 'dd/MM/yyyy à HH:mm')}
+            Limite d&apos;inscription : {format(event.subscriptions_end_at, 'dd/MM/yyyy à HH:mm')}
           </Typography>
         </>
       }

@@ -1,28 +1,28 @@
-import Link from 'next/link'
+import { Link } from 'blitz'
 import Tab from '@mui/material/Tab'
 import List from '@mui/material/List'
-import { useTheme } from '@mui/material'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Drawer from '@mui/material/Drawer'
 import Hidden from '@mui/material/Hidden'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import ListItem from '@mui/material/ListItem'
 import TabContext from '@mui/lab/TabContext'
-import { cloneElement, useMemo, useState } from 'react'
+import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import { cloneElement, useMemo, useState } from 'react'
 
-import { useBDEConfig } from './useBDEConfig'
-import { useClubsConfig } from './useClubsConfig'
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import { useBDEConfig } from './bde-config'
+import { useClubsConfig } from './clubs-config'
+import { useRouter } from 'app/core/lib/router'
+import { useTheme } from 'app/core/styles/theme'
 
 export default function Desktop() {
+  const theme = useTheme()
+  const { router } = useRouter()
   const bdeConfig = useBDEConfig()
   const clubsConfig = useClubsConfig()
-  const { router } = useCustomRouter()
-  const theme = useTheme()
 
   const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`)
 
@@ -64,7 +64,7 @@ export default function Desktop() {
     )
 
   return (
-    <Hidden mdDown>
+    <Hidden lgDown>
       <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
         <TabContext value={value}>
           <AppBar position="static" color="inherit" elevation={0}>
@@ -107,5 +107,5 @@ export default function Desktop() {
         </TabContext>
       </Drawer>
     </Hidden>
-  );
+  )
 }

@@ -1,29 +1,31 @@
-import Image from 'next/image'
+import { Image, BlitzPage, Routes } from 'blitz'
 
-import PageTitle from 'app/core/layouts/PageTitle'
 import Table from 'app/components/dashboard/data/Table'
 import getPartners from 'app/entities/partners/queries/getPartners'
 import PartnerForm from 'app/components/dashboard/partners/PartnerForm'
 import upsertPartner from 'app/entities/partners/mutations/upsertPartner'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyPartners from 'app/entities/partners/mutations/deleteManyPartners'
 
-export default function Partners() {
+const Partners: BlitzPage = () => {
   return (
-    <>
-      <PageTitle title="Gestion des partenaires" />
-
-      <Table
-        title="Partenaires"
-        columns={columns}
-        queryKey="partners"
-        getQuery={getPartners}
-        upsertQuery={upsertPartner}
-        deleteQuery={deleteManyPartners}
-        FormComponent={PartnerForm}
-      />
-    </>
+    <Table
+      title="Partenaires"
+      columns={columns}
+      queryKey="partners"
+      getQuery={getPartners}
+      upsertQuery={upsertPartner}
+      deleteQuery={deleteManyPartners}
+      FormComponent={PartnerForm}
+    />
   )
 }
+
+Partners.suppressFirstRenderFlicker = true
+Partners.authenticate = { redirectTo: Routes.Login() }
+Partners.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Partners())
+Partners.getLayout = (page) => getDashboardNav(page, 'Gestion des partenaires')
 
 const columns = [
   {
@@ -51,3 +53,5 @@ const columns = [
     searchCriteria: 'contains',
   },
 ]
+
+export default Partners

@@ -9,7 +9,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
-import ChevronUp from 'mdi-material-ui/ChevronUp'
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUpTwoTone'
 
 type HistoryFilterProps = {
   minDate: Date
@@ -27,7 +27,7 @@ export default function HistoryFilter({
   return (
     <Accordion className="w-full" variant="outlined">
       <AccordionSummary
-        expandIcon={<ChevronUp />}
+        expandIcon={<KeyboardArrowUp />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >

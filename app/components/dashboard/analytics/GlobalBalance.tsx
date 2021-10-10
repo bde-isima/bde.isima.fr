@@ -1,8 +1,8 @@
 import { useQuery } from 'blitz'
-import { useTheme } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from 'victory'
 
+import { useTheme } from 'app/core/styles/theme'
 import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance'
 
 export default function GlobalBalance() {

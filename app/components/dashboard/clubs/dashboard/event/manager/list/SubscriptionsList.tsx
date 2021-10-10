@@ -1,20 +1,19 @@
-import Image from 'next/image'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
-import { useMutation, invalidateQuery } from 'blitz'
 import Typography from '@mui/material/Typography'
+import { Image, useMutation, invalidateQuery } from 'blitz'
 
-import Plus from 'mdi-material-ui/Plus'
+import Add from '@mui/icons-material/AddTwoTone'
 
 import { Event } from 'db'
 import Snackbar from 'app/core/layouts/Snackbar'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
 import SubscriptionCard from './SubscriptionCard'
-import { EventSubscriptionWithTypedCart } from 'types'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import type { EventSubscriptionWithTypedCart } from 'global'
 import AddSubscriptionDialog from './add/AddSubscriptionDialog'
 import { AddSubscriptionInputType } from 'app/components/forms/validations'
 import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
@@ -109,14 +108,14 @@ export default function SubscriptionsList({
   return (
     <div className="flex flex-col">
       <Typography variant="h6" align="center">
-        Liste des inscrits à l'événement
+        Liste des inscrits à l&apos;événement
       </Typography>
 
       <Divider className="m-4" />
 
       <Button
         className="ml-auto m-2"
-        startIcon={<Plus />}
+        startIcon={<Add />}
         aria-label="Ajouter"
         onClick={onAdd}
         variant="contained"
@@ -129,8 +128,8 @@ export default function SubscriptionsList({
         <div className="flex flex-col justify-center items-center">
           <Image
             src="/static/images/illustrations/NoData.svg"
-            height="auto"
-            width="300"
+            width={300}
+            layout="fill"
             alt="Aucune donnée"
           />
           <Typography variant="subtitle2" gutterBottom>

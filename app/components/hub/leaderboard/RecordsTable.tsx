@@ -12,9 +12,9 @@ import Records from 'app/components/hub/leaderboard/Records'
 
 export default function RecordsTable() {
   const FallbackComponent = [...Array(10).keys()].map((x) => (
-    <TableRow>
+    <TableRow key={x}>
       <TableCell colSpan={5}>
-        <Skeleton key={x} height={40} width="100%" />
+        <Skeleton height={40} width="100%" />
       </TableCell>
     </TableRow>
   ))
@@ -27,8 +27,8 @@ export default function RecordsTable() {
             <TableRow>
               <TableCell align="right">Photo</TableCell>
               <TableCell align="right">Article</TableCell>
-              <TableCell align="right">Nombre d'unités</TableCell>
-              <TableCell align="right">Nom d'utilisateur</TableCell>
+              <TableCell align="right">Nombre d&apos;unités</TableCell>
+              <TableCell align="right">Nom d&apos;utilisateur</TableCell>
               <TableCell align="right">Votre score</TableCell>
             </TableRow>
           </TableHead>

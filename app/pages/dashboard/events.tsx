@@ -1,23 +1,24 @@
 import { format } from 'date-fns'
-import { useMutation, invalidateQuery } from 'blitz'
+import { useMutation, invalidateQuery, BlitzPage, Routes } from 'blitz'
 
-import Check from 'mdi-material-ui/Check'
-import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
+import Check from '@mui/icons-material/CheckTwoTone'
+import Euro from '@mui/icons-material/EuroTwoTone'
 
 import Snackbar from 'app/core/layouts/Snackbar'
-import PageTitle from 'app/core/layouts/PageTitle'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
 import Table from 'app/components/dashboard/data/Table'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
 import getEvents from 'app/entities/events/queries/getEvents'
 import upsertEvent from 'app/entities/events/mutations/upsertEvent'
 import updateEvent from 'app/entities/events/mutations/updateEvent'
 import EventStatus from 'app/components/dashboard/events/EventStatus'
 import checkoutEvent from 'app/entities/events/mutations/checkoutEvent'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyEvents from 'app/entities/events/mutations/deleteManyEvents'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 
 const today = new Date()
 
-export default function Events() {
+const Events: BlitzPage = () => {
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
   const [updateEvnt] = useMutation(updateEvent)
@@ -43,8 +44,6 @@ export default function Events() {
 
   return (
     <>
-      <PageTitle title="Gestion des événements" />
-
       <Table
         title="Événements"
         columns={columns}
@@ -73,7 +72,7 @@ export default function Events() {
             disabled: rowData.status !== 'WAITING_APPROVAL',
           }),
           (rowData) => ({
-            icon: <CurrencyUsd />,
+            icon: <Euro />,
             tooltip: 'Encaisser',
             onClick: checkout,
             disabled:
@@ -86,6 +85,11 @@ export default function Events() {
     </>
   )
 }
+
+Events.suppressFirstRenderFlicker = true
+Events.authenticate = { redirectTo: Routes.Login() }
+Events.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Events())
+Events.getLayout = (page) => getDashboardNav(page, 'Gestion des événements')
 
 const columns = [
   {
@@ -119,3 +123,5 @@ const columns = [
     headerName: 'Nombre max de participants',
   },
 ]
+
+export default Events

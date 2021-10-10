@@ -1,24 +1,16 @@
 import { Children } from 'react'
-import createCache from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
 import createEmotionServer from '@emotion/server/create-instance'
-import { Document, Html, DocumentHead, Main, BlitzScript, DocumentContext } from 'blitz'
+import { BlitzScript, Document, DocumentContext, DocumentHead, Html, Main } from 'blitz'
 
-import CustomHead from 'app/core/lib/CustomHead'
-
-const getCache = () => {
-  const cache = createCache({ key: 'css', prepend: true })
-  cache.compat = true
-  return cache
-}
+import Head from 'app/core/lib/Head'
+import createEmotionCache from 'app/core/lib/createEmotionCache'
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="fr">
         <DocumentHead />
-        <CustomHead />
+        <Head />
 
         <body className="dark:bg-black">
           <Main />
@@ -30,21 +22,14 @@ export default class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
-  const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
 
-  const cache = getCache()
+  const cache = createEmotionCache()
   const { extractCriticalToChunks } = createEmotionServer(cache)
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-      enhanceComponent: (Component) => (props) =>
-        (
-          <CacheProvider value={cache}>
-            <Component {...props} />
-          </CacheProvider>
-        ),
+      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
     })
 
   const initialProps = await Document.getInitialProps(ctx)
@@ -53,17 +38,12 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     <style
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ))
 
   return {
     ...initialProps,
-    styles: [
-      ...Children.toArray(initialProps.styles),
-      sheets.getStyleElement(),
-      ...emotionStyleTags,
-    ],
+    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
   }
 }

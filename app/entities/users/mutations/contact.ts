@@ -12,7 +12,9 @@ export default resolver.pipe(async ({ subject, message, email }: ContactInput) =
   try {
     await mail.send({
       subject,
-      to: `${process.env.SMTP_USER}@gmail.com`,
+      to: `${
+        process.env.NODE_ENV !== 'production' ? process.env.SMTP_USER : process.env.SMTP_CONTACT
+      }+contact@gmail.com`,
       view: 'contact',
       variables: {
         subject,

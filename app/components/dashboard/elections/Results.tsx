@@ -1,5 +1,4 @@
 import NoSsr from '@mui/material/NoSsr'
-import { useTheme } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
@@ -8,13 +7,14 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
+import { useTheme } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function Results({ results, onClose }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   return (
     <NoSsr>
@@ -47,5 +47,5 @@ export default function Results({ results, onClose }) {
         </DialogContent>
       </Dialog>
     </NoSsr>
-  );
+  )
 }

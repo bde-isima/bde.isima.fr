@@ -1,20 +1,20 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import Grid from '@mui/material/Grid'
 import Chip from '@mui/material/Chip'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 
-import Check from 'mdi-material-ui/Check'
+import Check from '@mui/icons-material/CheckTwoTone'
 
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import { useRouter } from 'app/core/lib/router'
 
 type CalendarCellProps = {
   event: any
 }
 
 export default function CalendarChip({ event }: CalendarCellProps) {
-  const { pushRoute } = useCustomRouter()
+  const { pushRoute } = useRouter()
 
   return (
     <Grid item container xs={12} justifyContent="center">

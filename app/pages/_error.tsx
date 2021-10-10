@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
+import { Head, Image } from 'blitz'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 
-import ArrowLeft from 'mdi-material-ui/ArrowLeft'
+import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
+
+import Link from 'app/core/lib/Link'
 
 export default function Error({ statusCode }) {
   const errorCode = 500
@@ -33,14 +33,14 @@ export default function Error({ statusCode }) {
         </Typography>
 
         <Typography className="mb-4" variant="h6">
-          T'étais pas censé être là pour être ici ! Désolé !
+          T&apos;étais pas censé être là pour être ici ! Désolé !
         </Typography>
 
         <Link href="/">
           <Fab variant="extended" aria-label="Retour à l'accueil" color="primary">
             <ArrowLeft className="mr-2" color="secondary" />
             <Typography variant="subtitle2" color="secondary">
-              Revenir à l'accueil
+              Revenir à l&apos;accueil
             </Typography>
           </Fab>
         </Link>

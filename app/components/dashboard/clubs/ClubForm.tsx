@@ -1,10 +1,10 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { TextField } from 'mui-rff'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import { Club } from 'db'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
@@ -71,7 +71,8 @@ export default function ClubForm(props: ClubFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-                size="large">
+                size="large"
+              >
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -90,5 +91,5 @@ export default function ClubForm(props: ClubFormProps) {
       <TextField type="text" name="instagramURL" label="Instagram" />
       <TextField type="text" name="customURL" label="Site web" />
     </Form>
-  );
+  )
 }

@@ -1,83 +1,96 @@
-import Link from 'next/link'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
 
-import Apps from 'mdi-material-ui/Apps'
-import Vote from 'mdi-material-ui/Vote'
-import PuzzleOutline from 'mdi-material-ui/PuzzleOutline'
+import Apps from '@mui/icons-material/AppsTwoTone'
+import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
+import Extension from '@mui/icons-material/ExtensionTwoTone'
+
+import Link from 'app/core/lib/Link'
 
 export default function ModulesMenu() {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
 
   const handleClose = () => setAnchorEl(null)
 
-  return <>
-    <IconButton
-      className="mx-2 text-primary dark:text-secondary"
-      aria-label="Voir les modules"
-      aria-owns={isOpen ? 'module-menu' : undefined}
-      aria-haspopup="true"
-      onClick={handleOpen}
-      size="large">
-      <Apps />
-    </IconButton>
+  return (
+    <>
+      <IconButton
+        className="mx-2 text-primary dark:text-secondary"
+        aria-label="Voir les modules"
+        aria-owns={isOpen ? 'module-menu' : undefined}
+        aria-haspopup="true"
+        onClick={handleOpen}
+        size="large"
+      >
+        <Apps />
+      </IconButton>
 
-    <Menu
-      id="module-menu"
-      anchorEl={anchorEl}
-      open={isOpen}
-      onClose={handleClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      MenuListProps={{ disablePadding: true }}
-      PaperProps={{
-        style: {
-          maxHeight: 72 * 5,
-          maxWidth: 300,
-        },
-      }}
-      disableAutoFocusItem
-    >
-      <Typography className="pl-4 pt-4" variant="subtitle1">
-        Modules
-      </Typography>
+      <Menu
+        id="module-menu"
+        anchorEl={anchorEl}
+        open={isOpen}
+        onClose={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <Typography className="pl-4 pt-2" variant="subtitle1">
+          Modules
+        </Typography>
 
-      <Divider className="mx-3 mt-3" />
+        <Divider className="my-2" />
 
-      <Link href="/hub/elections">
-        <MenuItem className="p-3" onClick={handleClose}>
-          <Vote className="mx-3" />
-          <Typography
-            className="flex flex-grow items-center justify-center"
-            variant="subtitle2"
-            align="center"
-            color="textPrimary"
-          >
+        <Link href="/hub/elections">
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <HowToVote />
+            </ListItemIcon>
             Élections BDE
-          </Typography>
-        </MenuItem>
-      </Link>
+          </MenuItem>
+        </Link>
 
-      <Link href="/hub/feedback">
-        <MenuItem className="p-3" onClick={handleClose}>
-          <PuzzleOutline className="mx-3" />
-          <Typography
-            className="flex flex-grow items-center justify-center"
-            variant="subtitle2"
-            align="center"
-            color="textPrimary"
-          >
+        <Link href="/hub/feedback">
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <Extension />
+            </ListItemIcon>
             Proposez vos extensions !
-          </Typography>
-        </MenuItem>
-      </Link>
-    </Menu>
-  </>;
+          </MenuItem>
+        </Link>
+      </Menu>
+    </>
+  )
 }

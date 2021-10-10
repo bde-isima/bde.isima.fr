@@ -8,22 +8,22 @@ import promotions from './promotions'
 import transactions from './transactions'
 import eventSubscriptions from './eventSubscriptions'
 
-const seed = async () => {
-  try {
-    await db.$reset()
-    await promotions(db)
-    await clubs(db)
-    await users(db)
-    await events(db)
-    await articles(db)
-    await partners(db)
-    await transactions(db)
-    await eventSubscriptions(db)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    db.$disconnect()
-  }
+async function main() {
+  await promotions(db)
+  await clubs(db)
+  await users(db)
+  await events(db)
+  await articles(db)
+  await partners(db)
+  await transactions(db)
+  await eventSubscriptions(db)
 }
 
-export default seed
+main()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await db.$disconnect()
+  })

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import Typography from '@mui/material/Typography'
 import DialogContent from '@mui/material/DialogContent'
 

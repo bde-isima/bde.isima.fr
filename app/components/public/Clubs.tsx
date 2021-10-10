@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { Suspense } from 'react'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import { Club } from 'db'
 import Carousel from './carousel'
 import getClubs from 'app/entities/clubs/queries/getClubs'
 
@@ -40,7 +41,7 @@ export default function Clubs() {
               >
                 Le BDE se décompose en une multitude de clubs avec chacun une activité propre. Il y
                 en a pour tous les goûts (activités associatives scientifiques, techniques,
-                technologiques, culturelles ou encore sportives) et c'est souvent Isibouffe qui
+                technologiques, culturelles ou encore sportives) et c&apos;est souvent Isibouffe qui
                 régale ! <br />
                 La vie associative est un aspect très important du BDE, quelles que soient tes
                 passions tu trouveras forcément un club qui te plaira !
@@ -49,7 +50,7 @@ export default function Clubs() {
           </Grid>
 
           <Suspense fallback={<CircularProgress className="mx-auto" size={25} color="secondary" />}>
-            <Carousel getQuery={getClubs} queryKey="clubs" />
+            <Carousel<Club> getQuery={getClubs} queryKey="clubs" />
           </Suspense>
         </div>
       </Container>

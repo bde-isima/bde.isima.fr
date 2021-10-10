@@ -1,19 +1,19 @@
 import cuid from 'cuid'
 import { useMutation } from 'blitz'
-import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
 import Mobile from './Mobile'
 import Desktop from './Desktop'
+import { useRouter } from 'app/core/lib/router'
 import Snackbar from 'app/core/layouts/Snackbar'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
-import { CartItem, Option, EventSubscriptionWithTypedCart } from 'types'
+import type { CartItem, Option, EventSubscriptionWithTypedCart } from 'global'
 import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 import upsertEventSubscription from 'app/entities/eventSubscriptions/mutations/upsertEventSubscription'
 import deleteEventSubscription from 'app/entities/eventSubscriptions/mutations/deleteEventSubscription'
 
 export default function Cart() {
-  const router = useRouter()
+  const { router } = useRouter()
   const [total, setTotal] = useState<number>(0)
   const { open, message, severity, onShow, onClose } = useSnackbar()
   const { eventSubscription, setQueryData } = useEventSubscription()

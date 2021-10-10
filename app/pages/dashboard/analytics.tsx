@@ -1,16 +1,16 @@
 import { Suspense } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
+import { BlitzPage, Routes } from 'blitz'
 
-import PageTitle from 'app/core/layouts/PageTitle'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import ArticlesStats from 'app/components/dashboard/analytics/ArticlesStats'
 import GlobalBalance from 'app/components/dashboard/analytics/GlobalBalance'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 
-export default function Analytics() {
+const Analytics: BlitzPage = () => {
   return (
     <>
-      <PageTitle title="Statistiques" />
-
       <Grid container spacing={5}>
         <Grid item xs={12} md={6}>
           <Card className="p-4 h-full">
@@ -31,3 +31,10 @@ export default function Analytics() {
     </>
   )
 }
+
+Analytics.suppressFirstRenderFlicker = true
+Analytics.authenticate = { redirectTo: Routes.Login() }
+Analytics.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Planning())
+Analytics.getLayout = (page) => getDashboardNav(page, 'Statistiques')
+
+export default Analytics

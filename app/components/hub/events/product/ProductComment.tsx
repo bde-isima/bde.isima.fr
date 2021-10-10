@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField'
 import FormControl from '@mui/material/FormControl'
 
-import { Product } from 'types'
+import { Product } from 'global'
 
 type ProductCommentProps = {
   product: Product

@@ -1,15 +1,17 @@
 import Card from '@mui/material/Card'
+import type { BlitzPage } from 'blitz'
 import Divider from '@mui/material/Divider'
 import Container from '@mui/material/Container'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
-import ArrowLeft from 'mdi-material-ui/ArrowLeft'
+import ArrowBack from '@mui/icons-material/ArrowBack'
 
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import { useRouter } from 'app/core/lib/router'
+import getPublicNav from 'app/components/nav/public/getPublicNav'
 
-export default function Privacy() {
-  const { pushRoute } = useCustomRouter()
+const Privacy: BlitzPage = () => {
+  const { pushRoute } = useRouter()
 
   return (
     <Container className="w-full md:w-4/5 mt-20">
@@ -18,8 +20,9 @@ export default function Privacy() {
           className="mr-auto"
           onClick={pushRoute('/')}
           aria-label="Retour à la page d'accueil"
-          size="large">
-          <ArrowLeft />
+          size="large"
+        >
+          <ArrowBack />
         </IconButton>
 
         <div className="mt-8 text-justify">
@@ -32,7 +35,7 @@ export default function Privacy() {
           <p>
             Devant le d&eacute;veloppement des nouveaux outils de communication, il est
             n&eacute;cessaire de porter une attention particuli&egrave;re &agrave; la protection de
-            la vie priv&eacute;e. C'est pourquoi, nous nous engageons &agrave; respecter la
+            la vie priv&eacute;e. C&apos;est pourquoi, nous nous engageons &agrave; respecter la
             confidentialit&eacute; des renseignements personnels que nous collectons.
           </p>
           <Divider className="m-4" />
@@ -49,10 +52,10 @@ export default function Privacy() {
 
           <p>
             Les renseignements personnels que nous collectons sont recueillis au travers de
-            formulaires et gr&acirc;ce &agrave; l'interactivit&eacute; &eacute;tablie entre vous et
-            notre site Web. Nous utilisons &eacute;galement, comme indiqu&eacute; dans la section
-            suivante, des fichiers t&eacute;moins et/ou journaux pour r&eacute;unir des informations
-            vous concernant.
+            formulaires et gr&acirc;ce &agrave; l&apos;interactivit&eacute; &eacute;tablie entre
+            vous et notre site Web. Nous utilisons &eacute;galement, comme indiqu&eacute; dans la
+            section suivante, des fichiers t&eacute;moins et/ou journaux pour r&eacute;unir des
+            informations vous concernant.
           </p>
 
           <Divider className="m-4" />
@@ -67,7 +70,7 @@ export default function Privacy() {
           <ul>
             <li>
               Formulaires de contact, Ajout manuel de membre par un administrateur avec des
-              informations préalablement fournies par l'utilisateur sur papier
+              informations préalablement fournies par l&apos;utilisateur sur papier
             </li>
           </ul>
           <p>
@@ -82,8 +85,8 @@ export default function Privacy() {
           </ul>
           <p>
             Vos renseignements sont &eacute;galement collect&eacute;s par le biais de
-            l'interactivit&eacute; pouvant s'&eacute;tablir entre vous et notre site Web et ce, de
-            la fa&ccedil;on suivante:
+            l&apos;interactivit&eacute; pouvant s&apos;&eacute;tablir entre vous et notre site Web
+            et ce, de la fa&ccedil;on suivante:
           </p>
           <ul className="p-2 list-inside list-disc">
             <li>Statistiques</li>
@@ -106,7 +109,7 @@ export default function Privacy() {
           </Typography>
           <p>
             Nous recueillons certaines informations par le biais de fichiers journaux (log file) et
-            de fichiers t&eacute;moins (cookies). Il s'agit principalement des informations
+            de fichiers t&eacute;moins (cookies). Il s&apos;agit principalement des informations
             suivantes :
           </p>
           <ul className="p-2 list-inside list-disc">
@@ -123,19 +126,19 @@ export default function Privacy() {
           <Divider className="m-4" />
 
           <Typography variant="h5" gutterBottom>
-            Droit d'opposition et de retrait
+            Droit d&apos;opposition et de retrait
           </Typography>
           <p>
-            Nous nous engageons &agrave; vous offrir un droit d'opposition et de retrait quant
+            Nous nous engageons &agrave; vous offrir un droit d&apos;opposition et de retrait quant
             &agrave; vos renseignements personnels.
             <br />
-            Le droit d'opposition s'entend comme &eacute;tant la possiblit&eacute; offerte aux
-            internautes de refuser que leurs renseignements personnels soient utilis&eacute;es
+            Le droit d&apos;opposition s&apos;entend comme &eacute;tant la possiblit&eacute; offerte
+            aux internautes de refuser que leurs renseignements personnels soient utilis&eacute;es
             &agrave; certaines fins mentionn&eacute;es lors de la collecte.
             <br />
           </p>
           <p>
-            Le droit de retrait s'entend comme &eacute;tant la possiblit&eacute; offerte aux
+            Le droit de retrait s&apos;entend comme &eacute;tant la possiblit&eacute; offerte aux
             internautes de demander &agrave; ce que leurs renseignements personnels ne figurent
             plus, par exemple, dans une liste de diffusion.
             <br />
@@ -151,14 +154,14 @@ export default function Privacy() {
           <Divider className="m-4" />
 
           <Typography variant="h5" gutterBottom>
-            Droit d'acc&egrave;s
+            Droit d&apos;acc&egrave;s
           </Typography>
           <p>
-            Nous nous engageons &agrave; reconna&icirc;tre un droit d'acc&egrave;s et de
+            Nous nous engageons &agrave; reconna&icirc;tre un droit d&apos;acc&egrave;s et de
             rectification aux personnes concern&eacute;es d&eacute;sireuses de consulter, modifier,
             voire radier les informations les concernant.
             <br />
-            L'exercice de ce droit se fera :<br />
+            L&apos;exercice de ce droit se fera :<br />
             Code postal : 1, rue de la Chebarde, Aubière 63178
             <br /> Courriel : bde.isima@gmail.com
             <br /> Section du site web : https://bde.isima.fr/
@@ -191,14 +194,19 @@ export default function Privacy() {
 
           <p>
             Nous nous engageons &agrave; maintenir un haut degr&eacute; de confidentialit&eacute; en
-            int&eacute;grant les derni&egrave;res innovations technologiques permettant d'assurer la
-            confidentialit&eacute; de vos transactions. Toutefois, comme aucun m&eacute;canisme
-            n'offre une s&eacute;curit&eacute; maximale, une part de risque est toujours
-            pr&eacute;sente lorsque l'on utilise Internet pour transmettre des renseignements
-            personnels.
+            int&eacute;grant les derni&egrave;res innovations technologiques permettant
+            d&apos;assurer la confidentialit&eacute; de vos transactions. Toutefois, comme aucun
+            m&eacute;canisme n&apos;offre une s&eacute;curit&eacute; maximale, une part de risque
+            est toujours pr&eacute;sente lorsque l&apos;on utilise Internet pour transmettre des
+            renseignements personnels.
           </p>
         </div>
       </Card>
     </Container>
-  );
+  )
 }
+
+Privacy.suppressFirstRenderFlicker = true
+Privacy.getLayout = (page) => getPublicNav(page)
+
+export default Privacy

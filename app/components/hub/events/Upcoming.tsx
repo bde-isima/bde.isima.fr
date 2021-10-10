@@ -7,16 +7,16 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 
-import DotsVertical from 'mdi-material-ui/DotsVertical'
+import MoreVert from '@mui/icons-material/MoreVertTwoTone'
 
+import { useRouter } from 'app/core/lib/router'
 import Calendar from 'app/components/hub/events/Calendar'
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
 import CalendarCell from 'app/components/hub/events/CalendarCell'
 
 const today = new Date(new Date().setHours(0, 0, 0, 0))
 
 export default function Upcoming() {
-  const { pushRoute } = useCustomRouter()
+  const { pushRoute } = useRouter()
 
   const getNextSevenDays = () => [...Array(7).keys()].map((i) => addDays(today, i))
 
@@ -25,7 +25,7 @@ export default function Upcoming() {
   ))
 
   return (
-    <div className="flex flex-col mb-4">
+    <div className="flex flex-col">
       <Typography align="left" variant="h6" color="textPrimary">
         Évènements à venir
       </Typography>
@@ -46,12 +46,13 @@ export default function Upcoming() {
             className="mr-2"
             aria-label="Voir plus d'événements"
             onClick={pushRoute('/hub/events')}
-            size="large">
-            <DotsVertical />
+            size="large"
+          >
+            <MoreVert />
           </IconButton>
         </Tooltip>
         <Typography color="textPrimary">Tous les évènements</Typography>
       </div>
     </div>
-  );
+  )
 }

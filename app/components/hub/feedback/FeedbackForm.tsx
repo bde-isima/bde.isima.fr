@@ -8,10 +8,13 @@ type FeedbackFormProps = {
   onSuccess: (values: FeedbackInputType) => void
 }
 
+const TOPICS = ['Suggestion', 'Bug', "Retour d'expérience", 'Autre']
+
 export default function FeedbackForm(props: FeedbackFormProps) {
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, form) => {
     try {
       await props.onSuccess(values)
+      form.restart()
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
@@ -31,7 +34,7 @@ export default function FeedbackForm(props: FeedbackFormProps) {
       autoComplete="off"
     >
       <Select name="subject" label="Sujet du message">
-        {['Suggestion', 'Bug', "Retour d'expérience", 'Autre'].map((s, i) => (
+        {TOPICS.map((s, i) => (
           <MenuItem key={i} value={s}>
             {s}
           </MenuItem>

@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import { useTheme, useMediaQuery } from '@mui/material'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import TopUp from 'app/components/hub/transactions/operations/topUp/TopUp'
@@ -17,7 +17,7 @@ type TopUpDialogProps = {
 
 export default function TopUpDialog({ isOpen, onClose }: TopUpDialogProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   return (
     <NoSsr>
@@ -40,5 +40,5 @@ export default function TopUpDialog({ isOpen, onClose }: TopUpDialogProps) {
         </DialogContent>
       </Dialog>
     </NoSsr>
-  );
+  )
 }

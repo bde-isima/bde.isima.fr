@@ -1,8 +1,8 @@
 import { SessionContext, getSession, GetServerSideProps } from 'blitz'
 
 import db from 'db'
-import { getBDEConfigServerSide } from 'app/components/nav/dashboard/useBDEConfig'
-import { getClubsConfigServerSide } from 'app/components/nav/dashboard/useClubsConfig'
+import { getBDEConfigServerSide } from 'app/components/nav/dashboard/bde-config'
+import { getClubsConfigServerSide } from 'app/components/nav/dashboard/clubs-config'
 
 export default function DashboardIndex() {
   return null

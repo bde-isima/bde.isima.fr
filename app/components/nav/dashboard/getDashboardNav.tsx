@@ -1,10 +1,16 @@
+import { Head } from 'blitz'
+
 import Nav from 'app/components/nav/hub/Nav'
 import Desktop from 'app/components/nav/dashboard/Desktop'
 import SearchUserForm from 'app/components/dashboard/cashing/SearchUserForm'
 
-export default function getDashboardNav(Component) {
+export default function getDashboardNav(Component, title = 'Dashboard ZZ') {
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+
       <Nav />
       <Desktop />
 

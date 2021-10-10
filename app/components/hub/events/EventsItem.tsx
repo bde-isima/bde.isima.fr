@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { format } from 'date-fns'
 import Chip from '@mui/material/Chip'
 import Grid from '@mui/material/Grid'
@@ -10,7 +10,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardActions from '@mui/material/CardActions'
 
 import { Event } from 'db'
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import { useRouter } from 'app/core/lib/router'
 
 type EventsItemProps = {
   event?: Event & { club: { image: string | null } }
@@ -18,7 +18,7 @@ type EventsItemProps = {
 }
 
 export default function EventsItem({ event, isLoading }: EventsItemProps) {
-  const { pushRoute } = useCustomRouter()
+  const { pushRoute } = useRouter()
 
   return (
     <Grid container item justifyContent="center" xs={12} md={6} lg={3}>

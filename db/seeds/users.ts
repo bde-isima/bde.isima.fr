@@ -27,7 +27,7 @@ const users = async (db) => {
         nickname: faker.name.findName(),
         image: faker.image.imageUrl(100, 100, undefined, false, true),
         email: faker.internet.email(),
-        card: faker.random.number(),
+        card: faker.datatype.number(),
         balance: parseFloat(faker.finance.amount()),
         promotionId: promotion.id,
       },

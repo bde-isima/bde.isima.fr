@@ -1,18 +1,17 @@
-import Image from 'next/image'
-import { useMutation } from 'blitz'
-import { useTheme } from '@mui/material'
+import { Image, useMutation } from 'blitz'
 import Skeleton from '@mui/material/Skeleton'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
+import { useTheme } from 'app/core/styles/theme'
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction'
 
 const GUTTER_SIZE = 16
 
 export default function Article({ user, article, onClick, style }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
   const size = fullScreen ? 40 : 50
 
   const [createTransaction] = useMutation(createArticleTransaction)

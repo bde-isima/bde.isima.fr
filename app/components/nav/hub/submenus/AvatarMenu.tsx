@@ -1,17 +1,16 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { useMutation, useAuthenticatedSession } from 'blitz'
+import { Image, useMutation, useAuthenticatedSession } from 'blitz'
 
-import Logout from 'mdi-material-ui/Logout'
-import CogOutline from 'mdi-material-ui/CogOutline'
-import MessageAlertOutline from 'mdi-material-ui/MessageAlertOutline'
+import Logout from '@mui/icons-material/LogoutTwoTone'
+import Feedback from '@mui/icons-material/FeedbackTwoTone'
+import SettingsApplications from '@mui/icons-material/SettingsApplicationsTwoTone'
 
+import Link from 'app/core/lib/Link'
 import logout from 'app/entities/auth/mutations/logout'
 
 export default function ModulesMenu() {
@@ -49,7 +48,6 @@ export default function ModulesMenu() {
         anchorEl={anchorEl}
         open={isOpen}
         onClose={handleClose}
-        getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         MenuListProps={{ disablePadding: true }}
@@ -69,7 +67,7 @@ export default function ModulesMenu() {
 
         <Link href="/hub/settings">
           <MenuItem className="p-3" onClick={handleClose}>
-            <CogOutline className="mx-3" />
+            <SettingsApplications className="mx-3" />
             <Typography
               className="flex flex-grow items-center"
               variant="subtitle2"
@@ -83,7 +81,7 @@ export default function ModulesMenu() {
 
         <Link href="/hub/feedback">
           <MenuItem className="p-3" onClick={handleClose}>
-            <MessageAlertOutline className="mx-3" />
+            <Feedback className="mx-3" />
             <Typography
               className="flex flex-grow items-center"
               variant="subtitle2"

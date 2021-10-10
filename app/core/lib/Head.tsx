@@ -1,11 +1,10 @@
-import { Head } from 'next/document'
-import useCustomTheme from 'app/core/styles/useCustomTheme'
+import { useTheme } from 'app/core/styles/theme'
 
-export default function CustomHead() {
-  const theme = useCustomTheme()
+export default function Head() {
+  const theme = useTheme()
 
   return (
-    <Head>
+    <>
       <meta charSet="utf-8" />
       <meta
         name="robots"
@@ -15,12 +14,11 @@ export default function CustomHead() {
 
       <link
         rel="preload"
-        href="/fonts/Montserrat.woff2"
+        href="/fonts/Graphik.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
       />
-      <link href="/static/nprogress.css" rel="stylesheet" />
       <link rel="manifest" href="/manifest.json" />
 
       <link
@@ -70,23 +68,6 @@ export default function CustomHead() {
         content={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/static/images/favicons/android-chrome-512x512.png`}
         key="og:image"
       />
-
-      <script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
-      />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
-                page_path: window.location.pathname,
-            });
-        `,
-        }}
-      />
-    </Head>
+    </>
   )
 }

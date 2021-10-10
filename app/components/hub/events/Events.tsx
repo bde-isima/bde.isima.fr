@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import { useQuery } from 'blitz'
 import Grid from '@mui/material/Grid'
+import { Image, useQuery } from 'blitz'
 import Typography from '@mui/material/Typography'
 
 import { Event as EventDb } from 'db'
 import EventsItem from 'app/components/hub/events/EventsItem'
 import getEvents from 'app/entities/events/queries/getEvents'
+import noData from 'public/static/images/illustrations/NoData.svg'
 
 const today = new Date(new Date().setHours(0, 0, 0, 0))
 
@@ -26,12 +26,7 @@ export default function Events() {
     <>
       {events.length === 0 && (
         <Grid container item alignContent="center" direction="column">
-          <Image
-            src="/static/images/illustrations/NoData.svg"
-            height="auto"
-            width="300"
-            alt="Aucune donnée"
-          />
+          <Image src={noData} alt="Aucune donnée" layout="intrinsic" />
 
           <Typography variant="subtitle2" align="center" color="textPrimary" gutterBottom>
             Aucun événement à venir !

@@ -1,24 +1,24 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { cloneElement } from 'react'
+import { Image } from 'blitz'
+import { useSession } from 'blitz'
 import Fab from '@mui/material/Fab'
+import { cloneElement } from 'react'
 import List from '@mui/material/List'
 import Button from '@mui/material/Button'
-import { useAuthenticatedSession } from 'blitz'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 
-import LoginVariant from 'mdi-material-ui/LoginVariant'
-import AccountArrowRightOutline from 'mdi-material-ui/AccountArrowRightOutline'
+import Login from '@mui/icons-material/LoginTwoTone'
+import Account from '@mui/icons-material/AccountCircleTwoTone'
 
 import config from './config'
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import Link from 'app/core/lib/Link'
+import { useRouter } from 'app/core/lib/router'
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
-  const session = useAuthenticatedSession()
-  const { router, pushRoute } = useCustomRouter()
+  const session = useSession()
+  const { router, pushRoute } = useRouter()
 
   const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
@@ -83,14 +83,14 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
           <ItemsList />
 
           <div className="m-3 flex justify-center">
-            {session?.userId ? (
+            {session.userId ? (
               <Fab
                 variant="extended"
                 onClick={pushRoute('/hub')}
                 aria-label="Mon compte"
                 color="primary"
               >
-                <AccountArrowRightOutline className="mr-2" />
+                <Account className="mr-2" />
                 MON COMPTE
               </Fab>
             ) : (
@@ -100,7 +100,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
                 aria-label="Se connecter"
                 color="primary"
               >
-                <LoginVariant className="mr-2" />
+                <Login className="mr-2" />
                 SE CONNECTER
               </Fab>
             )}
@@ -109,7 +109,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
 
         <ListItem>
           <ListItemText
-            secondary={`Version ${globalThis.appVersion}`}
+            secondary={`Version ${globalThis.version}`}
             secondaryTypographyProps={{ align: 'center' }}
           />
         </ListItem>

@@ -1,21 +1,23 @@
 import { format } from 'date-fns'
 import { CsvBuilder } from 'filefy'
-import { useRouter } from 'next/router'
+import { BlitzPage, Routes } from 'blitz'
 import { useState, Suspense } from 'react'
 
-import ViewDashboardVariant from 'mdi-material-ui/ViewDashboardVariant'
+import Dashboard from '@mui/icons-material/DashboardTwoTone'
 
-import Layout from 'app/core/layouts/PageTitle'
+import { useRouter } from 'app/core/lib/router'
 import Table from 'app/components/dashboard/data/Table'
 import getEvents from 'app/entities/events/queries/getEvents'
 import upsertEvent from 'app/entities/events/mutations/upsertEvent'
 import EventStatus from 'app/components/dashboard/events/EventStatus'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyEvents from 'app/entities/events/mutations/deleteManyEvents'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/clubs-config'
 import Manager from 'app/components/dashboard/clubs/dashboard/event/manager/Manager'
 import ClubEventForm from 'app/components/dashboard/clubs/dashboard/event/ClubEventForm'
 
-export default function ClubDashboard() {
-  const router = useRouter()
+const ClubDashboard: BlitzPage = () => {
+  const { router } = useRouter()
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
 
@@ -83,8 +85,6 @@ export default function ClubDashboard() {
 
   return (
     <>
-      <Layout title={`Gestion de ${router.query.name}`} />
-
       <Table
         title="Événements"
         columns={columns}
@@ -101,7 +101,7 @@ export default function ClubDashboard() {
         onExport={exportCsv}
         actions={[
           (rowData) => ({
-            icon: <ViewDashboardVariant />,
+            icon: <Dashboard />,
             tooltip: 'Gérer',
             onClick: manage(rowData),
           }),
@@ -114,6 +114,11 @@ export default function ClubDashboard() {
     </>
   )
 }
+
+ClubDashboard.suppressFirstRenderFlicker = true
+ClubDashboard.authenticate = { redirectTo: Routes.Login() }
+//ClubDashboard.redirectAuthenticatedTo = redirectAuthenticatedTo as any // FIXME
+ClubDashboard.getLayout = (page) => getDashboardNav(page, 'Dashboard club')
 
 const columns = [
   {
@@ -142,3 +147,5 @@ const columns = [
     headerName: 'Nombre max de participants',
   },
 ]
+
+export default ClubDashboard

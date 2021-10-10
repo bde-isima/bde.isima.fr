@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import DialogActions from '@mui/material/DialogActions'
 import { useTheme, useMediaQuery } from '@mui/material'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import AddSubscriptionForm from './AddSubscriptionForm'
 import SlideTransition from 'app/core/layouts/SlideTransition'
@@ -21,7 +21,7 @@ export default function AddSubscriptionDialog({
   onClose,
 }: AddSubscriptionDialogProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   return (
     <NoSsr>
@@ -41,5 +41,5 @@ export default function AddSubscriptionDialog({
         <AddSubscriptionForm onSuccess={onSuccess} onClose={onClose} />
       </Dialog>
     </NoSsr>
-  );
+  )
 }

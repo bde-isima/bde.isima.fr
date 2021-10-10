@@ -3,11 +3,11 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ButtonGroup from '@mui/material/ButtonGroup'
 
-import Cellphone from 'mdi-material-ui/Cellphone'
-import CardBulleted from 'mdi-material-ui/CardBulleted'
-import CashMultiple from 'mdi-material-ui/CashMultiple'
+import Cellphone from '@mui/icons-material/CellphoneTwoTone'
+import CardBulleted from '@mui/icons-material/CardBulletedTwoTone'
+import CashMultiple from '@mui/icons-material/CashMultipleTwoTone'
 
-import { EventSubscriptionWithTypedCart } from 'types'
+import { EventSubscriptionWithTypedCart } from 'global'
 import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 
 export default function PaymentMethods() {

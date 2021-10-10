@@ -64,8 +64,8 @@ export const generate = () => {
               lineHeight="24px"
               padding="0px 25px 0px 25px"
             >
-              Ton compte BDE vient d'être créé ! Connecte-toi dès maintenant. Ce lien est valable 7
-              jours.
+              Ton compte BDE vient d&apos;être créé ! Connecte-toi dès maintenant. Ce lien est
+              valable 7 jours.
             </MjmlText>
             <MjmlButton
               align="center"

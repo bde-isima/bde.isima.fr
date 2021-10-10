@@ -2,7 +2,7 @@ import { resolver } from 'blitz'
 import { format } from 'date-fns'
 
 import db, { Prisma } from 'db'
-import { CartItem, Option } from 'types'
+import { CartItem, Option } from 'global'
 
 type UpdateEventInput = Pick<Prisma.EventUpdateArgs, 'where'>
 

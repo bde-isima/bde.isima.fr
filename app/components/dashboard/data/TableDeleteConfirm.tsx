@@ -23,7 +23,7 @@ export default function TableDeleteConfirm({ open, onConfirm, onClose }) {
       aria-describedby="table-delete-confirm-description"
     >
       <DialogTitle id="table-delete-confirm-title">
-        Êtes-vous sûr d'effectuer cette action ?
+        Êtes-vous sûr d&apos;effectuer cette action ?
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="table-delete-confirm-description">

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useQuery } from 'blitz'
 import { subDays } from 'date-fns'
-import { useTheme } from '@mui/material'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
 
+import { useTheme } from 'app/core/styles/theme'
 import getArticles from 'app/entities/articles/queries/getArticles'
 
 const now = new Date()
@@ -25,7 +25,7 @@ export default function ArticlesStats() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-grow justify-around">
-        <Typography variant="h6">Ventes d'articles</Typography>
+        <Typography variant="h6">Ventes d&apos;articles</Typography>
 
         <Select value={period} onChange={handleChange}>
           <MenuItem value={7}>Cette semaine</MenuItem>

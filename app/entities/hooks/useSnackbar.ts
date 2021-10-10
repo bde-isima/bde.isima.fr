@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Color } from '@mui/material/Alert'
+import { AlertColor } from '@mui/material/Alert'
 
 export default function useSnackbar() {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
-  const [severity, setSeverity] = useState<Color>('success')
+  const [severity, setSeverity] = useState<AlertColor>('success')
 
-  const onShow = (severity: Color, message: string) => {
+  const onShow = (severity: AlertColor, message: string) => {
     setSeverity(severity)
     setMessage(message)
     setOpen(true)

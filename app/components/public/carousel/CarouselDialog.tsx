@@ -1,53 +1,85 @@
+import Paper from '@mui/material/Paper'
 import sanitizeHtml from 'sanitize-html'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
-import { useTheme, useMediaQuery } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
+import type { CarouselItemType } from './index'
+import { useTheme } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 
-export default function CarouselDialog({ selected, onClose }) {
+interface CarouselDialogProps {
+  open: boolean
+  onClose: () => void
+}
+
+const CarouselDialog = <ItemType extends CarouselItemType>({
+  open,
+  item,
+  onClose,
+}: CarouselDialogProps & {
+  item?: ItemType
+}) => {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
 
-  return selected && (
+  return (
     <Dialog
-      open={Boolean(selected)}
-      fullScreen={fullScreen}
-      onClose={onClose}
+      maxWidth="lg"
+      scroll="body"
+      open={open}
       TransitionComponent={SlideTransition}
-      PaperProps={{ className: 'w-full' }}
+      PaperProps={{ className: 'md:w-3/4' }}
+      fullScreen={fullScreen}
+      keepMounted
+      onClose={onClose}
       aria-labelledby="carousel-dialog-title"
+      aria-describedby="carousel-dialog-description"
     >
-      <DialogActions id="carousel-dialog-title" className="text-right">
-        <IconButton className="mt-4 ml-4" onClick={onClose} aria-label="Fermer" size="large">
-          <Close />
-        </IconButton>
-      </DialogActions>
+      <IconButton
+        className="z-10 absolute top-6 right-6 bg-gray-700/40 text-white"
+        onClick={onClose}
+        aria-label="Fermer"
+        size="large"
+      >
+        <Close />
+      </IconButton>
 
-      <img
-        className="object-contain h-32 w-auto max-w-64 mx-auto mt-4 p-4"
-        src={selected.image}
-        alt={`Logo ${selected.name}`}
-      />
+      <DialogTitle id="carousel-dialog-title" className="p-0">
+        <Paper
+          className="relative bg-gray-800 text-white mb-8 bg-cover bg-no-repeat bg-top h-96"
+          sx={{ backgroundImage: `url(${item?.image})` }}
+        >
+          <div className="absolute inset-0 bg-black/30" />
 
-      <DialogTitle id="responsive-dialog-title">{selected.name.toUpperCase()}</DialogTitle>
+          <div className="absolute bottom-0 p-6">
+            <Typography component="h1" variant="h4" color="inherit" gutterBottom>
+              {item?.name.toUpperCase()}
+            </Typography>
+            {item?.email && (
+              <Typography variant="subtitle2" color="inherit">
+                {item.email}
+              </Typography>
+            )}
+          </div>
+        </Paper>
+      </DialogTitle>
 
-      <DialogContent>
-        <DialogContentText component="div">
+      <DialogContent className="md:px-16">
+        <DialogContentText id="carousel-dialog-description" component="div">
           <Typography
             variant="body2"
             component="div"
             align="justify"
             paragraph
             dangerouslySetInnerHTML={{
-              __html: sanitizeHtml(selected.description, {
+              __html: sanitizeHtml(item?.description, {
                 allowedTags: [
                   'h1',
                   'h2',
@@ -100,10 +132,9 @@ export default function CarouselDialog({ selected, onClose }) {
             }}
           />
         </DialogContentText>
-        <Typography variant="caption" component="h2">
-          {selected.email}
-        </Typography>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
+
+export default CarouselDialog

@@ -1,11 +1,11 @@
-import Link from 'next/link'
 import Button from '@mui/material/Button'
 
 import config from './config'
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import Link from 'app/core/lib/Link'
+import { useRouter } from 'app/core/lib/router'
 
 export default function Desktop() {
-  const { router } = useCustomRouter()
+  const { router } = useRouter()
 
   return (
     <>

@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Hidden from '@mui/material/Hidden'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 
-import Menu from 'mdi-material-ui/Menu'
+import Menu from '@mui/icons-material/MenuTwoTone'
 
 import Mobile from './Mobile'
 import Desktop from './Desktop'
+import Link from 'app/core/lib/Link'
 import AvatarMenu from 'app/components/nav/hub/submenus/AvatarMenu'
 import ModulesMenu from 'app/components/nav/hub/submenus/ModulesMenu'
 
@@ -29,14 +29,15 @@ export default function Nav() {
               className="text-primary dark:text-secondary"
               aria-label="Menu"
               onClick={toggleDrawer(true)}
-              size="large">
+              size="large"
+            >
               <Menu />
             </IconButton>
           </div>
         </Hidden>
 
-        <Hidden lgDown>
-          <Link href="/" passHref>
+        <Hidden xlDown>
+          <Link href="/">
             <div className="flex mr-4">
               <Image
                 className="rounded-full"
@@ -57,5 +58,5 @@ export default function Nav() {
         <AvatarMenu />
       </Toolbar>
     </AppBar>
-  );
+  )
 }

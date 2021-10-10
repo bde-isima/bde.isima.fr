@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
-import { EventSubscriptionWithTypedCart, CartItem } from 'types'
+import { EventSubscriptionWithTypedCart, CartItem } from 'global'
 
 type SubscriptionRecapProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]
@@ -46,7 +46,7 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
   return (
     <div className="flex flex-col">
       <Typography variant="h6" align="center">
-        Récapitulatif de l'événement
+        Récapitulatif de l&apos;événement
       </Typography>
 
       <Divider className="m-4" />

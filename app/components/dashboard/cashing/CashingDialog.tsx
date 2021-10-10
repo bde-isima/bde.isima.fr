@@ -1,6 +1,5 @@
 import { invalidateQuery } from 'blitz'
 import NoSsr from '@mui/material/NoSsr'
-import { useTheme } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import { useSwipeable } from 'react-swipeable'
 import { lazy, Suspense, useState } from 'react'
@@ -15,11 +14,12 @@ import BottomNavigation from '@mui/material/BottomNavigation'
 import CircularProgress from '@mui/material/CircularProgress'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-import Close from 'mdi-material-ui/Close'
-import HistoryIcon from 'mdi-material-ui/History'
-import CurrencyEur from 'mdi-material-ui/CurrencyEur'
-import CartOutline from 'mdi-material-ui/CartOutline'
+import Euro from '@mui/icons-material/EuroTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
+import HistoryIcon from '@mui/icons-material/HistoryTwoTone'
+import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone'
 
+import { useTheme } from 'app/core/styles/theme'
 import getUser from 'app/entities/users/queries/getUser'
 import getUsers from 'app/entities/users/queries/getUsers'
 import SearchUser from 'app/components/dashboard/cashing/SearchUser'
@@ -34,7 +34,7 @@ const History = lazy(() => import('app/components/hub/transactions/operations/hi
 
 export default function CashingDialog({ user, onSelection, onClear }) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   const [value, setValue] = useState(0)
   const [open, setOpen] = useState(false)
@@ -75,7 +75,8 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                 className="ml-auto"
                 onClick={onClear}
                 aria-label="Fermer l'encaisseur"
-                size="large">
+                size="large"
+              >
                 <Close />
               </IconButton>
 
@@ -150,7 +151,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                   className="text-primary dark:text-secondary"
                   value={0}
                   label="Encaisser"
-                  icon={<CartOutline />}
+                  icon={<ShoppingCart />}
                 />
                 <BottomNavigationAction
                   className="text-primary dark:text-secondary"
@@ -162,7 +163,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                   className="text-primary dark:text-secondary"
                   value={2}
                   label="Transférer"
-                  icon={<CurrencyEur />}
+                  icon={<Euro />}
                 />
               </BottomNavigation>
             </DialogActions>
@@ -170,5 +171,5 @@ export default function CashingDialog({ user, onSelection, onClear }) {
         )}
       </TabContext>
     </NoSsr>
-  );
+  )
 }

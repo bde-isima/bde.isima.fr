@@ -3,14 +3,14 @@ import { useForm } from 'react-final-form'
 import Divider from '@mui/material/Divider'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
-import { FieldArray } from 'react-final-form-arrays'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
+import { FieldArray } from 'react-final-form-arrays'
 
-import Plus from 'mdi-material-ui/Plus'
-import Close from 'mdi-material-ui/Close'
-import ContentCopy from 'mdi-material-ui/ContentCopy'
+import Add from '@mui/icons-material/AddTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
+import ContentCopy from '@mui/icons-material/ContentCopyTwoTone'
 
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
@@ -36,7 +36,7 @@ export default function ProductsForm() {
           aria-label="Ajouter un produit"
           size="small"
         >
-          <Plus />
+          <Add />
         </IconButton>
       </FormLabel>
 
@@ -99,7 +99,7 @@ export default function ProductsForm() {
                   aria-label="Ajouter un produit"
                   size="small"
                 >
-                  <Plus />
+                  <Add />
                 </IconButton>
               )}
             </div>

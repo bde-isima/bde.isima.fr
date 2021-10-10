@@ -1,5 +1,4 @@
-import Image from 'next/image'
-import { useQuery } from 'blitz'
+import { Image, useQuery } from 'blitz'
 
 import getUserPublicData from 'app/entities/users/queries/getUserPublicData'
 

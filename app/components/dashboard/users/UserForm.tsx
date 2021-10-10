@@ -1,20 +1,20 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { Suspense } from 'react'
 import Tab from '@mui/material/Tab'
-import { useMemo, useState } from 'react'
-import { useTheme } from '@mui/material'
-import { TextField, Switches } from 'mui-rff'
-import AppBar from '@mui/material/AppBar'
 import TabList from '@mui/lab/TabList'
+import { useMemo, useState } from 'react'
+import AppBar from '@mui/material/AppBar'
 import Divider from '@mui/material/Divider'
 import TabContext from '@mui/lab/TabContext'
+import { TextField, Switches } from 'mui-rff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import { User } from 'db'
+import { useTheme } from 'app/core/styles/theme'
 import TabPanel from 'app/core/layouts/TabPanel'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import RolesForm from 'app/components/dashboard/users/RolesForm'
@@ -58,8 +58,8 @@ export default function UserForm(props: UserFormProps) {
       promotionId: props.initialValues?.promotionId,
       is_member: props.initialValues?.id ? props.initialValues?.is_member : false,
       is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
@@ -112,7 +112,8 @@ export default function UserForm(props: UserFormProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Ouvrir Imgur"
-                    size="large">
+                    size="large"
+                  >
                     <OpenInNew />
                   </IconButton>
                 </InputAdornment>
@@ -167,5 +168,5 @@ export default function UserForm(props: UserFormProps) {
         </TabPanel>
       </TabContext>
     </Form>
-  );
+  )
 }

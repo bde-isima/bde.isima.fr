@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { Suspense } from 'react'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -7,7 +6,9 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import { Partner } from 'db'
 import Carousel from './carousel'
+import Link from 'app/core/lib/Link'
 import getPartners from 'app/entities/partners/queries/getPartners'
 
 export default function Partners() {
@@ -28,9 +29,9 @@ export default function Partners() {
               align="justify"
               color="textPrimary"
             >
-              Le BDE dispose d'un membre responsable des partenariats, chargé de trouver et négocier
-              des partenariats tout au long de l'année afin de proposer aux élèves toutes sortes
-              d'avantages (réductions, offres promotionnelles, etc ...). <br />
+              Le BDE dispose d&apos;un membre responsable des partenariats, chargé de trouver et
+              négocier des partenariats tout au long de l&apos;année afin de proposer aux élèves
+              toutes sortes d&apos;avantages (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
               Envoyez-nous un message via le{' '}
@@ -54,7 +55,7 @@ export default function Partners() {
         </Grid>
 
         <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-          <Carousel getQuery={getPartners} queryKey="partners" />
+          <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
         </Suspense>
       </div>
     </Container>

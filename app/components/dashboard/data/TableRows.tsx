@@ -5,8 +5,8 @@ import Checkbox from '@mui/material/Checkbox'
 import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 
-import ContentCopy from 'mdi-material-ui/ContentCopy'
-import CircleEditOutline from 'mdi-material-ui/CircleEditOutline'
+import Edit from '@mui/icons-material/EditTwoTone'
+import ContentCopy from '@mui/icons-material/ContentCopyTwoTone'
 
 import { stableSort, getComparator } from './sort'
 import { useTableProps } from './TablePropsProvider'
@@ -107,13 +107,14 @@ export default function TableRows({
                     aria-label={tooltip}
                     onClick={handleCustomAction(onClick(row))}
                     disabled={disabled}
-                    size="large">
+                    size="large"
+                  >
                     {icon}
                   </IconButton>
                 </span>
               </Tooltip>
             </TableCell>
-          );
+          )
         })}
 
         {allowCopy && (
@@ -130,12 +131,12 @@ export default function TableRows({
           <TableCell align="right">
             <Tooltip title="Éditer">
               <IconButton aria-label="Éditer" onClick={editClick(row)} size="large">
-                <CircleEditOutline />
+                <Edit />
               </IconButton>
             </Tooltip>
           </TableCell>
         )}
       </TableRow>
-    );
-  });
+    )
+  })
 }

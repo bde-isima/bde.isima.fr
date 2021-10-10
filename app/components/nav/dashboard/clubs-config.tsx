@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import Avatar from '@mui/material/Avatar'
-import { useQuery, useAuthenticatedSession } from 'blitz'
+import { useQuery, Image, PublicData, Routes, Router, useAuthenticatedSession, invoke } from 'blitz'
 
 import getClubs from 'app/entities/clubs/queries/getClubs'
 
@@ -16,8 +15,7 @@ function createConfig(clubs, user) {
       text: x.name.toUpperCase(),
       to: `/dashboard/${x.name.toLowerCase()}`,
       role: x.name,
-      isActive: (pathname: String) =>
-        pathname === `/dashboard/${x.name.toLowerCase()}`,
+      isActive: (pathname: String) => pathname === `/dashboard/${x.name.toLowerCase()}`,
     }))
 }
 
@@ -30,4 +28,15 @@ export function useClubsConfig() {
 
 export function getClubsConfigServerSide(clubs, user) {
   return createConfig(clubs, user)
+}
+
+export const redirectAuthenticatedTo = async ({ session }: { session: PublicData }) => {
+  const { clubs } = await invoke(getClubs, {})
+  const config = getClubsConfigServerSide(clubs, session)
+
+  const isAuthorized = config.some((c) => c.role === Router.query.name)
+  if (isAuthorized) {
+    return false
+  }
+  return Routes.Hub()
 }

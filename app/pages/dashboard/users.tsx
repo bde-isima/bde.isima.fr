@@ -1,31 +1,33 @@
-import Image from 'next/image'
 import Checkbox from '@mui/material/Checkbox'
+import { Image, BlitzPage, Routes } from 'blitz'
 
-import PageTitle from 'app/core/layouts/PageTitle'
 import Table from 'app/components/dashboard/data/Table'
 import getUsers from 'app/entities/users/queries/getUsers'
 import UserForm from 'app/components/dashboard/users/UserForm'
 import upsertUser from 'app/entities/users/mutations/upsertUser'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyUsers from 'app/entities/users/mutations/deleteManyUsers'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 
-export default function Users() {
+const Users: BlitzPage = () => {
   return (
-    <>
-      <PageTitle title="Gestion des membres" />
-
-      <Table
-        title="Membres"
-        columns={columns}
-        queryKey="users"
-        getQuery={getUsers}
-        queryArgs={{ include: { promotion: true } }}
-        upsertQuery={upsertUser}
-        deleteQuery={deleteManyUsers}
-        FormComponent={UserForm}
-      />
-    </>
+    <Table
+      title="Membres"
+      columns={columns}
+      queryKey="users"
+      getQuery={getUsers}
+      queryArgs={{ include: { promotion: true } }}
+      upsertQuery={upsertUser}
+      deleteQuery={deleteManyUsers}
+      FormComponent={UserForm}
+    />
   )
 }
+
+Users.suppressFirstRenderFlicker = true
+Users.authenticate = { redirectTo: Routes.Login() }
+Users.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Users())
+Users.getLayout = (page) => getDashboardNav(page, 'Gestion des membres')
 
 const columns = [
   {
@@ -93,3 +95,5 @@ const columns = [
     render: (row) => <Checkbox checked={row.is_enabled} color="default" disabled />,
   },
 ]
+
+export default Users

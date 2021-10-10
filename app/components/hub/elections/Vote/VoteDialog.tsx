@@ -1,14 +1,14 @@
 import { useMutation } from 'blitz'
 import NoSsr from '@mui/material/NoSsr'
-import { useTheme } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import DialogActions from '@mui/material/DialogActions'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import { Candidate } from 'db'
+import { useTheme } from 'app/core/styles/theme'
 import Snackbar from 'app/core/layouts/Snackbar'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import SlideTransition from 'app/core/layouts/SlideTransition'
@@ -26,7 +26,7 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
   const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   const onSuccess = async ({ approve, ...data }: any) => {
     await createVt({ data })
@@ -60,5 +60,5 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
 
       <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
-  );
+  )
 }

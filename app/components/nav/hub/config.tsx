@@ -1,29 +1,29 @@
-import Store from 'mdi-material-ui/Store'
-import Hubspot from 'mdi-material-ui/Hubspot'
-import CalendarToday from 'mdi-material-ui/CalendarToday'
-import TrophyOutline from 'mdi-material-ui/TrophyOutline'
+import Fastfood from '@mui/icons-material/FastfoodTwoTone'
+import DeviceHub from '@mui/icons-material/DeviceHubTwoTone'
+import EventNote from '@mui/icons-material/EventNoteTwoTone'
+import EmojiEvents from '@mui/icons-material/EmojiEventsTwoTone'
 
 const config = [
   {
-    icon: <Hubspot />,
+    icon: <DeviceHub />,
     text: 'HUB',
     to: '/hub',
     isActive: (pathname: String) => pathname === '/hub',
   },
   {
-    icon: <CalendarToday />,
+    icon: <EventNote />,
     text: 'ÉVÉNEMENTS',
     to: '/hub/events',
     isActive: (pathname: String) => pathname === '/hub/events',
   },
   {
-    icon: <Store />,
+    icon: <Fastfood />,
     text: 'MARCHÉ',
     to: '/hub/market',
     isActive: (pathname: String) => pathname === '/hub/market',
   },
   {
-    icon: <TrophyOutline />,
+    icon: <EmojiEvents />,
     text: 'CLASSEMENT',
     to: '/hub/leaderboard',
     isActive: (pathname: String) => pathname === '/hub/leaderboard',

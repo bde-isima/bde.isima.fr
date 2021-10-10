@@ -1,14 +1,14 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { TextField } from 'mui-rff'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
-import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
 import { SettingsInput, SettingsInputType } from 'app/components/forms/validations'
 
 type SettingsFormProps = {
@@ -82,7 +82,8 @@ export default function SettingsForm(props: SettingsFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-                size="large">
+                size="large"
+              >
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -91,5 +92,5 @@ export default function SettingsForm(props: SettingsFormProps) {
         fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
     </Form>
-  );
+  )
 }

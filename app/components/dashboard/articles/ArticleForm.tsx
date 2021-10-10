@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { TextField, Switches } from 'mui-rff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import { Article } from 'db'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
@@ -68,7 +68,8 @@ export default function ArticleForm(props: ArticleFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-                size="large">
+                size="large"
+              >
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -87,5 +88,5 @@ export default function ArticleForm(props: ArticleFormProps) {
 
       <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
     </Form>
-  );
+  )
 }

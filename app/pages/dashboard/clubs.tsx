@@ -1,29 +1,31 @@
-import Image from 'next/image'
+import { Image, BlitzPage, Routes } from 'blitz'
 
-import PageTitle from 'app/core/layouts/PageTitle'
 import Table from 'app/components/dashboard/data/Table'
 import getClubs from 'app/entities/clubs/queries/getClubs'
 import ClubForm from 'app/components/dashboard/clubs/ClubForm'
 import upsertClub from 'app/entities/clubs/mutations/upsertClub'
 import deleteManyClubs from 'app/entities/clubs/mutations/deleteManyClubs'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 
-export default function Clubs() {
+const Clubs: BlitzPage = () => {
   return (
-    <>
-      <PageTitle title="Gestion des clubs" />
-
-      <Table
-        title="Clubs"
-        columns={columns}
-        queryKey="clubs"
-        getQuery={getClubs}
-        upsertQuery={upsertClub}
-        deleteQuery={deleteManyClubs}
-        FormComponent={ClubForm}
-      />
-    </>
+    <Table
+      title="Clubs"
+      columns={columns}
+      queryKey="clubs"
+      getQuery={getClubs}
+      upsertQuery={upsertClub}
+      deleteQuery={deleteManyClubs}
+      FormComponent={ClubForm}
+    />
   )
 }
+
+Clubs.suppressFirstRenderFlicker = true
+Clubs.authenticate = { redirectTo: Routes.Login() }
+Clubs.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Clubs())
+Clubs.getLayout = (page) => getDashboardNav(page, 'Gestion des clubs')
 
 const columns = [
   {
@@ -52,3 +54,5 @@ const columns = [
     searchCriteria: 'contains',
   },
 ]
+
+export default Clubs

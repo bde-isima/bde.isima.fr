@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import { z } from 'zod'
 
 export const LoginInput = z.object({
   identifier: z.string(),
@@ -18,7 +18,7 @@ export const TransferInput = z.object({
     .object({
       id: z.string(),
     })
-    .nonstrict(),
+    .partial(),
 })
 export type TransferInputType = z.infer<typeof TransferInput>
 
@@ -62,7 +62,7 @@ export const SettingsInput = z
       .optional()
       .nullable(),
   })
-  .nonstrict()
+  .partial()
 export type SettingsInputType = z.infer<typeof SettingsInput>
 
 export const ClubInput = z
@@ -83,7 +83,7 @@ export const ClubInput = z
     instagramURL: z.string().url().optional().nullable(),
     customURL: z.string().url().optional().nullable(),
   })
-  .nonstrict()
+  .partial()
 export type ClubInputType = z.infer<typeof ClubInput>
 
 export const ArticleInput = z
@@ -101,7 +101,7 @@ export const ArticleInput = z
     member_price: z.number().positive(),
     is_enabled: z.boolean().optional(),
   })
-  .nonstrict()
+  .partial()
 export type ArticleInputType = z.infer<typeof ArticleInput>
 
 export const PartnerInput = z
@@ -118,7 +118,7 @@ export const PartnerInput = z
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
   })
-  .nonstrict()
+  .partial()
 export type PartnerInputType = z.infer<typeof PartnerInput>
 
 export const PromotionInput = z
@@ -128,7 +128,7 @@ export const PromotionInput = z
     fb_group_id: z.number().optional().nullable(),
     list_email: z.string().max(255).optional().nullable(),
   })
-  .nonstrict()
+  .partial()
 export type PromotionInputType = z.infer<typeof PromotionInput>
 
 export const UserInput = z
@@ -153,7 +153,7 @@ export const UserInput = z
     is_member: z.boolean(),
     is_enabled: z.boolean(),
   })
-  .nonstrict()
+  .partial()
 export type UserInputType = z.infer<typeof UserInput>
 
 export const EventInput = z
@@ -203,7 +203,7 @@ export const EventInput = z
       })
     ),
   })
-  .nonstrict()
+  .partial()
 export type EventInputType = z.infer<typeof EventInput>
 
 export const EventSubscriptionInput = z
@@ -229,11 +229,11 @@ export const EventSubscriptionInput = z
       })
     ),
   })
-  .nonstrict()
+  .partial()
 export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>
 
 export const AddSubscriptionInput = z.object({
-  subscriber: z.object({ id: z.string() }).nonstrict(),
+  subscriber: z.object({ id: z.string() }).partial(),
 })
 export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>
 
@@ -242,21 +242,19 @@ export const ElectionInput = z
     id: z.string().optional().nullable(),
     endDate: z.date(),
     candidates: z.array(
-      z
-        .object({
-          id: z.string().optional().nullable(),
-          name: z.string().max(255),
-          image: z
-            .string()
-            .url()
-            .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-              message: "L'URL doit provenir d'Imgur",
-            }),
-        })
-        .nonstrict()
+      z.object({
+        id: z.string().optional().nullable(),
+        name: z.string().max(255),
+        image: z
+          .string()
+          .url()
+          .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+            message: "L'URL doit provenir d'Imgur",
+          }),
+      })
     ),
   })
-  .nonstrict()
+  .deepPartial()
 export type ElectionInputType = z.infer<typeof ElectionInput>
 
 export const VoteInput = z
@@ -269,5 +267,5 @@ export const VoteInput = z
       message: 'Veuillez accepter',
     }),
   })
-  .nonstrict()
+  .partial()
 export type VoteInputType = z.infer<typeof VoteInput>

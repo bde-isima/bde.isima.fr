@@ -9,10 +9,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 
-import DotsVertical from 'mdi-material-ui/DotsVertical'
+import MoreVert from '@mui/icons-material/MoreVertTwoTone'
 
 import { User } from 'db'
-import { EventSubscriptionWithTypedCart, Option } from 'types'
+import { EventSubscriptionWithTypedCart, Option } from 'global'
 
 type CardProps = {
   subscription: any
@@ -36,7 +36,7 @@ export default function SubscriptionCard({ subscription, onMenuClick }: CardProp
           subheaderTypographyProps={{ variant: 'caption' }}
           action={
             <IconButton aria-label="Options" onClick={onPopupMenu} size="large">
-              <DotsVertical />
+              <MoreVert />
             </IconButton>
           }
         />
@@ -69,5 +69,5 @@ export default function SubscriptionCard({ subscription, onMenuClick }: CardProp
         </List>
       </MuiCard>
     </Grid>
-  );
+  )
 }

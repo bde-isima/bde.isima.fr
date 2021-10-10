@@ -1,9 +1,9 @@
 import Tooltip from '@mui/material/Tooltip'
 
-import Check from 'mdi-material-ui/Check'
-import History from 'mdi-material-ui/History'
-import CheckAll from 'mdi-material-ui/CheckAll'
-import TimerSand from 'mdi-material-ui/TimerSand'
+import Check from '@mui/icons-material/CheckTwoTone'
+import History from '@mui/icons-material/HistoryTwoTone'
+import DoneAll from '@mui/icons-material/DoneAllTwoTone'
+import HourglassTop from '@mui/icons-material/HourglassTopTwoTone'
 
 const titles = {
   WAITING_APPROVAL: ['En attente de validation par le BDE'],
@@ -20,7 +20,7 @@ export default function EventStatus({ event }) {
   return (
     <Tooltip title={title}>
       <span>
-        {event.status === 'WAITING_APPROVAL' && <TimerSand className="text-yellow-500" />}
+        {event.status === 'WAITING_APPROVAL' && <HourglassTop className="text-yellow-500" />}
 
         {event.status === 'ACCEPTED' &&
           (new Date() < new Date(event.subscriptions_end_at) ? (
@@ -29,7 +29,7 @@ export default function EventStatus({ event }) {
             <Check className="text-green-400" />
           ))}
 
-        {event.status === 'CHECKED_OUT' && <CheckAll className="text-green-400" />}
+        {event.status === 'CHECKED_OUT' && <DoneAll className="text-green-400" />}
       </span>
     </Tooltip>
   )

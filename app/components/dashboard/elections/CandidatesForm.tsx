@@ -9,9 +9,9 @@ import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import Plus from 'mdi-material-ui/Plus'
-import Close from 'mdi-material-ui/Close'
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import Plus from '@mui/icons-material/PlusTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 export default function CandidatesForm() {
   const form = useForm()
@@ -68,7 +68,8 @@ export default function CandidatesForm() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Ouvrir Imgur"
-                            size="large">
+                            size="large"
+                          >
                             <OpenInNew />
                           </IconButton>
                         </InputAdornment>
@@ -101,5 +102,5 @@ export default function CandidatesForm() {
         }
       </FieldArray>
     </FormControl>
-  );
+  )
 }

@@ -5,8 +5,8 @@ import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
 import Grid, { GridSize } from '@mui/material/Grid'
 
-import TrendingUp from 'mdi-material-ui/TrendingUp'
-import TrendingDown from 'mdi-material-ui/TrendingDown'
+import TrendingUp from '@mui/icons-material/TrendingUpTwoTone'
+import TrendingDown from '@mui/icons-material/TrendingDownTwoTone'
 
 import { Transaction } from 'db'
 import TransactionAvatar from './TransactionAvatar'

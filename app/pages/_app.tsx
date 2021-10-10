@@ -1,59 +1,39 @@
 import 'app/core/styles/index.css'
 
-import Head from 'next/head'
 import NProgress from 'nprogress'
-import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
-import createCache from '@emotion/cache'
+import { Head, Script } from 'blitz'
+import type { BDEAppProps } from 'global'
 import { CacheProvider } from '@emotion/react'
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles'
 import { StrictMode, Suspense, useEffect } from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
-import {
-  ErrorComponent,
-  AuthenticationError,
-  AuthorizationError,
-  useQueryErrorResetBoundary,
-} from 'blitz'
 
-import packageJson from '../../package.json'
 import * as gtag from 'app/core/lib/gtag'
-import getNav from 'app/components/nav/getNav'
+import packageJson from '../../package.json'
+import { useRouter } from 'app/core/lib/router'
+import { useTheme } from 'app/core/styles/theme'
 import Splash from 'app/components/common/Splash'
-import useCustomTheme from 'app/core/styles/useCustomTheme'
-import LoginFallback from 'app/components/auth/LoginFallback'
+import ErrorBoundary from 'app/core/lib/ErrorBoundary'
+import createEmotionCache from 'app/core/lib/createEmotionCache'
 
+const clientSideEmotionCache = createEmotionCache()
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
+;({
+  appName: globalThis.appName,
+  website: globalThis.website,
+  version: globalThis.version,
+} = packageJson)
 
+export default function App(props: BDEAppProps) {
+  const theme = useTheme()
+  const { router } = useRouter()
 
-(({
-    appName: globalThis.appName,
-    website: globalThis.website,
-    version: globalThis.appVersion,
-  } = packageJson))
-
-export const cache = createCache({ key: 'css', prepend: true })
-
-export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  const theme = useCustomTheme()
-
-  useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles)
-    }
-  }, [])
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const getLayout = Component.getLayout || ((page) => page)
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start()
 
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: string) => {
       NProgress.done()
       gtag.pageview(url)
     }
@@ -69,51 +49,36 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <StrictMode>
-      <CacheProvider value={cache}>
+      <CacheProvider value={emotionCache}>
         <Head>
-          <title>BDE ISIMA</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
           />
         </Head>
 
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <ErrorBoundary>
+            <Suspense fallback={<Splash />}>{getLayout(<Component {...pageProps} />)}</Suspense>
+          </ErrorBoundary>
+        </ThemeProvider>
 
-            <ErrorBoundary
-              FallbackComponent={RootErrorFallback}
-              resetKeys={[router.asPath]}
-              onReset={useQueryErrorResetBoundary().reset}
-            >
-              <Suspense fallback={<Splash />}>
-                {getNav(router, <Component {...pageProps} />)}
-              </Suspense>
-            </ErrorBoundary>
-          </ThemeProvider>
-        </StyledEngineProvider>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
+        />
+        <Script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+            });
+        `,
+          }}
+        />
       </CacheProvider>
     </StrictMode>
-  );
-}
-
-function RootErrorFallback({ error }: FallbackProps) {
-  if (error instanceof AuthenticationError) {
-    return <LoginFallback />
-  } else if (error instanceof AuthorizationError) {
-    return (
-      <ErrorComponent
-        statusCode={(error as any).statusCode}
-        title={error.message ?? 'Sorry, you are not authorized to access this'}
-      />
-    )
-  } else {
-    return (
-      <ErrorComponent
-        statusCode={(error as any)?.statusCode || 400}
-        title={error?.message || error?.name}
-      />
-    )
-  }
+  )
 }

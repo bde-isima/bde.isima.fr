@@ -1,17 +1,17 @@
 import { forwardRef, SyntheticEvent } from 'react'
 import IconButton from '@mui/material/IconButton'
-import MuiAlert, { AlertProps, Color } from '@mui/material/Alert'
+import MuiAlert, { AlertProps, AlertColor } from '@mui/material/Alert'
 import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar'
 
-import Undo from 'mdi-material-ui/Undo'
-import Close from 'mdi-material-ui/Close'
+import Undo from '@mui/icons-material/UndoTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 type SnackbarProps = {
   className?: string
   open: boolean
   loading?: boolean
   message: string
-  severity: Color
+  severity: AlertColor
   anchorOrigin?: SnackbarOrigin
   onClose: (event: SyntheticEvent | MouseEvent, reason?: string | undefined) => void
   onUndo?: (() => void) | undefined

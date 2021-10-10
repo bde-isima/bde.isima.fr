@@ -10,19 +10,18 @@ import DialogContent from '@mui/material/DialogContent'
 import { useTheme, useMediaQuery } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useState, Suspense, unstable_SuspenseList, lazy } from 'react'
+import { useState, Suspense, SuspenseList, lazy } from 'react'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-import Close from 'mdi-material-ui/Close'
-import Finance from 'mdi-material-ui/Finance'
-import LayersTriple from 'mdi-material-ui/LayersTriple'
-import FormatListBulletedSquare from 'mdi-material-ui/FormatListBulletedSquare'
+import Close from '@mui/icons-material/CloseTwoTone'
+import Layers from '@mui/icons-material/LayersTwoTone'
+import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
+import FormatListBulleted from '@mui/icons-material/FormatListBulletedTwoTone'
 
 import TabPanel from 'app/core/layouts/TabPanel'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 
-const SuspenseList = unstable_SuspenseList
 const SubscriptionRecap = lazy(() => import('./recap/SubscriptionRecap'))
 const SubscriptionsList = lazy(() => import('./list/SubscriptionsList'))
 const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnalytics'))
@@ -31,7 +30,7 @@ export default function Manager({ open, event, onClose }) {
   const [value, setValue] = useState(0)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   const [data]: any = useQuery(
     getEventSubscriptions,
@@ -54,14 +53,15 @@ export default function Manager({ open, event, onClose }) {
         >
           <DialogTitle className="flex items-center" id="manager-dialog-title">
             <Typography variant="h6" color="inherit">
-              Manager d'évènements
+              Manager d&apos;évènements
             </Typography>
 
             <IconButton
               className="ml-auto"
               onClick={onClose}
               aria-label="Fermer le manager"
-              size="large">
+              size="large"
+            >
               <Close />
             </IconButton>
           </DialogTitle>
@@ -95,13 +95,13 @@ export default function Manager({ open, event, onClose }) {
               value={value}
               onChange={onChange}
             >
-              <BottomNavigationAction label="Statistiques" icon={<Finance />} />
-              <BottomNavigationAction label="Liste inscrits" icon={<FormatListBulletedSquare />} />
-              <BottomNavigationAction label="Récapitulatif" icon={<LayersTriple />} />
+              <BottomNavigationAction label="Statistiques" icon={<QueryStats />} />
+              <BottomNavigationAction label="Liste inscrits" icon={<FormatListBulleted />} />
+              <BottomNavigationAction label="Récapitulatif" icon={<Layers />} />
             </BottomNavigation>
           </DialogActions>
         </Dialog>
       </TabContext>
     </NoSsr>
-  );
+  )
 }

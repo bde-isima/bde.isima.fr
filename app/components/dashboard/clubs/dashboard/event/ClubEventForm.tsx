@@ -1,16 +1,14 @@
 import { TextField } from 'mui-rff'
-import { useRouter } from 'next/router'
 import Tab from '@mui/material/Tab'
+import TabList from '@mui/lab/TabList'
 import { Field } from 'react-final-form'
+import TabPanel from '@mui/lab/TabPanel'
 import frLocale from 'date-fns/locale/fr'
 import { useMemo, useState } from 'react'
-import { useTheme } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
-import arrayMutators from 'final-form-arrays'
-import TabList from '@mui/lab/TabList'
 import Divider from '@mui/material/Divider'
-import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
+import arrayMutators from 'final-form-arrays'
 import MuiTextField from '@mui/material/TextField'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import DateTimePicker from '@mui/lab/DateTimePicker'
@@ -18,6 +16,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
 import { Event } from 'db'
 import ProductsForm from './ProductsForm'
+import { useRouter } from 'app/core/lib/router'
+import { useTheme } from 'app/core/styles/theme'
 import GroupOptionsForm from './GroupOptionsForm'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import { EventInput, EventInputType } from 'app/components/forms/validations'
@@ -30,7 +30,7 @@ type ClubEventFormProps = {
 
 export default function ClubEventForm(props: ClubEventFormProps) {
   const theme = useTheme()
-  const router = useRouter()
+  const { router } = useRouter()
   const [value, setValue] = useState('0')
 
   const handleChange = (_, newValue: string) => setValue(newValue)
@@ -76,8 +76,8 @@ export default function ClubEventForm(props: ClubEventFormProps) {
             })),
           }))
         : [],
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 

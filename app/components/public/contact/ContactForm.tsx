@@ -8,9 +8,10 @@ type ContactFormProps = {
 }
 
 export default function ContactForm(props: ContactFormProps) {
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, form) => {
     try {
       await props.onSuccess(values)
+      form.restart()
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),

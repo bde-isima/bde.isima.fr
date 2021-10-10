@@ -4,13 +4,13 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
-import { FieldArray } from 'react-final-form-arrays'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
+import { FieldArray } from 'react-final-form-arrays'
 
-import Plus from 'mdi-material-ui/Plus'
-import Close from 'mdi-material-ui/Close'
+import Add from '@mui/icons-material/AddTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import OptionForm from './OptionForm'
 
@@ -27,14 +27,14 @@ export default function GroupOptionsForm() {
         fields.map((productName, productIdx) => (
           <FormControl key={productIdx} className="m-3 flex flex-col" component="fieldset">
             <FormLabel className="flex items-center justify-evenly" component="legend">
-              <Typography>Groupes d'options du produit n°{productIdx + 1}</Typography>
+              <Typography>Groupes d&apos;options du produit n°{productIdx + 1}</Typography>
               <IconButton
                 className="m-2"
                 onClick={onAddItem(`${productName}.groupOptions`)}
                 aria-label={`Ajouter un groupe d'options au produit n°${productIdx}`}
                 size="small"
               >
-                <Plus />
+                <Add />
               </IconButton>
             </FormLabel>
             <Divider className="m-2" />
@@ -87,7 +87,7 @@ export default function GroupOptionsForm() {
                                 aria-label={`Ajouter une option au groupe d'option n°${groupOptionIdx}`}
                                 size="small"
                               >
-                                <Plus />
+                                <Add />
                               </IconButton>
                             </FormLabel>
                             <Divider className="m-2" />
@@ -107,7 +107,7 @@ export default function GroupOptionsForm() {
                           aria-label="Ajouter un groupe d'options"
                           size="small"
                         >
-                          <Plus />
+                          <Add />
                         </IconButton>
                       )}
                     </div>

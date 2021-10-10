@@ -1,12 +1,14 @@
 import { Suspense } from 'react'
+import { BlitzPage, Routes } from 'blitz'
 import Divider from '@mui/material/Divider'
 
 import Header from 'app/components/hub/events/Header'
 import Cart from 'app/components/hub/events/cart/Cart'
+import getHubNav from 'app/components/nav/hub/getHubNav'
 import ProductsList from 'app/components/hub/events/product/ProductsList'
 import { EventSubscriptionProvider } from 'app/components/hub/events/subscription/EventSubscription'
 
-export default function EventIndex() {
+const EventIndex: BlitzPage = () => {
   return (
     <div
       className="flex flex-col-reverse md:grid md:gap-16 mb-20"
@@ -28,3 +30,9 @@ export default function EventIndex() {
     </div>
   )
 }
+
+EventIndex.suppressFirstRenderFlicker = true
+EventIndex.authenticate = { redirectTo: Routes.Login() }
+EventIndex.getLayout = (page) => getHubNav(page, 'Événement ZZ')
+
+export default EventIndex

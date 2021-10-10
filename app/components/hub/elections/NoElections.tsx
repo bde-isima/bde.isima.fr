@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import Typography from '@mui/material/Typography'
 
 export default function NoElections() {
@@ -14,7 +14,7 @@ export default function NoElections() {
       />
 
       <Typography variant="h4" color="textPrimary" paragraph>
-        Il n'y a pas d'élections BDE en cours
+        Il n&apos;y a pas d&apos;élections BDE en cours
       </Typography>
     </div>
   )

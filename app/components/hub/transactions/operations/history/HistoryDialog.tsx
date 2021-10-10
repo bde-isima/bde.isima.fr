@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import { useTheme, useMediaQuery } from '@mui/material'
 
-import Close from 'mdi-material-ui/Close'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import History from 'app/components/hub/transactions/operations/history/History'
@@ -27,7 +27,7 @@ export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
   const [maxDate, setMaxDate] = useState(new Date())
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   return (
     <NoSsr>
@@ -64,5 +64,5 @@ export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
         </DialogActions>
       </Dialog>
     </NoSsr>
-  );
+  )
 }

@@ -1,7 +1,6 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useMemo, Suspense } from 'react'
+import { Image } from 'blitz'
 import List from '@mui/material/List'
+import { useMemo, Suspense } from 'react'
 import Button from '@mui/material/Button'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,9 +8,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import HomeOutline from 'mdi-material-ui/HomeOutline'
+import Home from '@mui/icons-material/HomeTwoTone'
 
 import config from './config'
+import Link from 'app/core/lib/Link'
 import DashboardMobile from 'app/components/nav/dashboard/Mobile'
 import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
 
@@ -66,7 +66,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
             >
               <ListItem dense disableGutters>
                 <ListItemIcon>
-                  <HomeOutline />
+                  <Home />
                 </ListItemIcon>
 
                 <ListItemText
@@ -93,7 +93,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
 
         <ListItem>
           <ListItemText
-            secondary={`Version ${globalThis.appVersion}`}
+            secondary={`Version ${globalThis.version}`}
             secondaryTypographyProps={{ align: 'center' }}
           />
         </ListItem>

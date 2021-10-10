@@ -1,10 +1,9 @@
-import Image from 'next/image'
-import { useQuery } from 'blitz'
+import { Image, useQuery } from 'blitz'
 import Badge from '@mui/material/Badge'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 
-import CrownOutline from 'mdi-material-ui/CrownOutline'
+import Whatshot from '@mui/icons-material/WhatshotTwoTone'
 
 import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
 import getAnalytic from 'app/entities/analytic/queries/getAnalytic'
@@ -59,7 +58,7 @@ export default function Records() {
               {score >= row.unitsNb && row.unitsNb > 0 ? (
                 <Badge
                   badgeContent={
-                    <CrownOutline className="transform-gpu -translate-y-1 rotate-12 text-yellow-300" />
+                    <Whatshot className="transform-gpu -translate-y-1 rotate-12 text-red-500" />
                   }
                   component="span"
                 >

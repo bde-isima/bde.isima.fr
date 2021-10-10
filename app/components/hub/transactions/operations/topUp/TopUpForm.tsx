@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { TextField } from 'mui-rff'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'

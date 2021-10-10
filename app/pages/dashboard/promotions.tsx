@@ -1,27 +1,31 @@
-import PageTitle from 'app/core/layouts/PageTitle'
+import { BlitzPage, Routes } from 'blitz'
+
 import Table from 'app/components/dashboard/data/Table'
 import getPromotions from 'app/entities/promotions/queries/getPromotions'
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import PromotionForm from 'app/components/dashboard/promotions/PromotionForm'
 import upsertPromotion from 'app/entities/promotions/mutations/upsertPromotion'
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyPromotions from 'app/entities/promotions/mutations/deleteManyPromotions'
 
-export default function Promotions() {
+const Promotions: BlitzPage = () => {
   return (
-    <>
-      <PageTitle title="Gestion des promotions" />
-
-      <Table
-        title="Promotions"
-        columns={columns}
-        queryKey="promotions"
-        getQuery={getPromotions}
-        upsertQuery={upsertPromotion}
-        deleteQuery={deleteManyPromotions}
-        FormComponent={PromotionForm}
-      />
-    </>
+    <Table
+      title="Promotions"
+      columns={columns}
+      queryKey="promotions"
+      getQuery={getPromotions}
+      upsertQuery={upsertPromotion}
+      deleteQuery={deleteManyPromotions}
+      FormComponent={PromotionForm}
+    />
   )
 }
+
+Promotions.suppressFirstRenderFlicker = true
+Promotions.authenticate = { redirectTo: Routes.Login() }
+Promotions.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Promotions())
+Promotions.getLayout = (page) => getDashboardNav(page, 'Gestion des promotions')
 
 const columns = [
   {
@@ -38,3 +42,5 @@ const columns = [
     headerName: 'Liste de diffusion',
   },
 ]
+
+export default Promotions

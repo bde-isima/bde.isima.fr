@@ -1,21 +1,21 @@
 import { Select } from 'mui-rff'
-import { useForm } from 'react-final-form'
 import MuiCard from '@mui/material/Card'
 import Button from '@mui/material/Button'
+import { useForm } from 'react-final-form'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
-import { FieldArray } from 'react-final-form-arrays'
 import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
+import { FieldArray } from 'react-final-form-arrays'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import Plus from 'mdi-material-ui/Plus'
-import Check from 'mdi-material-ui/Check'
-import Close from 'mdi-material-ui/Close'
+import Add from '@mui/icons-material/AddTwoTone'
+import Check from '@mui/icons-material/CheckTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
 
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
@@ -59,7 +59,8 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
               aria-label="Annuler"
               onClick={onStopEdit}
               disabled={submitting}
-              size="large">
+              size="large"
+            >
               <Close />
             </IconButton>
 
@@ -67,7 +68,8 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
               aria-label="Sauvegarder"
               disabled={submitting}
               onClick={onSubmit}
-              size="large">
+              size="large"
+            >
               {submitting ? <CircularProgress size={25} color="inherit" /> : <Check />}
             </IconButton>
           </div>
@@ -136,7 +138,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                             aria-label={`Ajouter une option au produit n°${cartItemIdx}`}
                             size="small"
                           >
-                            <Plus />
+                            <Add />
                           </IconButton>
                         </FormLabel>
                         <Divider className="m-2" />
@@ -188,7 +190,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                       aria-label="Ajouter un produit"
                       size="small"
                     >
-                      <Plus />
+                      <Add />
                     </IconButton>
                   )}
                 </div>
@@ -198,7 +200,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
             {!fields?.length && (
               <Button
                 className="ml-auto m-2"
-                startIcon={<Plus />}
+                startIcon={<Add />}
                 aria-label="Ajouter"
                 onClick={onAddItem('cart')}
                 variant="contained"
@@ -211,5 +213,5 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         )}
       </FieldArray>
     </MuiCard>
-  );
+  )
 }

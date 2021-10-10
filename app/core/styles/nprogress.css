@@ -1,10 +1,10 @@
 /* Make clicks pass-through */
 #nprogress {
-    pointer-events: none;
-  }
-  
+  pointer-events: none;
+}
+
 #nprogress .bar {
-  background: #2A2E43;
+  background: #2a2e43;
   position: fixed;
   z-index: 3000;
   top: 0;
@@ -21,12 +21,12 @@
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #2A2E43, 0 0 1px #2A2E43;
-  opacity: 1.0;
+  box-shadow: 0 0 10px #2a2e43, 0 0 1px #2a2e43;
+  opacity: 1;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
-      -ms-transform: rotate(3deg) translate(0px, -4px);
-          transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
 }
 
 .nprogress-custom-parent {
@@ -40,10 +40,18 @@
 }
 
 @-webkit-keyframes nprogress-spinner {
-  0%   { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes nprogress-spinner {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

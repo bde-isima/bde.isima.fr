@@ -1,37 +1,40 @@
 import { Suspense } from 'react'
-import { useTheme } from '@mui/material'
+import { BlitzPage, Routes } from 'blitz'
 import Divider from '@mui/material/Divider'
 import ImageList from '@mui/material/ImageList'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-import PageTitle from 'app/core/layouts/PageTitle'
+import { useTheme } from 'app/core/styles/theme'
 import Market from 'app/components/hub/market/Market'
+import getHubNav from 'app/components/nav/hub/getHubNav'
 import MarketItem from 'app/components/hub/market/MarketItem'
 
-export default function MarketIndex() {
+const MarketIndex: BlitzPage = () => {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   const FallbackComponent = [...Array(20).keys()].map((x) => <MarketItem key={x} isLoading />)
 
   return (
-    <>
-      <PageTitle title="Classement" />
+    <div className="flex flex-col">
+      <Typography variant="h4" paragraph align="right" color="textPrimary">
+        Articles disponibles au BDE
+      </Typography>
 
-      <div className="flex flex-col">
-        <Typography variant="h4" paragraph align="right" color="textPrimary">
-          Articles disponibles au BDE
-        </Typography>
+      <Divider className="m-4" />
 
-        <Divider className="m-4" />
-
-        <ImageList cols={fullScreen ? 2 : 5} rowHeight={200} gap={16}>
-          <Suspense fallback={FallbackComponent}>
-            <Market />
-          </Suspense>
-        </ImageList>
-      </div>
-    </>
+      <ImageList cols={fullScreen ? 2 : 5} rowHeight={200} gap={16}>
+        <Suspense fallback={FallbackComponent}>
+          <Market />
+        </Suspense>
+      </ImageList>
+    </div>
   )
 }
+
+MarketIndex.suppressFirstRenderFlicker = true
+MarketIndex.authenticate = { redirectTo: Routes.Login() }
+MarketIndex.getLayout = (page) => getHubNav(page, 'Marché ZZ')
+
+export default MarketIndex

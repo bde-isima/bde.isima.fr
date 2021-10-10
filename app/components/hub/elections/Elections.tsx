@@ -4,8 +4,8 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 
-import Null from 'mdi-material-ui/Null'
-import Ballot from 'mdi-material-ui/Ballot'
+import HideSource from '@mui/icons-material/HideSourceTwoTone'
+import Ballot from '@mui/icons-material/BallotTwoTone'
 
 import { Election, Candidate } from 'db'
 import VoteDialog from './Vote/VoteDialog'
@@ -55,7 +55,7 @@ export default function Elections() {
               </Button>
               <Button
                 className="w-32 md:w-52"
-                startIcon={<Null />}
+                startIcon={<HideSource />}
                 onClick={onSelect(true, null)}
                 color="inherit"
               >

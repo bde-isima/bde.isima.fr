@@ -2,11 +2,11 @@ import cuid from 'cuid'
 import * as z from 'zod'
 import { useState } from 'react'
 import Button from '@mui/material/Button'
-import DialogTitle from '@mui/material/DialogTitle'
-import React, { ReactNode, PropsWithoutRef } from 'react'
 import LoadingButton from '@mui/lab/LoadingButton'
+import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
+import React, { ReactNode, PropsWithoutRef } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form'
 
@@ -54,7 +54,7 @@ export function Form<FormValues extends Record<string, unknown>>({
       }}
       onSubmit={onSubmit}
       mutators={mutators}
-      render={({ handleSubmit, submitting, pristine, submitError }) => (
+      render={({ handleSubmit, submitting, pristine, invalid, submitError }) => (
         <>
           {variant === 'button' && (
             <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
@@ -74,7 +74,7 @@ export function Form<FormValues extends Record<string, unknown>>({
                   onClick={handleSubmit}
                   aria-label={submitText}
                   variant="contained"
-                  disabled={pristine}
+                  disabled={invalid || pristine}
                   size="large"
                 >
                   {submitText}
@@ -93,7 +93,7 @@ export function Form<FormValues extends Record<string, unknown>>({
                 <form
                   id={`${formId}-dialog-form`}
                   onSubmit={handleSubmit}
-                  className="form flex flex-col"
+                  className="form flex flex-col p-2"
                   {...props}
                 >
                   {children}
@@ -120,7 +120,7 @@ export function Form<FormValues extends Record<string, unknown>>({
                     onClick={handleSubmit}
                     aria-label={submitText}
                     variant="contained"
-                    disabled={pristine}
+                    disabled={invalid || pristine}
                   >
                     {submitText}
                   </LoadingButton>

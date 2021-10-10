@@ -5,10 +5,10 @@ import InputBase from '@mui/material/InputBase'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 
-import Magnify from 'mdi-material-ui/Magnify'
-import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-import PlusCircleOutline from 'mdi-material-ui/PlusCircleOutline'
-import ContentSaveMoveOutline from 'mdi-material-ui/ContentSaveMoveOutline'
+import Delete from '@mui/icons-material/DeleteTwoTone'
+import Search from '@mui/icons-material/SearchTwoTone'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone'
+import FileDownload from '@mui/icons-material/FileDownloadTwoTone'
 
 import { useTableProps } from './TablePropsProvider'
 import TableDeleteConfirm from './TableDeleteConfirm'
@@ -44,20 +44,20 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
           {onExport && (
             <Tooltip title="Exporter en CSV">
               <IconButton aria-label="Exporter en CSV" onClick={onExport} size="large">
-                <ContentSaveMoveOutline />
+                <FileDownload />
               </IconButton>
             </Tooltip>
           )}
 
           <Tooltip title="Supprimer">
             <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)} size="large">
-              <DeleteOutline />
+              <Delete />
             </IconButton>
           </Tooltip>
         </div>
       ) : (
         <div className="flex ml-4 items-center">
-          <Magnify />
+          <Search />
 
           <InputBase
             placeholder="Rechercher..."
@@ -73,7 +73,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
             <div>
               <Tooltip title="Ajouter">
                 <IconButton aria-label="Ajouter" onClick={onAdd} size="large">
-                  <PlusCircleOutline />
+                  <AddCircle />
                 </IconButton>
               </Tooltip>
             </div>
@@ -81,5 +81,5 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
         </div>
       )}
     </Toolbar>
-  );
+  )
 }

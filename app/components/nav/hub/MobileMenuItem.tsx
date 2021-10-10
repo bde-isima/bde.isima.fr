@@ -1,11 +1,11 @@
-import Link from 'next/link'
 import { cloneElement } from 'react'
 import Button from '@mui/material/Button'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 
-import { useCustomRouter } from 'app/entities/hooks/useCustomRouter'
+import Link from 'app/core/lib/Link'
+import { useRouter } from 'app/core/lib/router'
 
 type MobileMenuItemProps = {
   item: any
@@ -13,7 +13,7 @@ type MobileMenuItemProps = {
 }
 
 export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
-  const { router } = useCustomRouter()
+  const { router } = useRouter()
 
   const isActive = item.isActive(router.asPath, window.location.hash)
 

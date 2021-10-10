@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Grid from '@mui/material/Grid'
 
-import { Product } from 'types'
+import { Product } from 'global'
 import ProductCard from 'app/components/hub/events/product/ProductCard'
 import ProductDialog from 'app/components/hub/events/product/ProductDialog'
 import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'

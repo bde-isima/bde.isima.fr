@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid'
 import arrayMutators from 'final-form-arrays'
 
-import { EventSubscriptionWithTypedCart } from 'types'
+import { EventSubscriptionWithTypedCart } from 'global'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import {
   EventSubscriptionInput,

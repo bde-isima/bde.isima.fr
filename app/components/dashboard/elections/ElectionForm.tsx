@@ -42,8 +42,8 @@ export default function ElectionForm(props: ElectionFormProps) {
           id: props.initialValues?.id,
           candidates: props.initialValues?.candidates,
           endDate: new Date(props.initialValues?.endDate ?? new Date()),
-          // eslint-disable-next-line react-hooks/exhaustive-deps
         }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         []
       )}
       mutators={{ ...arrayMutators }}

@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import { Image } from 'blitz'
 import { TextField } from 'mui-rff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from 'mdi-material-ui/OpenInNew'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import { Partner } from 'db'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
@@ -65,7 +65,8 @@ export default function PartnerForm(props: PartnerFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
-                size="large">
+                size="large"
+              >
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
@@ -76,5 +77,5 @@ export default function PartnerForm(props: PartnerFormProps) {
       <TextField type="text" name="name" label="Nom" />
       <TextField type="text" name="description" label="Description" multiline rows={10} />
     </Form>
-  );
+  )
 }

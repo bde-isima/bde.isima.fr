@@ -15,7 +15,7 @@ type HistoryProps = {
 
 export default function History({ userId, minDate, maxDate }: HistoryProps) {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
 
   const AND =
     isValid(minDate) && isValid(maxDate)
