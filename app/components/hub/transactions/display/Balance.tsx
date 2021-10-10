@@ -1,14 +1,10 @@
 import { useQuery } from 'blitz'
-import Typography, {
-  TypographyPropsVariantOverrides,
-  TypographyVariantDefaults,
-} from '@mui/material/Typography'
-import { OverridableStringUnion } from '@mui/types'
+import Typography, { TypographyTypeMap } from '@mui/material/Typography'
 
 type BalanceProps = {
   getQuery: any
   queryArgs?: any
-  variant?: OverridableStringUnion<TypographyVariantDefaults, TypographyPropsVariantOverrides>
+  variant?: TypographyTypeMap['props']['variant']
 }
 
 export default function Balance({ getQuery, queryArgs = {}, variant = 'h3' }: BalanceProps) {

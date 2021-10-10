@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { CsvBuilder } from 'filefy'
 import { invoke, BlitzPage, Routes } from 'blitz'
 
-import Eye from '@mui/icons-material/EyeTwoTone'
+import Visibility from '@mui/icons-material/VisibilityTwoTone'
 
 import { Vote } from 'db'
 import Table from 'app/components/dashboard/data/Table'
@@ -57,7 +57,7 @@ const Elections: BlitzPage = () => {
         onExport={exportCsv}
         actions={[
           (rowData) => ({
-            icon: <Eye />,
+            icon: <Visibility />,
             tooltip: 'Réveler les résultats',
             onClick: seeResults(rowData),
           }),

@@ -1,6 +1,6 @@
-import { forwardRef, SyntheticEvent } from 'react'
 import IconButton from '@mui/material/IconButton'
-import MuiAlert, { AlertProps, AlertColor } from '@mui/material/Alert'
+import { forwardRef, SyntheticEvent } from 'react'
+import Alert, { AlertColor } from '@mui/material/Alert'
 import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar'
 
 import Undo from '@mui/icons-material/UndoTwoTone'
@@ -16,10 +16,6 @@ type SnackbarProps = {
   onClose: (event: SyntheticEvent | MouseEvent, reason?: string | undefined) => void
   onUndo?: (() => void) | undefined
 }
-
-const Alert = forwardRef(function Alert(props: AlertProps, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
 
 export default function Snackbar({
   className = '',
@@ -41,8 +37,10 @@ export default function Snackbar({
       anchorOrigin={anchorOrigin}
     >
       <Alert
+        elevation={6}
         onClose={onClose}
         severity={severity}
+        variant="filled"
         action={
           <>
             {onUndo && (

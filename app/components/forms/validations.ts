@@ -68,6 +68,7 @@ export type SettingsInputType = z.infer<typeof SettingsInput>
 export const ClubInput = z
   .object({
     id: z.string().optional().nullable(),
+    name: z.string().max(255),
     image: z
       .string()
       .url()
@@ -89,6 +90,7 @@ export type ClubInputType = z.infer<typeof ClubInput>
 export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
+    name: z.string().max(255),
     image: z
       .string()
       .url()

@@ -3,13 +3,13 @@ import { useForm } from 'react-final-form'
 import Divider from '@mui/material/Divider'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
-import { FieldArray } from 'react-final-form-arrays'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
+import { FieldArray } from 'react-final-form-arrays'
 import InputAdornment from '@mui/material/InputAdornment'
 
-import Plus from '@mui/icons-material/PlusTwoTone'
+import Add from '@mui/icons-material/AddTwoTone'
 import Close from '@mui/icons-material/CloseTwoTone'
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
@@ -30,7 +30,7 @@ export default function CandidatesForm() {
           aria-label="Ajouter un candidat"
           size="small"
         >
-          <Plus />
+          <Add />
         </IconButton>
       </FormLabel>
 
@@ -94,7 +94,7 @@ export default function CandidatesForm() {
                   aria-label="Ajouter un candidat"
                   size="small"
                 >
-                  <Plus />
+                  <Add />
                 </IconButton>
               )}
             </div>

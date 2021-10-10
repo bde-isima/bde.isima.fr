@@ -14,7 +14,7 @@ export default resolver.pipe(resolver.authorize(['*']), async ({ where }: GetRes
   const results: any = await db.vote.groupBy({
     by: ['candidateId', 'isBlank', 'isNull'],
     where: { electionId: election.id },
-    count: { id: true },
+    _count: { id: true },
   })
 
   return results.map((x) => {

@@ -22,7 +22,7 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
       ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }]
       : []
 
-  const [groupedTransactions, { isFetching, isFetchingMore, fetchMore, canFetchMore }] =
+  const [groupedTransactions, { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage }] =
     useInfiniteQuery(
       getTransactions,
       (
@@ -32,7 +32,7 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
         }
       ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: 'desc' } }),
       {
-        getFetchMore: (lastGroup) => lastGroup.nextPage,
+        getNextPageParam: (lastPage) => lastPage.nextPage,
         enabled: Boolean(userId),
       }
     )
@@ -59,14 +59,14 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
 
       <Button
         className="my-4 w-full"
-        onClick={() => fetchMore()}
+        onClick={() => fetchNextPage()}
         color="inherit"
         variant="outlined"
-        disabled={!canFetchMore || !!isFetchingMore}
+        disabled={!hasNextPage || !!isFetchingNextPage}
       >
-        {isFetching || isFetchingMore
+        {isFetching || isFetchingNextPage
           ? 'Chargement ...'
-          : canFetchMore
+          : hasNextPage
           ? 'Charger plus'
           : 'Plus rien à charger'}
       </Button>

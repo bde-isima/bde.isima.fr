@@ -3,9 +3,9 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ButtonGroup from '@mui/material/ButtonGroup'
 
-import Cellphone from '@mui/icons-material/CellphoneTwoTone'
-import CardBulleted from '@mui/icons-material/CardBulletedTwoTone'
-import CashMultiple from '@mui/icons-material/CashMultipleTwoTone'
+import LocalAtm from '@mui/icons-material/LocalAtmTwoTone'
+import CreditCard from '@mui/icons-material/CreditCardTwoTone'
+import PhoneAndroid from '@mui/icons-material/PhoneAndroidTwoTone'
 
 import { EventSubscriptionWithTypedCart } from 'global'
 import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
@@ -33,7 +33,7 @@ export default function PaymentMethods() {
       <Tooltip title="Payer par LYDIA">
         <Button
           className="w-full"
-          startIcon={<Cellphone />}
+          startIcon={<PhoneAndroid />}
           aria-label="Payer par LYDIA"
           variant={eventSubscription?.payment_method === 'LYDIA' ? 'contained' : 'outlined'}
           onClick={onPaymentMethodChange('LYDIA')}
@@ -46,7 +46,7 @@ export default function PaymentMethods() {
       <Tooltip title="Payer par carte BDE">
         <Button
           className="w-full"
-          startIcon={<CardBulleted />}
+          startIcon={<CreditCard />}
           aria-label="Payer par carte BDE"
           variant={eventSubscription?.payment_method === 'BDE' ? 'contained' : 'outlined'}
           onClick={onPaymentMethodChange('BDE')}
@@ -59,7 +59,7 @@ export default function PaymentMethods() {
       <Tooltip title="Payer en liquide">
         <Button
           className="w-full"
-          startIcon={<CashMultiple />}
+          startIcon={<LocalAtm />}
           aria-label="Payer en liquide"
           variant={eventSubscription?.payment_method === 'CASH' ? 'contained' : 'outlined'}
           onClick={onPaymentMethodChange('CASH')}

@@ -89,30 +89,30 @@ declare module '*.module.css' {
   export default content
 }
 
-//@see https://codesandbox.io/s/fontsizetheme-material-demo-forked-l9u05
+declare module '@mui/styles/defaultTheme' {
+  interface DefaultTheme extends Theme {}
+}
 
-declare module '@mui/material/styles/createTypography' {
-  interface Typography {
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
     success: React.CSSProperties
     warning: React.CSSProperties
     error: React.CSSProperties
   }
 
-  interface TypographyOptions {
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
     success?: React.CSSProperties
-    warning: React.CSSProperties
-    error: React.CSSProperties
+    warning?: React.CSSProperties
+    error?: React.CSSProperties
   }
 }
 
-declare module '@mui/material/Typography/Typography' {
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     success: true
     warning: true
     error: true
   }
-}
-
-declare module '@mui/styles/defaultTheme' {
-  interface DefaultTheme extends Theme {}
 }
