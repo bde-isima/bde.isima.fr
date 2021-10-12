@@ -82,7 +82,7 @@ export default function ClubEventForm(props: ClubEventFormProps) {
   )
 
   return (
-    <Form<EventInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

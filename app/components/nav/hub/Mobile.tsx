@@ -12,6 +12,7 @@ import Home from '@mui/icons-material/HomeTwoTone'
 
 import config from './config'
 import Link from 'app/core/lib/Link'
+import logo from 'public/static/images/logos/logo.svg'
 import DashboardMobile from 'app/components/nav/dashboard/Mobile'
 import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
 
@@ -46,7 +47,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
               <div className="m-2 mr-4">
                 <Image
                   className="rounded-full"
-                  src="/static/images/logos/logo.svg"
+                  src={logo}
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"

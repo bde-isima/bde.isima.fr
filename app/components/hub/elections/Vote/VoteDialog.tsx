@@ -3,13 +3,13 @@ import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import DialogActions from '@mui/material/DialogActions'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import Close from '@mui/icons-material/CloseTwoTone'
 
 import { Candidate } from 'db'
 import { useTheme } from 'app/core/styles/theme'
 import Snackbar from 'app/core/layouts/Snackbar'
+import { useMediaQuery } from 'app/core/styles/theme'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import createVote from 'app/entities/vote/mutations/createVote'
@@ -25,8 +25,7 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
   const [createVt] = useMutation(createVote)
   const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const onSuccess = async ({ approve, ...data }: any) => {
     await createVt({ data })

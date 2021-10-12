@@ -27,7 +27,7 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
   }
 
   return (
-    <Form<TransferInputType>
+    <Form
       submitText="Envoyer"
       title="Transférer de l'argent"
       variant="dialog"

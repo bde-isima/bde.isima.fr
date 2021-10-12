@@ -28,7 +28,7 @@ export default function ClubForm(props: ClubFormProps) {
   }
 
   return (
-    <Form<ClubInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

@@ -28,7 +28,7 @@ export default function SubscriptionForm(props: SubscriptionFormProps) {
 
   return (
     <Grid container item justifyContent="center" xs={12} md={4}>
-      <Form<EventSubscriptionInputType>
+      <Form
         className="w-full"
         schema={EventSubscriptionInput}
         initialValues={{

@@ -10,6 +10,7 @@ import { Partner } from 'db'
 import Carousel from './carousel'
 import Link from 'app/core/lib/Link'
 import getPartners from 'app/entities/partners/queries/getPartners'
+import partners from 'public/static/images/illustrations/Partners.svg'
 
 export default function Partners() {
   return (
@@ -45,11 +46,12 @@ export default function Partners() {
 
           <Grid item xs={12} md={6}>
             <Image
-              src="/static/images/illustrations/Partners.svg"
+              src={partners}
               width={500}
               height={300}
               layout="responsive"
               alt="Illustration"
+              quality={100}
             />
           </Grid>
         </Grid>

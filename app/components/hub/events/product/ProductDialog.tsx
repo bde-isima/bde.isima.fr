@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import DialogTitle from '@mui/material/DialogTitle'
-import { useTheme, useMediaQuery } from '@mui/material'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 
@@ -12,6 +11,7 @@ import AddCircle from '@mui/icons-material/AddCircleTwoTone'
 import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
 import AddShoppingCart from '@mui/icons-material/AddShoppingCartTwoTone'
 
+import { useMediaQuery } from 'app/core/styles/theme'
 import ProductComment from 'app/components/hub/events/product/ProductComment'
 import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from 'global'
 import ProductGroupOption from 'app/components/hub/events/product/ProductGroupOption'
@@ -31,8 +31,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const { eventSubscription, setQueryData } = useEventSubscription()
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery('md')
 
   const onQuantityChange = (value: number) => () => {
     if (quantity + value > 0) {

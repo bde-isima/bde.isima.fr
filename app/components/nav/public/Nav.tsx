@@ -7,7 +7,6 @@ import Dialog from '@mui/material/Dialog'
 import Toolbar from '@mui/material/Toolbar'
 import { useState, useEffect } from 'react'
 import IconButton from '@mui/material/IconButton'
-import { useTheme, useMediaQuery } from '@mui/material'
 import DialogActions from '@mui/material/DialogActions'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 
@@ -20,6 +19,8 @@ import Mobile from './Mobile'
 import Desktop from './Desktop'
 import Link from 'app/core/lib/Link'
 import { useRouter } from 'app/core/lib/router'
+import { useMediaQuery } from 'app/core/styles/theme'
+import logo from 'public/static/images/logos/logo.svg'
 import LoginContent from 'app/components/auth/LoginContent'
 
 export default function Nav() {
@@ -31,8 +32,7 @@ export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false)
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const toggleDrawer = (fn: any, open: boolean) => () => fn(open)
 
@@ -73,7 +73,7 @@ export default function Nav() {
           <Link className="mx-auto lg:ml-0" href="/">
             <Image
               className="rounded-full"
-              src="/static/images/logos/logo.svg"
+              src={logo}
               width={40}
               height={40}
               alt="Logo BDE ISIMA"

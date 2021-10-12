@@ -1,7 +1,8 @@
 import cuid from 'cuid'
-import * as z from 'zod'
-import { useState } from 'react'
+import { z } from 'zod'
+import { validateZodSchema } from 'blitz'
 import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
 import LoadingButton from '@mui/lab/LoadingButton'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
@@ -14,19 +15,20 @@ import errorMap from './errorMap'
 
 export { FORM_ERROR } from 'final-form'
 
-type FormProps<FormValues> = {
+export interface FormProps<S extends z.ZodType<any, any>>
+  extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
   children: ReactNode
   submitText?: string
   title?: string
   variant?: 'button' | 'dialog'
   onClose?: () => void
-  onSubmit: FinalFormProps<FormValues>['onSubmit']
-  initialValues?: FinalFormProps<FormValues>['initialValues']
-  schema?: z.ZodType<any, any>
+  onSubmit: FinalFormProps<z.infer<S>>['onSubmit']
+  initialValues?: FinalFormProps<z.infer<S>>['initialValues']
+  schema?: S
   mutators?: any
-} & Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'>
+}
 
-export function Form<FormValues extends Record<string, unknown>>({
+export function Form<S extends z.ZodType<any, any>>({
   children,
   submitText = '',
   title = '',
@@ -37,23 +39,18 @@ export function Form<FormValues extends Record<string, unknown>>({
   initialValues,
   onSubmit,
   ...props
-}: FormProps<FormValues>) {
+}: FormProps<S>) {
   const formId = useState(cuid())
 
+  useEffect(() => {
+    z.setErrorMap(errorMap)
+  }, [])
+  console.log(title, initialValues)
+
   return (
-    <FinalForm<FormValues>
+    <FinalForm
       initialValues={initialValues}
-      validate={(values) => {
-        if (!schema) return
-        try {
-          schema.parse(values, { errorMap })
-        } catch (error) {
-          if (process.env.NODE_ENV === 'development') {
-            console.log(error.message)
-          }
-          return error.formErrors.fieldErrors
-        }
-      }}
+      validate={validateZodSchema(schema)}
       onSubmit={onSubmit}
       mutators={mutators}
       render={({ handleSubmit, submitting, pristine, invalid, submitError }) => (

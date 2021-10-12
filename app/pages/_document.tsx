@@ -3,7 +3,7 @@ import createEmotionServer from '@emotion/server/create-instance'
 import { BlitzScript, Document, DocumentContext, DocumentHead, Html, Main } from 'blitz'
 
 import Head from 'app/core/lib/Head'
-import createEmotionCache from 'app/core/lib/createEmotionCache'
+import { createEmotionCache } from 'app/core/styles/theme'
 
 export default class MyDocument extends Document {
   render() {

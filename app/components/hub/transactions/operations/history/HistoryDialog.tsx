@@ -6,10 +6,10 @@ import IconButton from '@mui/material/IconButton'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import { useTheme, useMediaQuery } from '@mui/material'
 
 import Close from '@mui/icons-material/CloseTwoTone'
 
+import { useMediaQuery } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import History from 'app/components/hub/transactions/operations/history/History'
 import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader'
@@ -26,8 +26,7 @@ export default function HistoryDialog({ isOpen, onClose }: HistoryDialogProps) {
   const [minDate, setMinDate] = useState(new Date('01-01-2021'))
   const [maxDate, setMaxDate] = useState(new Date())
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <NoSsr>

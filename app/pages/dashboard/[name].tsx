@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { CsvBuilder } from 'filefy'
-import { BlitzPage, Routes } from 'blitz'
+import { BlitzPage, Router, Routes } from 'blitz'
 import { useState, Suspense } from 'react'
 
 import Dashboard from '@mui/icons-material/DashboardTwoTone'
@@ -12,7 +12,6 @@ import upsertEvent from 'app/entities/events/mutations/upsertEvent'
 import EventStatus from 'app/components/dashboard/events/EventStatus'
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyEvents from 'app/entities/events/mutations/deleteManyEvents'
-import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/clubs-config'
 import Manager from 'app/components/dashboard/clubs/dashboard/event/manager/Manager'
 import ClubEventForm from 'app/components/dashboard/clubs/dashboard/event/ClubEventForm'
 
@@ -117,7 +116,6 @@ const ClubDashboard: BlitzPage = () => {
 
 ClubDashboard.suppressFirstRenderFlicker = true
 ClubDashboard.authenticate = { redirectTo: Routes.Login() }
-//ClubDashboard.redirectAuthenticatedTo = redirectAuthenticatedTo as any // FIXME
 ClubDashboard.getLayout = (page) => getDashboardNav(page, 'Dashboard club')
 
 const columns = [

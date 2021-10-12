@@ -5,7 +5,6 @@ import MultiCarousel from 'react-multi-carousel'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import CardActionArea from '@mui/material/CardActionArea'
 
 import Twitter from '@mui/icons-material/Twitter'
@@ -14,7 +13,7 @@ import Instagram from '@mui/icons-material/Instagram'
 import Public from '@mui/icons-material/PublicTwoTone'
 
 import CarouselDialog from './CarouselDialog'
-import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 
 const responsive = {
   desktop: {
@@ -49,8 +48,7 @@ interface CarouselProps {
 }
 
 const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: CarouselProps) => {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery('md')
   const [isMoving, setIsMoving] = useState(false)
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<ItemType>()

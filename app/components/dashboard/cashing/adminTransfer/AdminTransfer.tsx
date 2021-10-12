@@ -1,10 +1,9 @@
 import { useMutation } from 'blitz'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { User } from 'db'
-import { useTheme } from 'app/core/styles/theme'
 import Snackbar from 'app/core/layouts/Snackbar'
 import AdminTransferForm from './AdminTransferForm'
+import { useMediaQuery } from 'app/core/styles/theme'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import { AdminTransferInputType } from 'app/components/forms/validations'
 import createAdminTransaction from 'app/entities/transactions/mutations/createAdminTransaction'
@@ -15,8 +14,7 @@ type AdminTransferProps = {
 }
 
 export default function AdminTransfer({ user, onTransactionComplete }: AdminTransferProps) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const { open, message, severity, onShow, onClose } = useSnackbar()
 

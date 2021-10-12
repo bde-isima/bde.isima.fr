@@ -23,7 +23,7 @@ export default function PromotionForm(props: PromotionFormProps) {
   }
 
   return (
-    <Form<PromotionInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

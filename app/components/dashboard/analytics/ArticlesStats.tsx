@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useQuery } from 'blitz'
 import { subDays } from 'date-fns'
-import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel } from 'victory'
 
+import { Article, Transaction } from 'db'
 import { useTheme } from 'app/core/styles/theme'
 import getArticles from 'app/entities/articles/queries/getArticles'
 
@@ -20,10 +21,10 @@ export default function ArticlesStats() {
     where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
   })
 
-  const handleChange = (event) => setPeriod(event.target.value)
+  const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number)
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <div className="flex flex-grow justify-around">
         <Typography variant="h6">Ventes d&apos;articles</Typography>
 
@@ -34,14 +35,17 @@ export default function ArticlesStats() {
         </Select>
       </div>
 
-      <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 10 }}>
+      <VictoryChart domainPadding={100}>
         <VictoryBar
+          theme={VictoryTheme.material}
           style={{ data: { fill: theme.palette.text.primary } }}
-          horizontal
           animate={{ duration: 300 }}
-          data={data?.articles}
-          x="name"
-          y="Transaction.length"
+          data={data?.articles.map((a: Article & { Transaction: Transaction[] }, i: number) => ({
+            x: i + 1,
+            y: a.Transaction.length,
+            label: a.name,
+          }))}
+          labelComponent={<VictoryLabel angle={90} verticalAnchor="middle" textAnchor="end" />}
         />
       </VictoryChart>
     </div>

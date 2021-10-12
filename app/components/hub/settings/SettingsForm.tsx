@@ -30,7 +30,7 @@ export default function SettingsForm(props: SettingsFormProps) {
   }
 
   return (
-    <Form<SettingsInputType>
+    <Form
       submitText="Sauvegarder"
       schema={SettingsInput}
       initialValues={{

@@ -1,12 +1,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
-import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 
 export default function HistoryHeader() {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <Grid container>

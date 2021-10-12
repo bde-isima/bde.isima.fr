@@ -3,10 +3,10 @@ import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import { useTheme, useMediaQuery } from '@mui/material'
 
 import Close from '@mui/icons-material/CloseTwoTone'
 
+import { useMediaQuery } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import TopUp from 'app/components/hub/transactions/operations/topUp/TopUp'
 
@@ -16,8 +16,7 @@ type TopUpDialogProps = {
 }
 
 export default function TopUpDialog({ isOpen, onClose }: TopUpDialogProps) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <NoSsr>

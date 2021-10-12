@@ -16,12 +16,11 @@ export default function GlobalBalance() {
   const posRatio = (positives * 100) / total
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Typography variant="h6">Bilan des soldes</Typography>
 
-      <VictoryChart padding={{ left: 90, top: 50, right: 90, bottom: 50 }}>
+      <VictoryChart padding={{ left: 90, top: 0, right: 90, bottom: 90 }}>
         <VictoryPie
-          standalone={true}
           theme={VictoryTheme.material}
           style={{ labels: { fill: theme.palette.text.primary } }}
           colorScale={['#C91F37', '#32CD32']}

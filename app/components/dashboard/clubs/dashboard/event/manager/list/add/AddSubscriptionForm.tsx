@@ -25,7 +25,7 @@ export default function AddSubscriptionForm(props: AddSubscriptionFormProps) {
   }
 
   return (
-    <Form<AddSubscriptionInputType>
+    <Form
       submitText="Envoyer"
       title="Ajouter une inscription"
       variant="dialog"

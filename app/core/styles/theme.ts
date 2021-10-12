@@ -1,10 +1,16 @@
 import { useMemo } from 'react'
+import createCache from '@emotion/cache'
 import { frFR } from '@mui/material/locale'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import type { Breakpoint } from '@mui/system'
+import useMUIMediaQuery from '@mui/material/useMediaQuery'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
+export function createEmotionCache() {
+  return createCache({ key: 'css' })
+}
+
 export function useTheme() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+  const prefersDarkMode = useMUIMediaQuery('(prefers-color-scheme: dark)')
 
   return useMemo(
     () =>
@@ -29,4 +35,9 @@ export function useTheme() {
       ),
     [prefersDarkMode]
   )
+}
+
+export function useMediaQuery(breakpoint: Breakpoint) {
+  const theme = useTheme()
+  return useMUIMediaQuery(theme.breakpoints.down(breakpoint))
 }

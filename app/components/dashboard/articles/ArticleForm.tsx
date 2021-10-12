@@ -28,7 +28,7 @@ export default function ArticleForm(props: ArticleFormProps) {
   }
 
   return (
-    <Form<ArticleInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

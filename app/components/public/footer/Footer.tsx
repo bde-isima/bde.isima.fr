@@ -40,7 +40,7 @@ export default function Footer() {
         </Grid>
 
         <Grid container item xs={12} md={4} justifyContent="center" alignContent="center">
-          <Image src={uca} quality={100} alt="Logo de l'UCA" placeholder="blur" />
+          <Image src={uca} alt="Logo de l'UCA" quality={100} placeholder="blur" />
         </Grid>
 
         <Grid

@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { Club } from 'db'
 import Carousel from './carousel'
 import getClubs from 'app/entities/clubs/queries/getClubs'
+import clubs from 'public/static/images/illustrations/Clubs.svg'
 
 export default function Clubs() {
   return (
@@ -23,11 +24,12 @@ export default function Clubs() {
         <Grid container>
           <Grid item xs={12} md={6}>
             <Image
-              src="/static/images/illustrations/Clubs.svg"
+              src={clubs}
               width={500}
               height={300}
               layout="responsive"
               alt="Illustration"
+              quality={100}
             />
           </Grid>
 

@@ -4,14 +4,13 @@ import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import DialogTitle from '@mui/material/DialogTitle'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 
 import Close from '@mui/icons-material/CloseTwoTone'
 
 import type { CarouselItemType } from './index'
-import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 
 interface CarouselDialogProps {
@@ -26,8 +25,7 @@ const CarouselDialog = <ItemType extends CarouselItemType>({
 }: CarouselDialogProps & {
   item?: ItemType
 }) => {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('lg'))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <Dialog

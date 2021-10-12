@@ -8,7 +8,6 @@ import Skeleton from '@mui/material/Skeleton'
 import TabContext from '@mui/lab/TabContext'
 import IconButton from '@mui/material/IconButton'
 import DialogContent from '@mui/material/DialogContent'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import DialogActions from '@mui/material/DialogActions'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -19,7 +18,7 @@ import Close from '@mui/icons-material/CloseTwoTone'
 import HistoryIcon from '@mui/icons-material/HistoryTwoTone'
 import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone'
 
-import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 import getUser from 'app/entities/users/queries/getUser'
 import getUsers from 'app/entities/users/queries/getUsers'
 import SearchUser from 'app/components/dashboard/cashing/SearchUser'
@@ -33,8 +32,7 @@ const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'))
 const History = lazy(() => import('app/components/hub/transactions/operations/history/History'))
 
 export default function CashingDialog({ user, onSelection, onClear }) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const [value, setValue] = useState(0)
   const [open, setOpen] = useState(false)

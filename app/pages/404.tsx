@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography'
 import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
 
 import Link from 'app/core/lib/Link'
+import notFound from 'public/static/images/illustrations/NotFound.svg'
 
-export default function Page404() {
+function Page404() {
   const statusCode = 404
   const title = 'Page non trouvée'
 
@@ -19,12 +20,7 @@ export default function Page404() {
       </Head>
 
       <div className="flex flex-col min-h-main justify-center items-center">
-        <Image
-          src="/static/images/illustrations/NotFound.svg"
-          alt={title}
-          width={500}
-          height={500}
-        />
+        <Image src={notFound} width={500} height={500} alt={title} quality={100} />
 
         <Typography variant="h4" paragraph>
           {title}
@@ -46,3 +42,6 @@ export default function Page404() {
     </>
   )
 }
+
+Page404.suppressFirstRenderFlicker = true
+export default Page404

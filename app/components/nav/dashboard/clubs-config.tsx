@@ -1,5 +1,5 @@
 import Avatar from '@mui/material/Avatar'
-import { useQuery, Image, PublicData, Routes, Router, useAuthenticatedSession, invoke } from 'blitz'
+import { useQuery, Image, useAuthenticatedSession } from 'blitz'
 
 import getClubs from 'app/entities/clubs/queries/getClubs'
 
@@ -28,15 +28,4 @@ export function useClubsConfig() {
 
 export function getClubsConfigServerSide(clubs, user) {
   return createConfig(clubs, user)
-}
-
-export const redirectAuthenticatedTo = async ({ session }: { session: PublicData }) => {
-  const { clubs } = await invoke(getClubs, {})
-  const config = getClubsConfigServerSide(clubs, session)
-
-  const isAuthorized = config.some((c) => c.role === Router.query.name)
-  if (isAuthorized) {
-    return false
-  }
-  return Routes.Hub()
 }

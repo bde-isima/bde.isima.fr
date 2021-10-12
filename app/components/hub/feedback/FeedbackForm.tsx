@@ -23,7 +23,7 @@ export default function FeedbackForm(props: FeedbackFormProps) {
   }
 
   return (
-    <Form<FeedbackInputType>
+    <Form
       submitText="Envoyer"
       schema={FeedbackInput}
       initialValues={{

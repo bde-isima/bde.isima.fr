@@ -34,7 +34,7 @@ export default function LoginForm() {
   }
 
   return (
-    <Form<LoginInputType>
+    <Form
       submitText="Connexion"
       schema={LoginInput}
       initialValues={{ identifier: undefined }}

@@ -27,7 +27,7 @@ export default function PartnerForm(props: PartnerFormProps) {
   }
 
   return (
-    <Form<PartnerInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

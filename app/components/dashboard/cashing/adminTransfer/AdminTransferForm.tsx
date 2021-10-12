@@ -20,7 +20,7 @@ export default function AdminTransferForm({ onSuccess }: AdminTransferFormProps)
   }
 
   return (
-    <Form<AdminTransferInputType>
+    <Form
       submitText="Envoyer"
       title="Transférer de l'argent"
       schema={AdminTransferInput}

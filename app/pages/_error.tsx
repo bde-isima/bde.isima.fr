@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography'
 import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
 
 import Link from 'app/core/lib/Link'
+import serverError from 'public/static/images/illustrations/ServerError.svg'
 
-export default function Error({ statusCode }) {
+function Page500({ statusCode }) {
   const errorCode = 500
   const title = "Oops, quelque chose s'est mal passé"
 
@@ -19,12 +20,7 @@ export default function Error({ statusCode }) {
       </Head>
 
       <div className="flex flex-col min-h-main justify-center items-center">
-        <Image
-          src="/static/images/illustrations/ServerError.svg"
-          alt={title}
-          width={500}
-          height={500}
-        />
+        <Image src={serverError} width={500} height={500} alt={title} quality={100} />
 
         <Typography variant="h4" paragraph>
           {title}
@@ -51,3 +47,6 @@ export const getInitialProps = ({ res, err }) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404
   return { statusCode }
 }
+
+Page500.suppressFirstRenderFlicker = true
+export default Page500

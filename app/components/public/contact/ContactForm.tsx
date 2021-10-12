@@ -20,7 +20,7 @@ export default function ContactForm(props: ContactFormProps) {
   }
 
   return (
-    <Form<ContactInputType>
+    <Form
       submitText="Envoyer"
       schema={ContactInput}
       initialValues={{

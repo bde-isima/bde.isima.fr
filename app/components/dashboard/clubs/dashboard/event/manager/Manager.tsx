@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import { useTheme, useMediaQuery } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useState, Suspense, SuspenseList, lazy } from 'react'
@@ -19,6 +18,7 @@ import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
 import FormatListBulleted from '@mui/icons-material/FormatListBulletedTwoTone'
 
 import TabPanel from 'app/core/layouts/TabPanel'
+import { useMediaQuery } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 
@@ -29,8 +29,7 @@ const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnaly
 export default function Manager({ open, event, onClose }) {
   const [value, setValue] = useState(0)
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const [data]: any = useQuery(
     getEventSubscriptions,

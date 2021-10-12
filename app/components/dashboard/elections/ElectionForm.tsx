@@ -32,7 +32,7 @@ export default function ElectionForm(props: ElectionFormProps) {
   const onDateChange = (onChange) => (newDate) => onChange(newDate)
 
   return (
-    <Form<ElectionInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

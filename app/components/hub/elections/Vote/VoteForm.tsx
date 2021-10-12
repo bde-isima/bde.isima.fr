@@ -23,7 +23,7 @@ export default function VoteForm(props: VoteFormProps) {
   }
 
   return (
-    <Form<VoteInputType>
+    <Form
       title={
         props.initialValues
           ? `Voter pour ${props.initialValues?.name}`

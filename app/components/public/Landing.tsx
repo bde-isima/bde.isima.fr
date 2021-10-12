@@ -2,22 +2,20 @@ import { Image } from 'blitz'
 import Paper from '@mui/material/Paper'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
-import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 
 export default function Landing() {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <Paper className="min-h-main relative">
       <a id="landing" href="#landing" />
       <Image
-        alt="Fond d'écran"
         src={`/static/images/illustrations/${fullScreen ? 'MobileBackground' : 'Background'}.svg`}
         layout="fill"
         objectFit="cover"
+        alt="Fond d'écran"
         quality={100}
       />
       <Container className="mt-16 py-0 flex flex-col">

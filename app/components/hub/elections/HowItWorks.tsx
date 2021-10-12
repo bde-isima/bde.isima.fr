@@ -5,7 +5,6 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import DialogActions from '@mui/material/DialogActions'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import Help from '@mui/icons-material/HelpTwoTone'
 import Close from '@mui/icons-material/CloseTwoTone'
@@ -16,13 +15,13 @@ import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
 
 import HowItWorksItem from './HowItWorksItem'
 import { useTheme } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme'
 import SlideTransition from 'app/core/layouts/SlideTransition'
 
 export default function HowItWorks() {
   const [isOpen, setIsOpen] = useState(false)
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const toggleDialog = (open) => () => setIsOpen(open)
 

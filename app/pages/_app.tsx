@@ -10,10 +10,9 @@ import { StrictMode, Suspense, useEffect } from 'react'
 import * as gtag from 'app/core/lib/gtag'
 import packageJson from '../../package.json'
 import { useRouter } from 'app/core/lib/router'
-import { useTheme } from 'app/core/styles/theme'
 import Splash from 'app/components/common/Splash'
 import ErrorBoundary from 'app/core/lib/ErrorBoundary'
-import createEmotionCache from 'app/core/lib/createEmotionCache'
+import { createEmotionCache, useTheme } from 'app/core/styles/theme'
 
 const clientSideEmotionCache = createEmotionCache()
 

@@ -2,12 +2,12 @@ import { useQuery, useMutation } from 'blitz'
 import { VariableSizeGrid } from 'react-window'
 import TextField from '@mui/material/TextField'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from 'react'
 
 import Article from './Article'
 import { useTheme } from 'app/core/styles/theme'
 import Snackbar from 'app/core/layouts/Snackbar'
+import { useMediaQuery } from 'app/core/styles/theme'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import getArticles from 'app/entities/articles/queries/getArticles'
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction'
@@ -44,8 +44,7 @@ const innerElementType = forwardRef(
 )
 
 export default function Catalog({ user, onTransactionComplete }) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xl'))
+  const fullScreen = useMediaQuery('md')
 
   const [loading, setLoading] = useState(false)
   const [previousTransaction, setPreviousTransaction] = useState<string | null>(null)

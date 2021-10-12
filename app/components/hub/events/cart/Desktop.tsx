@@ -42,7 +42,7 @@ export default function Desktop({
   const { event, eventSubscription } = useEventSubscription()
 
   return (
-    <Card className="w-11/12 mt-4" sx={{ display: { xs: 'none', xl: 'block' } }}>
+    <Card className="w-11/12 mt-4" sx={{ display: { xs: 'none', md: 'block' } }}>
       <CardActions className="p-0">
         <ButtonGroup className="w-full" aria-label="Inscription/Désinscription">
           {eventSubscription?.id && (

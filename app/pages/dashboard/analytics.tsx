@@ -9,26 +9,24 @@ import GlobalBalance from 'app/components/dashboard/analytics/GlobalBalance'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 
 const Analytics: BlitzPage = () => {
-  return (
-    <>
-      <Grid container spacing={5}>
-        <Grid item xs={12} md={6}>
-          <Card className="p-4 h-full">
-            <Suspense fallback="Récupération des données ...">
-              <GlobalBalance />
-            </Suspense>
-          </Card>
-        </Grid>
+  const AnalyticsCard = ({ children }) => (
+    <Grid item xs={12} md={6}>
+      <Card className="p-4 h-full">
+        <Suspense fallback="Récupération des données ...">{children}</Suspense>
+      </Card>
+    </Grid>
+  )
 
-        <Grid item xs={12} md={6}>
-          <Card className="p-4 h-full">
-            <Suspense fallback="Récupération des données ...">
-              <ArticlesStats />
-            </Suspense>
-          </Card>
-        </Grid>
-      </Grid>
-    </>
+  return (
+    <Grid container spacing={5}>
+      <AnalyticsCard>
+        <GlobalBalance />
+      </AnalyticsCard>
+
+      <AnalyticsCard>
+        <ArticlesStats />
+      </AnalyticsCard>
+    </Grid>
   )
 }
 

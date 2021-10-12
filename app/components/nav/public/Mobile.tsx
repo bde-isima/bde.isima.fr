@@ -15,6 +15,7 @@ import Account from '@mui/icons-material/AccountCircleTwoTone'
 import config from './config'
 import Link from 'app/core/lib/Link'
 import { useRouter } from 'app/core/lib/router'
+import logo from 'public/static/images/logos/logo.svg'
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
   const session = useSession()
@@ -69,7 +70,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
               <div className="m-2 mr-4">
                 <Image
                   className="rounded-full"
-                  src="/static/images/logos/logo.svg"
+                  src={logo}
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"

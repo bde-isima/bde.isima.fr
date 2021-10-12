@@ -5,6 +5,8 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
 import Link from '@mui/icons-material/LinkTwoTone'
+import isima from 'public/static/images/logos/isima.png'
+import school from 'public/static/images/illustrations/School.svg'
 
 export default function School() {
   return (
@@ -44,11 +46,12 @@ export default function School() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Image
-              src="/static/images/illustrations/School.svg"
+              src={school}
               width={500}
               height={300}
               layout="responsive"
               alt="Illustration"
+              quality={100}
             />
           </Grid>
         </Grid>
@@ -69,12 +72,7 @@ export default function School() {
             </Typography>
           </Fab>
 
-          <Image
-            src="/static/images/logos/isima.png"
-            width={300}
-            height={87}
-            alt="Logo de l'ISIMA"
-          />
+          <Image src={isima} alt="Logo de l'ISIMA" quality={100} />
         </div>
       </div>
     </Container>
