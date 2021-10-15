@@ -45,12 +45,16 @@ export function Form<S extends z.ZodType<any, any>>({
   useEffect(() => {
     z.setErrorMap(errorMap)
   }, [])
-  console.log(title, initialValues)
 
   return (
     <FinalForm
       initialValues={initialValues}
-      validate={validateZodSchema(schema)}
+      validate={async (values) => {
+        const errors = await validateZodSchema(schema)(values)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(values, errors)
+        }
+      }}
       onSubmit={onSubmit}
       mutators={mutators}
       render={({ handleSubmit, submitting, pristine, invalid, submitError }) => (

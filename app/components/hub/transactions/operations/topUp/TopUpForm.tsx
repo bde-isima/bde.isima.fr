@@ -1,7 +1,6 @@
 import { Image } from 'blitz'
-import { useMemo } from 'react'
-import { TextField } from 'bde-isima-mui-rff'
 import Button from '@mui/material/Button'
+import { TextField } from 'bde-isima-mui-rff'
 import Typography from '@mui/material/Typography'
 
 import { PaymentMethod } from './TopUp'
@@ -17,14 +16,6 @@ type TopUpFormProps = {
 }
 
 export default function TopUpForm(props: TopUpFormProps) {
-  const initialValues = useMemo(
-    () => ({
-      amount: 5,
-      recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
-    }),
-    []
-  )
-
   const onSubmit = async (values) => {
     try {
       await props.onSuccess(values)
@@ -40,7 +31,10 @@ export default function TopUpForm(props: TopUpFormProps) {
       title="Recharger son compte"
       variant="dialog"
       schema={TopUpInput}
-      initialValues={initialValues}
+      initialValues={{
+        amount: 5,
+        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
+      }}
       onSubmit={onSubmit}
     >
       <EnhancedTextField
@@ -52,11 +46,11 @@ export default function TopUpForm(props: TopUpFormProps) {
       <TextField type="tel" name="recipient" label="Numéro de téléphone" />
 
       <div className="flex justify-center">
-        <Button onClick={props.beforeSubmit('cb')}>
+        <Button type="submit" onClick={props.beforeSubmit('cb')}>
           <Image src={mastercard} width={100} height={25} alt="Mastercard logo" quality={100} />
         </Button>
 
-        <Button onClick={props.beforeSubmit('lydia')}>
+        <Button type="submit" onClick={props.beforeSubmit('lydia')}>
           <Image src={lydia} width={100} height={25} alt="Lydia logo" quality={100} />
         </Button>
       </div>

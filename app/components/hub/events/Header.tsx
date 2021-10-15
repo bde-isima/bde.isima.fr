@@ -49,6 +49,9 @@ export default function Header() {
           <Typography variant="subtitle2">
             Limite d&apos;inscription : {format(event.subscriptions_end_at, 'dd/MM/yyyy à HH:mm')}
           </Typography>
+          {event.max_subscribers && (
+            <Typography variant="subtitle2">Limite de places : {event.max_subscribers}</Typography>
+          )}
         </>
       }
     />

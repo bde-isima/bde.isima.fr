@@ -14,11 +14,9 @@ export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>
 export const TransferInput = z.object({
   amount: z.number().positive(),
   description: z.string().max(255).optional().nullable(),
-  receiver: z
-    .object({
-      id: z.string(),
-    })
-    .partial(),
+  receiver: z.object({
+    id: z.string(),
+  }),
 })
 export type TransferInputType = z.infer<typeof TransferInput>
 
