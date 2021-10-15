@@ -6,8 +6,8 @@ const eventSubscriptions = async (db) => {
       db.eventSubscription.create({
         data: {
           event: { connect: { id: e.id } },
-          user: { connect: { id: "123456789" } },
-          payment_method: "BDE",
+          user: { connect: { id: '123456789' } },
+          payment_method: 'BDE',
           cart: [],
         },
       })

@@ -1,13 +1,13 @@
-import NoSsr from "@material-ui/core/NoSsr"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import DialogActions from "@material-ui/core/DialogActions"
-import { useTheme, useMediaQuery } from "@material-ui/core"
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import IconButton from '@mui/material/IconButton'
+import DialogActions from '@mui/material/DialogActions'
 
-import Close from "mdi-material-ui/Close"
+import Close from '@mui/icons-material/CloseTwoTone'
 
-import Transfer from "./Transfer"
-import SlideTransition from "app/layouts/SlideTransition"
+import Transfer from './Transfer'
+import { useMediaQuery } from 'app/core/styles/theme'
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 type TransferDialogProps = {
   isOpen: boolean
@@ -15,8 +15,7 @@ type TransferDialogProps = {
 }
 
 export default function TransferDialog({ isOpen, onClose }: TransferDialogProps) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery('md')
 
   return (
     <NoSsr>
@@ -28,7 +27,7 @@ export default function TransferDialog({ isOpen, onClose }: TransferDialogProps)
         TransitionComponent={SlideTransition}
       >
         <DialogActions>
-          <IconButton onClick={onClose} aria-label="Fermer">
+          <IconButton onClick={onClose} aria-label="Fermer" size="large">
             <Close />
           </IconButton>
         </DialogActions>

@@ -1,23 +1,19 @@
-import { useQuery } from "blitz"
-import Typography, {
-  TypographyPropsVariantOverrides,
-  TypographyVariantDefaults,
-} from "@material-ui/core/Typography"
-import { OverridableStringUnion } from "@material-ui/types"
+import { useQuery } from 'blitz'
+import Typography, { TypographyTypeMap } from '@mui/material/Typography'
 
 type BalanceProps = {
   getQuery: any
   queryArgs?: any
-  variant?: OverridableStringUnion<TypographyVariantDefaults, TypographyPropsVariantOverrides>
+  variant?: TypographyTypeMap['props']['variant']
 }
 
-export default function Balance({ getQuery, queryArgs = {}, variant = "h3" }: BalanceProps) {
+export default function Balance({ getQuery, queryArgs = {}, variant = 'h3' }: BalanceProps) {
   const [user] = useQuery(getQuery, queryArgs)
   const balance = (user as any).balance
 
   return (
     <Typography
-      className={balance >= 0 ? "text-green-600" : "text-red-700"}
+      className={balance >= 0 ? 'text-green-600' : 'text-red-700'}
       variant={variant}
       align="center"
     >

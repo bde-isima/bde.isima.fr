@@ -1,13 +1,13 @@
-import Checkbox from "@material-ui/core/Checkbox"
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
-import MUITableHead from "@material-ui/core/TableHead"
-import TableSortLabel from "@material-ui/core/TableSortLabel"
+import Checkbox from '@mui/material/Checkbox'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import MUITableHead from '@mui/material/TableHead'
+import TableSortLabel from '@mui/material/TableSortLabel'
 
 type TableHeadProps = {
   columns: any[]
   onSelectAllClick: (event) => void
-  order: "desc" | "asc"
+  order: 'desc' | 'asc'
   orderBy: string
   numSelected: number
   rowCount: number
@@ -39,7 +39,7 @@ export default function TableHead({
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "Tout sélectionner" }}
+            inputProps={{ 'aria-label': 'Tout sélectionner' }}
             color="default"
           />
         </TableCell>
@@ -49,7 +49,7 @@ export default function TableHead({
             <TableSortLabel
               disabled={!col.searchCriteria}
               active={orderBy === col.id}
-              direction={orderBy === col.id ? order : "asc"}
+              direction={orderBy === col.id ? order : 'asc'}
               onClick={createSortHandler(col.id)}
             >
               {col.headerName}

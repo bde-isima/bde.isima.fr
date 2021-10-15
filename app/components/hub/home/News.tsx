@@ -1,16 +1,19 @@
-import Image from "next/image"
-import Card from "@material-ui/core/Card"
-import { useTheme } from "@material-ui/core"
-import Divider from "@material-ui/core/Divider"
-import Typography from "@material-ui/core/Typography"
-import CardContent from "@material-ui/core/CardContent"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
-import CardActionArea from "@material-ui/core/CardActionArea"
+import { Image } from 'blitz'
+import Divider from '@mui/material/Divider'
+import ImageList from '@mui/material/ImageList'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import ImageListItem from '@mui/material/ImageListItem'
+import ImageListItemBar from '@mui/material/ImageListItemBar'
+
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+
+import Link from 'app/core/lib/Link'
+import tictactrip from 'public/static/images/previews/tictactrip.png'
+import tictactripIcon from 'public/static/images/logos/tictactrip.svg'
 
 export default function News() {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
-  const size = fullScreen ? 64 : 128
+  const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener')
 
   return (
     <div className="flex flex-col">
@@ -20,81 +23,50 @@ export default function News() {
 
       <Divider className="m-4" />
 
-      <CardActionArea
-        className="mb-4"
-        href="https://guzlr.fr"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: "inherit" }}
-      >
-        <Card className="flex">
-          <div className="flex flex-col flex-grow">
-            <CardContent className="flex-auto">
-              <Typography variant="subtitle1" gutterBottom>
-                Partenariat Guzlr
-              </Typography>
+      <ImageList className="grid grid-cols-1 mx-4" sx={{ transform: 'translateZ(0)' }} gap={16}>
+        <ImageListItem
+          className="group flex justify-center items-center drop-shadow-xl rounded-2xl xyz-in hover:cursor-pointer h-64"
+          onClick={openNewWindow('https://www.tictactrip.eu/?partnerId=WB-ASSO-ISIMA-CLERMONT')}
+        >
+          <Image
+            className="rounded-2xl"
+            src={tictactrip}
+            alt="Partenariat Tictactrip"
+            placeholder="blur"
+            layout="fill"
+            objectFit="cover"
+          />
 
-              <div className="text-right">
-                <Typography variant="subtitle2">
-                  Code promo <b>ISIMAGUZLR</b>
-                </Typography>
-                <Typography variant="caption" color="textSecondary">
-                  1 mois gratuit + 20% de réduction
-                </Typography>
-              </div>
-            </CardContent>
-          </div>
-          <div
-            className="flex justify-center items-center bg-yellow-300"
-            style={{ width: size, minWidth: size }}
-          >
-            <Image
-              src="/static/images/logos/guzlr.png"
-              width={fullScreen ? 48 : 112}
-              height={fullScreen ? 16 : 44}
-              quality={100}
-              alt="Guzlr"
-            />
-          </div>
-        </Card>
-      </CardActionArea>
-
-      <CardActionArea
-        className="mb-4"
-        href="https://www.ubereats.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: "inherit" }}
-      >
-        <Card className="flex">
-          <div className="flex flex-col flex-grow">
-            <CardContent className="flex-auto">
-              <Typography variant="subtitle1" gutterBottom>
-                Partenariat Uber Eats
-              </Typography>
-
-              <div className="text-right">
-                <Typography variant="subtitle2">Pleins d'avantages et de réductions</Typography>
-                <Typography variant="caption" color="textSecondary">
-                  Si tu es cotisant, consulte ta boîte mail pour plus de détails
+          <ImageListItemBar
+            sx={{
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
+                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+            }}
+            className="transition-opacity duration-500 opacity-0 group-hover:opacity-100 rounded-b-2xl"
+            title={
+              <div className="flex items-center">
+                <Image src={tictactripIcon} alt="Partenariat Tictactrip" />
+                <Typography className="ml-4">
+                  Des économies toute l&apos;année en réservant sur Tictactrip
                 </Typography>
               </div>
-            </CardContent>
-          </div>
-          <div
-            className="flex justify-center items-center"
-            style={{ backgroundColor: "#132326", width: size, minWidth: size }}
-          >
-            <Image
-              src="/static/images/logos/uber_eats.jpg"
-              width={114}
-              height={114}
-              quality={100}
-              alt="Uber Eats"
-            />
-          </div>
-        </Card>
-      </CardActionArea>
+            }
+            actionIcon={
+              <IconButton
+                className="bg-gray-700/40 text-white m-2"
+                LinkComponent={Link}
+                href="https://www.tictactrip.eu/?partnerId=WB-ASSO-ISIMA-CLERMONT"
+                target="_blank noreferrer noopener"
+                aria-label="Lien vers Tictactrip"
+                size="large"
+              >
+                <OpenInNew />
+              </IconButton>
+            }
+          />
+        </ImageListItem>
+      </ImageList>
     </div>
   )
 }

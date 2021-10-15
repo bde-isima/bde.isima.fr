@@ -123,7 +123,7 @@
         <path id="Tracé_1076" data-name="Tracé 1076" d="M430.442,374.565a5.861,5.861,0,0,1,8.288,0l36.55,36.55,36.55-36.55a5.861,5.861,0,0,1,8.288,0L522,376.45a5.86,5.86,0,0,1,1.3,6.3l1.085-1.085a5.861,5.861,0,0,0,0-8.288l-1.884-1.884a5.861,5.861,0,0,0-8.288,0l-36.55,36.55-36.55-36.55a5.861,5.861,0,0,0-8.288,0l-1.884,1.884a5.838,5.838,0,0,0-1.3,1.987Z" transform="translate(128.935 -102.05)" opacity="0.1"/>
         <path id="Tracé_1077" data-name="Tracé 1077" d="M635.634,547.436l-2.731,2.731,36.55,36.55a5.86,5.86,0,0,1,1.3,6.3l1.085-1.085a5.861,5.861,0,0,0,0-8.288Z" transform="translate(-18.515 -230.929)" opacity="0.1"/>
       </g>
-      <text id="Server_Error" data-name="Server Error" transform="translate(436 142.997)" fill="#707070" font-size="40" font-family="Montserrat-Medium, Montserrat" font-weight="500"><tspan x="-120.18" y="39">Server Error</tspan></text>
+      <text id="Server_Error" data-name="Server Error" transform="translate(436 142.997)" fill="#707070" font-size="40" font-family="Graphik-Medium, Graphik" font-weight="500"><tspan x="-120.18" y="39">Server Error</tspan></text>
     </g>
   </g>
 </svg>

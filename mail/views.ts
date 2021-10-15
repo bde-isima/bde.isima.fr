@@ -1,7 +1,7 @@
-import { render } from "mjml-react"
-import Handlebars from "handlebars"
+import { render } from 'mjml-react'
+import Handlebars from 'handlebars'
 
-import templates from "./templates"
+import templates from './templates'
 
 export const compileView = ({
   subject,

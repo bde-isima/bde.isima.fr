@@ -1,8 +1,8 @@
-import Card from "@material-ui/core/Card"
-import Divider from "@material-ui/core/Divider"
-import Typography from "@material-ui/core/Typography"
+import Card from '@mui/material/Card'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 
-import { EventSubscriptionWithTypedCart, Option, CartItem } from "types"
+import { EventSubscriptionWithTypedCart, Option, CartItem } from 'global'
 
 type SubscriptionsAnalyticsProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]
@@ -19,9 +19,9 @@ export default function SubscriptionsAnalytics({
           acc +
           cartItem.quantity *
             (cartItem.price +
-              cartItem.options?.reduce((acc: number, o: Option) => {
+              (cartItem.options?.reduce((acc: number, o: Option) => {
                 return acc + o.price
-              }, 0) || 0)
+              }, 0) || 0))
         )
       }, 0)
     )
@@ -30,7 +30,7 @@ export default function SubscriptionsAnalytics({
   return (
     <div className="flex flex-col">
       <Typography variant="h6" align="center">
-        Statistiques de l'événement
+        Statistiques de l&apos;événement
       </Typography>
 
       <Divider className="m-4" />

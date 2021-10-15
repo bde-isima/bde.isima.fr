@@ -1,9 +1,9 @@
-import { useQuery } from "blitz"
-import { useTheme } from "@material-ui/core"
-import Typography from "@material-ui/core/Typography"
-import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from "victory"
+import { useQuery } from 'blitz'
+import Typography from '@mui/material/Typography'
+import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from 'victory'
 
-import getAggregatedBalance from "app/entities/users/queries/getAggregatedBalance"
+import { useTheme } from 'app/core/styles/theme'
+import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance'
 
 export default function GlobalBalance() {
   const theme = useTheme()
@@ -16,15 +16,14 @@ export default function GlobalBalance() {
   const posRatio = (positives * 100) / total
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Typography variant="h6">Bilan des soldes</Typography>
 
-      <VictoryChart padding={{ left: 90, top: 50, right: 90, bottom: 50 }}>
+      <VictoryChart padding={{ left: 90, top: 0, right: 90, bottom: 90 }}>
         <VictoryPie
-          standalone={true}
           theme={VictoryTheme.material}
           style={{ labels: { fill: theme.palette.text.primary } }}
-          colorScale={["#C91F37", "#32CD32"]}
+          colorScale={['#C91F37', '#32CD32']}
           animate={{ duration: 300 }}
           data={[
             { x: `${negatives} négatifs`, y: negRatio },
@@ -33,9 +32,9 @@ export default function GlobalBalance() {
         />
         <VictoryAxis
           style={{
-            axis: { stroke: "transparent" },
-            ticks: { stroke: "transparent" },
-            tickLabels: { fill: "transparent" },
+            axis: { stroke: 'transparent' },
+            ticks: { stroke: 'transparent' },
+            tickLabels: { fill: 'transparent' },
           }}
         />
       </VictoryChart>

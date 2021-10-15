@@ -1,19 +1,21 @@
-import Image from "next/image"
-import Fab from "@material-ui/core/Fab"
-import Grid from "@material-ui/core/Grid"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
+import { Image } from 'blitz'
+import Fab from '@mui/material/Fab'
+import Grid from '@mui/material/Grid'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
 
-import Link from "mdi-material-ui/Link"
+import Link from '@mui/icons-material/LinkTwoTone'
+import isima from 'public/static/images/logos/isima.png'
+import school from 'public/static/images/illustrations/School.svg'
 
 export default function School() {
   return (
     <Container className="min-h-screen">
-      <div className="px-2 py-8 md:p-8">
-        <a id="school" href="#school" />
+      <a id="school" href="#school" />
 
+      <div className="px-2 py-8 md:p-8">
         <Typography variant="h3" color="textPrimary" gutterBottom>
-          <b>L'ISIMA</b>
+          <b>L&apos;ISIMA</b>
         </Typography>
 
         <Grid container>
@@ -24,31 +26,32 @@ export default function School() {
               align="justify"
               color="textPrimary"
             >
-              Le bureau des étudiants (BDE) à l'ISIMA, c'est une partie incontournable de la vie à
-              l'école. D'abord parce qu'on organise pleins de soirées et d'événements au cours de
-              l'année mais surtout parce que le BDE est indispensable pour obtenir son diplôme à
-              l'ISIMA.
+              Le bureau des étudiants (BDE) à l&apos;ISIMA, c&apos;est une partie incontournable de
+              la vie à l&apos;école. D&apos;abord parce qu&apos;on organise pleins de soirées et
+              d&apos;événements au cours de l&apos;année mais surtout parce que le BDE est
+              indispensable pour obtenir son diplôme à l&apos;ISIMA.
               <a
                 href="https://www.cti-commission.fr/fonds-documentaire/document/7/chapitre/179?a=1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <strong> La Commission des Titres d'Ingénieurs </strong>
+                <strong> La Commission des Titres d&apos;Ingénieurs </strong>
               </a>
-              oblige chaque école à disposer d'une vie étudiante.
+              oblige chaque école à disposer d&apos;une vie étudiante.
               <br />
-              L'équipe du BDE, les membres de clubs et les autres associations présentes à l'école
-              sont donc responsables de l'accueil et de l'intégration des élèves ainsi du bon
-              déroulement des événements.
+              L&apos;équipe du BDE, les membres de clubs et les autres associations présentes à
+              l&apos;école sont donc responsables de l&apos;accueil et de l&apos;intégration des
+              élèves ainsi du bon déroulement des événements.
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
             <Image
-              src="/static/images/illustrations/School.svg"
+              src={school}
               width={500}
               height={300}
               layout="responsive"
               alt="Illustration"
+              quality={100}
             />
           </Grid>
         </Grid>
@@ -69,12 +72,7 @@ export default function School() {
             </Typography>
           </Fab>
 
-          <Image
-            src="/static/images/logos/isima.png"
-            width={300}
-            height={87}
-            alt="Logo de l'ISIMA"
-          />
+          <Image src={isima} alt="Logo de l'ISIMA" quality={100} />
         </div>
       </div>
     </Container>

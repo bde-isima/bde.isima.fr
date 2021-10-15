@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { TextField } from "mui-rff"
-import Divider from "@material-ui/core/Divider"
+import { useState } from 'react'
+import { TextField } from 'bde-isima-mui-rff'
+import Divider from '@mui/material/Divider'
 
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import SearchUser from "app/components/dashboard/cashing/SearchUser"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
-import getUsersPublicData from "app/entities/users/queries/getUsersPublicData"
-import { TransferInput, TransferInputType } from "app/components/forms/validations"
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import SearchUser from 'app/components/dashboard/cashing/SearchUser'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
+import { TransferInput, TransferInputType } from 'app/components/forms/validations'
 
 type TransferFormProps = {
   onSuccess: (values: TransferInputType) => void
@@ -21,13 +21,13 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
       await onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<TransferInputType>
+    <Form
       submitText="Envoyer"
       title="Transférer de l'argent"
       variant="dialog"

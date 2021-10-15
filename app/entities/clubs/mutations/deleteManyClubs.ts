@@ -1,12 +1,12 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
 
-type DeleteManyClubInput = Pick<Prisma.ClubDeleteManyArgs, "where">
+import db, { Prisma } from 'db'
 
-export default async function deleteManyClubs({ where }: DeleteManyClubInput, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+type DeleteManyClubInput = Pick<Prisma.ClubDeleteManyArgs, 'where'>
 
-  const clubs = await db.club.deleteMany({ where })
-
-  return clubs
-}
+export default resolver.pipe(
+  resolver.authorize(['*', 'bde']),
+  async ({ where }: DeleteManyClubInput) => {
+    return await db.club.deleteMany({ where })
+  }
+)

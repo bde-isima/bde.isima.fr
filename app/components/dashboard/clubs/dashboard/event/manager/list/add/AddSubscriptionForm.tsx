@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import SearchUser from "app/components/dashboard/cashing/SearchUser"
-import getUsersPublicData from "app/entities/users/queries/getUsersPublicData"
-import { AddSubscriptionInput, AddSubscriptionInputType } from "app/components/forms/validations"
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import SearchUser from 'app/components/dashboard/cashing/SearchUser'
+import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
+import { AddSubscriptionInput, AddSubscriptionInputType } from 'app/components/forms/validations'
 
 type AddSubscriptionFormProps = {
   onSuccess: (values: AddSubscriptionInputType) => void
@@ -19,13 +19,13 @@ export default function AddSubscriptionForm(props: AddSubscriptionFormProps) {
       props.onClose()
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<AddSubscriptionInputType>
+    <Form
       submitText="Envoyer"
       title="Ajouter une inscription"
       variant="dialog"

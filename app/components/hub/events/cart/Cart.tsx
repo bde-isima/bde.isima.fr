@@ -1,20 +1,19 @@
-import cuid from "cuid"
-import { useMutation } from "blitz"
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
-import Hidden from "@material-ui/core/Hidden"
+import cuid from 'cuid'
+import { useMutation } from 'blitz'
+import { useState, useEffect } from 'react'
 
-import Mobile from "./Mobile"
-import Desktop from "./Desktop"
-import Snackbar from "app/layouts/Snackbar"
-import useSnackbar from "app/hooks/useSnackbar"
-import { CartItem, Option, EventSubscriptionWithTypedCart } from "types"
-import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
-import upsertEventSubscription from "app/entities/eventSubscriptions/mutations/upsertEventSubscription"
-import deleteEventSubscription from "app/entities/eventSubscriptions/mutations/deleteEventSubscription"
+import Mobile from './Mobile'
+import Desktop from './Desktop'
+import { useRouter } from 'app/core/lib/router'
+import Snackbar from 'app/core/layouts/Snackbar'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import type { CartItem, Option, EventSubscriptionWithTypedCart } from 'global'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import upsertEventSubscription from 'app/entities/eventSubscriptions/mutations/upsertEventSubscription'
+import deleteEventSubscription from 'app/entities/eventSubscriptions/mutations/deleteEventSubscription'
 
 export default function Cart() {
-  const router = useRouter()
+  const { router } = useRouter()
   const [total, setTotal] = useState<number>(0)
   const { open, message, severity, onShow, onClose } = useSnackbar()
   const { eventSubscription, setQueryData } = useEventSubscription()
@@ -36,14 +35,14 @@ export default function Cart() {
       update: args,
       create: args,
     })
-      .then(() => router.push("/hub/events"))
-      .catch((err) => onShow("error", err.message))
+      .then(() => router.push('/hub/events'))
+      .catch((err) => onShow('error', err.message))
   }
 
   const onUnsubscribe = () => {
     return deleteEventSub({ where: { id: eventSubscription.id } })
-      .then(() => router.push("/hub/events"))
-      .catch((err) => onShow("error", err.message))
+      .then(() => router.push('/hub/events'))
+      .catch((err) => onShow('error', err.message))
   }
 
   const onQuantityChange = (cartItem: CartItem, value: number) => () => {
@@ -84,27 +83,23 @@ export default function Cart() {
 
   return (
     <>
-      <Hidden mdDown>
-        <Desktop
-          total={total}
-          subscribing={subscribing}
-          onSubscribe={onSubscribe}
-          unsubscribing={unsubscribing}
-          onUnsubscribe={onUnsubscribe}
-          onQuantityChange={onQuantityChange}
-        />
-      </Hidden>
+      <Desktop
+        total={total}
+        subscribing={subscribing}
+        onSubscribe={onSubscribe}
+        unsubscribing={unsubscribing}
+        onUnsubscribe={onUnsubscribe}
+        onQuantityChange={onQuantityChange}
+      />
 
-      <Hidden mdUp>
-        <Mobile
-          total={total}
-          subscribing={subscribing}
-          onSubscribe={onSubscribe}
-          unsubscribing={unsubscribing}
-          onUnsubscribe={onUnsubscribe}
-          onQuantityChange={onQuantityChange}
-        />
-      </Hidden>
+      <Mobile
+        total={total}
+        subscribing={subscribing}
+        onSubscribe={onSubscribe}
+        unsubscribing={unsubscribing}
+        onUnsubscribe={onUnsubscribe}
+        onQuantityChange={onQuantityChange}
+      />
 
       <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>

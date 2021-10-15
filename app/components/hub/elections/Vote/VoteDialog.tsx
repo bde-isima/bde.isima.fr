@@ -1,19 +1,19 @@
-import { useMutation } from "blitz"
-import NoSsr from "@material-ui/core/NoSsr"
-import { useTheme } from "@material-ui/core"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import DialogActions from "@material-ui/core/DialogActions"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
+import { useMutation } from 'blitz'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import IconButton from '@mui/material/IconButton'
+import DialogActions from '@mui/material/DialogActions'
 
-import Close from "mdi-material-ui/Close"
+import Close from '@mui/icons-material/CloseTwoTone'
 
-import { Candidate } from "db"
-import Snackbar from "app/layouts/Snackbar"
-import useSnackbar from "app/hooks/useSnackbar"
-import SlideTransition from "app/layouts/SlideTransition"
-import createVote from "app/entities/vote/mutations/createVote"
-import VoteForm from "app/components/hub/elections/Vote/VoteForm"
+import { Candidate } from 'db'
+import { useTheme } from 'app/core/styles/theme'
+import Snackbar from 'app/core/layouts/Snackbar'
+import { useMediaQuery } from 'app/core/styles/theme'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import SlideTransition from 'app/core/layouts/SlideTransition'
+import createVote from 'app/entities/vote/mutations/createVote'
+import VoteForm from 'app/components/hub/elections/Vote/VoteForm'
 
 type VoteDialogProps = {
   open: boolean
@@ -25,16 +25,15 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
   const [createVt] = useMutation(createVote)
   const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery('md')
 
   const onSuccess = async ({ approve, ...data }: any) => {
     await createVt({ data })
       .then(() => {
-        onShow("success", "A voté !")
+        onShow('success', 'A voté !')
         onClose()
       })
-      .catch((err) => onShow("error", err.message))
+      .catch((err) => onShow('error', err.message))
   }
 
   return (
@@ -45,11 +44,11 @@ export default function VoteDialog({ open, candidate, onClose }: VoteDialogProps
           onClose={onClose}
           keepMounted
           fullScreen={fullScreen}
-          PaperProps={{ className: "w-full" }}
+          PaperProps={{ className: 'w-full' }}
           TransitionComponent={SlideTransition}
         >
           <DialogActions>
-            <IconButton onClick={onClose} aria-label="Fermer">
+            <IconButton onClick={onClose} aria-label="Fermer" size="large">
               <Close />
             </IconButton>
           </DialogActions>

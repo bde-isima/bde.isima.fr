@@ -1,11 +1,11 @@
-import Link from "next/link"
-import { cloneElement } from "react"
-import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
+import { cloneElement } from 'react'
+import Button from '@mui/material/Button'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
 
-import { useCustomRouter } from "app/hooks/useCustomRouter"
+import Link from 'app/core/lib/Link'
+import { useRouter } from 'app/core/lib/router'
 
 type MobileMenuItemProps = {
   item: any
@@ -13,26 +13,26 @@ type MobileMenuItemProps = {
 }
 
 export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
-  const { router } = useCustomRouter()
+  const { router } = useRouter()
 
   const isActive = item.isActive(router.asPath, window.location.hash)
 
   return (
     <Link href={item.to}>
       <Button
-        className={`${isActive && "bg-primary"} w-11/12 rounded-full my-1`}
-        variant={isActive ? "contained" : "text"}
+        className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
+        variant={isActive ? 'contained' : 'text'}
         size="small"
         onClick={onClose}
       >
         <ListItem dense disableGutters>
           <ListItemIcon>
-            {cloneElement(item.icon, { className: `${isActive ? "text-white" : ""} rounded-full` })}
+            {cloneElement(item.icon, { className: `${isActive ? 'text-white' : ''} rounded-full` })}
           </ListItemIcon>
 
           <ListItemText
             secondary={item.text}
-            secondaryTypographyProps={{ color: isActive ? "secondary" : "textPrimary" }}
+            secondaryTypographyProps={{ color: isActive ? 'secondary' : 'textPrimary' }}
           />
         </ListItem>
       </Button>

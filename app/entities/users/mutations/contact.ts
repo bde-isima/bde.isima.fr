@@ -1,4 +1,6 @@
-import { mail } from "mail"
+import { resolver } from 'blitz'
+
+import { mail } from 'mail'
 
 type ContactInput = {
   message: string
@@ -6,12 +8,14 @@ type ContactInput = {
   email: string
 }
 
-export default async function contact({ subject, message, email }: ContactInput) {
+export default resolver.pipe(async ({ subject, message, email }: ContactInput) => {
   try {
     await mail.send({
       subject,
-      to: `${process.env.SMTP_USER}@gmail.com`,
-      view: "contact",
+      to: `${
+        process.env.NODE_ENV !== 'production' ? process.env.SMTP_USER : process.env.SMTP_CONTACT
+      }+contact@gmail.com`,
+      view: 'contact',
       variables: {
         subject,
         message,
@@ -21,4 +25,4 @@ export default async function contact({ subject, message, email }: ContactInput)
   } catch (err) {
     console.log(err)
   }
-}
+})

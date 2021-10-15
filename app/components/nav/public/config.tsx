@@ -1,46 +1,46 @@
-import Fire from "mdi-material-ui/Fire"
-import Earth from "mdi-material-ui/Earth"
-import School from "mdi-material-ui/School"
-import BookSearch from "mdi-material-ui/BookSearch"
-import MessageTextOutline from "mdi-material-ui/MessageTextOutline"
-import AccountGroupOutline from "mdi-material-ui/AccountGroupOutline"
+import Forum from '@mui/icons-material/ForumTwoTone'
+import Public from '@mui/icons-material/PublicTwoTone'
+import School from '@mui/icons-material/SchoolTwoTone'
+import Groups from '@mui/icons-material/GroupsTwoTone'
+import Whatshot from '@mui/icons-material/WhatshotTwoTone'
+import MenuBook from '@mui/icons-material/MenuBookTwoTone'
 
 const config = [
   {
-    icon: <Fire />,
-    text: "LE BDE",
-    to: "/#landing",
-    isActive: (pathname: String, hash: String) => hash === "" || hash === "#landing",
+    icon: <Whatshot />,
+    text: 'LE BDE',
+    to: '/#landing',
+    isActive: (pathname: String, hash: String) => hash === '' || hash === '#landing',
   },
   {
     icon: <School />,
     text: "L'ÉCOLE",
-    to: "/#school",
-    isActive: (pathname: String, hash: String) => hash === "#school",
+    to: '/#school',
+    isActive: (pathname: String, hash: String) => hash === '#school',
   },
   {
-    icon: <AccountGroupOutline />,
-    text: "CLUBS",
-    to: "/#clubs",
-    isActive: (pathname: String, hash: String) => hash === "#clubs",
+    icon: <Groups />,
+    text: 'CLUBS',
+    to: '/#clubs',
+    isActive: (pathname: String, hash: String) => hash === '#clubs',
   },
   {
-    icon: <Earth />,
-    text: "PARTENAIRES",
-    to: "/#partners",
-    isActive: (pathname: String, hash: String) => hash === "#partners",
+    icon: <Public />,
+    text: 'PARTENAIRES',
+    to: '/#partners',
+    isActive: (pathname: String, hash: String) => hash === '#partners',
   },
   {
-    icon: <BookSearch />,
-    text: "ANNALES",
-    to: "https://drive.google.com/drive/u/0/folders/1GCfFZ7y_rwpN3wy3UiI-ALXzgxmeoTVA",
+    icon: <MenuBook />,
+    text: 'ANNALES',
+    to: 'https://drive.google.com/drive/u/0/folders/1GCfFZ7y_rwpN3wy3UiI-ALXzgxmeoTVA',
     isActive: (pathname: String, hash: String) => false,
   },
   {
-    icon: <MessageTextOutline />,
-    text: "CONTACT",
-    to: "/#contact",
-    isActive: (pathname: String, hash: String) => hash === "#contact",
+    icon: <Forum />,
+    text: 'CONTACT',
+    to: '/#contact',
+    isActive: (pathname: String, hash: String) => hash === '#contact',
   },
 ]
 

@@ -1,23 +1,23 @@
-import { Select } from "mui-rff"
-import { useForm } from "react-final-form"
-import MuiCard from "@material-ui/core/Card"
-import Button from "@material-ui/core/Button"
-import Divider from "@material-ui/core/Divider"
-import MenuItem from "@material-ui/core/MenuItem"
-import FormGroup from "@material-ui/core/FormGroup"
-import FormLabel from "@material-ui/core/FormLabel"
-import { FieldArray } from "react-final-form-arrays"
-import IconButton from "@material-ui/core/IconButton"
-import CardHeader from "@material-ui/core/CardHeader"
-import Typography from "@material-ui/core/Typography"
-import FormControl from "@material-ui/core/FormControl"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import { Select } from 'bde-isima-mui-rff'
+import MuiCard from '@mui/material/Card'
+import Button from '@mui/material/Button'
+import { useForm } from 'react-final-form'
+import Divider from '@mui/material/Divider'
+import MenuItem from '@mui/material/MenuItem'
+import FormGroup from '@mui/material/FormGroup'
+import FormLabel from '@mui/material/FormLabel'
+import IconButton from '@mui/material/IconButton'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
+import FormControl from '@mui/material/FormControl'
+import { FieldArray } from 'react-final-form-arrays'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import Plus from "mdi-material-ui/Plus"
-import Check from "mdi-material-ui/Check"
-import Close from "mdi-material-ui/Close"
+import Add from '@mui/icons-material/AddTwoTone'
+import Check from '@mui/icons-material/CheckTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
 
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 
 type EditCardProps = {
   subscription: any
@@ -38,28 +38,38 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
     <MuiCard className="w-full flex flex-col">
       <CardHeader
         className="flex-grow items-start"
-        classes={{ content: "flex flex-col h-full" }}
+        classes={{ content: 'flex flex-col h-full' }}
         title={`${subscription.user.firstname} ${subscription.user.lastname}`}
-        titleTypographyProps={{ variant: "subtitle2" }}
+        titleTypographyProps={{ variant: 'subtitle2' }}
         subheader={
           <Select
             name="payment_method"
             label="Paiement par"
-            formControlProps={{ margin: "normal" }}
+            formControlProps={{ margin: 'normal' }}
           >
             <MenuItem value="BDE">BDE</MenuItem>
             <MenuItem value="LYDIA">LYDIA</MenuItem>
             <MenuItem value="CASH">LIQUIDE</MenuItem>
           </Select>
         }
-        subheaderTypographyProps={{ className: "flex flex-grow items-end", variant: "caption" }}
+        subheaderTypographyProps={{ className: 'flex flex-grow items-end', variant: 'caption' }}
         action={
           <div className="flex">
-            <IconButton aria-label="Annuler" onClick={onStopEdit} disabled={submitting}>
+            <IconButton
+              aria-label="Annuler"
+              onClick={onStopEdit}
+              disabled={submitting}
+              size="large"
+            >
               <Close />
             </IconButton>
 
-            <IconButton aria-label="Sauvegarder" disabled={submitting} onClick={onSubmit}>
+            <IconButton
+              aria-label="Sauvegarder"
+              disabled={submitting}
+              onClick={onSubmit}
+              size="large"
+            >
               {submitting ? <CircularProgress size={25} color="inherit" /> : <Check />}
             </IconButton>
           </div>
@@ -77,7 +87,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                 >
                   <IconButton
                     className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
-                    onClick={onDeleteItem("cart", cartItemIdx)}
+                    onClick={onDeleteItem('cart', cartItemIdx)}
                     aria-label="Supprimer"
                     size="small"
                   >
@@ -128,7 +138,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                             aria-label={`Ajouter une option au produit n°${cartItemIdx}`}
                             size="small"
                           >
-                            <Plus />
+                            <Add />
                           </IconButton>
                         </FormLabel>
                         <Divider className="m-2" />
@@ -176,11 +186,11 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                   {(!fields.length || cartItemIdx === fields.length - 1) && (
                     <IconButton
                       className="absolute bottom-0 right-0 transform-gpu translate-x-1/2 translate-y-1/2 bg-white border border-solid border-gray-200"
-                      onClick={onAddItem("cart")}
+                      onClick={onAddItem('cart')}
                       aria-label="Ajouter un produit"
                       size="small"
                     >
-                      <Plus />
+                      <Add />
                     </IconButton>
                   )}
                 </div>
@@ -190,9 +200,9 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
             {!fields?.length && (
               <Button
                 className="ml-auto m-2"
-                startIcon={<Plus />}
+                startIcon={<Add />}
                 aria-label="Ajouter"
-                onClick={onAddItem("cart")}
+                onClick={onAddItem('cart')}
                 variant="contained"
                 color="primary"
               >

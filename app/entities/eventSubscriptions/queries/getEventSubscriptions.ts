@@ -1,33 +1,32 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
+
+import db, { Prisma } from 'db'
 
 type GetEventSubscriptionsInput = Pick<
-  Prisma.FindManyEventSubscriptionArgs,
-  "where" | "orderBy" | "skip" | "take" | "include"
+  Prisma.EventSubscriptionFindManyArgs,
+  'include' | 'where' | 'orderBy' | 'skip' | 'take'
 >
 
-export default async function getEventSubscriptions(
-  { where, orderBy, skip = 0, take, include }: GetEventSubscriptionsInput,
-  ctx: Ctx
-) {
-  ctx.session.authorize()
+export default resolver.pipe(
+  resolver.authorize(),
+  async ({ include, where, orderBy, skip = 0, take }: GetEventSubscriptionsInput) => {
+    const eventSubscriptions = await db.eventSubscription.findMany({
+      where,
+      orderBy,
+      take,
+      skip,
+      include,
+    })
 
-  const eventSubscriptions = await db.eventSubscription.findMany({
-    where,
-    orderBy,
-    take,
-    skip,
-    include,
-  })
+    const count = await db.eventSubscription.count({ where })
+    const hasMore = typeof take === 'number' ? skip + take < count : false
+    const nextPage = hasMore ? { take, skip: skip + take! } : null
 
-  const count = await db.eventSubscription.count({ where })
-  const hasMore = typeof take === "number" ? skip + take < count : false
-  const nextPage = hasMore ? { take, skip: skip + take! } : null
-
-  return {
-    eventSubscriptions,
-    nextPage,
-    hasMore,
-    count,
+    return {
+      eventSubscriptions,
+      nextPage,
+      hasMore,
+      count,
+    }
   }
-}
+)

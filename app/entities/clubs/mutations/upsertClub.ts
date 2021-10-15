@@ -1,11 +1,12 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
 
-type UpsertClubInput = Pick<Prisma.ClubUpsertArgs, "where" | "create" | "update">
-export default async function upsertClub({ where, create, update }: UpsertClubInput, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+import db, { Prisma } from 'db'
 
-  const club = await db.club.upsert({ where, update, create })
+type UpsertClubInput = Pick<Prisma.ClubUpsertArgs, 'where' | 'create' | 'update'>
 
-  return club
-}
+export default resolver.pipe(
+  resolver.authorize(['*', 'bde']),
+  async ({ where, create, update }: UpsertClubInput) => {
+    return await db.club.upsert({ where, update, create })
+  }
+)

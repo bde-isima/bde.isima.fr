@@ -11,7 +11,7 @@ import {
   MjmlColumn,
   MjmlButton,
   MjmlImage,
-} from "mjml-react"
+} from 'mjml-react'
 
 export const generate = () => {
   return (

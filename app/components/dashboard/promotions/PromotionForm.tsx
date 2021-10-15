@@ -1,9 +1,9 @@
-import { TextField } from "mui-rff"
+import { TextField } from 'bde-isima-mui-rff'
 
-import { Promotion } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
-import { PromotionInput, PromotionInputType } from "app/components/forms/validations"
+import { Promotion } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import { PromotionInput, PromotionInputType } from 'app/components/forms/validations'
 
 type PromotionFormProps = {
   initialValues: Promotion | null
@@ -17,13 +17,13 @@ export default function PromotionForm(props: PromotionFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<PromotionInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}

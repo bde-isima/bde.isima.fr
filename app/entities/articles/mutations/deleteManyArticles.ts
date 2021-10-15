@@ -1,12 +1,12 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
 
-type DeleteManyArticleInput = Pick<Prisma.ArticleDeleteManyArgs, "where">
+import db, { Prisma } from 'db'
 
-export default async function deleteManyArticles({ where }: DeleteManyArticleInput, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+type DeleteManyArticleInput = Pick<Prisma.ArticleDeleteManyArgs, 'where'>
 
-  const articles = await db.article.deleteMany({ where })
-
-  return articles
-}
+export default resolver.pipe(
+  resolver.authorize(['*', 'bde']),
+  async ({ where }: DeleteManyArticleInput) => {
+    return await db.article.deleteMany({ where })
+  }
+)

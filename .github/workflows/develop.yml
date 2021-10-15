@@ -74,7 +74,7 @@ jobs:
       - name: Restart server and run migrations
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd servers && docker-compose stop bde_app_dev && docker-compose up -d bde_app_dev && docker exec -d bde_app_dev npx prisma db push --preview-feature
+          command: cd servers && docker-compose stop bde_app_dev && docker-compose up -d bde_app_dev && docker exec -d bde_app_dev npx prisma db push
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           privateKey: ${{ secrets.SERVER_SSH_KEY}}

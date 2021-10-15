@@ -1,17 +1,19 @@
-import Link from "next/link"
-import { useState } from "react"
-import Menu from "@material-ui/core/Menu"
-import Divider from "@material-ui/core/Divider"
-import MenuItem from "@material-ui/core/MenuItem"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
+import { useState } from 'react'
+import Divider from '@mui/material/Divider'
+import MenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
 
-import Apps from "mdi-material-ui/Apps"
-import Vote from "mdi-material-ui/Vote"
-import PuzzleOutline from "mdi-material-ui/PuzzleOutline"
+import Apps from '@mui/icons-material/AppsTwoTone'
+import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
+import Extension from '@mui/icons-material/ExtensionTwoTone'
+
+import Menu from './Menu'
+import Link from 'app/core/lib/Link'
 
 export default function ModulesMenu() {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
@@ -23,41 +25,28 @@ export default function ModulesMenu() {
       <IconButton
         className="mx-2 text-primary dark:text-secondary"
         aria-label="Voir les modules"
-        aria-owns={isOpen ? "module-menu" : undefined}
+        aria-owns={isOpen ? 'module-menu' : undefined}
         aria-haspopup="true"
         onClick={handleOpen}
+        size="large"
       >
         <Apps />
       </IconButton>
 
-      <Menu
-        id="module-menu"
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={handleClose}
-        getContentAnchorEl={null}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        MenuListProps={{ disablePadding: true }}
-        PaperProps={{
-          style: {
-            maxHeight: 72 * 5,
-            maxWidth: 300,
-          },
-        }}
-        disableAutoFocusItem
-      >
-        <Typography className="pl-4 pt-4" variant="subtitle1">
+      <Menu id="modules-menu" anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
+        <Typography className="pl-4 pt-2" variant="subtitle1">
           Modules
         </Typography>
 
-        <Divider className="mx-3 mt-3" />
+        <Divider className="my-2" />
 
         <Link href="/hub/elections">
-          <MenuItem className="p-3" onClick={handleClose}>
-            <Vote className="mx-3" />
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <HowToVote />
+            </ListItemIcon>
             <Typography
-              className="flex flex-grow items-center justify-center"
+              className="flex flex-grow items-center"
               variant="subtitle2"
               align="center"
               color="textPrimary"
@@ -68,10 +57,12 @@ export default function ModulesMenu() {
         </Link>
 
         <Link href="/hub/feedback">
-          <MenuItem className="p-3" onClick={handleClose}>
-            <PuzzleOutline className="mx-3" />
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <Extension />
+            </ListItemIcon>
             <Typography
-              className="flex flex-grow items-center justify-center"
+              className="flex flex-grow items-center"
               variant="subtitle2"
               align="center"
               color="textPrimary"

@@ -1,12 +1,12 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
 
-type UpdateEventInput = Pick<Prisma.EventUpdateArgs, "where" | "data">
+import db, { Prisma } from 'db'
 
-export default async function updateEvent({ where, data }: UpdateEventInput, ctx: Ctx) {
-  ctx.session.authorize(["*", "bde"])
+type UpdateEventInput = Pick<Prisma.EventUpdateArgs, 'where' | 'data'>
 
-  const event = await db.event.update({ where, data })
-
-  return event
-}
+export default resolver.pipe(
+  resolver.authorize(['*', 'bde']),
+  async ({ where, data }: UpdateEventInput) => {
+    return await db.event.update({ where, data })
+  }
+)

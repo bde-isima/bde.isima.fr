@@ -1,26 +1,25 @@
-import { Ctx, NotFoundError } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma, PaymentMethod } from "db"
+import db, { Prisma, PaymentMethod } from 'db'
 
-type FindUniqueEventInput = Pick<Prisma.FindUniqueEventArgs, "where" | "include">
+type FindUniqueEventInput = Pick<Prisma.EventFindUniqueArgs, 'where' | 'include'>
 
-export default async function getEvent({ where, include }: FindUniqueEventInput, ctx: Ctx) {
-  ctx.session.authorize()
+export default resolver.pipe(
+  resolver.authorize(),
+  async ({ where, include }: FindUniqueEventInput) => {
+    const event: any = await db.event.findFirst({ where, include, rejectOnNotFound: true })
 
-  const event: any = await db.event.findFirst({ where, include })
+    const includeSub = include?.EventSubscription as Prisma.EventSubscriptionFindManyArgs
 
-  if (!event) throw new NotFoundError()
-
-  const includeSub = include?.EventSubscription as Prisma.FindManyEventSubscriptionArgs
-
-  if (includeSub?.where?.userId && event.EventSubscription.length === 0) {
-    event.EventSubscription[0] = {
-      eventId: where?.id,
-      userId: includeSub?.where?.userId,
-      payment_method: PaymentMethod.BDE,
-      cart: [],
+    if (includeSub?.where?.userId && event.EventSubscription.length === 0) {
+      event.EventSubscription[0] = {
+        eventId: where?.id,
+        userId: includeSub?.where?.userId,
+        payment_method: PaymentMethod.BDE,
+        cart: [],
+      }
     }
-  }
 
-  return event
-}
+    return event
+  }
+)

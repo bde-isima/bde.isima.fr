@@ -1,34 +1,32 @@
-import { Ctx } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
 type GetVoteRequestsInput = Pick<
-  Prisma.FindManyVoteRequestArgs,
-  "where" | "orderBy" | "skip" | "take" | "include"
+  Prisma.VoteRequestFindManyArgs,
+  'include' | 'where' | 'orderBy' | 'skip' | 'take'
 >
 
-export default async function getVoteRequests(
-  { where, orderBy, skip = 0, take, include }: GetVoteRequestsInput,
-  ctx: Ctx
-) {
-  ctx.session.authorize(["*"])
+export default resolver.pipe(
+  resolver.authorize(['*']),
+  async ({ include, where, orderBy, skip = 0, take }: GetVoteRequestsInput) => {
+    const voteRequests = await db.voteRequest.findMany({
+      include,
+      where,
+      orderBy,
+      take,
+      skip,
+    })
 
-  const voteRequests = await db.voteRequest.findMany({
-    include,
-    where,
-    orderBy,
-    take,
-    skip,
-  })
+    const count = await db.voteRequest.count({ where })
+    const hasMore = typeof take === 'number' ? skip + take < count : false
+    const nextPage = hasMore ? { take, skip: skip + take! } : null
 
-  const count = await db.voteRequest.count({ where })
-  const hasMore = typeof take === "number" ? skip + take < count : false
-  const nextPage = hasMore ? { take, skip: skip + take! } : null
-
-  return {
-    voteRequests,
-    nextPage,
-    hasMore,
-    count,
+    return {
+      voteRequests,
+      nextPage,
+      hasMore,
+      count,
+    }
   }
-}
+)

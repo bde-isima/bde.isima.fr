@@ -1,10 +1,10 @@
-import { useField, FieldProps } from "react-final-form"
-import { ShowErrorFunc, showErrorOnChange } from "mui-rff"
-import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@material-ui/core"
+import { useField, FieldProps } from 'react-final-form'
+import { ShowErrorFunc, showErrorOnChange } from 'bde-isima-mui-rff'
+import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from '@mui/material'
 
-export type EnhancedTextFieldProps = Partial<Omit<MuiTextFieldProps, "type" | "onChange">> & {
+export type EnhancedTextFieldProps = Partial<Omit<MuiTextFieldProps, 'type' | 'onChange'>> & {
   name: string
-  type?: "text" | "password" | "email" | "number"
+  type?: 'text' | 'password' | 'email' | 'number'
   fieldProps?: Partial<FieldProps<any, any>>
   showError?: ShowErrorFunc
 }
@@ -14,7 +14,7 @@ export default function EnhancedTextField(props: EnhancedTextFieldProps) {
 
   const { input, meta } = useField(name, {
     formatOnBlur: true,
-    parse: props.type === "number" ? Number : undefined,
+    parse: props.type === 'number' ? Number : undefined,
   })
 
   const { error, submitError } = meta

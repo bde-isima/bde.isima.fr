@@ -1,14 +1,14 @@
-import Image from "next/image"
-import { TextField, Switches } from "mui-rff"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import { Image } from 'blitz'
+import { TextField, Switches } from 'bde-isima-mui-rff'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
-import { Article } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import EnhancedTextField from "app/components/forms/EnhancedTextfield"
-import { ArticleInput, ArticleInputType } from "app/components/forms/validations"
+import { Article } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import { ArticleInput, ArticleInputType } from 'app/components/forms/validations'
 
 type ArticleFormProps = {
   initialValues: Article | null
@@ -22,13 +22,13 @@ export default function ArticleForm(props: ArticleFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<ArticleInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}
@@ -68,6 +68,7 @@ export default function ArticleForm(props: ArticleFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
+                size="large"
               >
                 <OpenInNew />
               </IconButton>
@@ -85,7 +86,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         inputProps={{ step: 0.01 }}
       />
 
-      <Switches name="is_enabled" data={{ label: "Activé", value: "is_enabled" }} color="primary" />
+      <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
     </Form>
   )
 }

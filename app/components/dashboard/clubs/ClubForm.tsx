@@ -1,14 +1,14 @@
-import Image from "next/image"
-import { TextField } from "mui-rff"
-import Divider from "@material-ui/core/Divider"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import { Image } from 'blitz'
+import { TextField } from 'bde-isima-mui-rff'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
-import { Club } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { ClubInput, ClubInputType } from "app/components/forms/validations"
+import { Club } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { ClubInput, ClubInputType } from 'app/components/forms/validations'
 
 type ClubFormProps = {
   initialValues: Club | null
@@ -22,13 +22,13 @@ export default function ClubForm(props: ClubFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<ClubInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}
@@ -71,6 +71,7 @@ export default function ClubForm(props: ClubFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
+                size="large"
               >
                 <OpenInNew />
               </IconButton>

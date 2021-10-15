@@ -1,37 +1,35 @@
-import { useQuery } from "blitz"
-import NoSsr from "@material-ui/core/NoSsr"
-import Dialog from "@material-ui/core/Dialog"
-import TabContext from "@material-ui/lab/TabContext"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import BottomNavigation from "@material-ui/core/BottomNavigation"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { useState, Suspense, unstable_SuspenseList, lazy } from "react"
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
+import { useQuery } from 'blitz'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import TabContext from '@mui/lab/TabContext'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import CircularProgress from '@mui/material/CircularProgress'
+import { useState, Suspense, SuspenseList, lazy } from 'react'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-import Close from "mdi-material-ui/Close"
-import Finance from "mdi-material-ui/Finance"
-import LayersTriple from "mdi-material-ui/LayersTriple"
-import FormatListBulletedSquare from "mdi-material-ui/FormatListBulletedSquare"
+import Close from '@mui/icons-material/CloseTwoTone'
+import Layers from '@mui/icons-material/LayersTwoTone'
+import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
+import FormatListBulleted from '@mui/icons-material/FormatListBulletedTwoTone'
 
-import TabPanel from "app/layouts/TabPanel"
-import SlideTransition from "app/layouts/SlideTransition"
-import getEventSubscriptions from "app/entities/eventSubscriptions/queries/getEventSubscriptions"
+import TabPanel from 'app/core/layouts/TabPanel'
+import { useMediaQuery } from 'app/core/styles/theme'
+import SlideTransition from 'app/core/layouts/SlideTransition'
+import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 
-const SuspenseList = unstable_SuspenseList
-const SubscriptionRecap = lazy(() => import("./recap/SubscriptionRecap"))
-const SubscriptionsList = lazy(() => import("./list/SubscriptionsList"))
-const SubscriptionsAnalytics = lazy(() => import("./analytics/SubscriptionsAnalytics"))
+const SubscriptionRecap = lazy(() => import('./recap/SubscriptionRecap'))
+const SubscriptionsList = lazy(() => import('./list/SubscriptionsList'))
+const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnalytics'))
 
 export default function Manager({ open, event, onClose }) {
   const [value, setValue] = useState(0)
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery('md')
 
   const [data]: any = useQuery(
     getEventSubscriptions,
@@ -52,12 +50,17 @@ export default function Manager({ open, event, onClose }) {
           aria-labelledby="manager-dialog-title"
           aria-describedby="manager-dialog-description"
         >
-          <DialogTitle className="flex items-center" id="manager-dialog-title" disableTypography>
+          <DialogTitle className="flex items-center" id="manager-dialog-title">
             <Typography variant="h6" color="inherit">
-              Manager d'évènements
+              Manager d&apos;évènements
             </Typography>
 
-            <IconButton className="ml-auto" onClick={onClose} aria-label="Fermer le manager">
+            <IconButton
+              className="ml-auto"
+              onClick={onClose}
+              aria-label="Fermer le manager"
+              size="large"
+            >
               <Close />
             </IconButton>
           </DialogTitle>
@@ -91,9 +94,9 @@ export default function Manager({ open, event, onClose }) {
               value={value}
               onChange={onChange}
             >
-              <BottomNavigationAction label="Statistiques" icon={<Finance />} />
-              <BottomNavigationAction label="Liste inscrits" icon={<FormatListBulletedSquare />} />
-              <BottomNavigationAction label="Récapitulatif" icon={<LayersTriple />} />
+              <BottomNavigationAction label="Statistiques" icon={<QueryStats />} />
+              <BottomNavigationAction label="Liste inscrits" icon={<FormatListBulleted />} />
+              <BottomNavigationAction label="Récapitulatif" icon={<Layers />} />
             </BottomNavigation>
           </DialogActions>
         </Dialog>

@@ -1,4 +1,4 @@
-import faker from "faker"
+import faker from 'faker'
 
 const articles = async (db) => {
   for (let i = 0; i < 25; ++i) {

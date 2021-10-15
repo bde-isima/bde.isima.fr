@@ -1,13 +1,13 @@
-import Grid from "@material-ui/core/Grid"
-import arrayMutators from "final-form-arrays"
+import Grid from '@mui/material/Grid'
+import arrayMutators from 'final-form-arrays'
 
-import { EventSubscriptionWithTypedCart } from "types"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
+import { EventSubscriptionWithTypedCart } from 'global'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import {
   EventSubscriptionInput,
   EventSubscriptionInputType,
-} from "app/components/forms/validations"
-import SubscriptionEditCard from "app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard"
+} from 'app/components/forms/validations'
+import SubscriptionEditCard from 'app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard'
 
 type SubscriptionFormProps = {
   subscription: EventSubscriptionWithTypedCart
@@ -21,14 +21,14 @@ export default function SubscriptionForm(props: SubscriptionFormProps) {
       return props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
     <Grid container item justifyContent="center" xs={12} md={4}>
-      <Form<EventSubscriptionInputType>
+      <Form
         className="w-full"
         schema={EventSubscriptionInput}
         initialValues={{

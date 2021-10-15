@@ -1,17 +1,17 @@
-import { useState } from "react"
-import Toolbar from "@material-ui/core/Toolbar"
-import Tooltip from "@material-ui/core/Tooltip"
-import InputBase from "@material-ui/core/InputBase"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
+import { useState } from 'react'
+import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
+import InputBase from '@mui/material/InputBase'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 
-import Magnify from "mdi-material-ui/Magnify"
-import DeleteOutline from "mdi-material-ui/DeleteOutline"
-import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
-import ContentSaveMoveOutline from "mdi-material-ui/ContentSaveMoveOutline"
+import Delete from '@mui/icons-material/DeleteTwoTone'
+import Search from '@mui/icons-material/SearchTwoTone'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone'
+import FileDownload from '@mui/icons-material/FileDownloadTwoTone'
 
-import { useTableProps } from "./TablePropsProvider"
-import TableDeleteConfirm from "./TableDeleteConfirm"
+import { useTableProps } from './TablePropsProvider'
+import TableDeleteConfirm from './TableDeleteConfirm'
 
 export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport }) {
   const { search } = useTableProps()
@@ -20,7 +20,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
   const handleClickOpen = (value) => () => setOpen(value)
 
   const onSearch = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       search.set(e.target.value)
     }
   }
@@ -29,7 +29,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
     <Toolbar className="pl-4 pr-2">
       {numSelected > 0 ? (
         <Typography className="sm:flex-auto flex-grow" color="textSecondary" variant="subtitle1">
-          {`${numSelected} sélectionné${numSelected > 1 ? "s" : ""}`}
+          {`${numSelected} sélectionné${numSelected > 1 ? 's' : ''}`}
         </Typography>
       ) : (
         <Typography className="sm:flex-auto" variant="h6" id="tableTitle">
@@ -43,37 +43,37 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
         <div className="flex ml-4 items-center">
           {onExport && (
             <Tooltip title="Exporter en CSV">
-              <IconButton aria-label="Exporter en CSV" onClick={onExport}>
-                <ContentSaveMoveOutline />
+              <IconButton aria-label="Exporter en CSV" onClick={onExport} size="large">
+                <FileDownload />
               </IconButton>
             </Tooltip>
           )}
 
           <Tooltip title="Supprimer">
-            <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)}>
-              <DeleteOutline />
+            <IconButton aria-label="Supprimer" onClick={handleClickOpen(true)} size="large">
+              <Delete />
             </IconButton>
           </Tooltip>
         </div>
       ) : (
         <div className="flex ml-4 items-center">
-          <Magnify />
+          <Search />
 
           <InputBase
             placeholder="Rechercher..."
             classes={{
               input:
-                "p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out",
+                'p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out',
             }}
-            inputProps={{ "aria-label": "Rechercher" }}
+            inputProps={{ 'aria-label': 'Rechercher' }}
             onKeyDown={onSearch}
           />
 
           {onAdd && (
             <div>
               <Tooltip title="Ajouter">
-                <IconButton aria-label="Ajouter" onClick={onAdd}>
-                  <PlusCircleOutline />
+                <IconButton aria-label="Ajouter" onClick={onAdd} size="large">
+                  <AddCircle />
                 </IconButton>
               </Tooltip>
             </div>

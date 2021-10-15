@@ -1,13 +1,13 @@
-import Image from "next/image"
-import { TextField } from "mui-rff"
-import IconButton from "@material-ui/core/IconButton"
-import InputAdornment from "@material-ui/core/InputAdornment"
+import { Image } from 'blitz'
+import { TextField } from 'bde-isima-mui-rff'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 
-import OpenInNew from "mdi-material-ui/OpenInNew"
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
-import { Partner } from "db"
-import { Form, FORM_ERROR } from "app/components/forms/Form"
-import { PartnerInput, PartnerInputType } from "app/components/forms/validations"
+import { Partner } from 'db'
+import { Form, FORM_ERROR } from 'app/components/forms/Form'
+import { PartnerInput, PartnerInputType } from 'app/components/forms/validations'
 
 type PartnerFormProps = {
   initialValues: Partner | null
@@ -21,13 +21,13 @@ export default function PartnerForm(props: PartnerFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
       }
     }
   }
 
   return (
-    <Form<PartnerInputType>
+    <Form
       submitText="Valider"
       variant="dialog"
       onClose={props.onClose}
@@ -65,6 +65,7 @@ export default function PartnerForm(props: PartnerFormProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ouvrir Imgur"
+                size="large"
               >
                 <OpenInNew />
               </IconButton>

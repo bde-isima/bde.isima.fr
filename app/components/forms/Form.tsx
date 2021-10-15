@@ -1,67 +1,70 @@
-import cuid from "cuid"
-import * as z from "zod"
-import { useState } from "react"
-import Button from "@material-ui/core/Button"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import React, { ReactNode, PropsWithoutRef } from "react"
-import LoadingButton from "@material-ui/lab/LoadingButton"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
+import cuid from 'cuid'
+import { z } from 'zod'
+import { validateZodSchema } from 'blitz'
+import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
+import LoadingButton from '@mui/lab/LoadingButton'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import React, { ReactNode, PropsWithoutRef } from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form'
 
-import errorMap from "./errorMap"
+import errorMap from './errorMap'
 
-export { FORM_ERROR } from "final-form"
+export { FORM_ERROR } from 'final-form'
 
-type FormProps<FormValues> = {
+export interface FormProps<S extends z.ZodType<any, any>>
+  extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
   children: ReactNode
   submitText?: string
   title?: string
-  variant?: "button" | "dialog"
+  variant?: 'button' | 'dialog'
   onClose?: () => void
-  onSubmit: FinalFormProps<FormValues>["onSubmit"]
-  initialValues?: FinalFormProps<FormValues>["initialValues"]
-  schema?: z.ZodType<any, any>
+  onSubmit: FinalFormProps<z.infer<S>>['onSubmit']
+  initialValues?: FinalFormProps<z.infer<S>>['initialValues']
+  schema?: S
   mutators?: any
-} & Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit">
+}
 
-export function Form<FormValues extends Record<string, unknown>>({
+export function Form<S extends z.ZodType<any, any>>({
   children,
-  submitText = "",
-  title = "",
-  variant = "button",
+  submitText = '',
+  title = '',
+  variant = 'button',
   onClose,
   mutators,
   schema,
   initialValues,
   onSubmit,
   ...props
-}: FormProps<FormValues>) {
+}: FormProps<S>) {
   const formId = useState(cuid())
 
+  useEffect(() => {
+    z.setErrorMap(errorMap)
+  }, [])
+
   return (
-    <FinalForm<FormValues>
+    <FinalForm
       initialValues={initialValues}
-      validate={(values) => {
-        if (!schema) return
-        try {
-          schema.parse(values, { errorMap })
-        } catch (error) {
-          //console.log(error.message)
-          return error.formErrors.fieldErrors
+      validate={async (values) => {
+        const errors = await validateZodSchema(schema)(values)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(values, errors)
         }
       }}
       onSubmit={onSubmit}
       mutators={mutators}
-      render={({ handleSubmit, submitting, pristine, submitError }) => (
+      render={({ handleSubmit, submitting, pristine, invalid, submitError }) => (
         <>
-          {variant === "button" && (
+          {variant === 'button' && (
             <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
               {children}
 
               {submitError && (
-                <div role="alert" style={{ color: "red" }}>
+                <div role="alert" style={{ color: 'red' }}>
                   {submitError}
                 </div>
               )}
@@ -69,12 +72,12 @@ export function Form<FormValues extends Record<string, unknown>>({
               {submitText && (
                 <LoadingButton
                   type="submit"
-                  pending={submitting}
-                  pendingIndicator={<CircularProgress size={25} color="secondary" />}
+                  loading={submitting}
+                  loadingIndicator={<CircularProgress size={25} color="secondary" />}
                   onClick={handleSubmit}
                   aria-label={submitText}
                   variant="contained"
-                  disabled={pristine}
+                  disabled={invalid || pristine}
                   size="large"
                 >
                   {submitText}
@@ -83,17 +86,17 @@ export function Form<FormValues extends Record<string, unknown>>({
             </form>
           )}
 
-          {variant === "dialog" && (
+          {variant === 'dialog' && (
             <>
               <DialogTitle id="table-dialog-title">
-                {title ? title : initialValues?.id ? "Édition" : "Ajout"}
+                {title ? title : initialValues?.id ? 'Édition' : 'Ajout'}
               </DialogTitle>
 
               <DialogContent>
                 <form
                   id={`${formId}-dialog-form`}
                   onSubmit={handleSubmit}
-                  className="form flex flex-col"
+                  className="form flex flex-col p-2"
                   {...props}
                 >
                   {children}
@@ -103,7 +106,7 @@ export function Form<FormValues extends Record<string, unknown>>({
               {submitText && (
                 <DialogActions>
                   {submitError && (
-                    <div role="alert" style={{ color: "red" }}>
+                    <div role="alert" style={{ color: 'red' }}>
                       {submitError}
                     </div>
                   )}
@@ -115,12 +118,12 @@ export function Form<FormValues extends Record<string, unknown>>({
                   <LoadingButton
                     type="submit"
                     form={`${formId}-dialog-form`}
-                    pending={submitting}
-                    pendingIndicator={<CircularProgress size={25} color="secondary" />}
+                    loading={submitting}
+                    loadingIndicator={<CircularProgress size={25} color="secondary" />}
                     onClick={handleSubmit}
                     aria-label={submitText}
                     variant="contained"
-                    disabled={pristine}
+                    disabled={invalid || pristine}
                   >
                     {submitText}
                   </LoadingButton>

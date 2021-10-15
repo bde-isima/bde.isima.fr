@@ -1,16 +1,16 @@
-import { useQuery, useMutation } from "blitz"
-import { useTheme } from "@material-ui/core"
-import { VariableSizeGrid } from "react-window"
-import TextField from "@material-ui/core/TextField"
-import AutoSizer from "react-virtualized-auto-sizer"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
-import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from "react"
+import { useQuery, useMutation } from 'blitz'
+import { VariableSizeGrid } from 'react-window'
+import TextField from '@mui/material/TextField'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from 'react'
 
-import Article from "./Article"
-import Snackbar from "app/layouts/Snackbar"
-import useSnackbar from "app/hooks/useSnackbar"
-import getArticles from "app/entities/articles/queries/getArticles"
-import deleteTransaction from "app/entities/transactions/mutations/deleteTransaction"
+import Article from './Article'
+import { useTheme } from 'app/core/styles/theme'
+import Snackbar from 'app/core/layouts/Snackbar'
+import { useMediaQuery } from 'app/core/styles/theme'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import getArticles from 'app/entities/articles/queries/getArticles'
+import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction'
 
 const GUTTER_SIZE = 16
 
@@ -18,13 +18,13 @@ function smartSearch(a, b) {
   a = a
     .trim()
     .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
   b = b
     .trim()
     .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
   return a.includes(b)
 }
 
@@ -44,12 +44,11 @@ const innerElementType = forwardRef(
 )
 
 export default function Catalog({ user, onTransactionComplete }) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery('md')
 
   const [loading, setLoading] = useState(false)
   const [previousTransaction, setPreviousTransaction] = useState<string | null>(null)
-  const [searchArticleInput, setSearchArticleInput] = useState("")
+  const [searchArticleInput, setSearchArticleInput] = useState('')
   const { open, message, severity, onShow, onClose } = useSnackbar()
 
   const [deleteT] = useMutation(deleteTransaction)
@@ -68,7 +67,7 @@ export default function Catalog({ user, onTransactionComplete }) {
   const onUndo = () => {
     deleteT({ where: { id: previousTransaction as string } }).then(() => {
       setPreviousTransaction(null)
-      onShow("warning", "Vente annulée")
+      onShow('warning', 'Vente annulée')
       onTransactionComplete()
     })
   }
@@ -81,17 +80,17 @@ export default function Catalog({ user, onTransactionComplete }) {
   const onTransaction = async (mutation) => {
     if (!loading) {
       setLoading(true)
-      onShow("info", "Vente en cours ...")
+      onShow('info', 'Vente en cours ...')
 
       await mutation()
         .then((res) => {
           if (res[0]) {
             setPreviousTransaction(res[0].id)
           }
-          onShow("success", "Article vendu")
+          onShow('success', 'Article vendu')
           onTransactionComplete()
         })
-        .catch((err) => onShow("error", err.message))
+        .catch((err) => onShow('error', err.message))
         .finally(() => setLoading(false))
     }
   }
@@ -133,13 +132,13 @@ export default function Catalog({ user, onTransactionComplete }) {
       </AutoSizer>
 
       <Snackbar
-        className={fullScreen ? "bottom-16" : ""}
+        className={fullScreen ? 'bottom-16' : ''}
         open={open}
         loading={loading}
         message={message}
         severity={severity}
         onClose={onSnackClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: fullScreen ? "center" : "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: fullScreen ? 'center' : 'right' }}
         onUndo={previousTransaction ? onUndo : undefined}
       />
     </>

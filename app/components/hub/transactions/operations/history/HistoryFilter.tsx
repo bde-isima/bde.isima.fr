@@ -1,15 +1,15 @@
-import frLocale from "date-fns/locale/fr"
-import { Dispatch, SetStateAction } from "react"
-import TextField from "@material-ui/core/TextField"
-import Accordion from "@material-ui/core/Accordion"
-import Typography from "@material-ui/core/Typography"
-import DateTimePicker from "@material-ui/lab/DateTimePicker"
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider"
+import frLocale from 'date-fns/locale/fr'
+import { Dispatch, SetStateAction } from 'react'
+import TextField from '@mui/material/TextField'
+import Accordion from '@mui/material/Accordion'
+import Typography from '@mui/material/Typography'
+import DateTimePicker from '@mui/lab/DateTimePicker'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
-import ChevronUp from "mdi-material-ui/ChevronUp"
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUpTwoTone'
 
 type HistoryFilterProps = {
   minDate: Date
@@ -27,7 +27,7 @@ export default function HistoryFilter({
   return (
     <Accordion className="w-full" variant="outlined">
       <AccordionSummary
-        expandIcon={<ChevronUp />}
+        expandIcon={<KeyboardArrowUp />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
@@ -41,7 +41,7 @@ export default function HistoryFilter({
               label="De"
               value={minDate}
               onChange={setMinDate}
-              minDateTime={new Date("01-01-2021")}
+              minDateTime={new Date('01-01-2021')}
             />
             <DateTimePicker
               renderInput={(props) => <TextField className="m-2" {...props} />}

@@ -1,10 +1,10 @@
-import { ReactNode, useState } from "react"
-import Paper from "@material-ui/core/Paper"
+import { ReactNode, useState } from 'react'
+import Paper from '@mui/material/Paper'
 
-import TableDialog from "./TableDialog"
-import TableContainer from "./TableContainer"
-import useSnackbar from "app/hooks/useSnackbar"
-import { TablePropsProvider } from "./TablePropsProvider"
+import TableDialog from './TableDialog'
+import TableContainer from './TableContainer'
+import useSnackbar from 'app/entities/hooks/useSnackbar'
+import { TablePropsProvider } from './TablePropsProvider'
 
 type TableProps = {
   title: string

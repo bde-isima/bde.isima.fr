@@ -1,10 +1,10 @@
-import cuid from "cuid"
-import NoSsr from "@material-ui/core/NoSsr"
-import Dialog from "@material-ui/core/Dialog"
-import { useMutation, invalidateQuery } from "blitz"
+import cuid from 'cuid'
+import NoSsr from '@mui/material/NoSsr'
+import Dialog from '@mui/material/Dialog'
+import { useMutation, invalidateQuery } from 'blitz'
 
-import Snackbar from "app/layouts/Snackbar"
-import SlideTransition from "app/layouts/SlideTransition"
+import Snackbar from 'app/core/layouts/Snackbar'
+import SlideTransition from 'app/core/layouts/SlideTransition'
 
 type TableDialogProps = {
   open: boolean
@@ -40,11 +40,11 @@ export default function TableDialog({
         return
       }
 
-      if (typeof col.format === "function") {
+      if (typeof col.format === 'function') {
         value = col.format(data[col.id])
       }
 
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         value = value.trim()
       }
 
@@ -60,15 +60,15 @@ export default function TableDialog({
       create: formatData(data),
     } as any)
       .then(() => {
-        onShow("success", "Sauvegardé")
+        onShow('success', 'Sauvegardé')
         invalidateQuery(getQuery)
         onClose()
       })
       .catch((err) => {
-        if (err.code === "P2002") {
-          onShow("error", `${err.meta.target[0]} n'est pas unique`)
+        if (err.code === 'P2002') {
+          onShow('error', `${err.meta.target[0]} n'est pas unique`)
         } else {
-          onShow("error", err.message)
+          onShow('error', err.message)
         }
       })
   }
@@ -81,7 +81,7 @@ export default function TableDialog({
     <NoSsr>
       <Dialog
         open={open}
-        classes={{ paper: "min-h-main" }}
+        classes={{ paper: 'min-h-main' }}
         fullScreen
         onClose={onClose}
         TransitionComponent={SlideTransition}

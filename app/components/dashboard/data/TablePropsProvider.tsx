@@ -1,9 +1,9 @@
-import { createContext, useContext, useState, Dispatch } from "react"
+import { createContext, useContext, useState, Dispatch } from 'react'
 
 type TablePropsType = {
   order: {
-    value: "desc" | "asc"
-    set: Dispatch<"desc" | "asc">
+    value: 'desc' | 'asc'
+    set: Dispatch<'desc' | 'asc'>
   }
   orderBy: {
     value: string
@@ -28,10 +28,10 @@ export const useTableProps = () => {
 
 export function TablePropsProvider({ children }) {
   const rowsPerPage = 5
-  const [order, setOrder] = useState<"desc" | "asc">("desc")
-  const [orderBy, setOrderBy] = useState<string>("createdAt")
+  const [order, setOrder] = useState<'desc' | 'asc'>('desc')
+  const [orderBy, setOrderBy] = useState<string>('createdAt')
   const [page, setPage] = useState<number>(0)
-  const [search, setSearch] = useState<string>("")
+  const [search, setSearch] = useState<string>('')
 
   return (
     <TablePropsContext.Provider

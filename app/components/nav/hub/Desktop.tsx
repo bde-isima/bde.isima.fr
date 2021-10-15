@@ -1,11 +1,11 @@
-import { useMemo } from "react"
+import { useMemo } from 'react'
 
-import ViewDashboardOutline from "mdi-material-ui/ViewDashboardOutline"
+import Dashboard from '@mui/icons-material/DashboardTwoTone'
 
-import config from "./config"
-import DesktopMenuItem from "app/components/nav/hub/DesktopMenuItem"
-import { useBDEConfig } from "app/components/nav/dashboard/useBDEConfig"
-import { useClubsConfig } from "app/components/nav/dashboard/useClubsConfig"
+import config from './config'
+import DesktopMenuItem from 'app/components/nav/hub/DesktopMenuItem'
+import { useBDEConfig } from 'app/components/nav/dashboard/bde-config'
+import { useClubsConfig } from 'app/components/nav/dashboard/clubs-config'
 
 export default function Desktop() {
   const bdeConfig = useBDEConfig()
@@ -21,10 +21,10 @@ export default function Desktop() {
         {(bdeConfig.length > 0 || clubsConfig.length > 0) && (
           <DesktopMenuItem
             item={{
-              icon: <ViewDashboardOutline />,
-              text: "DASHBOARD",
-              to: "/dashboard",
-              isActive: (pathname: String, hash: String) => pathname === "/dashboard",
+              icon: <Dashboard />,
+              text: 'DASHBOARD',
+              to: '/dashboard',
+              isActive: (pathname: String, hash: String) => pathname === '/dashboard',
             }}
           />
         )}

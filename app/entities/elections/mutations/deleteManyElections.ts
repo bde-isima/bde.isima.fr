@@ -1,19 +1,17 @@
-import { Ctx } from "blitz"
-import db, { Prisma } from "db"
+import { resolver } from 'blitz'
 
-type DeleteManyElectionInput = Pick<Prisma.ElectionDeleteManyArgs, "where">
+import db, { Prisma } from 'db'
 
-export default async function deleteManyElections({ where }: DeleteManyElectionInput, ctx: Ctx) {
-  ctx.session.authorize(["*"])
+type DeleteManyElectionInput = Pick<Prisma.ElectionDeleteManyArgs, 'where'>
 
-  const voteRequests = await db.voteRequest.deleteMany({
-    where: { electionId: { in: (where?.id as Prisma.StringFilter)?.in } },
-  })
-
-  const elections = await db.election.deleteMany({ where })
-
-  return {
-    elections,
-    voteRequests,
+export default resolver.pipe(
+  resolver.authorize(['*']),
+  async ({ where }: DeleteManyElectionInput) => {
+    return await Promise.all([
+      db.voteRequest.deleteMany({
+        where: { electionId: { in: (where?.id as Prisma.StringFilter)?.in } },
+      }),
+      db.election.deleteMany({ where }),
+    ])
   }
-}
+)

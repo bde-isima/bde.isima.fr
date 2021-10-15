@@ -1,34 +1,37 @@
-import List from "@material-ui/core/List"
-import Divider from "@material-ui/core/Divider"
-import ListItem from "@material-ui/core/ListItem"
-import Typography from "@material-ui/core/Typography"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import { Image } from 'blitz'
+import { useMemo } from 'react'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import Typography from '@mui/material/Typography'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 
-import { EventSubscriptionWithTypedCart, CartItem } from "types"
+import { EventSubscriptionWithTypedCart, CartItem } from 'global'
+import noData from 'public/static/images/illustrations/NoData.svg'
 
 type SubscriptionRecapProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]
 }
 
 export default function SubscriptionRecap({ eventSubscriptions = [] }: SubscriptionRecapProps) {
-  const getRecap = () => {
-    const recap: CartItem[] = []
+  const recap = useMemo(() => {
+    const cartItems: CartItem[] = []
 
-    ;(eventSubscriptions as any[]).forEach((sub: EventSubscriptionWithTypedCart) => {
+    eventSubscriptions.forEach((sub: EventSubscriptionWithTypedCart) => {
       sub.cart.forEach((item: CartItem) => {
-        const exist = recap.find((exist) => {
+        const exist = cartItems.find((exist) => {
           //Sort the arrays so we have options name in the same order before joining
           exist.options?.sort((a, b) => a.name.localeCompare(b.name))
           item.options?.sort((a, b) => a.name.localeCompare(b.name))
 
           //Default to [] or we won't get comparable result for undefined arrays
           //Undefined would give undefined, whereas [] would give empty string
-          const exitOptions = (exist.options || []).map((x) => x.name).join(", ")
-          const itemOptions = (item.options || []).map((x) => x.name).join(", ")
+          const existOptions = (exist.options || []).map((x) => x.name).join(', ')
+          const itemOptions = (item.options || []).map((x) => x.name).join(', ')
 
           const hasSameName = exist.name === item.name
-          const hasIdenticalOptions = exitOptions === itemOptions
+          const hasIdenticalOptions = existOptions === itemOptions
 
           return hasSameName && hasIdenticalOptions
         })
@@ -36,23 +39,32 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
         if (exist) {
           exist.quantity = exist.quantity + item.quantity
         } else {
-          recap.push({ ...item })
+          cartItems.push({ ...item })
         }
       })
     })
-    return recap
-  }
+    return cartItems
+  }, [eventSubscriptions])
 
   return (
     <div className="flex flex-col">
       <Typography variant="h6" align="center">
-        Récapitulatif de l'événement
+        Récapitulatif de l&apos;événement
       </Typography>
 
       <Divider className="m-4" />
 
       <List>
-        {(getRecap() as any).map((cartItem, idx) => (
+        {recap.length === 0 && (
+          <div className="flex flex-col justify-center items-center">
+            <Image src={noData} width={300} height={300} alt="Aucune donnée" />
+            <Typography variant="subtitle2" gutterBottom>
+              Aucun récapitulatif pour l&apos;instant
+            </Typography>
+          </div>
+        )}
+
+        {recap.map((cartItem, idx) => (
           <ListItem key={idx} dense>
             <ListItemIcon>
               <Typography variant="overline">x{cartItem.quantity}</Typography>
@@ -60,7 +72,7 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
 
             <ListItemText
               primary={cartItem.name}
-              secondary={cartItem.options?.map((x) => x.name).join(", ")}
+              secondary={cartItem.options?.map((x) => x.name).join(', ')}
             />
           </ListItem>
         ))}

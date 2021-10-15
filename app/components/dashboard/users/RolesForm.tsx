@@ -1,18 +1,18 @@
-import { useState } from "react"
-import { useQuery } from "blitz"
-import { Field } from "react-final-form"
-import Grid from "@material-ui/core/Grid"
-import List from "@material-ui/core/List"
-import { useForm } from "react-final-form"
-import Paper from "@material-ui/core/Paper"
-import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import Checkbox from "@material-ui/core/Checkbox"
-import Typography from "@material-ui/core/Typography"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import { useState } from 'react'
+import { useQuery } from 'blitz'
+import { Field } from 'react-final-form'
+import Grid from '@mui/material/Grid'
+import List from '@mui/material/List'
+import { useForm } from 'react-final-form'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import ListItem from '@mui/material/ListItem'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 
-import getClubs from "app/entities/clubs/queries/getClubs"
+import getClubs from 'app/entities/clubs/queries/getClubs'
 
 function not(a: string[], b: string[]) {
   return a.filter((value) => b.indexOf(value) === -1)
@@ -27,7 +27,7 @@ export default function RolesForm({ values }) {
   const [{ clubs }] = useQuery(getClubs, {})
   const roles = values?.roles ?? []
   const [checked, setChecked] = useState<string[]>([])
-  const [left, setLeft] = useState<string[]>(not(["*", ...clubs.map((x) => x.name)], roles))
+  const [left, setLeft] = useState<string[]>(not(['*', ...clubs.map((x) => x.name)], roles))
   const [right, setRight] = useState<string[]>(roles)
 
   const leftChecked = intersection(checked, left)
@@ -49,7 +49,7 @@ export default function RolesForm({ values }) {
   const handleAllRight = () => {
     const newRight = right.concat(left)
     form.change(
-      "roles",
+      'roles',
       newRight.map((x) => x.toLowerCase())
     )
     setRight(newRight)
@@ -59,7 +59,7 @@ export default function RolesForm({ values }) {
   const handleCheckedRight = () => {
     const newRight = right.concat(leftChecked)
     form.change(
-      "roles",
+      'roles',
       newRight.map((x) => x.toLowerCase())
     )
     setRight(newRight)
@@ -70,7 +70,7 @@ export default function RolesForm({ values }) {
   const handleCheckedLeft = () => {
     const newRight = not(right, rightChecked)
     form.change(
-      "roles",
+      'roles',
       newRight.map((x) => x.toLowerCase())
     )
     setLeft(left.concat(rightChecked))
@@ -80,7 +80,7 @@ export default function RolesForm({ values }) {
 
   const handleAllLeft = () => {
     const newRight = []
-    form.change("roles", newRight)
+    form.change('roles', newRight)
     setLeft(left.concat(right))
     setRight(newRight)
   }
@@ -102,7 +102,7 @@ export default function RolesForm({ values }) {
                   tabIndex={-1}
                   disableRipple
                   inputProps={{
-                    "aria-labelledby": labelId,
+                    'aria-labelledby': labelId,
                   }}
                   color="default"
                 />
@@ -121,7 +121,7 @@ export default function RolesForm({ values }) {
       {(props) => (
         <Grid container>
           <Grid container item md={5} xs={12} justifyContent="center">
-            {customList("Disponibles", left)}
+            {customList('Disponibles', left)}
           </Grid>
           <Grid container item alignItems="center" md={2} xs={12}>
             <Grid className="px-3" container direction="column" alignItems="center">
@@ -176,7 +176,7 @@ export default function RolesForm({ values }) {
             </Grid>
           </Grid>
           <Grid container item md={5} xs={12} justifyContent="center">
-            {customList("Attribués", right)}
+            {customList('Attribués', right)}
           </Grid>
         </Grid>
       )}

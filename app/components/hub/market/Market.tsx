@@ -1,7 +1,7 @@
-import { useQuery } from "blitz"
+import { useQuery } from 'blitz'
 
-import MarketItem from "app/components/hub/market/MarketItem"
-import getArticles from "app/entities/articles/queries/getArticles"
+import MarketItem from 'app/components/hub/market/MarketItem'
+import getArticles from 'app/entities/articles/queries/getArticles'
 
 export default function Market() {
   const [{ articles }] = useQuery(

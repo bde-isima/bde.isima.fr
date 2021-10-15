@@ -1,28 +1,28 @@
-import { useState, useEffect } from "react"
-import Button from "@material-ui/core/Button"
-import Dialog from "@material-ui/core/Dialog"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import { useTheme, useMediaQuery } from "@material-ui/core"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import { useState, useEffect } from 'react'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
 
-import CartPlus from "mdi-material-ui/CartPlus"
-import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
-import MinusCircleOutline from "mdi-material-ui/MinusCircleOutline"
+import AddCircle from '@mui/icons-material/AddCircleTwoTone'
+import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
+import AddShoppingCart from '@mui/icons-material/AddShoppingCartTwoTone'
 
-import ProductComment from "app/components/hub/events/product/ProductComment"
-import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from "types"
-import ProductGroupOption from "app/components/hub/events/product/ProductGroupOption"
-import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
+import { useMediaQuery } from 'app/core/styles/theme'
+import ProductComment from 'app/components/hub/events/product/ProductComment'
+import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from 'global'
+import ProductGroupOption from 'app/components/hub/events/product/ProductGroupOption'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 
 type ProductGroupOptionProps = {
   product: Product
   onClose: () => void
 }
 
-const types = ["exclusive", "combinable"]
+const types = ['exclusive', 'combinable']
 
 export default function ProductDialog({ product, onClose }: ProductGroupOptionProps) {
   const [total, setTotal] = useState(0)
@@ -31,8 +31,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
   const { eventSubscription, setQueryData } = useEventSubscription()
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
+  const fullScreen = useMediaQuery('md')
 
   const onQuantityChange = (value: number) => () => {
     if (quantity + value > 0) {
@@ -112,14 +111,14 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
         </DialogContent>
 
         <DialogActions className="flex justify-center items-center">
-          <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1">
-            <MinusCircleOutline />
+          <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
+            <RemoveCircle />
           </IconButton>
           <Typography variant="subtitle1" color="textSecondary">
             {quantity}
           </Typography>
-          <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1">
-            <PlusCircleOutline />
+          <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
+            <AddCircle />
           </IconButton>
         </DialogActions>
 
@@ -128,7 +127,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
             Annuler
           </Button>
           <Button
-            startIcon={<CartPlus />}
+            startIcon={<AddShoppingCart />}
             onClick={handleAddProduct}
             variant="contained"
             aria-label={`Ajouter pour un total de ${total.toFixed(2)}`}

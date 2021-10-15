@@ -1,6 +1,6 @@
-import Container from "@material-ui/core/Container"
+import Container from '@mui/material/Container'
 
-import LoginContent from "app/components/auth/LoginContent"
+import LoginContent from 'app/components/auth/LoginContent'
 
 export default function LoginFallback() {
   return (

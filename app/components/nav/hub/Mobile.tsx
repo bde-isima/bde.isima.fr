@@ -1,22 +1,23 @@
-import Link from "next/link"
-import Image from "next/image"
-import { useMemo, Suspense } from "react"
-import List from "@material-ui/core/List"
-import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import { Image } from 'blitz'
+import List from '@mui/material/List'
+import { useMemo, Suspense } from 'react'
+import Button from '@mui/material/Button'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import HomeOutline from "mdi-material-ui/HomeOutline"
+import Home from '@mui/icons-material/HomeTwoTone'
 
-import config from "./config"
-import DashboardMobile from "app/components/nav/dashboard/Mobile"
-import MobileMenuItem from "app/components/nav/hub/MobileMenuItem"
+import config from './config'
+import Link from 'app/core/lib/Link'
+import logo from 'public/static/images/logos/logo.svg'
+import DashboardMobile from 'app/components/nav/dashboard/Mobile'
+import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
 
 export default function Mobile({ isOpen, onOpen, onClose }) {
-  const iOS = typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   const ItemsList = useMemo(
     () => (
@@ -37,7 +38,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: "w-3/4" }}
+      PaperProps={{ className: 'w-3/4' }}
     >
       <div className="text-center">
         <List>
@@ -46,7 +47,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
               <div className="m-2 mr-4">
                 <Image
                   className="rounded-full"
-                  src="/static/images/logos/logo.svg"
+                  src={logo}
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"
@@ -66,12 +67,12 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
             >
               <ListItem dense disableGutters>
                 <ListItemIcon>
-                  <HomeOutline />
+                  <Home />
                 </ListItemIcon>
 
                 <ListItemText
                   secondary="ACCUEIL"
-                  secondaryTypographyProps={{ color: "textPrimary" }}
+                  secondaryTypographyProps={{ color: 'textPrimary' }}
                 />
               </ListItem>
             </Button>
@@ -93,8 +94,8 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
 
         <ListItem>
           <ListItemText
-            secondary={`Version ${globalThis.appVersion}`}
-            secondaryTypographyProps={{ align: "center" }}
+            secondary={`Version ${globalThis.version}`}
+            secondaryTypographyProps={{ align: 'center' }}
           />
         </ListItem>
       </div>

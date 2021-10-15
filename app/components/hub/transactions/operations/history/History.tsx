@@ -1,11 +1,11 @@
-import { Fragment } from "react"
-import isValid from "date-fns/isValid"
-import { useInfiniteQuery } from "blitz"
-import Button from "@material-ui/core/Button"
-import { useTheme, useMediaQuery } from "@material-ui/core"
+import { Fragment } from 'react'
+import isValid from 'date-fns/isValid'
+import { useInfiniteQuery } from 'blitz'
+import Button from '@mui/material/Button'
 
-import getTransactions from "app/entities/transactions/queries/getTransactions"
-import TransactionRow from "app/components/hub/transactions//display/TransactionRow"
+import { useMediaQuery } from 'app/core/styles/theme'
+import getTransactions from 'app/entities/transactions/queries/getTransactions'
+import TransactionRow from 'app/components/hub/transactions//display/TransactionRow'
 
 type HistoryProps = {
   userId?: string
@@ -14,30 +14,27 @@ type HistoryProps = {
 }
 
 export default function History({ userId, minDate, maxDate }: HistoryProps) {
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery('md')
 
   const AND =
     isValid(minDate) && isValid(maxDate)
       ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }]
       : []
 
-  const [
-    groupedTransactions,
-    { isFetching, isFetchingMore, fetchMore, canFetchMore },
-  ] = useInfiniteQuery(
-    getTransactions,
-    (
-      page = {
-        take: 10,
-        skip: 0,
+  const [groupedTransactions, { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage }] =
+    useInfiniteQuery(
+      getTransactions,
+      (
+        page = {
+          take: 10,
+          skip: 0,
+        }
+      ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: 'desc' } }),
+      {
+        getNextPageParam: (lastPage) => lastPage.nextPage,
+        enabled: Boolean(userId),
       }
-    ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: "desc" } }),
-    {
-      getFetchMore: (lastGroup) => lastGroup.nextPage,
-      enabled: Boolean(userId),
-    }
-  )
+    )
 
   return (
     <>
@@ -61,16 +58,16 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
 
       <Button
         className="my-4 w-full"
-        onClick={() => fetchMore()}
+        onClick={() => fetchNextPage()}
         color="inherit"
         variant="outlined"
-        disabled={!canFetchMore || !!isFetchingMore}
+        disabled={!hasNextPage || !!isFetchingNextPage}
       >
-        {isFetching || isFetchingMore
-          ? "Chargement ..."
-          : canFetchMore
-          ? "Charger plus"
-          : "Plus rien à charger"}
+        {isFetching || isFetchingNextPage
+          ? 'Chargement ...'
+          : hasNextPage
+          ? 'Charger plus'
+          : 'Plus rien à charger'}
       </Button>
     </>
   )

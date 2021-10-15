@@ -1,18 +1,13 @@
-import { Ctx, NotFoundError } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
+import db, { Prisma } from 'db'
 
-type FindUniqueUserInput = Pick<Prisma.FindUniqueUserArgs, "where">
+type FindUniqueUserInput = Pick<Prisma.UserFindUniqueArgs, 'where'>
 
-export default async function getUserPublicData({ where }: FindUniqueUserInput, ctx: Ctx) {
-  ctx.session.authorize()
-
-  const user = await db.user.findFirst({
+export default resolver.pipe(resolver.authorize(), async ({ where }: FindUniqueUserInput) => {
+  return await db.user.findFirst({
     where,
     select: { image: true },
+    rejectOnNotFound: true,
   })
-
-  if (!user) throw new NotFoundError()
-
-  return user
-}
+})

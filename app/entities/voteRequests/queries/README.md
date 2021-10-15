@@ -1,5 +1,5 @@
 ## SECURITY CONCERNS
 
-# getUsers
+# getVoteRequests
 
 - Can only be performed by \*

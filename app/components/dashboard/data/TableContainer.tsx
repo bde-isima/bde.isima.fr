@@ -1,17 +1,17 @@
-import Table from "@material-ui/core/Table"
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
-import TableBody from "@material-ui/core/TableBody"
-import { useMutation, invalidateQuery } from "blitz"
-import { useState, ReactNode, Suspense } from "react"
-import TablePagination from "@material-ui/core/TablePagination"
-import MuiTableContainer from "@material-ui/core/TableContainer"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import TableBody from '@mui/material/TableBody'
+import { useMutation, invalidateQuery } from 'blitz'
+import { useState, ReactNode, Suspense } from 'react'
+import TablePagination from '@mui/material/TablePagination'
+import MuiTableContainer from '@mui/material/TableContainer'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import TableHead from "./TableHead"
-import TableCore from "./TableCore"
-import TableToolbar from "./TableToolbar"
-import { useTableProps } from "./TablePropsProvider"
+import TableHead from './TableHead'
+import TableCore from './TableCore'
+import TableToolbar from './TableToolbar'
+import { useTableProps } from './TablePropsProvider'
 
 type TableProps = {
   title: string
@@ -46,7 +46,7 @@ export default function TableContainer(props: TableProps) {
   } = props
   const [data, setData] = useState({})
   const rows = data[queryKey] ?? []
-  const count = data["count"] ?? 0
+  const count = data['count'] ?? 0
 
   const { page, order, orderBy, rowsPerPage } = useTableProps()
   const colSpan =
@@ -76,10 +76,10 @@ export default function TableContainer(props: TableProps) {
     await deleteMutation({ where: { id: { in: selected } } } as any)
       .then(() => {
         setSelected([])
-        snackbar.onShow("success", "Supprimé(s)")
+        snackbar.onShow('success', 'Supprimé(s)')
         invalidateQuery(getQuery)
       })
-      .catch((err) => snackbar.onShow("error", err.message))
+      .catch((err) => snackbar.onShow('error', err.message))
   }
 
   const handleExportAllClick = onExport
@@ -87,9 +87,9 @@ export default function TableContainer(props: TableProps) {
     : undefined
 
   const handleRequestSort = (_, property) => {
-    const isAsc = orderBy.value === property && order.value === "asc"
+    const isAsc = orderBy.value === property && order.value === 'asc'
     orderBy.set(property)
-    order.set(isAsc ? "desc" : "asc")
+    order.set(isAsc ? 'desc' : 'asc')
   }
 
   const handleSelectAllClick = (event) => {

@@ -1,17 +1,17 @@
-import { useQuery } from "blitz"
-import { useState } from "react"
-import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import ButtonGroup from "@material-ui/core/ButtonGroup"
+import { useQuery } from 'blitz'
+import { useState } from 'react'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
 
-import Null from "mdi-material-ui/Null"
-import Ballot from "mdi-material-ui/Ballot"
+import HideSource from '@mui/icons-material/HideSourceTwoTone'
+import Ballot from '@mui/icons-material/BallotTwoTone'
 
-import { Election, Candidate } from "db"
-import VoteDialog from "./Vote/VoteDialog"
-import CandidateItem from "./CandidateItem"
-import NoElections from "app/components/hub/elections/NoElections"
-import getElection from "app/entities/elections/queries/getElection"
+import { Election, Candidate } from 'db'
+import VoteDialog from './Vote/VoteDialog'
+import CandidateItem from './CandidateItem'
+import NoElections from 'app/components/hub/elections/NoElections'
+import getElection from 'app/entities/elections/queries/getElection'
 
 const now = new Date()
 
@@ -22,7 +22,7 @@ export default function Elections() {
   const [election] = useQuery(
     getElection,
     {
-      include: { candidates: { orderBy: { name: "asc" } } },
+      include: { candidates: { orderBy: { name: 'asc' } } },
       where: { endDate: { gte: now } },
     },
     { refetchOnWindowFocus: false }
@@ -55,7 +55,7 @@ export default function Elections() {
               </Button>
               <Button
                 className="w-32 md:w-52"
-                startIcon={<Null />}
+                startIcon={<HideSource />}
                 onClick={onSelect(true, null)}
                 color="inherit"
               >

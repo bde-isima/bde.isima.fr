@@ -10,7 +10,7 @@ import {
   MjmlSection,
   MjmlColumn,
   MjmlImage,
-} from "mjml-react"
+} from 'mjml-react'
 
 export const generate = () => {
   return (
@@ -51,8 +51,8 @@ export const generate = () => {
         >
           <MjmlColumn>
             <MjmlText align="left" color="#2A2E43" fontSize="20px">
-              {" "}
-              De : {`{{ email }}`}{" "}
+              {' '}
+              De : {`{{ email }}`}{' '}
             </MjmlText>
           </MjmlColumn>
         </MjmlSection>

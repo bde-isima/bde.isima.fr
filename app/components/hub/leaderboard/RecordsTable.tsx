@@ -1,20 +1,20 @@
-import { Suspense } from "react"
-import Card from "@material-ui/core/Card"
-import Table from "@material-ui/core/Table"
-import TableRow from "@material-ui/core/TableRow"
-import Skeleton from "@material-ui/core/Skeleton"
-import TableHead from "@material-ui/core/TableHead"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
+import { Suspense } from 'react'
+import Card from '@mui/material/Card'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import Skeleton from '@mui/material/Skeleton'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 
-import Records from "app/components/hub/leaderboard/Records"
+import Records from 'app/components/hub/leaderboard/Records'
 
 export default function RecordsTable() {
   const FallbackComponent = [...Array(10).keys()].map((x) => (
-    <TableRow>
+    <TableRow key={x}>
       <TableCell colSpan={5}>
-        <Skeleton key={x} height={40} width="100%" />
+        <Skeleton height={40} width="100%" />
       </TableCell>
     </TableRow>
   ))
@@ -27,8 +27,8 @@ export default function RecordsTable() {
             <TableRow>
               <TableCell align="right">Photo</TableCell>
               <TableCell align="right">Article</TableCell>
-              <TableCell align="right">Nombre d'unités</TableCell>
-              <TableCell align="right">Nom d'utilisateur</TableCell>
+              <TableCell align="right">Nombre d&apos;unités</TableCell>
+              <TableCell align="right">Nom d&apos;utilisateur</TableCell>
               <TableCell align="right">Votre score</TableCell>
             </TableRow>
           </TableHead>

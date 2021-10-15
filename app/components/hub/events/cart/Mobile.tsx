@@ -1,32 +1,31 @@
-import { useState } from "react"
-import Grid from "@material-ui/core/Grid"
-import List from "@material-ui/core/List"
-import Button from "@material-ui/core/Button"
-import AppBar from "@material-ui/core/AppBar"
-import Dialog from "@material-ui/core/Dialog"
-import Toolbar from "@material-ui/core/Toolbar"
-import Divider from "@material-ui/core/Divider"
-import ListItem from "@material-ui/core/ListItem"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import CircularProgress from "@material-ui/core/CircularProgress"
+import { useState } from 'react'
+import Grid from '@mui/material/Grid'
+import List from '@mui/material/List'
+import Button from '@mui/material/Button'
+import AppBar from '@mui/material/AppBar'
+import Dialog from '@mui/material/Dialog'
+import Toolbar from '@mui/material/Toolbar'
+import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import Check from "mdi-material-ui/Check"
-import Close from "mdi-material-ui/Close"
-import CloseIcon from "mdi-material-ui/Close"
-import CartOff from "mdi-material-ui/CartOff"
-import CartOutline from "mdi-material-ui/CartOutline"
-import PlusCircleOutline from "mdi-material-ui/PlusCircleOutline"
-import MinusCircleOutline from "mdi-material-ui/MinusCircleOutline"
+import Check from '@mui/icons-material/CheckTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone'
+import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
+import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone'
+import RemoveShoppingCart from '@mui/icons-material/RemoveShoppingCartTwoTone'
 
-import { CartItem, Option } from "types"
-import PaymentMethods from "./PaymentMethods"
-import { useEventSubscription } from "app/components/hub/events/subscription/EventSubscription"
-import SlideTransition from "app/layouts/SlideTransition"
+import { CartItem, Option } from 'global'
+import PaymentMethods from './PaymentMethods'
+import SlideTransition from 'app/core/layouts/SlideTransition'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
 
 type MobileProps = {
   total: number
@@ -56,6 +55,7 @@ export default function Mobile({
       color="inherit"
       className="top-auto bottom-0"
       style={{ zIndex: open ? 1400 : 1100 }}
+      sx={{ display: { md: 'none', xs: 'block' } }}
     >
       <Toolbar>
         <Grid className="m-2" container spacing={1}>
@@ -67,13 +67,13 @@ export default function Mobile({
                 variant="contained"
                 onClick={onSubscribe}
                 disabled={unsubscribing || subscribing}
-                aria-label={eventSubscription.id ? "Modifier" : "S'inscrire"}
+                aria-label={eventSubscription.id ? 'Modifier' : "S'inscrire"}
                 color="primary"
               >
                 {subscribing ? (
                   <CircularProgress size={25} color="secondary" />
                 ) : eventSubscription.id ? (
-                  "Modifier"
+                  'Modifier'
                 ) : (
                   "S'inscrire"
                 )}
@@ -81,7 +81,7 @@ export default function Mobile({
             ) : (
               <Button
                 className="w-full h-full"
-                startIcon={<CartOutline />}
+                startIcon={<ShoppingCart />}
                 variant="contained"
                 aria-label="Voir mon panier"
                 color="primary"
@@ -112,14 +112,15 @@ export default function Mobile({
             edge="end"
             onClick={handleOpenChange(false)}
             aria-label="Réduire"
+            size="large"
           >
-            <CloseIcon />
+            <Close />
           </IconButton>
         </DialogActions>
 
         <DialogContent>
           <Typography variant="h6" paragraph>
-            Récapitulatif d'inscription
+            Récapitulatif d&apos;inscription
           </Typography>
 
           <Divider className="m-2" />
@@ -137,15 +138,17 @@ export default function Mobile({
                       <IconButton
                         onClick={onQuantityChange(cartItem, -1)}
                         aria-label={`Supprimer 1 ${cartItem.name}`}
+                        size="large"
                       >
-                        <MinusCircleOutline />
+                        <RemoveCircle />
                       </IconButton>
                       <Typography variant="overline">{cartItem.quantity}</Typography>
                       <IconButton
                         onClick={onQuantityChange(cartItem, 1)}
                         aria-label={`Ajouter 1 ${cartItem.name}`}
+                        size="large"
                       >
-                        <PlusCircleOutline />
+                        <AddCircle />
                       </IconButton>
                     </div>
                   </ListItemIcon>
@@ -153,7 +156,7 @@ export default function Mobile({
                   <ListItemText
                     className="text-center"
                     primary={cartItem.name}
-                    secondary={cartItem.options?.map((o) => o.name).join(", ")}
+                    secondary={cartItem.options?.map((o) => o.name).join(', ')}
                   />
 
                   <ListItemText className="text-right" primary={`${price.toFixed(2)} €`} />
@@ -164,7 +167,7 @@ export default function Mobile({
             {event.products.length > 0 && eventSubscription.cart.length === 0 && (
               <ListItem>
                 <ListItemIcon>
-                  <CartOff />
+                  <RemoveShoppingCart />
                 </ListItemIcon>
                 <ListItemText primary="Votre panier est vide !" />
               </ListItem>
@@ -191,7 +194,7 @@ export default function Mobile({
             {eventSubscription.id && (
               <div className="flex flex-col justify-center items-center p-3">
                 <Typography variant="body2" align="center" color="textSecondary" paragraph>
-                  T'étais pas là pour être ici ?
+                  T&apos;étais pas là pour être ici ?
                 </Typography>
 
                 <Button
@@ -206,7 +209,7 @@ export default function Mobile({
                   {unsubscribing ? (
                     <CircularProgress size={25} color="inherit" />
                   ) : (
-                    "Se désinscrire"
+                    'Se désinscrire'
                   )}
                 </Button>
               </div>
