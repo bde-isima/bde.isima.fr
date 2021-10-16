@@ -8,6 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Apps from '@mui/icons-material/AppsTwoTone'
 import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
 import Extension from '@mui/icons-material/ExtensionTwoTone'
+import Calculate from '@mui/icons-material/CalculateTwoTone'
 
 import Menu from './Menu'
 import Link from 'app/core/lib/Link'
@@ -39,6 +40,22 @@ export default function ModulesMenu() {
         </Typography>
 
         <Divider className="my-2" />
+
+        <Link href="/hub/average">
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <Calculate />
+            </ListItemIcon>
+            <Typography
+              className="flex flex-grow items-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Calculateur de moyenne
+            </Typography>
+          </MenuItem>
+        </Link>
 
         <Link href="/hub/elections">
           <MenuItem className="p-2" onClick={handleClose}>

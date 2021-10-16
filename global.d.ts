@@ -9,6 +9,9 @@ import { User, Event, EventSubscription } from 'db'
 
 import { DefaultCtx, SessionContext, SimpleRolesIsAuthorized } from 'blitz'
 
+/**
+ * app.tsx related types
+ */
 export type BDEAppProps = AppProps & {
   emotionCache?: EmotionCache
   Component: NextPage & {
@@ -16,6 +19,9 @@ export type BDEAppProps = AppProps & {
   }
 }
 
+/**
+ * Events and subscriptions related types
+ */
 export interface Item {
   name: string
   description: string | null
@@ -48,6 +54,44 @@ export interface EventSubscriptionWithTypedCart extends Omit<EventSubscription, 
   cart: CartItem[]
 }
 
+/**
+ * Average computing related types
+ */
+export interface SubjectData {
+  name: string
+  coef: number
+  mark?: number
+}
+
+export interface UEData {
+  name: string
+  subjects: SubjectData[]
+  ects: number
+  average?: number
+}
+
+export interface SectorData {
+  name: string
+  ues: UEData[]
+  isCurrent?: boolean
+  average?: number
+}
+
+export interface SemesterData {
+  sectors: SectorData[]
+  average?: number
+}
+
+export interface Year {
+  name: string
+  semesters: SemesterData[]
+  isCurrent?: boolean
+  average?: number
+}
+
+/**
+ * Blitz additional types
+ */
 declare module 'blitz' {
   export interface Ctx extends DefaultCtx {
     session: SessionContext
@@ -68,6 +112,9 @@ declare module 'blitz' {
   }
 }
 
+/**
+ * Global types for package.json and gtag typings
+ */
 export declare global {
   var appName: string
   var website: string
@@ -79,6 +126,9 @@ export declare global {
   }
 }
 
+/**
+ * CSS related types
+ */
 declare module '*.module.scss' {
   const content: { [className: string]: string }
   export default content
@@ -89,6 +139,9 @@ declare module '*.module.css' {
   export default content
 }
 
+/**
+ * MUI overrides types
+ */
 declare module '@mui/styles/defaultTheme' {
   interface DefaultTheme extends Theme {}
 }
