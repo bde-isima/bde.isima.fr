@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
@@ -8,12 +8,13 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Apps from '@mui/icons-material/AppsTwoTone'
 import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
 import Extension from '@mui/icons-material/ExtensionTwoTone'
+import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined'
 
 import Menu from './Menu'
 import Link from 'app/core/lib/Link'
 
 export default function ModulesMenu() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState(null)
   const isOpen = Boolean(anchorEl)
 
   const handleOpen = (event) => setAnchorEl(event.currentTarget)
@@ -52,6 +53,22 @@ export default function ModulesMenu() {
               color="textPrimary"
             >
               Élections BDE
+            </Typography>
+          </MenuItem>
+        </Link>
+
+        <Link href="/hub/modules/average">
+          <MenuItem className="p-2" onClick={handleClose}>
+            <ListItemIcon>
+              <CalculateOutlinedIcon />
+            </ListItemIcon>
+            <Typography
+              className="flex flex-grow items-center justify-center"
+              variant="subtitle2"
+              align="center"
+              color="textPrimary"
+            >
+              Calculez votre moyenne !
             </Typography>
           </MenuItem>
         </Link>
