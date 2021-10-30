@@ -1,57 +1,58 @@
-import { useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
-import TextField from '@mui/material/TextField'
+import { TextField } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment'
+import { SubjectData } from 'constants/modules/average/types'
 
-import { AverageContext } from './AverageForm'
+interface SubjectPropsType {
+  subjectData: SubjectData
+  setSubjectData: (subjectData: SubjectData) => void
+}
 
-function Subject(props: {
-  yearIndex: number
-  semesterIndex: number
-  sectorIndex: number
-  ueIndex: number
-  subjectIndex: number
-}) {
-  const { yearIndex, semesterIndex, sectorIndex, ueIndex, subjectIndex } = props
+function Subject({ subjectData, setSubjectData }: SubjectPropsType) {
+  const [subjectState, setSubjectState] = useState(subjectData)
+  const [markState, setMarkState] = useState<string>(
+    subjectState.mark ? subjectState.mark.toString() : ''
+  )
 
-  const averageContext = useContext(AverageContext)
-  const subject =
-    averageContext.data[yearIndex].semesters[semesterIndex].sectors[sectorIndex].ues[ueIndex]
-      .subjects[subjectIndex]
+  useEffect(() => {
+    setSubjectData(subjectState)
+  }, [subjectState])
 
-  const [mark, setMark] = useState<number | undefined>(subject.mark)
-
-  const handleMarkChange = (event) => {
-    if (event.target.valueAsNumber >= 0 && event.target.valueAsNumber <= 20) {
-      const newMark: number = event.target.valueAsNumber
-
-      averageContext.updateData(
-        yearIndex,
-        semesterIndex,
-        sectorIndex,
-        ueIndex,
-        subjectIndex,
-        newMark
-      )
-      setMark(newMark)
-    } else if (event.target.value == '') {
-      setMark(undefined)
+  useEffect(() => {
+    const newSubjectState = {
+      ...subjectState,
     }
-  }
+    if (markState === '') {
+      newSubjectState.mark = undefined
+    } else {
+      newSubjectState.mark = Number.parseInt(markState)
+
+      if (newSubjectState.mark < 0) {
+        newSubjectState.mark = 0
+        setMarkState('0')
+      } else if (newSubjectState.mark > 20) {
+        newSubjectState.mark = 20
+        setMarkState('20')
+      }
+    }
+
+    setSubjectState(newSubjectState)
+  }, [markState])
 
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        {subject.name}
+        {subjectData.name}
       </TableCell>
-      <TableCell>{subject.coef}</TableCell>
+      <TableCell>{subjectData.coef}</TableCell>
       <TableCell align="right">
         <TextField
           label="Note"
           id="filled-start-adornment"
-          value={mark}
-          onChange={handleMarkChange}
+          value={markState}
+          onChange={(evt) => setMarkState(evt.target.value)}
           type={'number'}
           InputProps={{
             endAdornment: <InputAdornment position="end">/ 20</InputAdornment>,
