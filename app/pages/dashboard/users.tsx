@@ -8,19 +8,23 @@ import upsertUser from 'app/entities/users/mutations/upsertUser'
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyUsers from 'app/entities/users/mutations/deleteManyUsers'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
+import ExportUsers from '../../components/dashboard/users/ExportUsers'
 
 const Users: BlitzPage = () => {
   return (
-    <Table
-      title="Membres"
-      columns={columns}
-      queryKey="users"
-      getQuery={getUsers}
-      queryArgs={{ include: { promotion: true } }}
-      upsertQuery={upsertUser}
-      deleteQuery={deleteManyUsers}
-      FormComponent={UserForm}
-    />
+    <>
+      <Table
+        title="Membres"
+        columns={columns}
+        queryKey="users"
+        getQuery={getUsers}
+        queryArgs={{ include: { promotion: true } }}
+        upsertQuery={upsertUser}
+        deleteQuery={deleteManyUsers}
+        FormComponent={UserForm}
+      />
+      <ExportUsers />
+    </>
   )
 }
 
