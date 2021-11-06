@@ -1,24 +1,21 @@
 import { useQuery } from 'blitz'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
-import getUsers from '../../../entities/users/queries/getUsers'
 import { Button } from '@mui/material'
 import xlsx from 'xlsx'
+import getPromotions from '../../../entities/promotions/queries/getPromotions'
 
-export default function ExportUsers() {
-  const [{ users }] = useQuery<any>(getUsers, {
+export default function ExportPromotions() {
+  const [{ promotions }] = useQuery<any>(getPromotions, {
     include: {
-      promotion: {
+      _count: {
         select: {
-          year: true,
+          User: true,
         },
       },
     },
-    where: {
-      is_enabled: true,
-    },
     orderBy: {
-      card: 'asc',
+      year: 'asc',
     },
   })
 
@@ -33,29 +30,26 @@ export default function ExportUsers() {
       CreatedDate: date,
     }
 
-    workBook.SheetNames.push('Utilisateurs')
+    workBook.SheetNames.push('Promotions')
 
     const workSheetData = [
-      ['Numéro carte', 'Prénom', 'Nom', 'Courriel', 'Promotion', 'Solde', 'Cotisant'],
-      ...users.map((user) => [
-        user.card,
-        user.firstname,
-        user.lastname,
-        user.email,
-        user.promotion ? user.promotion.year : 'N/A',
-        user.balance,
-        user.is_member ? 'Oui' : 'Non',
+      ['Année', 'ID Groupe Facebook', 'Liste de diffusion', "Nombre d'utilisateurs"],
+      ...promotions.map((promotion) => [
+        promotion.year,
+        promotion.fb_group_id,
+        promotion.list_email,
+        promotion._count.User,
       ]),
     ]
 
     const workSheet = xlsx.utils.aoa_to_sheet(workSheetData)
-    workBook.Sheets['Utilisateurs'] = workSheet
+    workBook.Sheets['Promotions'] = workSheet
 
-    workSheet['!autofilter'] = { ref: 'A1:G1' }
+    workSheet['!autofilter'] = { ref: 'A1:D1' }
 
     xlsx.writeFile(
       workBook,
-      `bde_isima_utilisateurs-${date.getFullYear()}-${
+      `bde_isima_promotions-${date.getFullYear()}-${
         date.getMonth() + 1
       }-${date.getDate()}_${date.getHours()}-${date.getMinutes()}.xlsx`
     )

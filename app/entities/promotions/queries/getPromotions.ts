@@ -2,12 +2,16 @@ import { resolver } from 'blitz'
 
 import db, { Prisma } from 'db'
 
-type GetPromotionsInput = Pick<Prisma.PromotionFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>
+type GetPromotionsInput = Pick<
+  Prisma.PromotionFindManyArgs,
+  'include' | 'where' | 'orderBy' | 'skip' | 'take'
+>
 
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
-  async ({ where, orderBy, skip = 0, take }: GetPromotionsInput) => {
+  async ({ include, where, orderBy, skip = 0, take }: GetPromotionsInput) => {
     const promotions = await db.promotion.findMany({
+      include,
       where,
       orderBy,
       take,
