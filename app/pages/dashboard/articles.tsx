@@ -8,18 +8,22 @@ import upsertArticle from 'app/entities/articles/mutations/upsertArticle'
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyArticles from 'app/entities/articles/mutations/deleteManyArticles'
+import ExportArticles from '../../components/dashboard/articles/ExportArticles'
 
 const Articles: BlitzPage = () => {
   return (
-    <Table
-      title="Marché"
-      columns={columns}
-      queryKey="articles"
-      getQuery={getArticles}
-      upsertQuery={upsertArticle}
-      deleteQuery={deleteManyArticles}
-      FormComponent={ArticleForm}
-    />
+    <>
+      <Table
+        title="Marché"
+        columns={columns}
+        queryKey="articles"
+        getQuery={getArticles}
+        upsertQuery={upsertArticle}
+        deleteQuery={deleteManyArticles}
+        FormComponent={ArticleForm}
+      />
+      <ExportArticles />
+    </>
   )
 }
 
