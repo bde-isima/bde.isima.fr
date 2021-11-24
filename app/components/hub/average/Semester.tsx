@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
-import SectorTable from './SectorTable'
+
 import { SectorData, SemesterData } from 'constants/modules/average/types'
 import { AverageModuleContext } from './AverageModule'
+import SectorTable from './SectorTable'
 
 interface SemesterPropsType {
   semesterIndex: number

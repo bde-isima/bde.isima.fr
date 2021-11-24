@@ -1,16 +1,18 @@
-import { SubjectData, UEData } from '../../../../constants/modules/average/types'
 import React, { useEffect, useState } from 'react'
-import TableRow from '@mui/material/TableRow'
+import Box from '@mui/material/Box'
+import Collapse from '@mui/material/Collapse'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import IconButton from '@mui/material/IconButton'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import Collapse from '@mui/material/Collapse'
-import Box from '@mui/material/Box'
-import Table from '@mui/material/Table'
-import TableHead from '@mui/material/TableHead'
-import TableBody from '@mui/material/TableBody'
+import IconButton from '@mui/material/IconButton'
+
 import Subject from './Subject'
+import { SubjectData, UEData } from 'constants/modules/average/types'
 
 interface UeTablePropsType {
   ueData: UEData
