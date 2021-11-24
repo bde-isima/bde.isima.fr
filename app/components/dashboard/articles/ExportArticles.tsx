@@ -22,10 +22,6 @@ export default function ExportArticles() {
 
     workBook.SheetNames.push('Articles')
 
-    console.log(articles)
-    console.log(articles[24].name)
-    console.log(articles[24].totalCount)
-
     const workSheetData = [
       [
         'Nom',
