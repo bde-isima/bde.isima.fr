@@ -1,9 +1,10 @@
 import { useQuery } from 'blitz'
-
-import TableChartIcon from '@mui/icons-material/TableChart'
 import { Button } from '@mui/material'
 import xlsx from 'xlsx'
-import getPromotions from '../../../entities/promotions/queries/getPromotions'
+
+import TableChartIcon from '@mui/icons-material/TableChart'
+
+import getPromotions from 'app/entities/promotions/queries/getPromotions'
 
 export default function ExportPromotions() {
   const [{ promotions }] = useQuery<any>(getPromotions, {

@@ -1,9 +1,10 @@
 import { useQuery } from 'blitz'
-
-import TableChartIcon from '@mui/icons-material/TableChart'
 import { Button } from '@mui/material'
 import xlsx from 'xlsx'
-import getArticlesWithStats from '../../../entities/articles/queries/getArticlesWithStats'
+
+import TableChartIcon from '@mui/icons-material/TableChart'
+
+import getArticlesWithStats from 'app/entities/articles/queries/getArticlesWithStats'
 
 export default function ExportArticles() {
   const [{ articles }] = useQuery<any>(getArticlesWithStats, {})

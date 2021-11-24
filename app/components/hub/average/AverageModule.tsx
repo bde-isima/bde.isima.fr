@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { InputLabel, MenuItem, Select } from '@mui/material'
+import FormControl from '@mui/material/FormControl'
+import Typography from '@mui/material/Typography'
 
 import AverageData from 'constants/modules/average/AverageData'
 import { YearData } from 'constants/modules/average/types'
-import FormControl from '@mui/material/FormControl'
-
 import Year from './Year'
-import Typography from '@mui/material/Typography'
 
 const importData = (): { averageData: YearData[]; currentYear: number; currentSector?: number } => {
   let data: any = localStorage.getItem('average_data')
