@@ -1,7 +1,7 @@
 import 'react-multi-carousel/lib/styles.css'
 
 import type { BlitzPage } from 'blitz'
-import { Suspense, SuspenseList, lazy } from 'react'
+import { Suspense, lazy } from 'react'
 
 import Landing from 'app/components/public/Landing'
 import getPublicNav from 'app/components/nav/public/getPublicNav'
@@ -15,7 +15,7 @@ const MessengerChat = lazy(() => import('app/components/public/MessengerChat'))
 
 const Index: BlitzPage = () => {
   return (
-    <SuspenseList revealOrder="forwards">
+    <>
       <Landing />
       <Suspense fallback={null}>
         <School />
@@ -35,7 +35,7 @@ const Index: BlitzPage = () => {
       <Suspense fallback={null}>
         <MessengerChat />
       </Suspense>
-    </SuspenseList>
+    </>
   )
 }
 
