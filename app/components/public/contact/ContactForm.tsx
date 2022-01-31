@@ -1,4 +1,4 @@
-import { TextField } from 'bde-isima-mui-rff'
+import { TextField } from 'mui-rff'
 
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import { ContactInput, ContactInputType } from 'app/components/forms/validations'

@@ -1,4 +1,4 @@
-import { Select } from 'bde-isima-mui-rff'
+import { Select } from 'mui-rff'
 import MuiCard from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import { useForm } from 'react-final-form'
