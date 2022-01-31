@@ -1,4 +1,3 @@
-import * as path from 'path'
 import withPWA from 'next-pwa'
 import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from 'blitz'
 

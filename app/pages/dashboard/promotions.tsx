@@ -7,18 +7,22 @@ import PromotionForm from 'app/components/dashboard/promotions/PromotionForm'
 import upsertPromotion from 'app/entities/promotions/mutations/upsertPromotion'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyPromotions from 'app/entities/promotions/mutations/deleteManyPromotions'
+import ExportPromotions from '../../components/dashboard/promotions/ExportPromotions'
 
 const Promotions: BlitzPage = () => {
   return (
-    <Table
-      title="Promotions"
-      columns={columns}
-      queryKey="promotions"
-      getQuery={getPromotions}
-      upsertQuery={upsertPromotion}
-      deleteQuery={deleteManyPromotions}
-      FormComponent={PromotionForm}
-    />
+    <>
+      <Table
+        title="Promotions"
+        columns={columns}
+        queryKey="promotions"
+        getQuery={getPromotions}
+        upsertQuery={upsertPromotion}
+        deleteQuery={deleteManyPromotions}
+        FormComponent={PromotionForm}
+      />
+      <ExportPromotions />
+    </>
   )
 }
 

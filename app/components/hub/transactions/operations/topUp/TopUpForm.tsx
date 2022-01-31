@@ -1,6 +1,6 @@
 import { Image } from 'blitz'
 import Button from '@mui/material/Button'
-import { TextField } from 'bde-isima-mui-rff'
+import { TextField } from 'mui-rff'
 import Typography from '@mui/material/Typography'
 
 import { PaymentMethod } from './TopUp'
