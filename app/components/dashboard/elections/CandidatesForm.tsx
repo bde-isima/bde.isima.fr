@@ -1,4 +1,4 @@
-import { TextField } from 'bde-isima-mui-rff'
+import { TextField } from 'mui-rff'
 import { useForm } from 'react-final-form'
 import Divider from '@mui/material/Divider'
 import FormGroup from '@mui/material/FormGroup'

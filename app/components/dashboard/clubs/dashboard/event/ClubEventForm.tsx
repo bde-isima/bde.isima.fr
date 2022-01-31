@@ -1,4 +1,4 @@
-import { TextField } from 'bde-isima-mui-rff'
+import { TextField } from 'mui-rff'
 import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'
 import { Field } from 'react-final-form'

@@ -1,4 +1,4 @@
-import { TextField } from 'bde-isima-mui-rff'
+import { TextField } from 'mui-rff'
 
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
