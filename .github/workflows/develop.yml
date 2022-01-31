@@ -34,14 +34,11 @@ jobs:
           envkey_LYDIA_API_VENDOR_ID: ${{ secrets.LYDIA_API_VENDOR_ID }}
           envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
-      - name: Cache node modules
-        uses: c-hive/gha-npm-cache@v1
-
-      - name: Install npm dependencies
-        run: npm install --progress=false
+      - name: Install dependencies
+        run: yarn
 
       - name: Run build task
-        run: npm run build
+        run: yarn build
 
       - name: Install Open VPN
         run: sudo apt-get install openvpn

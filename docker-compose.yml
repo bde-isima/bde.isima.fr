@@ -24,7 +24,7 @@ services:
       - ../bde.isima.fr:/usr/app
     networks:
       - bde-isima
-    command: npm start
+    command: yarn start
 
   bde_app_dev:
     container_name: bde_app_dev
@@ -35,7 +35,7 @@ services:
       - ../bde.dev.isima.fr:/usr/app
     networks:
       - bde-isima
-    command: npm start
+    command: yarn start
 
 networks:
   bde-isima:
