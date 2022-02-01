@@ -1,4 +1,4 @@
-import cuid from 'cuid'
+import cuid         from 'cuid'
 import { resolver } from 'blitz'
 
 import db, { Prisma } from 'db'
@@ -12,14 +12,18 @@ export default resolver.pipe(
   async ({ data }: CreateTransactionInput) => {
     const { userId, articleId, description } = data
 
-    const receiverUser = await db.user.findUnique({
-      where: { id: userId },
-      include: { userStats: true },
+    const article = await db.article.findUnique({
+      where: { id: articleId! },
       rejectOnNotFound: true,
     })
 
-    const article = await db.article.findUnique({
-      where: { id: articleId! },
+    if (article.quantity <= 0) {
+      throw new Error("Le produit n'est plus en stock.")
+    }
+
+    const receiverUser = await db.user.findUnique({
+      where: { id: userId },
+      include: { userStats: true },
       rejectOnNotFound: true,
     })
 
@@ -54,6 +58,12 @@ export default resolver.pipe(
       db.user.update({
         data: { balance: { decrement: amount } },
         where: { id: receiverUser.id },
+      }),
+
+      // Update quantity of the selected article
+      db.article.update({
+        data : { quantity: { decrement: 1 } },
+        where: { id: articleId! }
       }),
 
       // Update userStats of the user

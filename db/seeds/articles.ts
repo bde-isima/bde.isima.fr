@@ -8,6 +8,7 @@ const articles = async (db) => {
         price: parseFloat(faker.finance.amount()),
         member_price: parseFloat(faker.finance.amount()),
         image: faker.image.imageUrl(250, 250, undefined, false, true),
+        quantity: 10
       },
     })
   }

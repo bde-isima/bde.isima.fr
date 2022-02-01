@@ -19,6 +19,21 @@ const users = async (db) => {
     },
   })
 
+  await db.user.create({
+   data: {
+     id: '666',
+     lastname: 'Nguyen',
+     firstname: 'Damien',
+     nickname: 'vietdamien',
+     image: 'https://i.imgur.com/8Zz9s7l.jpeg',
+     email: 'damsng63@gmail.com',
+     card: 666,
+     balance: 1000,
+     roles: '*',
+     promotionId: promotion.id,
+   },
+ })
+
   for (let i = 0; i < 4; ++i) {
     await db.user.create({
       data: {

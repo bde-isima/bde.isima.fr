@@ -20,7 +20,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - 8080:80
+      - 8008:80
     env_file:
       - .env
     volumes:

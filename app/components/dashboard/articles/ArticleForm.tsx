@@ -37,6 +37,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         id: props.initialValues?.id,
         image: props.initialValues?.image,
         name: props.initialValues?.name,
+        quantity: props.initialValues?.quantity,
         price: props.initialValues?.price,
         member_price: props.initialValues?.member_price,
         is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
@@ -78,6 +79,7 @@ export default function ArticleForm(props: ArticleFormProps) {
       />
 
       <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
+      <EnhancedTextField type="number" name="quantity" label="Quantité" />
       <EnhancedTextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
       <EnhancedTextField
         type="number"
