@@ -97,6 +97,7 @@ model Article {
   image        String?
   is_enabled   Boolean @default(true)
   quantity     Int
+  min_quantity Int
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt

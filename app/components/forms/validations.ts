@@ -97,6 +97,8 @@ export const ArticleInput = z
       })
       .optional()
       .nullable(),
+    quantity: z.number().positive(),
+    min_quantity: z.number().positive(),
     price: z.number().positive(),
     member_price: z.number().positive(),
     is_enabled: z.boolean().optional(),
