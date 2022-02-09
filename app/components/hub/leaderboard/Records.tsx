@@ -19,7 +19,7 @@ export default function Records() {
 
   return (
     <>
-      {(leaderboard as any)?.data?.map((row) => {
+      {/*{(leaderboard as any)?.data?.map((row) => {
         const score = (user as any)?.userStats?.articlesStats[row.articleId] ?? 0
         return (
           <TableRow key={row.articleName}>
@@ -70,7 +70,7 @@ export default function Records() {
             </TableCell>
           </TableRow>
         )
-      })}
+      })}*/}
     </>
   )
 }
