@@ -1,14 +1,15 @@
 import { RouteUrlObject, PublicData, Routes, useAuthenticatedSession } from 'blitz'
 
-import Groups from '@mui/icons-material/GroupsTwoTone'
-import Public from '@mui/icons-material/PublicTwoTone'
-import School from '@mui/icons-material/SchoolTwoTone'
-import Fastfood from '@mui/icons-material/FastfoodTwoTone'
-import EventNote from '@mui/icons-material/EventNoteTwoTone'
-import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
-import AccountBox from '@mui/icons-material/AccountBoxTwoTone'
-import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
-import CalendarToday from '@mui/icons-material/CalendarTodayTwoTone'
+import Groups             from '@mui/icons-material/GroupsTwoTone'
+import Public             from '@mui/icons-material/PublicTwoTone'
+import School             from '@mui/icons-material/SchoolTwoTone'
+import Fastfood           from '@mui/icons-material/FastfoodTwoTone'
+import EventNote          from '@mui/icons-material/EventNoteTwoTone'
+import HowToVote          from '@mui/icons-material/HowToVoteTwoTone'
+import AccountBox         from '@mui/icons-material/AccountBoxTwoTone'
+import QueryStats         from '@mui/icons-material/QueryStatsTwoTone'
+import CalendarToday                                        from '@mui/icons-material/CalendarTodayTwoTone'
+import { ShoppingBag, ShoppingBagOutlined, ShoppingBasket } from "@mui/icons-material";
 
 export const config = [
   {
@@ -38,6 +39,13 @@ export const config = [
     to: '/dashboard/articles',
     only: ['*', 'bde'],
     isActive: (pathname: String) => pathname === '/dashboard/articles',
+  },
+  {
+    icon: <ShoppingBagOutlined />,
+    text: 'COURSES',
+    to: '/dashboard/shopping',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/shopping',
   },
   {
     icon: <AccountBox />,

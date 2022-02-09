@@ -44,7 +44,7 @@
     "@mui/icons-material": "^5.0.3",
     "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": "^5.0.3",
-    "@prisma/client": "^3.2.1",
+    "@prisma/client": "^3.9.0",
     "blitz": "^0.45.2",
     "cuid": "2.1.8",
     "date-fns": "^2.25.0",
