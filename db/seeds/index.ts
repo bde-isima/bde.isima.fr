@@ -7,12 +7,14 @@ import partners           from './partners'
 import promotions         from './promotions'
 import transactions       from './transactions'
 import eventSubscriptions from './eventSubscriptions'
-import analytics          from "./analytics";
+import analytics from './analytics';
+import services  from './services';
 
 async function main() {
   await analytics(db)
   await promotions(db)
   await clubs(db)
+  await services(db)
   await users(db)
   await events(db)
   await articles(db)

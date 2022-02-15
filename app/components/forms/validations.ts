@@ -85,6 +85,14 @@ export const ClubInput = z
   .partial()
 export type ClubInputType = z.infer<typeof ClubInput>
 
+export const ServiceInput = z
+  .object({
+    id: z.string().optional().nullable(),
+    startDate: z.date(),
+    endDate: z.date(),
+  })
+export type ServiceInputType = z.infer<typeof ServiceInput>
+
 export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),

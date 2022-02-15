@@ -166,6 +166,25 @@ model UserStats {
   updatedAt DateTime @updatedAt
 }
 
+model Service {
+  id String @id @default(cuid())
+
+  startDate DateTime
+  endDate   DateTime
+
+  participants User[] @relation("HolderService")
+}
+
+model ServiceHolder {
+  id String @id @default(cuid())
+
+  service   Service @relation(name: "HolderService", fields: [serviceId], references: [id])
+  serviceId String
+
+  user   User @relation(name: "HolderUser", fields: [userId], references: [id])
+  userId String
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -196,6 +215,8 @@ model User {
   Transaction       Transaction[]       @relation("TransactionEmitter")
   LoginRequest      LoginRequest[]
   VoteRequest       VoteRequest[]
+
+  meetings Service[] @relation("HolderUser")
 }
 
 model Session {
