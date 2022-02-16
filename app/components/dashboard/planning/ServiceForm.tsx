@@ -1,13 +1,5 @@
-import { Image } from 'blitz'
-import { TextField, Switches } from 'mui-rff'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
-
 import { Service }                        from 'db'
 import { Form, FORM_ERROR }               from 'app/components/forms/Form'
-import EnhancedTextField                  from 'app/components/forms/EnhancedTextfield'
 import { ServiceInput, ServiceInputType } from 'app/components/forms/validations'
 import MuiTextField                       from "@mui/material/TextField";
 import DateTimePicker                     from "@mui/lab/DateTimePicker";
@@ -15,6 +7,9 @@ import AdapterDateFns                     from "@mui/lab/AdapterDateFns";
 import frLocale                           from "date-fns/locale/fr";
 import { Field }                          from "react-final-form";
 import LocalizationProvider               from "@mui/lab/LocalizationProvider";
+import ParticipantForm                    from "./ParticipantForm";
+import arrayMutators                      from "final-form-arrays";
+import { useMemo }                        from "react";
 
 type ServiceFormProps = {
   initialValues: Service | null
@@ -25,6 +20,7 @@ type ServiceFormProps = {
 export default function ServiceForm(props: ServiceFormProps) {
   const onSubmit = async (values) => {
     try {
+      values.participants = values.participants.filter(x => x);
       await props.onSuccess(values)
     } catch (error) {
       return {
@@ -33,7 +29,22 @@ export default function ServiceForm(props: ServiceFormProps) {
     }
   }
 
+  const initialValues = useMemo(() => ({
+      id          : props.initialValues?.id,
+      startDate   : props.initialValues?.startDate,
+      endDate     : props.initialValues?.endDate,
+      participants: props.initialValues?.participants ?? [],
+    }),
+    [
+      props.initialValues?.id,
+      props.initialValues?.startDate,
+      props.initialValues?.endDate,
+      props.initialValues?.participants,
+    ]
+  )
+
   const onDateChange = (onChange) => (newDate) => onChange(newDate)
+  const dateFormat   = 'JJ/MM/AAAA hh:mm';
 
   return (
     <Form
@@ -41,11 +52,8 @@ export default function ServiceForm(props: ServiceFormProps) {
       variant="dialog"
       onClose={props.onClose}
       schema={ServiceInput}
-      initialValues={{
-        id: props.initialValues?.id,
-        startDate: props.initialValues?.startDate,
-        endDate: props.initialValues?.endDate,
-      }}
+      mutators={{ ...arrayMutators }}
+      initialValues={initialValues}
       onSubmit={onSubmit}
       autoComplete="off"
     >
@@ -58,7 +66,7 @@ export default function ServiceForm(props: ServiceFormProps) {
               value={props.input.value}
               onChange={onDateChange(props.input.onChange)}
               renderInput={(tfProps) => (
-                <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />
+                <MuiTextField {...props} {...tfProps} helperText={dateFormat} fullWidth/>
               )}
             />
           )}
@@ -70,13 +78,13 @@ export default function ServiceForm(props: ServiceFormProps) {
               value={props.input.value}
               onChange={onDateChange(props.input.onChange)}
               renderInput={(tfProps) => (
-                <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA hh:mm" fullWidth />
+                <MuiTextField {...props} {...tfProps} helperText={dateFormat} fullWidth/>
               )}
             />
           )}
         </Field>
       </LocalizationProvider>
-      {/*TODO: date pickers*/}
+      <ParticipantForm/>
     </Form>
   )
 }

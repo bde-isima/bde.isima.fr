@@ -28,16 +28,22 @@ Planning.authenticate               = { redirectTo: Routes.Login() }
 Planning.redirectAuthenticatedTo    = redirectAuthenticatedTo(Routes.Planning())
 Planning.getLayout                  = (page) => getDashboardNav(page, 'Gestion des plannings')
 
-const columns = [
+const dateFormat = 'dd/MM/yyyy - HH:mm';
+const columns    = [
+  {
+    id: 'participants',
+    headerName: 'Participants',
+    render: (row) => row.participants.join(' - '),
+  },
   {
     id        : 'startDate',
     headerName: "Début de la permanence",
-    render    : (row) => format(row.startDate, 'dd/MM/yyyy - HH:mm'),
+    render    : (row) => format(row.startDate, dateFormat),
   },
   {
     id        : 'endDate',
     headerName: 'Fin de la permanence',
-    render    : (row) => format(row.endDate, 'dd/MM/yyyy - HH:mm'),
+    render    : (row) => format(row.endDate, dateFormat),
   },
 ]
 
