@@ -43,8 +43,12 @@ const columns = [
   },
   {
     id            : 'name',
-    headerName    : 'Name',
+    headerName    : 'Nom du produit',
     searchCriteria: 'contains',
+  },
+  {
+    id            : 'price',
+    headerName    : 'Prix',
   },
 ]
 

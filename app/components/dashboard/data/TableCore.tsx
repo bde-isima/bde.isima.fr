@@ -1,10 +1,9 @@
-import { useQuery } from 'blitz'
-import { useEffect } from 'react'
-import { Dispatch, SetStateAction } from 'react'
-import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
+import { useQuery }                            from 'blitz'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import TableRow                                from '@mui/material/TableRow'
+import TableCell                               from '@mui/material/TableCell'
 
-import TableRows from './TableRows'
+import TableRows         from './TableRows'
 import { useTableProps } from './TablePropsProvider'
 
 type TableCoreProps = {
@@ -21,26 +20,36 @@ type TableCoreProps = {
 }
 
 export default function TableCore(props: TableCoreProps) {
-  const { order, orderBy, page, search, rowsPerPage } = useTableProps()
+  const { order, orderBy, page, search, rowsPerPage }                                 = useTableProps()
   const { rows, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props
 
-  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== 'equals')
+  const columnContains = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria === 'contains')
+  const columnHas      = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria === 'has')
+
+  let or = [
+    ...columnHas.map((x) => ({
+      [x.id]: {
+        [x.searchCriteria]: search.value,
+      },
+    })),
+    ...columnContains.map((x) => ({
+      [x.id]: {
+        [x.searchCriteria]: search.value,
+        mode              : 'insensitive',
+      },
+    }))
+  ];
 
   const [res] = useQuery(getQuery, {
-    skip: page.value * rowsPerPage,
-    take: rowsPerPage,
+    skip   : page.value * rowsPerPage,
+    take   : rowsPerPage,
     orderBy: { [orderBy.value]: order.value },
-    ...(filteringColumns.length > 0
+    ...(columnContains.length > 0 || columnHas.length > 0
       ? {
-          where: {
-            OR: filteringColumns.map((x) => ({
-              [x.id]: {
-                [x.searchCriteria]: search.value,
-                mode: 'insensitive',
-              },
-            })),
-          },
-        }
+        where: {
+          OR: or,
+        },
+      }
       : {}),
     ...queryArgs,
   })
@@ -50,12 +59,12 @@ export default function TableCore(props: TableCoreProps) {
   }, [onSuccess, res])
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length)
-  const colSpan =
-    columns.length +
-    (actions?.length ?? 0) +
-    Number(Boolean(allowCopy)) +
-    Number(Boolean(onEdit)) +
-    1
+  const colSpan   =
+          columns.length +
+          (actions?.length ?? 0) +
+          Number(Boolean(allowCopy)) +
+          Number(Boolean(onEdit)) +
+          1
 
   return (
     <>
@@ -63,7 +72,7 @@ export default function TableCore(props: TableCoreProps) {
 
       {[...Array(emptyRows).keys()].map((x) => (
         <TableRow key={x} style={{ height: 81 }}>
-          <TableCell colSpan={colSpan} />
+          <TableCell colSpan={colSpan}/>
         </TableRow>
       ))}
     </>

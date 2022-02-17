@@ -8,18 +8,52 @@ import deleteManyServices          from "../../entities/planning/mutations/delet
 import Table                       from "../../components/dashboard/data/Table";
 import upsertService               from "../../entities/planning/mutations/upsertService";
 import ServiceForm                 from 'app/components/dashboard/planning/ServiceForm'
+import { Checkbox }                from "@mui/material";
+import { useState }                from "react";
 
 const Planning: BlitzPage = () => {
+  const defaultArgs     = {
+    where: {
+      AND: {
+        endDate: {
+          gte: new Date()
+        }
+      }
+    }
+  }
+  const [args, setArgs] = useState(defaultArgs as any)
+
+  const onChecked = (event) => {
+    setArgs(
+      !event.target.checked
+        ? defaultArgs
+        : undefined
+    )
+  }
+
+  const displayOldLabel = 'Afficher les permanences passées'
+
   return (
-    <Table
-      title="Permanences"
-      columns={columns}
-      queryKey="services"
-      getQuery={getServices}
-      upsertQuery={upsertService}
-      deleteQuery={deleteManyServices}
-      FormComponent={ServiceForm}
-    />
+    <>
+      <Table
+        title="Permanences"
+        columns={columns}
+        queryArgs={args}
+        queryKey="services"
+        getQuery={getServices}
+        upsertQuery={upsertService}
+        deleteQuery={deleteManyServices}
+        FormComponent={ServiceForm}
+      />
+      <div>
+        <span className='text-secondary'>{displayOldLabel}</span>
+        <Checkbox
+          color="default"
+          inputProps={{ 'aria-label': displayOldLabel }}
+          onChange={onChecked}
+        />
+      </div>
+    </>
   )
 }
 
@@ -31,9 +65,10 @@ Planning.getLayout                  = (page) => getDashboardNav(page, 'Gestion d
 const dateFormat = 'dd/MM/yyyy - HH:mm';
 const columns    = [
   {
-    id: 'participants',
-    headerName: 'Participants',
-    render: (row) => row.participants.join(' - '),
+    id            : 'participants',
+    headerName    : 'Participants',
+    searchCriteria: 'has',
+    render        : (row) => row.participants.join(' - '),
   },
   {
     id        : 'startDate',
