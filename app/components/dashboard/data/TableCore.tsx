@@ -23,34 +23,28 @@ export default function TableCore(props: TableCoreProps) {
   const { order, orderBy, page, search, rowsPerPage }                                 = useTableProps()
   const { rows, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props
 
-  const columnContains = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria === 'contains')
-  const columnHas      = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria === 'has')
+  const filtering = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria !== 'equals')
 
-  let or = [
-    ...columnHas.map((x) => ({
-      [x.id]: {
-        [x.searchCriteria]: search.value,
-      },
-    })),
-    ...columnContains.map((x) => ({
-      [x.id]: {
-        [x.searchCriteria]: search.value,
-        mode              : 'insensitive',
-      },
-    }))
-  ];
+  const map = {
+    'contains': { // for string columns
+      contains: search.value,
+      mode : 'insensitive'
+    },
+    'has': {      // for array columns
+      has: search.value
+    }
+  }
+
+  let or = filtering.map((x) => ({
+      [x.id]: map[x.searchCriteria]
+  }))
 
   const [res] = useQuery(getQuery, {
     skip   : page.value * rowsPerPage,
     take   : rowsPerPage,
-    orderBy: { [orderBy.value]: order.value },
-    ...(columnContains.length > 0 || columnHas.length > 0
-      ? {
-        where: {
-          OR: or,
-        },
-      }
-      : {}),
+    orderBy: {
+      [orderBy.value]: order.value },
+    ...(filtering.length ? { where: { OR: or, }, } : {}),
     ...queryArgs,
   })
 

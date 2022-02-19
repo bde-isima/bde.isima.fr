@@ -17,8 +17,12 @@ export default resolver.pipe(
       sep = ' OR '
     }
 
+    if (whereStr) {
+      whereStr = ` AND ${whereStr}`
+    }
+
     const articles = await db.$queryRaw<Article[]>(
-      Prisma.sql([`SELECT * FROM "Article" WHERE quantity <= min_quantity AND ${whereStr}`])
+      Prisma.sql([`SELECT * FROM "Article" WHERE quantity <= min_quantity${whereStr}`])
     )
 
     const count    = articles.length
