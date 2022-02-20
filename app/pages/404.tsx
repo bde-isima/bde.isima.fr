@@ -22,12 +22,12 @@ function Page404() {
       <div className="flex flex-col min-h-main justify-center items-center">
         <Image src={notFound} width={500} height={500} alt={title} quality={100} />
 
-        <Typography variant="h4" paragraph>
+        <Typography variant="h4" paragraph color="textPrimary">
           {title}
         </Typography>
 
-        <Typography className="mb-4" variant="h6">
-          T&apos;es pas là pour être ici !
+        <Typography className="mb-4" variant="h6" color="textPrimary">
+          Il se trouve que tu te soit perdu
         </Typography>
 
         <Link href="/">
