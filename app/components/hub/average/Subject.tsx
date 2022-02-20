@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
-
 import InputAdornment from '@mui/material/InputAdornment'
-import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 
-import { SubjectData } from 'constants/modules/average/types'
+import { SubjectData } from 'global'
 
 interface SubjectPropsType {
   subjectData: SubjectData

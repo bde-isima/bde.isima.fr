@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 
-import { SectorData, SemesterData } from 'constants/modules/average/types'
+import { SectorData, SemesterData } from 'global'
 import { AverageModuleContext } from './AverageModule'
 import SectorTable from './SectorTable'
 

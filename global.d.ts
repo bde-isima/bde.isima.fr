@@ -57,34 +57,42 @@ export interface EventSubscriptionWithTypedCart extends Omit<EventSubscription, 
 /**
  * Average computing related types
  */
-export interface SubjectData {
+interface AverageStoredData {
+  averageData: YearData[],
+  currentYear: number,
+  currentSector?: number
+}
+
+interface SubjectData {
   name: string
   coef: number
   mark?: number
 }
 
-export interface UEData {
+interface UEData {
   name: string
   subjects: SubjectData[]
   ects: number
   average?: number
 }
 
-export interface SectorData {
+interface SectorData {
   name: string
   ues: UEData[]
+
   isCurrent?: boolean
   average?: number
 }
 
-export interface SemesterData {
+interface SemesterData {
   sectors: SectorData[]
   average?: number
 }
 
-export interface Year {
+interface YearData {
   name: string
   semesters: SemesterData[]
+
   isCurrent?: boolean
   average?: number
 }

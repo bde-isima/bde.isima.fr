@@ -4,15 +4,17 @@ db_migrated_file="dev/.db-migrated"
 
 set -e
 
-npm i
+yarn install
 
 if [ ! -f $db_migrated_file ]
 then
     npx blitz prisma migrate dev -n initial
-    npx prisma db seed ./db/seeds/index.ts
+#    npx prisma db seed ./db/seeds/index.ts
     date > $db_migrated_file
 else
     echo "No migration needed"
 fi
 
-npm run dev
+npx prisma migrate reset
+
+yarn dev

@@ -1,4 +1,4 @@
-import { SemesterData, Year } from 'global'
+import { SemesterData, YearData } from 'global'
 
 const semester1: SemesterData = {
   sectors: [
@@ -447,7 +447,7 @@ const semester2: SemesterData = {
   ],
 }
 
-const zz2: Year = {
+const zz2: YearData = {
   name: 'ZZ2',
   semesters: [semester1, semester2],
 }

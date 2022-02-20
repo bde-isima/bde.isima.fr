@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import IconButton from '@mui/material/IconButton'
 
-import { SubjectData, UEData } from 'constants/modules/average/types'
+import { SubjectData, UEData } from 'global'
 import Subject from './Subject'
 
 interface UeTablePropsType {

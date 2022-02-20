@@ -41,7 +41,7 @@ export default function ModulesMenu() {
 
         <Divider className="my-2" />
 
-        <Link href="/hub/average">
+        <Link href="/hub/modules/average">
           <MenuItem className="p-2" onClick={handleClose}>
             <ListItemIcon>
               <Calculate />

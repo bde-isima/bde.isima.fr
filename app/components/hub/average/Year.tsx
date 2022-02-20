@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-
-import { YearData } from 'constants/modules/average/types'
+import { YearData } from 'global'
 import Semester from './Semester'
 
 interface SemestersPropsType {

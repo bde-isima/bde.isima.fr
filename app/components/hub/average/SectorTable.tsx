@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 
-import { SectorData, UEData } from 'constants/modules/average/types'
+import { SectorData, UEData } from 'global'
 import UeTable from './UeTable'
 
 interface SectorTablePropsType {

@@ -1,19 +1,16 @@
-import Grid from '@mui/material/Grid'
-import { BlitzPage, Routes } from 'blitz'
-import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
-import AverageModule from 'app/components/hub/average/AverageModule'
-import getHubNav from '../../../components/nav/hub/getHubNav'
-import ElectionsIndex from '../elections'
+import { BlitzPage, Routes } from 'blitz'
+import Paper from '@mui/material/Paper'
 
-const AverageIndex: BlitzPage = () => {
+import AverageModule from 'app/components/hub/average/AverageModule'
+import getHubNav from 'app/components/nav/hub/getHubNav'
+
+const Average: BlitzPage = () => {
   return (
-    <div className="flex flex-col">
-      <Typography variant="h4" paragraph align="right" color="textPrimary">
+    <Paper className="p-4 mb-10">
+      <Typography variant="h4" paragraph>
         Calculateur de moyenne
       </Typography>
-
-      <Divider className="m-4" />
 
       <Typography color="textSecondary" variant="caption" paragraph>
         Séléctionnez votre année, remplissez le tableau et votre moyenne sera calculée. <br />
@@ -22,12 +19,12 @@ const AverageIndex: BlitzPage = () => {
       </Typography>
 
       <AverageModule />
-    </div>
+    </Paper>
   )
 }
 
-AverageIndex.suppressFirstRenderFlicker = true
-AverageIndex.authenticate = { redirectTo: Routes.Login() }
-AverageIndex.getLayout = (page) => getHubNav(page, 'Calculateur de moyenne')
+Average.suppressFirstRenderFlicker = true
+Average.authenticate = { redirectTo: Routes.Login() }
+Average.getLayout = (page) => getHubNav(page, 'Calculateur de moyenne')
 
-export default AverageIndex
+export default Average

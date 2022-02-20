@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
-import { YearData, AverageStoredData } from 'constants/modules/average/types'
-import AverageData from 'constants/modules/average/AverageData'
+import AverageData from 'app/components/hub/average/data'
+import { YearData, AverageStoredData } from 'global'
 import Year from 'app/components/hub/average/Year'
 
 const importData = (): AverageStoredData => {
@@ -143,8 +143,10 @@ function AverageModule() {
   return (
     <AverageModuleContext.Provider value={averageFormState}>
       <div>
-        {yearInput}
-        {sectorInput}
+        <div className="my-2">
+          {yearInput}
+          {sectorInput}
+        </div>
 
         <Year
           yearData={currentYear}
