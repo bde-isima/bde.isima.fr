@@ -22,7 +22,7 @@ function Page404() {
       <div className="flex flex-col min-h-main justify-center items-center">
         <Image src={notFound} width={500} height={500} alt={title} quality={100} />
 
-        <Typography variant="h4" paragraph color="textPrimary">
+        <Typography variant="h4" paragraph color="textPrimary" color="textPrimary">
           {title}
         </Typography>
 
