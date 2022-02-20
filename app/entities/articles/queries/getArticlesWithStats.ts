@@ -1,3 +1,4 @@
+import { subDays, subMonths, subYears } from 'date-fns';
 import { resolver } from 'blitz'
 import db, { Prisma } from 'db'
 
@@ -10,28 +11,13 @@ interface ArticleWithStatsPayload extends Prisma.ArticleGetPayload<{}> {
 
 export type ArticleWithStatsOutputType = {
   articles: ArticleWithStatsPayload[],
-  nextPage: number | null,
-  hasMore: boolean,
-  count: number,
 }
 
 export default resolver.pipe(resolver.authorize(['*', 'bde']), async (): Promise<ArticleWithStatsOutputType> => {
   const todayDate = new Date()
-  const lastWeekDate = new Date(
-    todayDate.getFullYear(),
-    todayDate.getMonth(),
-    todayDate.getDate() - 7
-  )
-  const lastMonthDate = new Date(
-    todayDate.getFullYear(),
-    todayDate.getMonth() - 1,
-    todayDate.getDate()
-  )
-  const lastYearDate = new Date(
-    todayDate.getFullYear() - 1,
-    todayDate.getMonth(),
-    todayDate.getDate()
-  )
+  const lastWeekDate = subDays(todayDate, 7)
+  const lastMonthDate = subMonths(todayDate, 1)
+  const lastYearDate = subYears(todayDate, 1)
 
   const articles = await db.$queryRaw<ArticleWithStatsPayload[]>`
       SELECT
@@ -70,14 +56,7 @@ export default resolver.pipe(resolver.authorize(['*', 'bde']), async (): Promise
       ORDER BY "Article"."name"
     `
 
-  const count = articles.length ?? 0
-  const hasMore = false
-  const nextPage = null
-
   return {
     articles,
-    nextPage,
-    hasMore,
-    count,
   }
 })

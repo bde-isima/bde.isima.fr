@@ -5,6 +5,8 @@ import Button from '@mui/material/Button'
 import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getPromotions from 'app/entities/promotions/queries/getPromotions'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 
 export default function ExportPromotions() {
   const [{ promotions }] = useQuery(getPromotions, {
@@ -62,3 +64,24 @@ export default function ExportPromotions() {
     </Button>
   )
 }
+
+export function ExportPromotionsFallback() {
+  return (
+    <Box sx={{ m: 1, position: 'relative' }}>
+      <Button disabled endIcon={<TableChartIcon />} variant={'contained'}>
+        Exporter vers Excel
+      </Button>
+      <CircularProgress
+        size={25}
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginTop: '-12px',
+          marginLeft: '-12px',
+        }}
+      />
+    </Box>
+  );
+}
+

@@ -7,7 +7,8 @@ import PromotionForm from 'app/components/dashboard/promotions/PromotionForm'
 import upsertPromotion from 'app/entities/promotions/mutations/upsertPromotion'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyPromotions from 'app/entities/promotions/mutations/deleteManyPromotions'
-import ExportPromotions from '../../components/dashboard/promotions/ExportPromotions'
+import ExportPromotions, { ExportPromotionsFallback } from '../../components/dashboard/promotions/ExportPromotions'
+import { Suspense } from 'react'
 
 const Promotions: BlitzPage = () => {
   return (
@@ -21,7 +22,10 @@ const Promotions: BlitzPage = () => {
         deleteQuery={deleteManyPromotions}
         FormComponent={PromotionForm}
       />
-      <ExportPromotions />
+
+      <Suspense fallback={<ExportPromotionsFallback/>}>
+        <ExportPromotions />
+      </Suspense>
     </>
   )
 }

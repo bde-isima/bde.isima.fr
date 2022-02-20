@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import { Image, BlitzPage, Routes } from 'blitz'
 
@@ -8,7 +9,7 @@ import upsertUser from 'app/entities/users/mutations/upsertUser'
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import deleteManyUsers from 'app/entities/users/mutations/deleteManyUsers'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
-import ExportUsers from '../../components/dashboard/users/ExportUsers'
+import ExportUsers, { ExportUserFallback } from 'app/components/dashboard/users/ExportUsers'
 
 const Users: BlitzPage = () => {
   return (
@@ -23,7 +24,10 @@ const Users: BlitzPage = () => {
         deleteQuery={deleteManyUsers}
         FormComponent={UserForm}
       />
-      <ExportUsers />
+
+      <Suspense fallback={<ExportUserFallback/>}>
+        <ExportUsers />
+      </Suspense>
     </>
   )
 }

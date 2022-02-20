@@ -4,6 +4,8 @@ import Button from '@mui/material/Button'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
 
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import getArticlesWithStats from 'app/entities/articles/queries/getArticlesWithStats'
 
 export default function ExportArticles() {
@@ -66,3 +68,24 @@ export default function ExportArticles() {
     </Button>
   )
 }
+
+export function ExportArticlesFallback() {
+  return (
+    <Box sx={{ m: 1, position: 'relative' }}>
+      <Button disabled endIcon={<TableChartIcon />} variant={'contained'}>
+        Exporter vers Excel
+      </Button>
+      <CircularProgress
+        size={25}
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginTop: '-12px',
+          marginLeft: '-12px',
+        }}
+      />
+    </Box>
+  );
+}
+

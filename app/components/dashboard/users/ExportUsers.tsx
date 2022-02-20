@@ -5,6 +5,8 @@ import Button from '@mui/material/Button'
 import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getUsers from 'app/entities/users/queries/getUsers'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 export default function ExportUsers() {
   const [{ users }] = useQuery(getUsers, {
@@ -24,7 +26,7 @@ export default function ExportUsers() {
   })
 
   const exportToExcel = () => {
-    const date = new Date(Date.now())
+    const date = new Date()
 
     const workBook = xlsx.utils.book_new()
 
@@ -67,4 +69,24 @@ export default function ExportUsers() {
       Exporter vers Excel
     </Button>
   )
+}
+
+export function ExportUserFallback() {
+  return (
+    <Box sx={{ m: 1, position: 'relative' }}>
+      <Button disabled endIcon={<TableChartIcon />} variant={'contained'}>
+        Exporter vers Excel
+      </Button>
+      <CircularProgress
+        size={25}
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          marginTop: '-12px',
+          marginLeft: '-12px',
+        }}
+      />
+    </Box>
+  );
 }

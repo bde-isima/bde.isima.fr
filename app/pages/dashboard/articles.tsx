@@ -8,7 +8,8 @@ import upsertArticle from 'app/entities/articles/mutations/upsertArticle'
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
 import deleteManyArticles from 'app/entities/articles/mutations/deleteManyArticles'
-import ExportArticles from '../../components/dashboard/articles/ExportArticles'
+import ExportArticles, { ExportArticlesFallback } from 'app/components/dashboard/articles/ExportArticles'
+import { Suspense } from 'react'
 
 const Articles: BlitzPage = () => {
   return (
@@ -22,7 +23,10 @@ const Articles: BlitzPage = () => {
         deleteQuery={deleteManyArticles}
         FormComponent={ArticleForm}
       />
-      <ExportArticles />
+
+      <Suspense fallback={<ExportArticlesFallback />}>
+        <ExportArticles />
+      </Suspense>
     </>
   )
 }
