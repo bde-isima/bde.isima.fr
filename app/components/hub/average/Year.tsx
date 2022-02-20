@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { YearData } from 'constants/modules/average/types'
 import Semester from './Semester'

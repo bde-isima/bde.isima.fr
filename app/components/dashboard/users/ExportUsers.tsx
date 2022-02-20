@@ -1,13 +1,13 @@
-import { useQuery } from 'blitz'
-import { Button } from '@mui/material'
 import xlsx from 'xlsx'
+import { useQuery } from 'blitz'
+import Button from '@mui/material/Button'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getUsers from 'app/entities/users/queries/getUsers'
 
 export default function ExportUsers() {
-  const [{ users }] = useQuery<any>(getUsers, {
+  const [{ users }] = useQuery(getUsers, {
     include: {
       promotion: {
         select: {

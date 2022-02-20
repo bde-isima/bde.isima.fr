@@ -1,3 +1,9 @@
+interface AverageStoredData {
+  averageData: YearData[],
+  currentYear: number,
+  currentSector?: number
+}
+
 interface SubjectData {
   name: string
   coef: number
@@ -32,4 +38,4 @@ interface YearData {
   average?: number
 }
 
-export type { SubjectData, UEData, SectorData, SemesterData, YearData }
+export type { AverageStoredData, SubjectData, UEData, SectorData, SemesterData, YearData }

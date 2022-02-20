@@ -1,14 +1,22 @@
 import { resolver } from 'blitz'
-
 import db, { Prisma } from 'db'
 
-type GetArticlesInput = Pick<
-  Prisma.ArticleFindManyArgs,
-  'include' | 'where' | 'orderBy' | 'skip' | 'take'
->
+interface ArticleWithStatsPayload extends Prisma.ArticleGetPayload<{}> {
+  weekCount: number,
+  monthCount: number,
+  yearCount: number,
+  totalCount: number,
+}
 
-export default resolver.pipe(resolver.authorize(['*', 'bde']), async () => {
-  const todayDate = new Date(Date.now())
+export type ArticleWithStatsOutputType = {
+  articles: ArticleWithStatsPayload[],
+  nextPage: number | null,
+  hasMore: boolean,
+  count: number,
+}
+
+export default resolver.pipe(resolver.authorize(['*', 'bde']), async (): Promise<ArticleWithStatsOutputType> => {
+  const todayDate = new Date()
   const lastWeekDate = new Date(
     todayDate.getFullYear(),
     todayDate.getMonth(),
@@ -25,16 +33,16 @@ export default resolver.pipe(resolver.authorize(['*', 'bde']), async () => {
     todayDate.getDate()
   )
 
-  const articles = await db.$queryRaw<any>`
+  const articles = await db.$queryRaw<ArticleWithStatsPayload[]>`
       SELECT
-       "Article"."id",
-       "Article"."name",
-       "Article"."price",
-       "Article"."member_price",
-       "Article"."image",
-       "Article"."is_enabled",
-       "Article"."createdAt",
-       "Article"."updatedAt",
+       "Article"."id" AS "id",
+       "Article"."name" AS "name",
+       "Article"."price" AS "price",
+       "Article"."member_price" AS "member_price",
+       "Article"."image" AS "image",
+       "Article"."is_enabled" AS "is_enabled",
+       "Article"."createdAt" AS "createdAt",
+       "Article"."updatedAt" AS "updatedAt",
        week.count AS "weekCount",
        month.count AS "monthCount",
        year.count AS "yearCount",

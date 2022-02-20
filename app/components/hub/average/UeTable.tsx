@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import Box from '@mui/material/Box'
-import Collapse from '@mui/material/Collapse'
-import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
+import Collapse from '@mui/material/Collapse'
 import TableRow from '@mui/material/TableRow'
+import { useEffect, useState } from 'react'
+import Table from '@mui/material/Table'
+import Box from '@mui/material/Box'
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import IconButton from '@mui/material/IconButton'
 
-import Subject from './Subject'
 import { SubjectData, UEData } from 'constants/modules/average/types'
+import Subject from './Subject'
 
 interface UeTablePropsType {
   ueData: UEData
@@ -23,7 +23,7 @@ const UeTable = ({ ueData, setUeData }: UeTablePropsType) => {
   const [ueState, setUeState] = useState(ueData)
   const [averageState, setAverageState] = useState(ueState.average)
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setUeData({

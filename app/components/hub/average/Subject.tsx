@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { TextField } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
+import { TextField } from '@mui/material'
 
 import { SubjectData } from 'constants/modules/average/types'
 

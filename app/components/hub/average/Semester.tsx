@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 
 import { SectorData, SemesterData } from 'constants/modules/average/types'

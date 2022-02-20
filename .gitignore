@@ -55,3 +55,7 @@ lib-cov
 
 .idea
 .vercel
+
+dev/.db-migrated
+dev/data/db
+dev/data/pg4admin

@@ -1,4 +1,4 @@
-import { SubjectData, UEData, SectorData, SemesterData, YearData } from './types'
+import { SemesterData, YearData } from './types'
 
 const ZZ3_Semester1: SemesterData = {
   sectors: [

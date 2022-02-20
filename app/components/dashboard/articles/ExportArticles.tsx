@@ -1,16 +1,16 @@
-import { useQuery } from 'blitz'
-import { Button } from '@mui/material'
 import xlsx from 'xlsx'
+import { useQuery } from 'blitz'
+import Button from '@mui/material/Button'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getArticlesWithStats from 'app/entities/articles/queries/getArticlesWithStats'
 
 export default function ExportArticles() {
-  const [{ articles }] = useQuery<any>(getArticlesWithStats, {})
+  const [{ articles }] = useQuery(getArticlesWithStats, {})
 
   const exportToExcel = () => {
-    const date = new Date(Date.now())
+    const date = new Date()
 
     const workBook = xlsx.utils.book_new()
 
@@ -29,10 +29,10 @@ export default function ExportArticles() {
         'Prix cotisants',
         'Visible',
         'Ajouté le',
-        'Nombre vente dernière semaine',
-        'Nombre vente dernier mois',
-        'Nombre vente dernière année',
-        'Nombre vente total',
+        'Total ventes (semaine)',
+        'Total ventes (mois)',
+        'Total ventes (année)',
+        'Total ventes',
       ],
       ...articles.map((article) => [
         article.name,
@@ -61,7 +61,7 @@ export default function ExportArticles() {
   }
 
   return (
-    <Button endIcon={<TableChartIcon />} variant={'contained'} onClick={exportToExcel}>
+    <Button endIcon={<TableChartIcon />} variant="contained" onClick={exportToExcel}>
       Exporter vers Excel
     </Button>
   )

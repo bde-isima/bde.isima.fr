@@ -1,13 +1,13 @@
-import { useQuery } from 'blitz'
-import { Button } from '@mui/material'
 import xlsx from 'xlsx'
+import { useQuery } from 'blitz'
+import Button from '@mui/material/Button'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getPromotions from 'app/entities/promotions/queries/getPromotions'
 
 export default function ExportPromotions() {
-  const [{ promotions }] = useQuery<any>(getPromotions, {
+  const [{ promotions }] = useQuery(getPromotions, {
     include: {
       _count: {
         select: {
@@ -21,7 +21,7 @@ export default function ExportPromotions() {
   })
 
   const exportToExcel = () => {
-    const date = new Date(Date.now())
+    const date = new Date()
 
     const workBook = xlsx.utils.book_new()
 

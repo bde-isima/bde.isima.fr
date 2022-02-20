@@ -1,25 +1,26 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { InputLabel, MenuItem, Select } from '@mui/material'
+import { createContext, useEffect, useState } from 'react'
 import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
 
+import { YearData, AverageStoredData } from 'constants/modules/average/types'
 import AverageData from 'constants/modules/average/AverageData'
-import { YearData } from 'constants/modules/average/types'
-import Year from './Year'
+import Year from 'app/components/hub/average/Year'
 
-const importData = (): { averageData: YearData[]; currentYear: number; currentSector?: number } => {
-  let data: any = localStorage.getItem('average_data')
-  if (data === null) {
-    data = {
-      averageData: AverageData,
-      currentYear: 0,
-      currentSector: undefined,
-    }
-  } else {
-    data = JSON.parse(data)
+const importData = (): AverageStoredData => {
+  const storedData: string | null = localStorage.getItem('average_data')
+
+  if (storedData !== null) {
+    return JSON.parse(storedData)
   }
 
-  return data
+  return {
+    averageData: AverageData,
+    currentYear: 0,
+    currentSector: undefined,
+  }
 }
 
 const saveData = (averageData: YearData[], currentYear: number, currentSector?: number) => {
