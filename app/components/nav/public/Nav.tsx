@@ -71,13 +71,7 @@ export default function Nav() {
           )}
 
           <Link className="mx-auto lg:ml-0" href="/">
-            <Image
-              className="rounded-full"
-              src={logo}
-              width={40}
-              height={40}
-              alt="Logo BDE ISIMA"
-            />
+            <Image src={logo} width={40} height={40} alt="Logo BDE ISIMA" />
           </Link>
 
           {!fullScreen && <Desktop />}
