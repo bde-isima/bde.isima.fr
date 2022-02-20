@@ -6,6 +6,7 @@ import TableChartIcon from '@mui/icons-material/TableChart'
 
 import getUsers from 'app/entities/users/queries/getUsers'
 import CircularProgress from '@mui/material/CircularProgress'
+import { Promotion, User } from '@prisma/client'
 import Box from '@mui/material/Box'
 
 export default function ExportUsers() {
@@ -40,7 +41,7 @@ export default function ExportUsers() {
 
     const workSheetData = [
       ['Numéro carte', 'Prénom', 'Nom', 'Courriel', 'Promotion', 'Solde', 'Cotisant'],
-      ...users.map((user) => [
+      ...users.map((user: User & { promotion: Promotion }) => [
         user.card,
         user.firstname,
         user.lastname,

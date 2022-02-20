@@ -4,9 +4,10 @@ import Button from '@mui/material/Button'
 
 import TableChartIcon from '@mui/icons-material/TableChart'
 
-import getPromotions from 'app/entities/promotions/queries/getPromotions'
 import Box from '@mui/material/Box'
+import { Promotion } from '@prisma/client'
 import CircularProgress from '@mui/material/CircularProgress'
+import getPromotions from 'app/entities/promotions/queries/getPromotions'
 
 export default function ExportPromotions() {
   const [{ promotions }] = useQuery(getPromotions, {
@@ -37,7 +38,7 @@ export default function ExportPromotions() {
 
     const workSheetData = [
       ['Année', 'ID Groupe Facebook', 'Liste de diffusion', "Nombre d'utilisateurs"],
-      ...promotions.map((promotion) => [
+      ...promotions.map((promotion: Promotion & { _count: { User: number }}) => [
         promotion.year,
         promotion.fb_group_id,
         promotion.list_email,
