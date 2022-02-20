@@ -1,13 +1,13 @@
-import { createContext, useEffect, useState } from 'react'
-import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
+import FormControl from '@mui/material/FormControl'
+import { createContext, useEffect, useState } from 'react'
 
-import AverageData from 'app/components/hub/average/data'
-import { YearData, AverageStoredData } from 'global'
 import Year from 'app/components/hub/average/Year'
+import { YearData, AverageStoredData } from 'global'
+import AverageData from 'app/components/hub/average/data'
 
 const importData = (): AverageStoredData => {
   const storedData: string | null = localStorage.getItem('average_data')

@@ -1,15 +1,15 @@
-import TableContainer from '@mui/material/TableContainer'
-import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import { useEffect, useState } from 'react'
+import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { useEffect, useState } from 'react'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
+import Typography from '@mui/material/Typography'
+import TableContainer from '@mui/material/TableContainer'
 
-import { SectorData, UEData } from 'global'
 import UeTable from './UeTable'
+import { SectorData, UEData } from 'global'
 
 interface SectorTablePropsType {
   sectorData: SectorData

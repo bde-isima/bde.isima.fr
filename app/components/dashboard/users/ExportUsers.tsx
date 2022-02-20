@@ -1,13 +1,12 @@
 import xlsx from 'xlsx'
 import { useQuery } from 'blitz'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-
+import { Promotion, User } from '@prisma/client'
 import TableChartIcon from '@mui/icons-material/TableChart'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import getUsers from 'app/entities/users/queries/getUsers'
-import CircularProgress from '@mui/material/CircularProgress'
-import { Promotion, User } from '@prisma/client'
-import Box from '@mui/material/Box'
 
 export default function ExportUsers() {
   const [{ users }] = useQuery(getUsers, {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { YearData } from 'global'
 import Semester from './Semester'
 

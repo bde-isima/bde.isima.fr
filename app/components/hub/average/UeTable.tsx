@@ -1,18 +1,18 @@
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import { useEffect, useState } from 'react'
+import Collapse from '@mui/material/Collapse'
+import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
-import Collapse from '@mui/material/Collapse'
-import TableRow from '@mui/material/TableRow'
-import { useEffect, useState } from 'react'
-import Table from '@mui/material/Table'
-import Box from '@mui/material/Box'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import IconButton from '@mui/material/IconButton'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
-import { SubjectData, UEData } from 'global'
 import Subject from './Subject'
+import { SubjectData, UEData } from 'global'
 
 interface UeTablePropsType {
   ueData: UEData

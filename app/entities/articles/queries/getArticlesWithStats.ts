@@ -1,6 +1,6 @@
-import { subDays, subMonths, subYears } from 'date-fns';
 import { resolver } from 'blitz'
 import db, { Prisma } from 'db'
+import { subDays, subMonths, subYears } from 'date-fns';
 
 interface ArticleWithStatsPayload extends Prisma.ArticleGetPayload<{}> {
   weekCount: number,
