@@ -15,6 +15,4 @@ else
     echo "No migration needed"
 fi
 
-npx prisma migrate reset
-
 yarn dev
