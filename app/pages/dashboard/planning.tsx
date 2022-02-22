@@ -7,9 +7,9 @@ import getServices                 from "../../entities/planning/queries/getServ
 import deleteManyServices          from "../../entities/planning/mutations/deleteManyServices";
 import Table                       from "../../components/dashboard/data/Table";
 import upsertService               from "../../entities/planning/mutations/upsertService";
-import ServiceForm                 from 'app/components/dashboard/planning/ServiceForm'
-import { Checkbox }                from "@mui/material";
-import { useState }                from "react";
+import ServiceForm              from 'app/components/dashboard/planning/ServiceForm'
+import { Checkbox, Typography } from "@mui/material";
+import { useState }             from "react";
 
 const Planning: BlitzPage = () => {
   const defaultArgs     = {
@@ -46,9 +46,16 @@ const Planning: BlitzPage = () => {
         FormComponent={ServiceForm}
       />
       <div>
-        <span className='text-secondary'>{displayOldLabel}</span>
+        <Typography
+          variant="subtitle2"
+          display="inline-flex"
+          align="justify"
+          color="textPrimary"
+        >
+          {displayOldLabel}
+        </Typography>
         <Checkbox
-          color="default"
+          color="primary"
           inputProps={{ 'aria-label': displayOldLabel }}
           onChange={onChecked}
         />

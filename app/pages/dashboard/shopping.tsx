@@ -47,6 +47,10 @@ const columns = [
     searchCriteria: 'contains',
   },
   {
+    id            : 'quantity',
+    headerName    : 'Quantité restante',
+  },
+  {
     id            : 'price',
     headerName    : 'Prix',
   },
