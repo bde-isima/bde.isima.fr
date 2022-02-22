@@ -27,7 +27,7 @@ function Page404() {
         </Typography>
 
         <Typography className="mb-4" variant="h6" color="textPrimary">
-          Il se trouve que tu te soit perdu
+          T&apos;es pas là pour être ici !
         </Typography>
 
         <Link href="/">
