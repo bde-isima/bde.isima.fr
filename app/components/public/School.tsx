@@ -5,7 +5,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
 import Link from '@mui/icons-material/LinkTwoTone'
-import isima from 'public/static/images/logos/isima.png'
+import isima from 'public/static/images/logos/inp-isima.svg'
 import school from 'public/static/images/illustrations/School.svg'
 
 export default function School() {
