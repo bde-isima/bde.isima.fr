@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <svg version="1.1" width="234" height="100" viewBox="0 0 714 305" xmlns="http://www.w3.org/2000/svg">
+=======
+<<<<<<< HEAD
+<svg version="1.1" viewBox="0 0 256 100" xmlns="http://www.w3.org/2000/svg">
+>>>>>>> 3b0fb48 (Updating visuals (#21))
   <style>
     #inp-col {
       fill: #0e1c4c;
