@@ -16,7 +16,7 @@ export default resolver.pipe(
         eventId: where?.id,
         userId: includeSub?.where?.userId,
         payment_method: PaymentMethod.BDE,
-        cart: [],
+        cart: []
       }
     }
 

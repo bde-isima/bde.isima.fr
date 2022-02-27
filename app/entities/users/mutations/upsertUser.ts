@@ -27,8 +27,8 @@ export default resolver.pipe(
               userId: newUser.id,
               token,
               callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`,
-              expires: inAWeek,
-            },
+              expires: inAWeek
+            }
           }),
           mail.send({
             subject,
@@ -37,9 +37,9 @@ export default resolver.pipe(
             variables: {
               subject,
               firstname: newUser.firstname,
-              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
-            },
-          }),
+              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+            }
+          })
         ])
       } catch (err) {
         console.log(err)
@@ -64,11 +64,11 @@ export default resolver.pipe(
                 nickname: user.nickname,
                 image: user.image,
                 email: user.email,
-                card: user.card,
-              }),
-            },
-          },
-        }),
+                card: user.card
+              })
+            }
+          }
+        })
       ])
     }
   }

@@ -19,8 +19,8 @@ export default resolver.pipe(async ({ subject, message, email }: ContactInput) =
       variables: {
         subject,
         message,
-        email,
-      },
+        email
+      }
     })
   } catch (err) {
     console.log(err)

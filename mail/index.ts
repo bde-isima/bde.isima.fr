@@ -17,8 +17,8 @@ export const mail = {
       port: Number(process.env.SMTP_PORT),
       auth: {
         user: `${process.env.SMTP_USER}@gmail.com`,
-        pass: process.env.SMTP_PASSWORD,
-      },
+        pass: process.env.SMTP_PASSWORD
+      }
     }
 
     const mailTransport = nodemailer.createTransport(mailConfig)
@@ -31,11 +31,11 @@ export const mail = {
         html: compileView({
           subject,
           view,
-          variables,
-        }),
+          variables
+        })
       })
     } catch (e) {
       console.error(e?.response?.body || e)
     }
-  },
+  }
 }

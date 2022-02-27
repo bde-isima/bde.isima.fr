@@ -18,13 +18,13 @@ export default resolver.pipe(
             ...update.candidates,
             update: (update.candidates?.connectOrCreate as any[])?.map((x) => ({
               data: x.create,
-              where: x.where,
-            })),
-          },
+              where: x.where
+            }))
+          }
         },
-        create,
+        create
       }),
-      db.user.findMany({ where: { promotion: { isNot: null }, is_member: true } }),
+      db.user.findMany({ where: { promotion: { isNot: null }, is_member: true } })
     ])
 
     const voteRequests = await Promise.all(
@@ -33,15 +33,15 @@ export default resolver.pipe(
           data: {
             userId: v.id,
             electionId: election.id,
-            voteToken: cuid(),
-          },
+            voteToken: cuid()
+          }
         })
       })
     )
 
     return {
       election,
-      voteRequests,
+      voteRequests
     }
   }
 )
