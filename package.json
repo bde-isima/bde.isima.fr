@@ -34,7 +34,7 @@
     "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": "^5.0.3",
     "@prisma/client": "^3.2.1",
-    "blitz": "^0.45.2",
+    "blitz": "0.45.3",
     "cuid": "2.1.8",
     "date-fns": "^2.25.0",
     "filefy": "^0.1.11",
@@ -85,7 +85,7 @@
     "ts-node": "^10.2.1"
   },
   "engines": {
-    "node": "16.13.2"
+    "node": "16.x"
   },
   "engineStrict": true,
   "lint-staged": {

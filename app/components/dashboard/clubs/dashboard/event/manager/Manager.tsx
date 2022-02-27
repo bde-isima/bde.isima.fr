@@ -9,7 +9,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useState, Suspense, SuspenseList, lazy } from 'react'
+import { useState, Suspense, lazy } from 'react'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
 import Close from '@mui/icons-material/CloseTwoTone'
@@ -66,25 +66,23 @@ export default function Manager({ open, event, onClose }) {
           </DialogTitle>
 
           <DialogContent>
-            <SuspenseList revealOrder="forwards">
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel value="0">
-                  <SubscriptionsAnalytics eventSubscriptions={data?.eventSubscriptions} />
-                </TabPanel>
-              </Suspense>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+              <TabPanel value="0">
+                <SubscriptionsAnalytics eventSubscriptions={data?.eventSubscriptions} />
+              </TabPanel>
+            </Suspense>
 
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel value="1">
-                  <SubscriptionsList event={event} eventSubscriptions={data?.eventSubscriptions} />
-                </TabPanel>
-              </Suspense>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+              <TabPanel value="1">
+                <SubscriptionsList event={event} eventSubscriptions={data?.eventSubscriptions} />
+              </TabPanel>
+            </Suspense>
 
-              <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-                <TabPanel value="2">
-                  <SubscriptionRecap eventSubscriptions={data?.eventSubscriptions} />
-                </TabPanel>
-              </Suspense>
-            </SuspenseList>
+            <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
+              <TabPanel value="2">
+                <SubscriptionRecap eventSubscriptions={data?.eventSubscriptions} />
+              </TabPanel>
+            </Suspense>
           </DialogContent>
 
           <DialogActions className="p-0">

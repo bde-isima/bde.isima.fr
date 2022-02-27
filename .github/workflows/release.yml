@@ -1,0 +1,54 @@
+name: Build and Push Image
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  release:
+    name: Build and push image
+    environment: Development
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          envkey_SESSION_SECRET_KEY: ${{ secrets.SESSION_SECRET_KEY }}
+          envkey_LYDIA_API_VENDOR_ID: ${{ secrets.LYDIA_API_VENDOR_ID }}
+          envkey_NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
+          envkey_NEXT_PUBLIC_LYDIA_API_URL: ${{ secrets.NEXT_PUBLIC_LYDIA_API_URL }}
+          envkey_NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN: ${{ secrets.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN }}
+          envkey_NEXT_PUBLIC_GA_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GA_TRACKING_ID }}
+          envkey_SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          envkey_SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          envkey_SMTP_USER: ${{ secrets.SMTP_USER }}
+          envkey_SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          envkey_SMTP_CONTACT: ${{ secrets.SMTP_CONTACT }}
+          envkey_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push container image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/bde-isima/bde.isima.fr/${{ github.ref }}:latest
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
