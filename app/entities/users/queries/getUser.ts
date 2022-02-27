@@ -9,7 +9,7 @@ export default resolver.pipe(
   async ({ where }: FindUniqueUserInput) => {
     return await db.user.findFirst({
       where,
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
   }
 )

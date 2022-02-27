@@ -8,8 +8,8 @@ const eventSubscriptions = async (db) => {
           event: { connect: { id: e.id } },
           user: { connect: { id: '123456789' } },
           payment_method: 'BDE',
-          cart: [],
-        },
+          cart: []
+        }
       })
     )
   )

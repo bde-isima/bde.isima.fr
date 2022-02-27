@@ -5,7 +5,7 @@ import db from 'db'
 import { mail } from 'mail'
 import {
   LoginWithCallbackInput,
-  LoginWithCallbackInputType,
+  LoginWithCallbackInputType
 } from 'app/components/forms/validations'
 
 export default resolver.pipe(
@@ -25,7 +25,7 @@ export default resolver.pipe(
       try {
         await Promise.all([
           db.loginRequest.create({
-            data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes },
+            data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes }
           }),
           mail.send({
             subject,
@@ -34,9 +34,9 @@ export default resolver.pipe(
             variables: {
               subject,
               firstname: user.firstname,
-              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`,
-            },
-          }),
+              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+            }
+          })
         ])
       } catch (err) {
         console.log(err)

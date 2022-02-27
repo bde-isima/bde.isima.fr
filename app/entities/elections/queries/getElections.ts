@@ -14,7 +14,7 @@ export default resolver.pipe(
       orderBy,
       take,
       skip,
-      include,
+      include
     })
 
     const count = await db.election.count({ where })
@@ -25,7 +25,7 @@ export default resolver.pipe(
       elections,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

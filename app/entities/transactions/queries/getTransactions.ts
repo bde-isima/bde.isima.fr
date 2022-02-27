@@ -18,7 +18,7 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
+      skip
     })
 
     const count = await db.transaction.count({ where })
@@ -29,7 +29,7 @@ export default resolver.pipe(
       transactions,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

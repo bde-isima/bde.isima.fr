@@ -10,21 +10,21 @@ export default resolver.pipe(
     const event = await db.event.findUnique({
       where: { id: data.event?.connect?.id },
       include: { club: true },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     ctx.session.$authorize(['*', 'bde', event.club.name])
 
     const user = await db.user.findUnique({
       where: { id: data.user?.connect?.id },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     const existingSub = await db.eventSubscription.findFirst({
       where: {
         eventId: event.id,
-        userId: user.id,
-      },
+        userId: user.id
+      }
     })
 
     if (existingSub) {

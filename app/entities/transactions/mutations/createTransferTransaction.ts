@@ -25,12 +25,12 @@ export default resolver.pipe(
 
     const receiverUser = await db.user.findUnique({
       where: { id: data?.user?.connect?.id },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     const emitterUser = await db.user.findUnique({
       where: { id: data?.emitter?.connect?.id },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     if (amount > emitterUser.balance) {
@@ -46,8 +46,8 @@ export default resolver.pipe(
           type: 'CREDIT',
           userId: receiverUser.id,
           emitterId: emitterUser.id,
-          prevBalance: receiverUser.balance,
-        },
+          prevBalance: receiverUser.balance
+        }
       }),
 
       // Create DEBIT transaction for the emitter
@@ -57,21 +57,21 @@ export default resolver.pipe(
           description,
           type: 'DEBIT',
           userId: emitterUser.id,
-          prevBalance: emitterUser.balance,
-        },
+          prevBalance: emitterUser.balance
+        }
       }),
 
       // Update balance of the receiver
       db.user.update({
         data: { balance: { increment: data.amount } },
-        where: { id: receiverUser.id },
+        where: { id: receiverUser.id }
       }),
 
       // Update balance of the emitter
       db.user.update({
         data: { balance: { decrement: data.amount } },
-        where: { id: emitterUser.id },
-      }),
+        where: { id: emitterUser.id }
+      })
     ])
 
     return transactionsAndUsers
