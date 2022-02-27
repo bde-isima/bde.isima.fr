@@ -13,23 +13,23 @@ const config: BlitzConfig = withPWA({
     optimizeCss: true,
     optimizeImages: true,
     scrollRestoration: true,
-    isomorphicResolverImports: true,
+    isomorphicResolverImports: true
   },
   future: {
-    strictPostcssConfiguration: true,
+    strictPostcssConfiguration: true
   },
   middleware: [
     sessionMiddleware({
       cookiePrefix: 'bde-isima',
-      isAuthorized: simpleRolesIsAuthorized,
-    }),
+      isAuthorized: simpleRolesIsAuthorized
+    })
   ],
   images: {
-    domains: ['placeimg.com', 'i.imgur.com'],
+    domains: ['placeimg.com', 'i.imgur.com']
   },
   pwa: {
     disable: process.env.NODE_ENV === 'development',
-    dest: 'public',
+    dest: 'public'
   },
   poweredByHeader: false,
   async headers() {
@@ -39,16 +39,16 @@ const config: BlitzConfig = withPWA({
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
       },
       {
         source: '/(.*)',
-        headers: securityHeaders,
-      },
+        headers: securityHeaders
+      }
     ]
-  },
+  }
 })
 
 // https://securityheaders.com
@@ -68,38 +68,38 @@ const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
     key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, ''),
+    value: ContentSecurityPolicy.replace(/\n/g, '')
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
   {
     key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin',
+    value: 'origin-when-cross-origin'
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
   {
     key: 'X-Frame-Options',
-    value: 'DENY',
+    value: 'DENY'
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
   {
     key: 'X-Content-Type-Options',
-    value: 'nosniff',
+    value: 'nosniff'
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
   {
     key: 'X-DNS-Prefetch-Control',
-    value: 'on',
+    value: 'on'
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
   {
     key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubDomains; preload',
+    value: 'max-age=31536000; includeSubDomains; preload'
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=()',
-  },
+    value: 'camera=(), microphone=(), geolocation=()'
+  }
 ]
 
 module.exports = config

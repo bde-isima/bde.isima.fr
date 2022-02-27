@@ -9,7 +9,7 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetClubs
     where,
     orderBy,
     take,
-    skip,
+    skip
   })
 
   const count = await db.club.count({ where })
@@ -20,6 +20,6 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetClubs
     clubs,
     nextPage,
     hasMore,
-    count,
+    count
   }
 })

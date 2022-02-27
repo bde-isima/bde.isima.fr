@@ -6,7 +6,7 @@ import templates from './templates'
 export const compileView = ({
   subject,
   view,
-  variables,
+  variables
 }: {
   subject: string
   view: string
@@ -16,6 +16,6 @@ export const compileView = ({
 
   return Handlebars.compile(viewContent.html)({
     subject,
-    ...variables,
+    ...variables
   })
 }

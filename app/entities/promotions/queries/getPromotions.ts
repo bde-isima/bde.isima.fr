@@ -11,7 +11,7 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
+      skip
     })
 
     const count = await db.promotion.count({ where })
@@ -22,7 +22,7 @@ export default resolver.pipe(
       promotions,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

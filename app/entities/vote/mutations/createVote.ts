@@ -20,7 +20,7 @@ export default resolver.pipe(resolver.authorize(), async ({ data }: CreateVoteIn
   //Request vote by token so we get the real voter (the session can be the one of the proxy voter)
   const realVoterRequest = await db.voteRequest.findUnique({
     where: { voteToken: data.voteToken },
-    include: { election: true },
+    include: { election: true }
   })
 
   if (!realVoterRequest) {
@@ -45,7 +45,7 @@ export default resolver.pipe(resolver.authorize(), async ({ data }: CreateVoteIn
     const proxyVoterRequests = await db.voteRequest.findMany({
       where: { userId: ctx.session.userId, electionId: realVoterRequest.electionId },
       include: { election: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'desc' }
     })
 
     if (proxyVoterRequests.length === 0) {
@@ -62,7 +62,7 @@ export default resolver.pipe(resolver.authorize(), async ({ data }: CreateVoteIn
     //Increase by one the number of proxy vote done by this user
     await db.voteRequest.update({
       data: { proxyVoteCount: { increment: 1 } },
-      where: { id: proxyVoterRequest.id },
+      where: { id: proxyVoterRequest.id }
     })
   }
 
@@ -71,7 +71,7 @@ export default resolver.pipe(resolver.authorize(), async ({ data }: CreateVoteIn
 
   //Insert a new vote unlinked from the voter or the proxy voter
   const newVote = await db.vote.create({
-    data: { ...data, electionId: realVoterRequest.electionId },
+    data: { ...data, electionId: realVoterRequest.electionId }
   })
 
   return newVote

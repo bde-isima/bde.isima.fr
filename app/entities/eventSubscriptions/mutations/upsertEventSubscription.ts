@@ -1,11 +1,11 @@
-import { resolver } from "blitz"
+import { resolver } from 'blitz'
 
-import db, { Prisma } from "db"
-import { assertArrayNonEmpty } from "app/core/utils/assert"
+import db, { Prisma } from 'db'
+import { assertArrayNonEmpty } from 'app/core/utils/assert'
 
 type upsertEventSubscriptionInput = Pick<
   Prisma.EventSubscriptionUpsertArgs,
-  "where" | "create" | "update"
+  'where' | 'create' | 'update'
 >
 
 export default resolver.pipe(
@@ -13,26 +13,26 @@ export default resolver.pipe(
   async ({ where, create, update }: upsertEventSubscriptionInput) => {
     const event = await db.event.findUnique({
       where: { id: create.event?.connect?.id },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     if (event.products.length > 0) {
-      assertArrayNonEmpty("Le panier", create.cart)
+      assertArrayNonEmpty('Le panier', create.cart)
     }
 
     const eventSubscriptions = await db.eventSubscription.count({
       where: {
         eventId: create.event?.connect?.id,
-        userId: { not: create.user?.connect?.id },
-      },
+        userId: { not: create.user?.connect?.id }
+      }
     })
 
     if (event.max_subscribers && event.max_subscribers <= eventSubscriptions) {
-      throw new Error("Événement plein")
+      throw new Error('Événement plein')
     }
 
     if (new Date() > event.subscriptions_end_at) {
-      throw new Error("Inscriptions closes")
+      throw new Error('Inscriptions closes')
     }
 
     return await db.eventSubscription.upsert({ where, update, create })
