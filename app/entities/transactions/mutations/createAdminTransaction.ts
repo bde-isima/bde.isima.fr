@@ -11,7 +11,7 @@ export default resolver.pipe(
   async ({ data }: CreateTransactionInput) => {
     const user = await db.user.findUnique({
       where: { id: data?.user?.connect?.id },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     const amount = Math.abs(data.amount)
@@ -23,15 +23,15 @@ export default resolver.pipe(
           ...data,
           type: data.amount > 0 ? 'CREDIT' : 'DEBIT',
           amount,
-          prevBalance: user.balance,
-        },
+          prevBalance: user.balance
+        }
       }),
 
       // Update balance of the receiver
       db.user.update({
         data: { balance: { [data.amount > 0 ? 'increment' : 'decrement']: amount } },
-        where: { id: data?.user?.connect?.id },
-      }),
+        where: { id: data?.user?.connect?.id }
+      })
     ])
 
     return transactionAndUser

@@ -14,7 +14,7 @@ export default resolver.pipe(
     return await db.user.findUnique({
       where: { id: session.userId },
       include,
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
   }
 )

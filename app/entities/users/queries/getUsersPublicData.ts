@@ -16,8 +16,8 @@ export default resolver.pipe(
         firstname: true,
         lastname: true,
         nickname: true,
-        card: true,
-      },
+        card: true
+      }
     })
 
     const count = await db.user.count({ where })
@@ -28,7 +28,7 @@ export default resolver.pipe(
       users,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

@@ -18,12 +18,12 @@ function getLeader(users: UserWithStats[], article: Article): any {
 
 ;(async () => {
   const articles = await db.article.findMany({
-    where: { is_enabled: true },
+    where: { is_enabled: true }
   })
 
   const users = await db.user.findMany({
     where: { is_enabled: true },
-    include: { userStats: true },
+    include: { userStats: true }
   })
 
   const data = articles.map((a) => {
@@ -34,14 +34,14 @@ function getLeader(users: UserWithStats[], article: Article): any {
       articleName: a.name,
       unitsNb: leader ? leader.userStats.articlesStats[a.id] : 0,
       leaderName: leader ? leader?.nickname ?? `${leader.lastname} ${leader.firstname}` : null,
-      leaderImage: leader ? leader?.image : null,
+      leaderImage: leader ? leader?.image : null
     }
   })
 
   const analytic = await db.analytic.upsert({
     create: { tag, data },
     update: { data },
-    where: { tag },
+    where: { tag }
   })
 
   db.$disconnect()

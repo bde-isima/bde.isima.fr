@@ -9,7 +9,7 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetPartn
     where,
     orderBy,
     take,
-    skip,
+    skip
   })
 
   const count = await db.partner.count({ where })
@@ -20,6 +20,6 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetPartn
     partners,
     nextPage,
     hasMore,
-    count,
+    count
   }
 })

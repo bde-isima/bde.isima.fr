@@ -15,7 +15,7 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
+      skip
     })
 
     const count = await db.voteRequest.count({ where })
@@ -26,7 +26,7 @@ export default resolver.pipe(
       voteRequests,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )
