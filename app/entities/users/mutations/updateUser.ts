@@ -28,15 +28,15 @@ export default resolver.pipe(
             nickname: user.nickname,
             image: user.image,
             email: user.email,
-            card: user.card,
-          }),
-        },
-      },
+            card: user.card
+          })
+        }
+      }
     })
 
     return {
       user,
-      sessions,
+      sessions
     }
   }
 )

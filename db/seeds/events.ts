@@ -1,4 +1,4 @@
-import faker from 'faker'
+import faker from '@faker-js/faker'
 
 const events = async (db) => {
   const club = await db.club.findFirst()
@@ -12,14 +12,14 @@ const events = async (db) => {
         {
           name: 'Mozzarella',
           description: 'Lorem ipsum',
-          price: 3,
+          price: 3
         },
         {
           name: 'Peperroni',
           description: 'Lorem ipsum',
-          price: 2.5,
-        },
-      ],
+          price: 2.5
+        }
+      ]
     },
     {
       name: 'Type de pâte',
@@ -28,15 +28,15 @@ const events = async (db) => {
         {
           name: 'Medium',
           description: 'Lorem ipsum',
-          price: 0,
+          price: 0
         },
         {
           name: 'Medium Cheezy Crust',
           description: 'Lorem ipsum',
-          price: 2,
-        },
-      ],
-    },
+          price: 2
+        }
+      ]
+    }
   ]
 
   for (let i = 2; i < 7; ++i) {
@@ -58,16 +58,16 @@ const events = async (db) => {
             name: 'Provençale',
             description: 'Lorem ipsum',
             price: 5,
-            groupOptions,
+            groupOptions
           },
           {
             name: 'Chicken BBQ',
             description: 'Lorem ipsum',
             price: 0.5,
-            groupOptions,
-          },
-        ],
-      },
+            groupOptions
+          }
+        ]
+      }
     })
   }
 }

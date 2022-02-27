@@ -8,7 +8,7 @@ export default resolver.pipe(async ({ where }: DeleteEventSubscriptionInput, ctx
   const eventSubscription = await db.eventSubscription.findUnique({
     where,
     include: { event: { include: { club: true } } },
-    rejectOnNotFound: true,
+    rejectOnNotFound: true
   })
 
   // If the request is done by another person than the subscriber, check for admin rights

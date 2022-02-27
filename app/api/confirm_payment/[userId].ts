@@ -20,7 +20,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     signed,
     transaction_identifier,
     vendor_token,
-    sig,
+    sig
   } = body
 
   const signature = md5(
@@ -42,7 +42,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       await Promise.all([
         db.user.update({
           where: { id },
-          data: { balance: { increment: tAmount } },
+          data: { balance: { increment: tAmount } }
         }),
         db.transaction.create({
           data: {
@@ -50,9 +50,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
             description: `Rechargement +${tAmount} €`,
             type: 'CREDIT',
             user: { connect: { id } },
-            prevBalance: user.balance,
-          },
-        }),
+            prevBalance: user.balance
+          }
+        })
       ])
 
       console.log('Rechargement effectué')
@@ -66,8 +66,8 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
 export const config = {
   api: {
-    bodyParser: false,
-  },
+    bodyParser: false
+  }
 }
 
 export default handler

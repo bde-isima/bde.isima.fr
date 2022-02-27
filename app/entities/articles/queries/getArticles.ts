@@ -15,7 +15,7 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
+      skip
     })
 
     const count = await db.article.count({ where })
@@ -26,7 +26,7 @@ export default resolver.pipe(
       articles,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

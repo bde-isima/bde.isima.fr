@@ -8,7 +8,7 @@ export default resolver.pipe(async ({ where, data }: UpdateEventSubscriptionInpu
   const eventSubscription = await db.eventSubscription.findUnique({
     where,
     include: { event: { include: { club: true } } },
-    rejectOnNotFound: true,
+    rejectOnNotFound: true
   })
 
   ctx.session.$authorize(['*', 'bde', eventSubscription.event.club.name])

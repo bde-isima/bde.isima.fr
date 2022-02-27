@@ -1,4 +1,4 @@
-import faker from 'faker'
+import faker from '@faker-js/faker'
 
 const partners = async (db) => {
   for (let i = 0; i < 7; ++i) {
@@ -6,8 +6,8 @@ const partners = async (db) => {
       data: {
         name: faker.lorem.word(),
         description: faker.lorem.sentence(),
-        image: faker.image.imageUrl(250, 250, undefined, false, true),
-      },
+        image: faker.image.imageUrl(250, 250, undefined, false, true)
+      }
     })
   }
 }
