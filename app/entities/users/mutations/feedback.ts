@@ -19,8 +19,8 @@ export default resolver.pipe(
         variables: {
           subject: from,
           message,
-          from,
-        },
+          from
+        }
       })
     } catch (err) {
       console.log(err)

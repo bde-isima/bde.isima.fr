@@ -13,7 +13,7 @@ export default resolver.pipe(
 
     const eventSubscriptions = await db.eventSubscription.findMany({
       where: { eventId: where.id },
-      include: { user: true },
+      include: { user: true }
     })
 
     const transactionsAndUsers = await Promise.all(
@@ -38,14 +38,14 @@ export default resolver.pipe(
                   description: `${format(event?.takes_place_at, 'dd/MM/yyyy')} - ${event.name}`,
                   type: 'DEBIT',
                   user: { connect: { id: s.userId } },
-                  prevBalance: s.user.balance,
-                },
+                  prevBalance: s.user.balance
+                }
               }),
               // Update the balance of the user who participated in this event
               db.user.update({
                 where: { id: s.userId },
-                data: { balance: { decrement: amount } },
-              }),
+                data: { balance: { decrement: amount } }
+              })
             ])
           }
         }
@@ -56,12 +56,12 @@ export default resolver.pipe(
 
     const newEvent = await db.event.update({
       where,
-      data: { status: 'CHECKED_OUT' },
+      data: { status: 'CHECKED_OUT' }
     })
 
     return {
       transactionsAndUsers,
-      newEvent,
+      newEvent
     }
   }
 )

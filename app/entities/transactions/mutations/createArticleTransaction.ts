@@ -15,12 +15,12 @@ export default resolver.pipe(
     const receiverUser = await db.user.findUnique({
       where: { id: userId },
       include: { userStats: true },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     const article = await db.article.findUnique({
       where: { id: articleId! },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     const amount = receiverUser.is_member ? article.member_price : article.price
@@ -33,8 +33,8 @@ export default resolver.pipe(
     const upsertData = {
       articlesStats: {
         ...((receiverUser.userStats?.articlesStats as Prisma.JsonObject) ?? {}),
-        [article.id]: newStat,
-      },
+        [article.id]: newStat
+      }
     }
 
     const transactionAndUser = await Promise.all([
@@ -46,25 +46,25 @@ export default resolver.pipe(
           type: 'DEBIT',
           userId: receiverUser.id,
           articleId,
-          prevBalance: receiverUser.balance,
-        },
+          prevBalance: receiverUser.balance
+        }
       }),
 
       // Update balance of the user
       db.user.update({
         data: { balance: { decrement: amount } },
-        where: { id: receiverUser.id },
+        where: { id: receiverUser.id }
       }),
 
       // Update userStats of the user
       db.userStats.upsert({
         create: {
           ...upsertData,
-          user: { connect: { id: receiverUser.id } },
+          user: { connect: { id: receiverUser.id } }
         },
         update: upsertData,
-        where: { id: receiverUser.userStats?.id ?? cuid() },
-      }),
+        where: { id: receiverUser.userStats?.id ?? cuid() }
+      })
     ])
 
     return transactionAndUser

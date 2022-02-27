@@ -10,7 +10,7 @@ export default resolver.pipe(
     const transaction = await db.transaction.findUnique({
       where,
       include: { user: { include: { userStats: true } } },
-      rejectOnNotFound: true,
+      rejectOnNotFound: true
     })
 
     if (!transaction.articleId) {
@@ -26,7 +26,7 @@ export default resolver.pipe(
       //Decrement article stats
       userStats = await db.userStats.update({
         data: { articlesStats: transaction.user.userStats.articlesStats },
-        where: { id: transaction.user.userStats?.id },
+        where: { id: transaction.user.userStats?.id }
       })
     }
 
@@ -34,16 +34,16 @@ export default resolver.pipe(
       // Refund user
       db.user.update({
         data: { balance: { [transaction.type === 'CREDIT' ? 'decrement' : 'increment']: amount } },
-        where: { id: transaction.userId },
+        where: { id: transaction.userId }
       }),
       //Delete transaction
-      db.transaction.delete({ where }),
+      db.transaction.delete({ where })
     ])
 
     return {
       user,
       userStats,
-      oldTransaction,
+      oldTransaction
     }
   }
 )

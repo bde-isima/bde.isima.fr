@@ -1,4 +1,4 @@
-import faker from 'faker'
+import faker from '@faker-js/faker'
 
 const transactions = async (db) => {
   let prevBalance = 0
@@ -17,8 +17,8 @@ const transactions = async (db) => {
           type: 'DEBIT',
           user: { connect: { id: '123456789' } },
           prevBalance,
-          article: { connect: { id: article.id } },
-        },
+          article: { connect: { id: article.id } }
+        }
       })
 
       prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
@@ -39,8 +39,8 @@ const transactions = async (db) => {
           type: i % 2 === 0 ? 'CREDIT' : 'DEBIT',
           ...(i % 2 === 0 ? { emitter: { connect: { id: emitter.id } } } : {}),
           user: { connect: { id: '123456789' } },
-          prevBalance,
-        },
+          prevBalance
+        }
       })
 
       prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
