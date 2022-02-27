@@ -2,16 +2,16 @@
   "name": "bde-isima",
   "appName": "BDE ISIMA",
   "website": "https://bde.isima.fr",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "scripts": {
-    "dev": "npx blitz dev",
-    "build": "npx blitz build",
-    "start": "npx blitz start",
-    "studio": "npx blitz prisma studio",
+    "build": "blitz build",
+    "dev": "blitz dev",
+    "format": "prettier --write \"**/*.ts\"",
+    "lint": "eslint **/*.{js,ts,jsx} --fix",
+    "prepare": "husky install",
     "seed": "prisma migrate reset --skip-generate --skip-seed && prisma db push && prisma db seed",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "test": "",
-    "prepare": "husky install"
+    "start": "blitz start",
+    "studio": "blitz prisma studio"
   },
   "prisma": {
     "schema": "db/schema.prisma",
@@ -19,22 +19,11 @@
   },
   "prettier": {
     "semi": false,
-    "trailingComma": "es5",
+    "trailingComma": "none",
     "singleQuote": true,
     "printWidth": 100,
-    "tabWidth": 2,
-    "useTabs": false
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged",
-      "pre-push": "tsc && yarn lint && yarn test"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix"
-    ]
+    "bracketSpacing": true,
+    "tabWidth": 2
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -79,14 +68,13 @@
     "zod": "^3.9.8"
   },
   "devDependencies": {
-    "@types/faker": "^5.5.8",
+    "@faker-js/faker": "^6.0.0-alpha.7",
     "@types/node": "^16.10.3",
     "@types/nodemailer": "^6.4.4",
     "@types/react": "^17.0.38",
     "autoprefixer": "^10.3.7",
     "critters": "0.0.10",
     "eslint": "^7.32.0",
-    "faker": "^5.5.3",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.2",
     "postcss": "^8.3.9",
@@ -95,5 +83,15 @@
     "pretty-quick": "^3.1.1",
     "tailwindcss": "^2.2.16",
     "ts-node": "^10.2.1"
+  },
+  "engines": {
+    "node": "16.13.2"
+  },
+  "engineStrict": true,
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "pretty-quick --staged"
+    ]
   }
 }
