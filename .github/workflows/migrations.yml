@@ -23,7 +23,7 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: version
         with:
-          cmd: jq -r .dependencies["prisma"]
+          cmd: jq -r '.dependencies["prisma"]'
 
       - name: Run migrations
         run: yarn global add prisma@${{ steps.version.outputs.value }} && yarn migrate
