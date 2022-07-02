@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  buildAndDeploy:
+  migrations:
     environment: Production
     runs-on: ubuntu-latest
 
@@ -19,9 +19,13 @@ jobs:
         with:
           node-version: 16
 
-      - run: yarn install --progress=false
+      - name: Extract version from package.json
+        uses: sergeysova/jq-action@v2
+        id: version
+        with:
+          cmd: jq -r .dependencies["prisma"]
 
       - name: Run migrations
-        run: yarn migrate
+        run: yarn global add prisma@${{ steps.version.outputs.value }} && yarn migrate
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
