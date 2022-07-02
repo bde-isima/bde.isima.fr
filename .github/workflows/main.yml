@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 16
 
-        run: yarn install --progress=false
+      - run: yarn install --progress=false
 
       - name: Run migrations
         run: yarn migrate
