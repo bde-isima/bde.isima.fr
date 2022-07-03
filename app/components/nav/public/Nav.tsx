@@ -1,7 +1,8 @@
+import Image from 'next/image'
+import { useSession } from '@blitzjs/auth'
 import Fab from '@mui/material/Fab'
 import Box from '@mui/material/Box'
 import Slide from '@mui/material/Slide'
-import { Image, useSession } from 'blitz'
 import AppBar from '@mui/material/AppBar'
 import Dialog from '@mui/material/Dialog'
 import Toolbar from '@mui/material/Toolbar'
@@ -20,7 +21,6 @@ import Desktop from './Desktop'
 import Link from 'app/core/lib/Link'
 import { useRouter } from 'app/core/lib/router'
 import { useMediaQuery } from 'app/core/styles/theme'
-import logo from 'public/static/images/logos/logo.svg'
 import LoginContent from 'app/components/auth/LoginContent'
 
 export default function Nav() {
@@ -71,7 +71,13 @@ export default function Nav() {
           )}
 
           <Link className="mx-auto lg:ml-0" href="/">
-            <Image src={logo} width={40} height={40} quality={100} alt="Logo BDE ISIMA" />
+            <Image
+              src="/static/images/logos/logo.svg"
+              width={40}
+              height={40}
+              quality={100}
+              alt="Logo BDE ISIMA"
+            />
           </Link>
 
           {!fullScreen && <Desktop />}

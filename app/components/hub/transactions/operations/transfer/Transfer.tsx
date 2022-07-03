@@ -1,4 +1,6 @@
-import { useMutation, invalidateQuery, useAuthenticatedSession } from 'blitz'
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { invalidateQuery } from "@blitzjs/rpc";
+import { useMutation } from "@blitzjs/rpc";
 
 import TransferForm from './TransferForm'
 import Snackbar from 'app/core/layouts/Snackbar'

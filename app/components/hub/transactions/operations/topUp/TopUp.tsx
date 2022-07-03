@@ -1,5 +1,5 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
 import { useState } from 'react'
-import { useAuthenticatedSession } from 'blitz'
 
 import TopUpForm from './TopUpForm'
 import Snackbar from 'app/core/layouts/Snackbar'

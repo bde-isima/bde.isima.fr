@@ -1,11 +1,9 @@
-import {
-  ErrorComponent,
-  ErrorFallbackProps,
-  AuthorizationError,
-  AuthenticationError,
-  useQueryErrorResetBoundary,
-  ErrorBoundary as BlitzErrorBoundary,
-} from 'blitz'
+import { AuthorizationError } from "blitz";
+import { AuthenticationError } from "blitz";
+import { ErrorBoundary as BlitzErrorBoundary } from "@blitzjs/next";
+import { useQueryErrorResetBoundary } from "@blitzjs/rpc";
+import { ErrorFallbackProps } from "@blitzjs/next";
+import { ErrorComponent } from "@blitzjs/next";
 
 import LoginFallback from 'app/components/auth/LoginFallback'
 

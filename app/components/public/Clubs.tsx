@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { Suspense } from 'react'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
@@ -9,7 +9,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { Club } from 'db'
 import Carousel from './carousel'
 import getClubs from 'app/entities/clubs/queries/getClubs'
-import clubs from 'public/static/images/illustrations/Clubs.svg'
 
 export default function Clubs() {
   return (
@@ -24,7 +23,7 @@ export default function Clubs() {
         <Grid container>
           <Grid item xs={12} md={6}>
             <Image
-              src={clubs}
+              src="/static/images/illustrations/Clubs.svg"
               width={500}
               height={300}
               layout="responsive"

@@ -1,6 +1,7 @@
+import Image from "next/image";
+import { useQuery } from "@blitzjs/rpc";
 import { useState } from 'react'
 import Card from '@mui/material/Card'
-import { useQuery, Image } from 'blitz'
 import MultiCarousel from 'react-multi-carousel'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'

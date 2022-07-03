@@ -1,4 +1,4 @@
-import { Head } from 'blitz'
+import Head from "next/head";
 import Nav from 'app/components/nav/public/Nav'
 
 export default function getPublicNav(Component, title = 'BDE ISIMA') {

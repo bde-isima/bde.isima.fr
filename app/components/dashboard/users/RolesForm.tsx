@@ -1,5 +1,5 @@
+import { useQuery } from "@blitzjs/rpc";
 import { useState } from 'react'
-import { useQuery } from 'blitz'
 import { Field } from 'react-final-form'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'

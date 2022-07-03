@@ -1,109 +1,108 @@
-import { useQuery, useMutation } from 'blitz'
-import { VariableSizeGrid } from 'react-window'
-import TextField from '@mui/material/TextField'
-import AutoSizer from 'react-virtualized-auto-sizer'
-import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from 'react'
+import { useMutation } from '@blitzjs/rpc';
+import { useQuery } from '@blitzjs/rpc';
+import { VariableSizeGrid } from 'react-window';
+import TextField from '@mui/material/TextField';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { useState, forwardRef, ForwardedRef, PropsWithoutRef } from 'react';
 
-import Article from './Article'
-import { useTheme } from 'app/core/styles/theme'
-import Snackbar from 'app/core/layouts/Snackbar'
-import { useMediaQuery } from 'app/core/styles/theme'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import getArticles from 'app/entities/articles/queries/getArticles'
-import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction'
+import Article from './Article';
+import Snackbar from 'app/core/layouts/Snackbar';
+import { useMediaQuery } from 'app/core/styles/theme';
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+import getArticles from 'app/entities/articles/queries/getArticles';
+import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
 
-const GUTTER_SIZE = 16
+const GUTTER_SIZE = 16;
 
 function smartSearch(a, b) {
   a = a
     .trim()
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u0300-\u036f]/g, '');
   b = b
     .trim()
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-  return a.includes(b)
+    .replace(/[\u0300-\u036f]/g, '');
+  return a.includes(b);
 }
 
 // @see https://codesandbox.io/s/2w8wmlm89p
-const innerElementType = forwardRef(
-  ({ style, ...rest }: PropsWithoutRef<any>, ref: ForwardedRef<any>) => (
+const innerElementType = forwardRef(function InnerElement(
+  { style, ...rest }: PropsWithoutRef<any>,
+  ref: ForwardedRef<any>
+) {
+  return (
     <div
       ref={ref}
       style={{
         ...style,
         paddingLeft: GUTTER_SIZE,
-        paddingTop: GUTTER_SIZE,
+        paddingTop: GUTTER_SIZE
       }}
       {...rest}
     />
-  )
-)
+  );
+});
 
 export default function Catalog({ user, onTransactionComplete }) {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
-  const [loading, setLoading] = useState(false)
-  const [previousTransaction, setPreviousTransaction] = useState<string | null>(null)
-  const [searchArticleInput, setSearchArticleInput] = useState('')
-  const { open, message, severity, onShow, onClose } = useSnackbar()
+  const [loading, setLoading] = useState(false);
+  const [previousTransaction, setPreviousTransaction] = useState<string | null>(null);
+  const [searchArticleInput, setSearchArticleInput] = useState('');
+  const { open, message, severity, onShow, onClose } = useSnackbar();
 
-  const [deleteT] = useMutation(deleteTransaction)
+  const [deleteT] = useMutation(deleteTransaction);
 
-  const [{ articles }] = useQuery(
-    getArticles,
-    { where: { is_enabled: true } },
-    { refetchOnWindowFocus: false }
-  )
+  const [{ articles }] = useQuery(getArticles, { where: { is_enabled: true } }, { refetchOnWindowFocus: false });
 
-  const itemsPerRow = fullScreen ? 3 : 4
-  const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput))
+  const itemsPerRow = fullScreen ? 3 : 4;
+  const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput));
 
-  const onChange = (event) => setSearchArticleInput(event.target.value)
+  const onChange = (event) => setSearchArticleInput(event.target.value);
 
   const onUndo = () => {
     deleteT({ where: { id: previousTransaction as string } }).then(() => {
-      setPreviousTransaction(null)
-      onShow('warning', 'Vente annulée')
-      onTransactionComplete()
-    })
-  }
+      setPreviousTransaction(null);
+      onShow('warning', 'Vente annulée');
+      onTransactionComplete();
+    });
+  };
 
   const onSnackClose = () => {
-    setPreviousTransaction(null)
-    onClose(undefined, undefined)
-  }
+    setPreviousTransaction(null);
+    onClose(undefined, undefined);
+  };
 
   const onTransaction = async (mutation) => {
     if (!loading) {
-      setLoading(true)
-      onShow('info', 'Vente en cours ...')
+      setLoading(true);
+      onShow('info', 'Vente en cours ...');
 
       await mutation()
         .then((res) => {
           if (res[0]) {
-            setPreviousTransaction(res[0].id)
+            setPreviousTransaction(res[0].id);
           }
-          onShow('success', 'Article vendu')
-          onTransactionComplete()
+          onShow('success', 'Article vendu');
+          onTransactionComplete();
         })
         .catch((err) => onShow('error', err.message))
-        .finally(() => setLoading(false))
+        .finally(() => setLoading(false));
     }
-  }
+  };
 
   const Cell = ({ columnIndex, rowIndex, style }) => {
-    const article = filtered[rowIndex * itemsPerRow + columnIndex]
+    const article = filtered[rowIndex * itemsPerRow + columnIndex];
 
     if (!article) {
-      return null
+      return null;
     }
 
-    return <Article user={user} article={article} onClick={onTransaction} style={style} />
-  }
+    return <Article user={user} article={article} onClick={onTransaction} style={style} />;
+  };
 
   return (
     <>
@@ -142,5 +141,5 @@ export default function Catalog({ user, onTransactionComplete }) {
         onUndo={previousTransaction ? onUndo : undefined}
       />
     </>
-  )
+  );
 }

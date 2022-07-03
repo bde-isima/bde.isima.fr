@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from "@blitzjs/rpc";
 import db, { Prisma } from 'db'
 
 type GetUsersInput = Pick<Prisma.UserFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>

@@ -1,7 +1,8 @@
+import { invalidateQuery } from "@blitzjs/rpc";
+import { useMutation } from "@blitzjs/rpc";
 import cuid from 'cuid'
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
-import { useMutation, invalidateQuery } from 'blitz'
 
 import Snackbar from 'app/core/layouts/Snackbar'
 import SlideTransition from 'app/core/layouts/SlideTransition'

@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from "next/image";
 import { TextField } from 'mui-rff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'

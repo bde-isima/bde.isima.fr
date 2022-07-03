@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from "next/image";
 import { format } from 'date-fns'
 import Chip from '@mui/material/Chip'
 import Grid from '@mui/material/Grid'

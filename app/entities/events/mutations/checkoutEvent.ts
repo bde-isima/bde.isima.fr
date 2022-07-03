@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from "@blitzjs/rpc";
 import { format } from 'date-fns'
 
 import db, { Prisma } from 'db'

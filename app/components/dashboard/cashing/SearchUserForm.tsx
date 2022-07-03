@@ -1,5 +1,5 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
 import Paper from '@mui/material/Paper'
-import { useAuthenticatedSession } from 'blitz'
 import { useState, lazy, Suspense } from 'react'
 
 import { User } from 'db'

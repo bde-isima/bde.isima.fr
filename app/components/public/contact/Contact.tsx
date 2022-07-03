@@ -1,4 +1,4 @@
-import { useMutation } from 'blitz'
+import { useMutation } from "@blitzjs/rpc";
 import Paper from '@mui/material/Paper'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'

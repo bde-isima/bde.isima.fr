@@ -1,4 +1,4 @@
-import { invalidateQuery } from 'blitz'
+import { invalidateQuery } from "@blitzjs/rpc";
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
 import { useSwipeable } from 'react-swipeable'

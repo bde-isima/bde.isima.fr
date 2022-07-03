@@ -1,5 +1,5 @@
+import { resolver } from "@blitzjs/rpc";
 import cuid from 'cuid'
-import { resolver } from 'blitz'
 
 import db, { Prisma } from 'db'
 

@@ -1,6 +1,7 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useQuery } from "@blitzjs/rpc";
 import { Autocomplete } from 'mui-rff'
 import TextField from '@mui/material/TextField'
-import { useQuery, useAuthenticatedSession } from 'blitz'
 import { useState, Dispatch, SetStateAction } from 'react'
 import MuiAutocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'

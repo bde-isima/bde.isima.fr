@@ -1,5 +1,7 @@
+import Image from "next/image";
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useQuery } from "@blitzjs/rpc";
 import Avatar from '@mui/material/Avatar'
-import { useQuery, Image, useAuthenticatedSession } from 'blitz'
 
 import getClubs from 'app/entities/clubs/queries/getClubs'
 

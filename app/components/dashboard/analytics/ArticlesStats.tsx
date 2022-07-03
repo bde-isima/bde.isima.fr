@@ -1,5 +1,5 @@
+import { useQuery } from "@blitzjs/rpc";
 import { useState } from 'react'
-import { useQuery } from 'blitz'
 import { subDays } from 'date-fns'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'

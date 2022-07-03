@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { Suspense } from 'react'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -10,7 +10,6 @@ import { Partner } from 'db'
 import Carousel from './carousel'
 import Link from 'app/core/lib/Link'
 import getPartners from 'app/entities/partners/queries/getPartners'
-import partners from 'public/static/images/illustrations/Partners.svg'
 
 export default function Partners() {
   return (
@@ -46,7 +45,7 @@ export default function Partners() {
 
           <Grid item xs={12} md={6}>
             <Image
-              src={partners}
+              src="/static/images/illustrations/Partners.svg"
               width={500}
               height={300}
               layout="responsive"

@@ -1,12 +1,10 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import Fab from '@mui/material/Fab'
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
 import Link from '@mui/icons-material/LinkTwoTone'
-import isima from 'public/static/images/logos/inp-isima.svg'
-import school from 'public/static/images/illustrations/School.svg'
 
 export default function School() {
   return (
@@ -46,7 +44,7 @@ export default function School() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Image
-              src={school}
+              src="/static/images/illustrations/School.svg"
               width={500}
               height={300}
               layout="responsive"
@@ -72,7 +70,7 @@ export default function School() {
             </Typography>
           </Fab>
 
-          <Image src={isima} alt="Logo de l'ISIMA" quality={100} />
+          <Image src="/static/images/logos/inp-isima.svg" alt="Logo de l'ISIMA" quality={100} />
         </div>
       </div>
     </Container>

@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 
 import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
 import getTransactions from 'app/entities/transactions/queries/getTransactions'

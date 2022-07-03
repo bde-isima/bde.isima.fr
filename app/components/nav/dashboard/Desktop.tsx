@@ -1,4 +1,4 @@
-import { Link } from 'blitz'
+import Link from "next/link";
 import Tab from '@mui/material/Tab'
 import List from '@mui/material/List'
 import TabList from '@mui/lab/TabList'

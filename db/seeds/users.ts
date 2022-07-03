@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
 const users = async (db) => {
   const promotion = await db.promotion.findFirst()
@@ -10,7 +10,7 @@ const users = async (db) => {
       lastname: 'Lenoir',
       firstname: 'Adrien',
       nickname: faker.name.findName(),
-      image: faker.image.imageUrl(100, 100, undefined, false, true),
+      image: faker.image.imageUrl(100, 100, undefined),
       email: 'adrien.lenoir42440@gmail.com',
       card: 941,
       balance: 0,
@@ -25,7 +25,7 @@ const users = async (db) => {
         lastname: faker.name.lastName(),
         firstname: faker.name.firstName(),
         nickname: faker.name.findName(),
-        image: faker.image.imageUrl(100, 100, undefined, false, true),
+        image: faker.image.imageUrl(100, 100, undefined),
         email: faker.internet.email(),
         card: faker.datatype.number(),
         balance: parseFloat(faker.finance.amount()),

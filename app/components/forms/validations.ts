@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const LoginInput = z.object({
   identifier: z.string()

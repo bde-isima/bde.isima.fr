@@ -1,5 +1,5 @@
+import { useMutation } from "@blitzjs/rpc";
 import cuid from 'cuid'
-import { useMutation } from 'blitz'
 import { useState, useEffect } from 'react'
 
 import Mobile from './Mobile'

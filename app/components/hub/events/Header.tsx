@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from "next/image";
 import { format } from 'date-fns'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'

@@ -52,7 +52,9 @@ declare module 'blitz' {
   export interface Ctx extends DefaultCtx {
     session: SessionContext
   }
+}
 
+declare module '@blitzjs/auth' {
   export interface Session {
     isAuthorized: SimpleRolesIsAuthorized
     PublicData: {

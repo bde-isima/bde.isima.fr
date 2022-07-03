@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from "next/image";
 import Grid from '@mui/material/Grid'
 import Chip from '@mui/material/Chip'
 import Avatar from '@mui/material/Avatar'

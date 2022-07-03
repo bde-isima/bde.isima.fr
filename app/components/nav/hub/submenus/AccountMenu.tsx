@@ -1,10 +1,12 @@
+import Image from "next/image";
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useMutation } from "@blitzjs/rpc";
 import { useState } from 'react'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { Image, useMutation, useAuthenticatedSession } from 'blitz'
 
 import Logout from '@mui/icons-material/LogoutTwoTone'
 import Feedback from '@mui/icons-material/FeedbackTwoTone'

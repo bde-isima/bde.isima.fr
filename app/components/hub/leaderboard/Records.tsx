@@ -1,4 +1,5 @@
-import { Image, useQuery } from 'blitz'
+import Image from "next/image";
+import { useQuery } from "@blitzjs/rpc";
 import Badge from '@mui/material/Badge'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'

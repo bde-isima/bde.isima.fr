@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import { useEffect } from 'react'
 import { Dispatch, SetStateAction } from 'react'
 import TableRow from '@mui/material/TableRow'

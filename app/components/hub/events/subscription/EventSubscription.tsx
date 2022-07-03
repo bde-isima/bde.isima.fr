@@ -1,5 +1,6 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useQuery } from "@blitzjs/rpc";
 import { createContext, useContext } from 'react'
-import { useQuery, useAuthenticatedSession } from 'blitz'
 
 import { Club } from 'db'
 import { useRouter } from 'app/core/lib/router'

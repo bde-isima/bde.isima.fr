@@ -1,8 +1,9 @@
+import { invalidateQuery } from "@blitzjs/rpc";
+import { useMutation } from "@blitzjs/rpc";
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
-import { useMutation, invalidateQuery } from 'blitz'
 import { useState, ReactNode, Suspense } from 'react'
 import TablePagination from '@mui/material/TablePagination'
 import MuiTableContainer from '@mui/material/TableContainer'

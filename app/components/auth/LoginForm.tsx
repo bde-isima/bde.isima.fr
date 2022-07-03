@@ -1,7 +1,8 @@
+import { AuthenticationError } from "blitz";
+import { useMutation } from "@blitzjs/rpc";
 import { useState } from 'react'
 import { TextField } from 'mui-rff'
 import Typography from '@mui/material/Typography'
-import { useMutation, AuthenticationError } from 'blitz'
 
 import { useRouter } from 'app/core/lib/router'
 import login from 'app/entities/auth/mutations/login'

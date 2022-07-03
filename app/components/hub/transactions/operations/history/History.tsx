@@ -1,6 +1,6 @@
+import { useInfiniteQuery } from "@blitzjs/rpc";
 import { Fragment } from 'react'
 import isValid from 'date-fns/isValid'
-import { useInfiniteQuery } from 'blitz'
 import Button from '@mui/material/Button'
 
 import { useMediaQuery } from 'app/core/styles/theme'

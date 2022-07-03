@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from "next/image";
 import { Suspense } from 'react'
 import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'

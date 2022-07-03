@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import Typography, { TypographyTypeMap } from '@mui/material/Typography'
 
 type BalanceProps = {

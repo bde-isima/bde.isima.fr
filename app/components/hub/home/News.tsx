@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import Divider from '@mui/material/Divider'
 import ImageList from '@mui/material/ImageList'
 import IconButton from '@mui/material/IconButton'
@@ -9,8 +9,6 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import Link from 'app/core/lib/Link'
-import tictactrip from 'public/static/images/previews/tictactrip.png'
-import tictactripIcon from 'public/static/images/logos/tictactrip.svg'
 
 export default function News() {
   const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener')
@@ -30,7 +28,7 @@ export default function News() {
         >
           <Image
             className="rounded-2xl"
-            src={tictactrip}
+            src="/static/images/previews/tictactrip.png"
             alt="Partenariat Tictactrip"
             placeholder="blur"
             layout="fill"
@@ -41,12 +39,12 @@ export default function News() {
             sx={{
               background:
                 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
-                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
             }}
             className="transition-opacity duration-500 opacity-0 group-hover:opacity-100 rounded-b-2xl"
             title={
               <div className="flex items-center">
-                <Image src={tictactripIcon} alt="Partenariat Tictactrip" />
+                <Image src="/static/images/logos/tictactrip.svg" alt="Partenariat Tictactrip" />
                 <Typography className="ml-4">
                   Des économies toute l&apos;année en réservant sur Tictactrip
                 </Typography>

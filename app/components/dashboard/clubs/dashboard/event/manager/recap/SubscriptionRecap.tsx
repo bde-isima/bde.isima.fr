@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { useMemo } from 'react'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
@@ -8,7 +8,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
 import { EventSubscriptionWithTypedCart, CartItem } from 'global'
-import noData from 'public/static/images/illustrations/NoData.svg'
 
 type SubscriptionRecapProps = {
   eventSubscriptions: EventSubscriptionWithTypedCart[]
@@ -57,7 +56,12 @@ export default function SubscriptionRecap({ eventSubscriptions = [] }: Subscript
       <List>
         {recap.length === 0 && (
           <div className="flex flex-col justify-center items-center">
-            <Image src={noData} width={300} height={300} alt="Aucune donnée" />
+            <Image
+              src="/static/images/illustrations/NoData.svg"
+              width={300}
+              height={300}
+              alt="Aucune donnée"
+            />
             <Typography variant="subtitle2" gutterBottom>
               Aucun récapitulatif pour l&apos;instant
             </Typography>
