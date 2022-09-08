@@ -76,7 +76,8 @@
     "sanitize-html": "^2.5.1",
     "typescript": "^4.3.5",
     "victory": "^36.0.1",
-    "zod": "^3.9.8"
+    "zod": "^3.9.8",
+    "base64url": "^3.0.1"
   },
   "devDependencies": {
     "@types/faker": "^5.5.8",

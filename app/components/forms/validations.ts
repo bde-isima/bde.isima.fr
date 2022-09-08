@@ -28,9 +28,6 @@ export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
 
 export const TopUpInput = z.object({
   amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' }),
-  recipient: z
-    .string()
-    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: 'Numéro invalide' }),
 })
 export type TopUpInputType = z.infer<typeof TopUpInput>
 

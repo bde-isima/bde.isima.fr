@@ -19,6 +19,21 @@ const users = async (db) => {
     },
   })
 
+  await db.user.create({
+    data: {
+      id: '9887654321',
+      lastname: 'Duet',
+      firstname: 'Venceslas',
+      nickname: 'venny',
+      image: 'https://i.imgur.com/VbdBkxz.png',
+      email: 'duet.venceslas@orange.fr',
+      card: 1463,
+      balance: 0,
+      roles: '*',
+      promotionId: promotion.id,
+    },
+  })
+
   for (let i = 0; i < 4; ++i) {
     await db.user.create({
       data: {
