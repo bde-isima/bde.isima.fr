@@ -15,7 +15,7 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
+      skip
     })
 
     const count = await db.user.count({ where })
@@ -26,7 +26,7 @@ export default resolver.pipe(
       users,
       nextPage,
       hasMore,
-      count,
+      count
     }
   }
 )

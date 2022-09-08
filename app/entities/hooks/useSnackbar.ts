@@ -22,6 +22,6 @@ export default function useSnackbar() {
     message,
     severity,
     onShow,
-    onClose,
+    onClose
   }
 }

@@ -9,15 +9,15 @@ export default function VerifyLogin() {
 export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const request = await db.loginRequest.findUnique({
     where: { token: `${query.token}` },
-    include: { user: true },
+    include: { user: true }
   })
 
   if (!request || new Date() > request.expires) {
     return {
       redirect: {
         permanent: false,
-        destination: '/login?invalid=1',
-      },
+        destination: '/login?invalid=1'
+      }
     }
   }
 
@@ -32,15 +32,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
       image: request.user.image,
       email: request.user.email,
       card: request.user.card,
-      roles: request.user.roles,
+      roles: request.user.roles
     }),
-    db.loginRequest.delete({ where: { id: request.id } }),
+    db.loginRequest.delete({ where: { id: request.id } })
   ])
 
   return {
     redirect: {
       permanent: false,
-      destination: request.callbackUrl,
-    },
+      destination: request.callbackUrl
+    }
   }
 }

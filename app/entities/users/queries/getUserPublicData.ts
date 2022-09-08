@@ -8,6 +8,6 @@ export default resolver.pipe(resolver.authorize(), async ({ where }: FindUniqueU
   return await db.user.findFirst({
     where,
     select: { image: true },
-    rejectOnNotFound: true,
+    rejectOnNotFound: true
   })
 })
