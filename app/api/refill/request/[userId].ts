@@ -23,8 +23,8 @@ function generate_hmac(data: FormData, additionalData: string, by_credit_card: b
   ]
 
   if (by_credit_card) {
-    list.concat(common)
-    list.concat([
+    list = list.concat(common)
+    list = list.concat([
       data.get('onSuccess'),
       data.get('onError'),
       additionalData,
@@ -36,9 +36,9 @@ function generate_hmac(data: FormData, additionalData: string, by_credit_card: b
       data.get('zipCode'),
     ])
   } else {
-    list.concat([data.get('version'), data.get('timestamp')])
-    list.concat(common)
-    list.concat([
+    list = list.concat([data.get('version'), data.get('timestamp')])
+    list = list.concat(common)
+    list = list.concat([
       data.get('mode'),
       data.get('onSuccess'),
       data.get('onCancel'),
