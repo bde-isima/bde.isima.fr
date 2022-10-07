@@ -7351,7 +7351,7 @@
 											"top": 170,
 											"width": 142,
 											"height": 13,
-											"text": "LYDIA",
+											"text": "LYF",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9646,7 +9646,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF1YU1dtnKyc8A="
 							},
-							"name": "LYDIA"
+							"name": "LYF"
 						},
 						{
 							"_type": "UMLEnumerationLiteral",

@@ -205,7 +205,7 @@ export type EventInputType = z.infer<typeof EventInput>
 
 export const EventSubscriptionInput = z
   .object({
-    payment_method: z.enum(['BDE', 'LYDIA', 'CASH']),
+    payment_method: z.enum(['BDE', 'LYF', 'CASH']),
     cart: z.array(
       z.object({
         name: z.string().max(255),

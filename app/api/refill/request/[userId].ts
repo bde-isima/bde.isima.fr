@@ -85,7 +85,7 @@ function prepare_request(
     {
       user_id: id,
       card,
-      amount,
+      amount: tAmount,
       reference: shopReference,
       order_reference: shopOrderReference,
       creation_date: timestamp,
@@ -95,7 +95,7 @@ function prepare_request(
   )
 
   const userCallbackUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`
-  const additionalData = `{"callbackUrl":"${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${token}"}`
+  const additionalData = `{"callbackUrl":"${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/refill/confirm/${token}"}`
 
   // Common request fields
   body.append('lang', 'fr')
