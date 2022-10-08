@@ -1,14 +1,16 @@
 version: '3.8'
 
 services:
-  app:
+  bde_isima:
+    container_name: bde_isima
+    working_dir: /workspace
     build:
       context: .
       args:
         # Update 'VARIANT' to pick an LTS version of Node.js: 16, 14, 12.
         # Append -bullseye or -buster to pin to an OS version.
         # Use -bullseye variants on local arm64/Apple Silicon.
-        VARIANT: 16
+        VARIANT: 16-bullseye
     volumes:
       - ..:/workspace:cached
       - bde-isima-node_modules:/workspace/node_modules
@@ -21,7 +23,7 @@ services:
     # network_mode: service:db
 
     # Uncomment the next line to use a non-root user for all processes.
-    user: node
+    # user: node
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
@@ -29,9 +31,10 @@ services:
       - 3000:3000
 
     networks:
-      - bde-isima
+      - bde_isima_net
 
   db:
+    container_name: bde_isima_pg
     image: postgres:14.1-alpine
     restart: unless-stopped
     environment:
@@ -45,13 +48,13 @@ services:
       - 5432:5432
 
     networks:
-      - bde-isima
+      - bde_isima_net
+
+networks:
+  bde_isima_net:
+    driver: bridge
 
 volumes:
   bde-isima-node_modules:
   bde-isima-vs-code-extensions:
   bde-isima-bashhistory:
-
-networks:
-  bde-isima:
-    external: false
