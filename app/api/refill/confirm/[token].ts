@@ -132,15 +132,15 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
           data: { balance: { increment: qAmount } },
         }),
       ])
+      res.status(200).send('OK')
     } else {
-      console.error('La transaction a été refusée par lyf')
-
-      await create_history_future
+      res.status(500).send('UNKNOWN USER')
     }
-
-    res.status(200).send('OK')
   } else {
-    res.status(500).send('UNKNOWN USER')
+    console.error('La transaction a été refusée par lyf')
+
+    await create_history_future
+    res.status(200).send('OK')
   }
 })
 
