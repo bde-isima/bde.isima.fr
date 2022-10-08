@@ -1,6 +1,6 @@
 # 🐭 BDE ISIMA
 
-![Node version](https://img.shields.io/badge/node-16.13.2-informational.svg)
+![Node version](https://img.shields.io/badge/node-16-informational.svg)
 
 The **bde.isima.fr** website is an online platform for the **BDE ISIMA** Student Union featuring a virtual wallet for the members to purchase goods that can be bought on the union's premises.
 
@@ -32,9 +32,8 @@ With **Visual Code** (Easiest solution):
 For non-VSCode users:
 
 ```bash
-$ docker-compose -f .devcontainer/docker-compose.yml up
-$ docker exec -it $(docker ps -aqf "name=devcontainer_app") /bin/bash
-$ cd workspace && sudo chown node node_modules && yarn
+$ docker-compose -f .devcontainer/docker-compose.yml up   # To launch the Docker services
+$ docker exec -it bde_isima /bin/bash                     # To connect to the main Docker container and run commands in it
 ```
 
 # 🤫 Environment file
@@ -73,7 +72,6 @@ Then edit the code in your favourite IDE 👨‍💻!
 - `docs/` contains the preliminary UI/UX and architecture designs
 - `mail/` contains the mailing code logic
 - `public/` contains all the static files and assets
-- `release/` contains all the configs and scripts for VM provisioning
 
 # 📙 Essential commands
 
