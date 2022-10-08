@@ -48,7 +48,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
             formControlProps={{ margin: 'normal' }}
           >
             <MenuItem value="BDE">BDE</MenuItem>
-            <MenuItem value="LYDIA">LYDIA</MenuItem>
+            <MenuItem value="LYF">LYF</MenuItem>
             <MenuItem value="CASH">LIQUIDE</MenuItem>
           </Select>
         }

@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1
@@ -27,11 +27,10 @@ jobs:
           envkey_SMTP_USER: ${{ secrets.SMTP_USER }}
           envkey_SMTP_FROM: ${{ secrets.SMTP_FROM }}
           envkey_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          envkey_NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
-          envkey_NEXT_PUBLIC_GA_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GA_TRACKING_ID }}
-          envkey_NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN: ${{ secrets.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN }}
-          envkey_NEXT_PUBLIC_LYDIA_API_URL: ${{ secrets.NEXT_PUBLIC_LYDIA_API_URL }}
-          envkey_LYDIA_API_VENDOR_ID: ${{ secrets.LYDIA_API_VENDOR_ID }}
+          envkey_LYF_API_VENDOR_ID: ${{ secrets.LYF_API_VENDOR_ID }}
+          envkey_LYF_API_SECRET_KEY: ${{ secrets.LYF_API_SECRET_KEY }}
+          envkey_LYF_CREDIT_CARD_API_URL: ${{ secrets.LYF_CREDIT_CARD_API_URL }}
+          envkey_LYF_FROM_APPLICATION_API_URL: ${{ secrets.LYF_FROM_APPLICATION_API_URL }}
           envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Install dependencies
@@ -47,8 +46,8 @@ jobs:
         uses: golfzaptw/action-connect-ovpn@master
         id: connect_vpn
         with:
-          PING_URL: "127.0.0.1"
-          FILE_OVPN: ".github/vpn/config.ovpn"
+          PING_URL: '127.0.0.1'
+          FILE_OVPN: '.github/vpn/config.ovpn'
           SECRET: ${{ secrets.SECRET_USERNAME_PASSWORD }}
           TLS_KEY: ${{ secrets.TLS_KEY }}
         env:

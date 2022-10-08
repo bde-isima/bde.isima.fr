@@ -6,7 +6,7 @@ import Snackbar from 'app/core/layouts/Snackbar'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import { TopUpInputType } from 'app/components/forms/validations'
 
-export type PaymentMethod = 'cb' | 'lydia'
+export type PaymentMethod = 'cb' | 'lyf'
 
 export default function TopUp() {
   const session = useAuthenticatedSession()
@@ -18,25 +18,15 @@ export default function TopUp() {
   const onSuccess = (data: TopUpInputType) => {
     const body = new FormData()
 
-    body.append('amount', data.amount.toString())
-    body.append('paymentMethod', paymentMethod)
-    body.append('vendor_token', `${process.env.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN}`)
-    body.append('recipient', data.recipient)
-    body.append('message', `Recharge compte BDE +${data.amount} €`)
-    body.append('currency', 'EUR')
-    body.append('type', 'phone')
-    body.append('order_ref', `${session?.userId}-${new Date().toISOString()}`)
-    body.append(
-      'confirm_url',
-      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.userId}`
-    )
+    body.append('amount', `${data.amount}`)
+    body.append('method', `${paymentMethod}`)
 
-    return fetch(`${process.env.NEXT_PUBLIC_LYDIA_API_URL}/api/request/do.json`, {
+    return fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/refill/request/${session.userId}`, {
       method: 'POST',
       body,
     })
       .then((res) => res.json())
-      .then((info) => window.location.assign(info.mobile_url))
+      .then((info) => window.location.assign(info.urlRequest))
       .catch((err) => onShow('error', err.message))
   }
 

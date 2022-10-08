@@ -4,7 +4,7 @@ import { TextField } from 'mui-rff'
 import Typography from '@mui/material/Typography'
 
 import { PaymentMethod } from './TopUp'
-import lydia from 'public/static/images/logos/lydia.svg'
+import lyf from 'public/static/images/logos/lyf.svg'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
 import mastercard from 'public/static/images/logos/mastercard.svg'
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
@@ -33,7 +33,6 @@ export default function TopUpForm(props: TopUpFormProps) {
       schema={TopUpInput}
       initialValues={{
         amount: 5,
-        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
       }}
       onSubmit={onSubmit}
     >
@@ -43,15 +42,14 @@ export default function TopUpForm(props: TopUpFormProps) {
         label="Montant"
         inputProps={{ min: 5, max: 1000, step: 0.01 }}
       />
-      <TextField type="tel" name="recipient" label="Numéro de téléphone" />
 
       <div className="flex justify-center">
         <Button type="submit" onClick={props.beforeSubmit('cb')}>
           <Image src={mastercard} width={100} height={25} alt="Mastercard logo" quality={100} />
         </Button>
 
-        <Button type="submit" onClick={props.beforeSubmit('lydia')}>
-          <Image src={lydia} width={100} height={25} alt="Lydia logo" quality={100} />
+        <Button type="submit" onClick={props.beforeSubmit('lyf')}>
+          <Image src={lyf} width={100} height={25} alt="Lyf logo" quality={100} />
         </Button>
       </div>
 
