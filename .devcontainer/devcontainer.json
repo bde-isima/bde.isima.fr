@@ -4,7 +4,7 @@
 {
   "name": "bde-isima",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "service": "bde_isima",
   "workspaceFolder": "/workspace",
   // Set *default* container specific settings.json values on container create.
   "settings": {
@@ -30,10 +30,11 @@
     "shardulm94.trailing-spaces"
   ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 5432],
+  "forwardPorts": [
+    3000
+  ],
   // Use 'postCreateCommand' to run commands after the container is created.
-  //"postCreateCommand": "yarn install",
-  "postCreateCommand": "sudo chown node node_modules && yarn",
+  "postCreateCommand": "yarn"
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-  "remoteUser": "node"
+  // "remoteUser": "node"
 }
