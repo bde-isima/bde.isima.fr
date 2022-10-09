@@ -71,6 +71,7 @@ Then edit the code in your favourite IDE 👨‍💻!
 - `docs/` contains the preliminary UI/UX and architecture designs
 - `mail/` contains the mailing code logic
 - `public/` contains all the static files and assets
+- `release/` contains all the instructions to setup the production environment
 
 # 📙 Essential commands
 
