@@ -1,0 +1,81 @@
+version: '3.7'
+
+services:
+  bde_nginx:
+    container_name: bde_nginx
+    image: nginx:1.23-alpine
+    restart: always
+    volumes:
+      - ./servers/logs:/var/log/nginx
+      - ./servers/conf:/etc/nginx/conf.d
+      - ./servers/ssl:/etc/nginx/certs
+    networks:
+      - bde_isima_net
+    depends_on:
+      - bde_app
+      - bde_app_dev
+    ports:
+      - 80:80
+      - 443:443
+
+  bde_app:
+    container_name: bde_app
+    image: ghcr.io/bde-isima/main:latest
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - ./bde.isima.fr:/usr/app
+    networks:
+      - bde_isima_net
+    depends_on:
+      - bde_postgres
+    command: yarn start
+
+  bde_app_dev:
+    container_name: bde_app_dev
+    image: ghcr.io/bde-isima/staging:latest
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - ./bde.dev.isima.fr:/usr/app
+    networks:
+      - bde_isima_net
+    depends_on:
+      - bde_postgres
+    command: yarn start
+
+  bde_postgres:
+    container_name: bde_postgres
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./databases:/docker-entrypoint-initdb.d
+      - bde_data:/var/lib/postgresql/data
+    networks:
+      - bde_isima_net
+
+  bde_pgadmin:
+    container_name: bde_pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - 8443:443
+      - 8080:80
+    env_file:
+      - .env
+    volumes:
+      - bde_pgadmin:/var/lib/pgadmin
+    networks:
+      - bde_isima_net
+    depends_on:
+      - bde_postgres
+
+volumes:
+  bde_data:
+  bde_pgadmin:
+
+networks:
+  bde_isima_net:
+    driver: bridge
