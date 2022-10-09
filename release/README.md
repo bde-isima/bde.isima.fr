@@ -7,10 +7,9 @@ For the following steps, you can can use an SFTP client like [Filezilla](https:/
 - Copy the `release` folder to the virtual machine `home` folder
 - Copy the websites SSL certificates to `servers/ssl`
 - `mv .env.template .env` and change the environment variables
+- `chmod +x setup.sh && ./setup.sh` to install all requirements
 
-Finally, run the following commands in the virtual machine:
+At this step, please **restart** your virtual machine so the group membership is re-evaluated.
 
-```
-$ chmod +x setup.sh && ./setup.sh
-$ docker compose up
-```
+- `echo "your_gh_token" | docker login ghcr.io -u your_username --password-stdin` to access private registry
+- Finally launch all services with: `docker compose up`

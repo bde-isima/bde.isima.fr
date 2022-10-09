@@ -37,4 +37,3 @@ fi
 
 echo "Adding $USER to docker group"
 sudo usermod -aG docker $USER
-newgrp docker

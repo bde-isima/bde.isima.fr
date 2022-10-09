@@ -20,7 +20,7 @@ services:
 
   bde_app:
     container_name: bde_app
-    image: ghcr.io/bde-isima/main:latest
+    image: ghcr.io/bde-isima/bde.isima.fr/main:latest
     restart: always
     working_dir: /usr/app
     volumes:
@@ -33,7 +33,7 @@ services:
 
   bde_app_dev:
     container_name: bde_app_dev
-    image: ghcr.io/bde-isima/staging:latest
+    image: ghcr.io/bde-isima/bde.isima.fr/staging:latest
     restart: always
     working_dir: /usr/app
     volumes:

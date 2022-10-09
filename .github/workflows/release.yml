@@ -64,6 +64,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/bde-isima/${{ needs.branch_check.outputs.env_name }}:latest
+          tags: ghcr.io/bde-isima/bde.isima.fr/${{ needs.branch_check.outputs.env_name }}:latest
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
