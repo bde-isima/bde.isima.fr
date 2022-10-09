@@ -1,56 +1,58 @@
-import { invalidateQuery } from '@blitzjs/rpc'
-import NoSsr from '@mui/material/NoSsr'
-import Dialog from '@mui/material/Dialog'
-import { useSwipeable } from 'react-swipeable'
-import { lazy, Suspense, useState } from 'react'
-import TabPanel from '@mui/lab/TabPanel'
-import Skeleton from '@mui/material/Skeleton'
-import TabContext from '@mui/lab/TabContext'
-import IconButton from '@mui/material/IconButton'
-import DialogContent from '@mui/material/DialogContent'
-import DialogActions from '@mui/material/DialogActions'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import CircularProgress from '@mui/material/CircularProgress'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import { Suspense, lazy, useState } from 'react';
 
-import Euro from '@mui/icons-material/EuroTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
-import HistoryIcon from '@mui/icons-material/HistoryTwoTone'
-import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone'
+import TabContext from '@mui/lab/TabContext';
+import TabPanel from '@mui/lab/TabPanel';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import NoSsr from '@mui/material/NoSsr';
+import Skeleton from '@mui/material/Skeleton';
+import { useSwipeable } from 'react-swipeable';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import getUser from 'app/entities/users/queries/getUser'
-import getUsers from 'app/entities/users/queries/getUsers'
-import SearchUser from 'app/components/dashboard/cashing/SearchUser'
-import Balance from 'app/components/hub/transactions/display/Balance'
-import getTransactions from 'app/entities/transactions/queries/getTransactions'
-import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader'
-import HistoryFilter from 'app/components/hub/transactions/operations/history/HistoryFilter'
+import Close from '@mui/icons-material/CloseTwoTone';
+import Euro from '@mui/icons-material/EuroTwoTone';
+import HistoryIcon from '@mui/icons-material/HistoryTwoTone';
+import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone';
 
-const Catalog = lazy(() => import('./catalog/Catalog'))
-const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'))
-const History = lazy(() => import('app/components/hub/transactions/operations/history/History'))
+import { invalidateQuery } from '@blitzjs/rpc';
+
+import SearchUser from 'app/components/dashboard/cashing/SearchUser';
+import Balance from 'app/components/hub/transactions/display/Balance';
+import HistoryFilter from 'app/components/hub/transactions/operations/history/HistoryFilter';
+import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader';
+import { useMediaQuery } from 'app/core/styles/theme';
+import getTransactions from 'app/entities/transactions/queries/getTransactions';
+import getUser from 'app/entities/users/queries/getUser';
+import getUsers from 'app/entities/users/queries/getUsers';
+
+const Catalog = lazy(() => import('./catalog/Catalog'));
+const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
+const History = lazy(() => import('app/components/hub/transactions/operations/history/History'));
 
 export default function CashingDialog({ user, onSelection, onClear }) {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
-  const [value, setValue] = useState(0)
-  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
 
-  const [minDate, setMinDate] = useState(new Date('01-01-2021'))
-  const [maxDate, setMaxDate] = useState(new Date())
+  const [minDate, setMinDate] = useState(new Date('01-01-2021'));
+  const [maxDate, setMaxDate] = useState(new Date());
 
-  const onChange = (_, newValue: number) => setValue(newValue)
+  const onChange = (_, newValue: number) => setValue(newValue);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setValue(value > 1 ? value : value + 1),
     onSwipedRight: () => setValue(value < 1 ? value : value - 1)
-  })
+  });
 
   const onTransactionComplete = async () => {
-    await invalidateQuery(getUser, { where: { id: user?.id } })
-    await invalidateQuery(getTransactions)
-  }
+    await invalidateQuery(getUser, { where: { id: user?.id } });
+    await invalidateQuery(getTransactions);
+  };
 
   return (
     <NoSsr>
@@ -69,12 +71,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             {...handlers}
           >
             <DialogActions className="flex flex-col">
-              <IconButton
-                className="ml-auto"
-                onClick={onClear}
-                aria-label="Fermer l'encaisseur"
-                size="large"
-              >
+              <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur" size="large">
                 <Close />
               </IconButton>
 
@@ -96,32 +93,20 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
             <DialogContent className="p-0 text-center">
               <TabPanel className="h-5/6 mb-14" value="0">
-                <Suspense
-                  fallback={
-                    <CircularProgress className="text-primary dark:text-secondary" size={25} />
-                  }
-                >
+                <Suspense fallback={<CircularProgress className="text-primary dark:text-secondary" size={25} />}>
                   <Catalog user={user} onTransactionComplete={onTransactionComplete} />
                 </Suspense>
               </TabPanel>
 
               <TabPanel value="1">
-                <Suspense
-                  fallback={
-                    <CircularProgress className="text-primary dark:text-secondary" size={25} />
-                  }
-                >
+                <Suspense fallback={<CircularProgress className="text-primary dark:text-secondary" size={25} />}>
                   <HistoryHeader />
                   <History userId={user?.id} minDate={minDate} maxDate={maxDate} />
                 </Suspense>
               </TabPanel>
 
               <TabPanel value="2">
-                <Suspense
-                  fallback={
-                    <CircularProgress className="text-primary dark:text-secondary" size={25} />
-                  }
-                >
+                <Suspense fallback={<CircularProgress className="text-primary dark:text-secondary" size={25} />}>
                   <AdminTransfer user={user} onTransactionComplete={onTransactionComplete} />
                 </Suspense>
               </TabPanel>
@@ -129,22 +114,12 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
             {value === 1 && (
               <DialogActions>
-                <HistoryFilter
-                  minDate={minDate}
-                  setMinDate={setMinDate}
-                  maxDate={maxDate}
-                  setMaxDate={setMaxDate}
-                />
+                <HistoryFilter minDate={minDate} setMinDate={setMinDate} maxDate={maxDate} setMaxDate={setMaxDate} />
               </DialogActions>
             )}
 
             <DialogActions className="p-0">
-              <BottomNavigation
-                className="w-full"
-                showLabels={!fullScreen}
-                value={value}
-                onChange={onChange}
-              >
+              <BottomNavigation className="w-full" showLabels={!fullScreen} value={value} onChange={onChange}>
                 <BottomNavigationAction
                   className="text-primary dark:text-secondary"
                   value={0}
@@ -169,5 +144,5 @@ export default function CashingDialog({ user, onSelection, onClear }) {
         )}
       </TabContext>
     </NoSsr>
-  )
+  );
 }

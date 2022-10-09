@@ -1,17 +1,18 @@
-import { BlitzPage } from "@blitzjs/next";
+import { Suspense, lazy } from 'react';
 
-import 'react-multi-carousel/lib/styles.css'
-import { Suspense, lazy } from 'react'
+import 'react-multi-carousel/lib/styles.css';
 
-import Landing from 'app/components/public/Landing'
-import getPublicNav from 'app/components/nav/public/getPublicNav'
+import { BlitzPage } from '@blitzjs/next';
 
-const Clubs = lazy(() => import('app/components/public/Clubs'))
-const School = lazy(() => import('app/components/public/School'))
-const Partners = lazy(() => import('app/components/public/Partners'))
-const Footer = lazy(() => import('app/components/public/footer/Footer'))
-const Contact = lazy(() => import('app/components/public/contact/Contact'))
-const MessengerChat = lazy(() => import('app/components/public/MessengerChat'))
+import getPublicNav from 'app/components/nav/public/getPublicNav';
+import Landing from 'app/components/public/Landing';
+
+const Clubs = lazy(() => import('app/components/public/Clubs'));
+const School = lazy(() => import('app/components/public/School'));
+const Partners = lazy(() => import('app/components/public/Partners'));
+const Footer = lazy(() => import('app/components/public/footer/Footer'));
+const Contact = lazy(() => import('app/components/public/contact/Contact'));
+const MessengerChat = lazy(() => import('app/components/public/MessengerChat'));
 
 const Index: BlitzPage = () => {
   return (
@@ -36,10 +37,10 @@ const Index: BlitzPage = () => {
         <MessengerChat />
       </Suspense>
     </>
-  )
-}
+  );
+};
 
-Index.suppressFirstRenderFlicker = true
-Index.getLayout = (page) => getPublicNav(page)
+Index.suppressFirstRenderFlicker = true;
+Index.getLayout = (page) => getPublicNav(page);
 
-export default Index
+export default Index;

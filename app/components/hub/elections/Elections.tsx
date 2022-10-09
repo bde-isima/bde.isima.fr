@@ -1,37 +1,40 @@
-import { useQuery } from "@blitzjs/rpc";
-import { useState } from 'react'
-import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
+import { useState } from 'react';
 
-import HideSource from '@mui/icons-material/HideSourceTwoTone'
-import Ballot from '@mui/icons-material/BallotTwoTone'
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Grid from '@mui/material/Grid';
+import { Candidate, Election } from 'db';
 
-import { Election, Candidate } from 'db'
-import VoteDialog from './Vote/VoteDialog'
-import CandidateItem from './CandidateItem'
-import NoElections from 'app/components/hub/elections/NoElections'
-import getElection from 'app/entities/elections/queries/getElection'
+import Ballot from '@mui/icons-material/BallotTwoTone';
+import HideSource from '@mui/icons-material/HideSourceTwoTone';
 
-const now = new Date()
+import { useQuery } from '@blitzjs/rpc';
+
+import NoElections from 'app/components/hub/elections/NoElections';
+import getElection from 'app/entities/elections/queries/getElection';
+
+import CandidateItem from './CandidateItem';
+import VoteDialog from './Vote/VoteDialog';
+
+const now = new Date();
 
 export default function Elections() {
-  const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<Candidate | null>()
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<Candidate | null>();
 
   const [election] = useQuery(
     getElection,
     {
       include: { candidates: { orderBy: { name: 'asc' } } },
-      where: { endDate: { gte: now } },
+      where: { endDate: { gte: now } }
     },
     { refetchOnWindowFocus: false }
-  )
+  );
 
   const onSelect = (open, value) => () => {
-    setOpen(open)
-    setSelected(value)
-  }
+    setOpen(open);
+    setSelected(value);
+  };
 
   return (
     <>
@@ -68,5 +71,5 @@ export default function Elections() {
         </>
       )}
     </>
-  )
+  );
 }

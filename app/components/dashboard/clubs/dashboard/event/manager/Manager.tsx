@@ -1,43 +1,45 @@
-import { useQuery } from "@blitzjs/rpc";
-import NoSsr from '@mui/material/NoSsr'
-import Dialog from '@mui/material/Dialog'
-import TabContext from '@mui/lab/TabContext'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import CircularProgress from '@mui/material/CircularProgress'
-import { useState, Suspense, lazy } from 'react'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import { Suspense, lazy, useState } from 'react';
 
-import Close from '@mui/icons-material/CloseTwoTone'
-import Layers from '@mui/icons-material/LayersTwoTone'
-import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
-import FormatListBulleted from '@mui/icons-material/FormatListBulletedTwoTone'
+import TabContext from '@mui/lab/TabContext';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import NoSsr from '@mui/material/NoSsr';
+import Typography from '@mui/material/Typography';
 
-import TabPanel from 'app/core/layouts/TabPanel'
-import { useMediaQuery } from 'app/core/styles/theme'
-import SlideTransition from 'app/core/layouts/SlideTransition'
-import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
+import Close from '@mui/icons-material/CloseTwoTone';
+import FormatListBulleted from '@mui/icons-material/FormatListBulletedTwoTone';
+import Layers from '@mui/icons-material/LayersTwoTone';
+import QueryStats from '@mui/icons-material/QueryStatsTwoTone';
 
-const SubscriptionRecap = lazy(() => import('./recap/SubscriptionRecap'))
-const SubscriptionsList = lazy(() => import('./list/SubscriptionsList'))
-const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnalytics'))
+import { useQuery } from '@blitzjs/rpc';
+
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import TabPanel from 'app/core/layouts/TabPanel';
+import { useMediaQuery } from 'app/core/styles/theme';
+import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions';
+
+const SubscriptionRecap = lazy(() => import('./recap/SubscriptionRecap'));
+const SubscriptionsList = lazy(() => import('./list/SubscriptionsList'));
+const SubscriptionsAnalytics = lazy(() => import('./analytics/SubscriptionsAnalytics'));
 
 export default function Manager({ open, event, onClose }) {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   const [data]: any = useQuery(
     getEventSubscriptions,
     { where: { eventId: event?.id }, include: { user: true } },
     { enabled: Boolean(event?.id), refetchOnWindowFocus: false }
-  )
+  );
 
-  const onChange = (_, newValue: number) => setValue(newValue)
+  const onChange = (_, newValue: number) => setValue(newValue);
 
   return (
     <NoSsr>
@@ -55,12 +57,7 @@ export default function Manager({ open, event, onClose }) {
               Manager d&apos;évènements
             </Typography>
 
-            <IconButton
-              className="ml-auto"
-              onClick={onClose}
-              aria-label="Fermer le manager"
-              size="large"
-            >
+            <IconButton className="ml-auto" onClick={onClose} aria-label="Fermer le manager" size="large">
               <Close />
             </IconButton>
           </DialogTitle>
@@ -86,12 +83,7 @@ export default function Manager({ open, event, onClose }) {
           </DialogContent>
 
           <DialogActions className="p-0">
-            <BottomNavigation
-              className="w-full"
-              showLabels={!fullScreen}
-              value={value}
-              onChange={onChange}
-            >
+            <BottomNavigation className="w-full" showLabels={!fullScreen} value={value} onChange={onChange}>
               <BottomNavigationAction label="Statistiques" icon={<QueryStats />} />
               <BottomNavigationAction label="Liste inscrits" icon={<FormatListBulleted />} />
               <BottomNavigationAction label="Récapitulatif" icon={<Layers />} />
@@ -100,5 +92,5 @@ export default function Manager({ open, event, onClose }) {
         </Dialog>
       </TabContext>
     </NoSsr>
-  )
+  );
 }

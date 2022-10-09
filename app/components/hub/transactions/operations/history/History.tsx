@@ -1,40 +1,39 @@
-import { useInfiniteQuery } from "@blitzjs/rpc";
-import { Fragment } from 'react'
-import isValid from 'date-fns/isValid'
-import Button from '@mui/material/Button'
+import { Fragment } from 'react';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import getTransactions from 'app/entities/transactions/queries/getTransactions'
-import TransactionRow from 'app/components/hub/transactions//display/TransactionRow'
+import Button from '@mui/material/Button';
+import isValid from 'date-fns/isValid';
+
+import { useInfiniteQuery } from '@blitzjs/rpc';
+
+import TransactionRow from 'app/components/hub/transactions//display/TransactionRow';
+import { useMediaQuery } from 'app/core/styles/theme';
+import getTransactions from 'app/entities/transactions/queries/getTransactions';
 
 type HistoryProps = {
-  userId?: string
-  minDate: Date
-  maxDate: Date
-}
+  userId?: string;
+  minDate: Date;
+  maxDate: Date;
+};
 
 export default function History({ userId, minDate, maxDate }: HistoryProps) {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   const AND =
-    isValid(minDate) && isValid(maxDate)
-      ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }]
-      : []
+    isValid(minDate) && isValid(maxDate) ? [{ createdAt: { gte: minDate } }, { createdAt: { lte: maxDate } }] : [];
 
-  const [groupedTransactions, { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage }] =
-    useInfiniteQuery(
-      getTransactions,
-      (
-        page = {
-          take: 10,
-          skip: 0,
-        }
-      ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: 'desc' } }),
-      {
-        getNextPageParam: (lastPage) => lastPage.nextPage,
-        enabled: Boolean(userId),
+  const [groupedTransactions, { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage }] = useInfiniteQuery(
+    getTransactions,
+    (
+      page = {
+        take: 10,
+        skip: 0
       }
-    )
+    ) => ({ ...page, where: { userId, AND }, orderBy: { createdAt: 'desc' } }),
+    {
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+      enabled: Boolean(userId)
+    }
+  );
 
   return (
     <>
@@ -63,12 +62,8 @@ export default function History({ userId, minDate, maxDate }: HistoryProps) {
         variant="outlined"
         disabled={!hasNextPage || !!isFetchingNextPage}
       >
-        {isFetching || isFetchingNextPage
-          ? 'Chargement ...'
-          : hasNextPage
-          ? 'Charger plus'
-          : 'Plus rien à charger'}
+        {isFetching || isFetchingNextPage ? 'Chargement ...' : hasNextPage ? 'Charger plus' : 'Plus rien à charger'}
       </Button>
     </>
-  )
+  );
 }

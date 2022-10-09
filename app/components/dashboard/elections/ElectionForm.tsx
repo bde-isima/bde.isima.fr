@@ -1,34 +1,36 @@
-import { useMemo } from 'react'
-import { Field } from 'react-final-form'
-import frLocale from 'date-fns/locale/fr'
-import arrayMutators from 'final-form-arrays'
-import MuiTextField from '@mui/material/TextField'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { useMemo } from 'react';
 
-import { Election, Candidate } from 'db'
-import CandidatesForm from './CandidatesForm'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { ElectionInput, ElectionInputType } from 'app/components/forms/validations'
+import MuiTextField from '@mui/material/TextField';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import frLocale from 'date-fns/locale/fr';
+import { Candidate, Election } from 'db';
+import arrayMutators from 'final-form-arrays';
+import { Field } from 'react-final-form';
+
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { ElectionInput, ElectionInputType } from 'app/components/forms/validations';
+
+import CandidatesForm from './CandidatesForm';
 
 type ElectionFormProps = {
-  initialValues: (Election & { candidates: Candidate[] }) | null
-  onSuccess: (values: ElectionInputType) => void
-  onClose: () => void
-}
+  initialValues: (Election & { candidates: Candidate[] }) | null;
+  onSuccess: (values: ElectionInputType) => void;
+  onClose: () => void;
+};
 
 export default function ElectionForm(props: ElectionFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
-      }
+      };
     }
-  }
+  };
 
-  const onDateChange = (onChange) => (newDate) => onChange(newDate)
+  const onDateChange = (onChange) => (newDate) => onChange(newDate);
 
   return (
     <Form
@@ -66,5 +68,5 @@ export default function ElectionForm(props: ElectionFormProps) {
 
       <CandidatesForm />
     </Form>
-  )
+  );
 }

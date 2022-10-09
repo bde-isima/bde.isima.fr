@@ -1,22 +1,23 @@
-import clsx from 'clsx'
-import { ReactNode } from 'react'
-import { getPanelId, getTabId, useTabContext } from '@mui/lab/TabContext'
+import { ReactNode } from 'react';
+
+import { getPanelId, getTabId, useTabContext } from '@mui/lab/TabContext';
+import clsx from 'clsx';
 
 interface TabPanelProps {
-  children?: ReactNode
-  className?: string
-  value: string
+  children?: ReactNode;
+  className?: string;
+  value: string;
 }
 
 export default function TabPanel(props: TabPanelProps) {
-  const { children, className, value, ...other } = props
-  const context = useTabContext()
+  const { children, className, value, ...other } = props;
+  const context = useTabContext();
 
   if (context === null) {
-    throw new TypeError('No TabContext provided')
+    throw new TypeError('No TabContext provided');
   }
-  const id = getPanelId(context, value)
-  const tabId = getTabId(context, value)
+  const id = getPanelId(context, value);
+  const tabId = getTabId(context, value);
 
   return (
     <div
@@ -29,5 +30,5 @@ export default function TabPanel(props: TabPanelProps) {
     >
       {children}
     </div>
-  )
+  );
 }

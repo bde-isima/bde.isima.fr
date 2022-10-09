@@ -1,14 +1,11 @@
-import TextField from '@mui/material/TextField'
-import FormControl from '@mui/material/FormControl'
-
-import { Product } from 'global'
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
 
 type ProductCommentProps = {
-  product: Product
-  onChange: (event) => void
-}
+  onChange: (event) => void;
+};
 
-export default function ProductComment({ product, onChange }: ProductCommentProps) {
+export default function ProductComment({ onChange }: ProductCommentProps) {
   return (
     <FormControl className="m-3 flex" component="fieldset">
       <TextField
@@ -19,5 +16,5 @@ export default function ProductComment({ product, onChange }: ProductCommentProp
         rows={2}
       />
     </FormControl>
-  )
+  );
 }

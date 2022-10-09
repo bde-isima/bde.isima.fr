@@ -1,15 +1,14 @@
-import Card from '@mui/material/Card'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import CardActionArea from '@mui/material/CardActionArea'
-
-import { Product } from 'global'
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Product } from 'global';
 
 type ProductCardProps = {
-  product: Product
-  onClick: (value: any) => () => void
-}
+  product: Product;
+  onClick: (value: any) => () => void;
+};
 
 export default function ProductCard({ product, onClick }: ProductCardProps) {
   return (
@@ -26,5 +25,5 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
         </CardActionArea>
       </Card>
     </Grid>
-  )
+  );
 }

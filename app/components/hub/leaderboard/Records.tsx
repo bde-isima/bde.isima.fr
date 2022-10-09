@@ -1,27 +1,29 @@
-import Image from 'next/image'
-import { useQuery } from '@blitzjs/rpc'
-import Badge from '@mui/material/Badge'
-import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
+import Badge from '@mui/material/Badge';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
-import Whatshot from '@mui/icons-material/WhatshotTwoTone'
+import Whatshot from '@mui/icons-material/WhatshotTwoTone';
 
-import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
-import getAnalytic from 'app/entities/analytic/queries/getAnalytic'
+import Image from 'next/image';
+
+import { useQuery } from '@blitzjs/rpc';
+
+import getAnalytic from 'app/entities/analytic/queries/getAnalytic';
+import { useCurrentUser } from 'app/entities/hooks/useCurrentUser';
 
 export default function Records() {
   const [user] = useCurrentUser({
     include: { userStats: true }
-  })
+  });
 
   const [leaderboard] = useQuery(getAnalytic, {
     where: { tag: 'leaderboard' }
-  })
+  });
 
   return (
     <>
       {(leaderboard as any)?.data?.map((row, index) => {
-        const score = (user as any)?.userStats?.articlesStats[row.articleId] ?? 0
+        const score = (user as any)?.userStats?.articlesStats[row.articleId] ?? 0;
         return (
           <TableRow key={index}>
             <TableCell align="right">
@@ -58,9 +60,7 @@ export default function Records() {
             <TableCell align="right">
               {score >= row.unitsNb && row.unitsNb > 0 ? (
                 <Badge
-                  badgeContent={
-                    <Whatshot className="transform-gpu -translate-y-1 rotate-12 text-red-500" />
-                  }
+                  badgeContent={<Whatshot className="transform-gpu -translate-y-1 rotate-12 text-red-500" />}
                   component="span"
                 >
                   {score}
@@ -70,8 +70,8 @@ export default function Records() {
               )}
             </TableCell>
           </TableRow>
-        )
+        );
       })}
     </>
-  )
+  );
 }

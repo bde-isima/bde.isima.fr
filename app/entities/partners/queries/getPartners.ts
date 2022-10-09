@@ -1,8 +1,8 @@
-import { resolver } from "@blitzjs/rpc";
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type GetPartnersInput = Pick<Prisma.PartnerFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>
+type GetPartnersInput = Pick<Prisma.PartnerFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetPartnersInput) => {
   const partners = await db.partner.findMany({
@@ -10,16 +10,16 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take }: GetPartn
     orderBy,
     take,
     skip
-  })
+  });
 
-  const count = await db.partner.count({ where })
-  const hasMore = typeof take === 'number' ? skip + take < count : false
-  const nextPage = hasMore ? { take, skip: skip + take! } : null
+  const count = await db.partner.count({ where });
+  const hasMore = typeof take === 'number' ? skip + take < count : false;
+  const nextPage = hasMore ? { take, skip: skip + take! } : null;
 
   return {
     partners,
     nextPage,
     hasMore,
     count
-  }
-})
+  };
+});

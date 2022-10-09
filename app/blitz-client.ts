@@ -1,14 +1,11 @@
-import { AuthClientPlugin } from "@blitzjs/auth"
-import { setupBlitzClient } from "@blitzjs/next"
-import { BlitzRpcPlugin } from "@blitzjs/rpc"
+import { AuthClientPlugin } from '@blitzjs/auth';
+import { setupBlitzClient } from '@blitzjs/next';
+import { BlitzRpcPlugin } from '@blitzjs/rpc';
 
 export const authConfig = {
-  cookiePrefix: "bde-isima"
-}
+  cookiePrefix: 'bde-isima'
+};
 
 export const { withBlitz } = setupBlitzClient({
-  plugins: [
-    AuthClientPlugin(authConfig),
-    BlitzRpcPlugin({}),
-  ],
-})
+  plugins: [AuthClientPlugin(authConfig), BlitzRpcPlugin({})]
+});

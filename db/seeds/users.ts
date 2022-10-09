@@ -1,7 +1,7 @@
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
 
 const users = async (db) => {
-  const promotion = await db.promotion.findFirst()
+  const promotion = await db.promotion.findFirst();
 
   //User to log in with
   await db.user.create({
@@ -17,7 +17,7 @@ const users = async (db) => {
       roles: '*',
       promotionId: promotion.id
     }
-  })
+  });
 
   for (let i = 0; i < 4; ++i) {
     await db.user.create({
@@ -31,8 +31,8 @@ const users = async (db) => {
         balance: parseFloat(faker.finance.amount()),
         promotionId: promotion.id
       }
-    })
+    });
   }
-}
+};
 
-export default users
+export default users;

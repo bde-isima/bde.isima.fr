@@ -1,5 +1,6 @@
-import Image from 'next/image'
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
+
+import Image from 'next/image';
 
 export default function NoElections() {
   return (
@@ -15,5 +16,5 @@ export default function NoElections() {
         Il n&apos;y a pas d&apos;élections BDE en cours
       </Typography>
     </div>
-  )
+  );
 }

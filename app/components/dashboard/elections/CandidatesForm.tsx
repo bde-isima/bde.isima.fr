@@ -1,35 +1,30 @@
-import { TextField } from 'mui-rff'
-import { useForm } from 'react-final-form'
-import Divider from '@mui/material/Divider'
-import FormGroup from '@mui/material/FormGroup'
-import FormLabel from '@mui/material/FormLabel'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import FormControl from '@mui/material/FormControl'
-import { FieldArray } from 'react-final-form-arrays'
-import InputAdornment from '@mui/material/InputAdornment'
+import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import { TextField } from 'mui-rff';
+import { useForm } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 
-import Add from '@mui/icons-material/AddTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import Add from '@mui/icons-material/AddTwoTone';
+import Close from '@mui/icons-material/CloseTwoTone';
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
 export default function CandidatesForm() {
-  const form = useForm()
+  const form = useForm();
 
-  const onAddItem = (name) => () => form.mutators.push(name, undefined)
+  const onAddItem = (name) => () => form.mutators.push(name, undefined);
 
-  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx)
+  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx);
 
   return (
     <FormControl className="flex flex-col" component="fieldset">
       <FormLabel className="flex items-center justify-evenly" component="legend">
         <Typography>Candidats</Typography>
-        <IconButton
-          className="m-2"
-          onClick={onAddItem('candidates')}
-          aria-label="Ajouter un candidat"
-          size="small"
-        >
+        <IconButton className="m-2" onClick={onAddItem('candidates')} aria-label="Ajouter un candidat" size="small">
           <Add />
         </IconButton>
       </FormLabel>
@@ -37,10 +32,7 @@ export default function CandidatesForm() {
       <FieldArray name="candidates">
         {({ fields }) =>
           fields.map((candidateName, candidateIdx) => (
-            <div
-              key={candidateIdx}
-              className="relative flex flex-col p-4 m-4 border border-gray-200"
-            >
+            <div key={candidateIdx} className="relative flex flex-col p-4 m-4 border border-solid border-gray-200">
               <IconButton
                 className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
                 onClick={onDeleteItem('candidates', candidateIdx)}
@@ -73,17 +65,12 @@ export default function CandidatesForm() {
                             <OpenInNew />
                           </IconButton>
                         </InputAdornment>
-                      ),
+                      )
                     }}
                     helperText="Format PNG obligatoire"
                   />
 
-                  <TextField
-                    className="my-1"
-                    type="text"
-                    name={`${candidateName}.name`}
-                    label="Nom"
-                  />
+                  <TextField className="my-1" type="text" name={`${candidateName}.name`} label="Nom" />
                 </FormGroup>
               </FormControl>
 
@@ -102,5 +89,5 @@ export default function CandidatesForm() {
         }
       </FieldArray>
     </FormControl>
-  )
+  );
 }

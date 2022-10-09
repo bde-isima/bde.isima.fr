@@ -1,29 +1,30 @@
-import { useState } from 'react'
-import NoSsr from '@mui/material/NoSsr'
-import Timeline from '@mui/lab/Timeline'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import IconButton from '@mui/material/IconButton'
-import DialogActions from '@mui/material/DialogActions'
+import { useState } from 'react';
 
-import Help from '@mui/icons-material/HelpTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
-import Email from '@mui/icons-material/EmailTwoTone'
-import Warning from '@mui/icons-material/WarningTwoTone'
-import Security from '@mui/icons-material/SecurityTwoTone'
-import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
+import Timeline from '@mui/lab/Timeline';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import NoSsr from '@mui/material/NoSsr';
 
-import HowItWorksItem from './HowItWorksItem'
-import { useTheme } from 'app/core/styles/theme'
-import { useMediaQuery } from 'app/core/styles/theme'
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import Close from '@mui/icons-material/CloseTwoTone';
+import Email from '@mui/icons-material/EmailTwoTone';
+import Help from '@mui/icons-material/HelpTwoTone';
+import HowToVote from '@mui/icons-material/HowToVoteTwoTone';
+import Security from '@mui/icons-material/SecurityTwoTone';
+import Warning from '@mui/icons-material/WarningTwoTone';
+
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import { useMediaQuery } from 'app/core/styles/theme';
+
+import HowItWorksItem from './HowItWorksItem';
 
 export default function HowItWorks() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
-  const toggleDialog = (open) => () => setIsOpen(open)
+  const toggleDialog = (open) => () => setIsOpen(open);
 
   return (
     <>
@@ -85,5 +86,5 @@ export default function HowItWorks() {
         </Dialog>
       </NoSsr>
     </>
-  )
+  );
 }

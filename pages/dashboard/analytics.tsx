@@ -1,12 +1,14 @@
-import { BlitzPage, Routes } from "@blitzjs/next";
-import { Suspense } from 'react'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
+import { Suspense } from 'react';
 
-import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
-import ArticlesStats from 'app/components/dashboard/analytics/ArticlesStats'
-import GlobalBalance from 'app/components/dashboard/analytics/GlobalBalance'
-import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
+import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import ArticlesStats from 'app/components/dashboard/analytics/ArticlesStats';
+import GlobalBalance from 'app/components/dashboard/analytics/GlobalBalance';
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config';
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav';
 
 const Analytics: BlitzPage = () => {
   const AnalyticsCard = ({ children }) => (
@@ -15,7 +17,7 @@ const Analytics: BlitzPage = () => {
         <Suspense fallback="Récupération des données ...">{children}</Suspense>
       </Card>
     </Grid>
-  )
+  );
 
   return (
     <Grid container spacing={5}>
@@ -27,12 +29,12 @@ const Analytics: BlitzPage = () => {
         <ArticlesStats />
       </AnalyticsCard>
     </Grid>
-  )
-}
+  );
+};
 
-Analytics.suppressFirstRenderFlicker = true
-Analytics.authenticate = { redirectTo: Routes.Login() }
-Analytics.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Planning())
-Analytics.getLayout = (page) => getDashboardNav(page, 'Statistiques')
+Analytics.suppressFirstRenderFlicker = true;
+Analytics.authenticate = { redirectTo: Routes.Login() };
+Analytics.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Planning());
+Analytics.getLayout = (page) => getDashboardNav(page, 'Statistiques');
 
-export default Analytics
+export default Analytics;

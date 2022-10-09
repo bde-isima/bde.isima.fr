@@ -1,33 +1,34 @@
-import Image from 'next/image'
-import { TextField } from 'mui-rff'
-import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import { TextField } from 'mui-rff';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { useCurrentUser } from 'app/entities/hooks/useCurrentUser'
-import { SettingsInput, SettingsInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { SettingsInput, SettingsInputType } from 'app/components/forms/validations';
+import { useCurrentUser } from 'app/entities/hooks/useCurrentUser';
 
 type SettingsFormProps = {
-  onSuccess: (values: SettingsInputType) => void
-}
+  onSuccess: (values: SettingsInputType) => void;
+};
 
 export default function SettingsForm(props: SettingsFormProps) {
-  const [user] = useCurrentUser()
+  const [user] = useCurrentUser();
 
   const onSubmit = async (values: SettingsInputType) => {
     try {
-      console.log(values)
-      await props.onSuccess(values)
+      console.log(values);
+      await props.onSuccess(values);
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
-      }
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -42,8 +43,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       autoComplete="off"
     >
       <Typography variant="h6" color="textSecondary">
-        {user?.lastname} {user?.firstname} (n° {user?.card}) -{' '}
-        {user?.is_member ? 'Cotisant' : 'Non-cotisant'}
+        {user?.lastname} {user?.firstname} (n° {user?.card}) - {user?.is_member ? 'Cotisant' : 'Non-cotisant'}
       </Typography>
 
       <Divider className="m-2" />
@@ -58,13 +58,7 @@ export default function SettingsForm(props: SettingsFormProps) {
 
       <div className="mx-auto">
         {user?.image && (
-          <Image
-            className="rounded-full"
-            src={user.image}
-            width={100}
-            height={100}
-            alt="Image de profil"
-          />
+          <Image className="rounded-full" src={user.image} width={100} height={100} alt="Image de profil" />
         )}
       </div>
 
@@ -90,5 +84,5 @@ export default function SettingsForm(props: SettingsFormProps) {
         fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
     </Form>
-  )
+  );
 }

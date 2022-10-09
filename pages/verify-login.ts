@@ -1,18 +1,19 @@
-import { gSSP } from "app/blitz-server";
-import { GetServerSideProps } from "next";
-import { getSession } from "@blitzjs/auth";
+import db from 'db';
+import { GetServerSideProps } from 'next';
 
-import db from 'db'
+import { getSession } from '@blitzjs/auth';
+
+import { gSSP } from 'app/blitz-server';
 
 export default function VerifyLogin() {
-  return null
+  return null;
 }
 
 export const getServerSideProps: GetServerSideProps = gSSP(async ({ req, res, query }) => {
   const request = await db.loginRequest.findUnique({
     where: { token: `${query.token}` },
     include: { user: true }
-  })
+  });
 
   if (!request || new Date() > request.expires) {
     return {
@@ -20,10 +21,10 @@ export const getServerSideProps: GetServerSideProps = gSSP(async ({ req, res, qu
         permanent: false,
         destination: '/login?invalid=1'
       }
-    }
+    };
   }
 
-  const session = await getSession(req, res)
+  const session = await getSession(req, res);
 
   await Promise.all([
     session.$create({
@@ -37,12 +38,12 @@ export const getServerSideProps: GetServerSideProps = gSSP(async ({ req, res, qu
       roles: request.user.roles
     }),
     db.loginRequest.delete({ where: { id: request.id } })
-  ])
+  ]);
 
   return {
     redirect: {
       permanent: false,
       destination: request.callbackUrl
     }
-  }
-})
+  };
+});

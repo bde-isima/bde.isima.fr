@@ -1,14 +1,17 @@
-import Image from 'next/image'
-import { Suspense } from 'react'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Suspense } from 'react';
 
-import { Club } from 'db'
-import Carousel from './carousel'
-import getClubs from 'app/entities/clubs/queries/getClubs'
+import CircularProgress from '@mui/material/CircularProgress';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { Club } from 'db';
+
+import Image from 'next/image';
+
+import getClubs from 'app/entities/clubs/queries/getClubs';
+
+import Carousel from './carousel';
 
 export default function Clubs() {
   return (
@@ -34,12 +37,11 @@ export default function Clubs() {
 
           <Grid container item xs={12} md={6} alignItems="center">
             <Typography className="leading-9" variant="subtitle2" color="secondary" align="justify">
-              Le BDE se décompose en une multitude de clubs avec chacun une activité propre. Il y en
-              a pour tous les goûts (activités associatives scientifiques, techniques,
-              technologiques, culturelles ou encore sportives) et c&apos;est souvent Isibouffe qui
-              régale ! <br />
-              La vie associative est un aspect très important du BDE, quelles que soient tes
-              passions tu trouveras forcément un club qui te plaira !
+              Le BDE se décompose en une multitude de clubs avec chacun une activité propre. Il y en a pour tous les
+              goûts (activités associatives scientifiques, techniques, technologiques, culturelles ou encore sportives)
+              et c&apos;est souvent Isibouffe qui régale ! <br />
+              La vie associative est un aspect très important du BDE, quelles que soient tes passions tu trouveras
+              forcément un club qui te plaira !
             </Typography>
           </Grid>
         </Grid>
@@ -49,5 +51,5 @@ export default function Clubs() {
         <Carousel<Club> getQuery={getClubs} queryKey="clubs" />
       </Suspense>
     </Paper>
-  )
+  );
 }

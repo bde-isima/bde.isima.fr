@@ -1,21 +1,22 @@
-import { useMutation, invalidateQuery } from '@blitzjs/rpc'
-import cuid from 'cuid'
-import NoSsr from '@mui/material/NoSsr'
-import Dialog from '@mui/material/Dialog'
+import Dialog from '@mui/material/Dialog';
+import NoSsr from '@mui/material/NoSsr';
+import cuid from 'cuid';
 
-import Snackbar from 'app/core/layouts/Snackbar'
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import { invalidateQuery, useMutation } from '@blitzjs/rpc';
+
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import Snackbar from 'app/core/layouts/Snackbar';
 
 type TableDialogProps = {
-  open: boolean
-  values: any
-  columns: any[]
-  onClose: () => void
-  getQuery: any
-  upsertQuery: any
-  snackbar: any
-  FormComponent?: any
-}
+  open: boolean;
+  values: any;
+  columns: any[];
+  onClose: () => void;
+  getQuery: any;
+  upsertQuery: any;
+  snackbar: any;
+  FormComponent?: any;
+};
 
 export default function TableDialog({
   open,
@@ -27,31 +28,31 @@ export default function TableDialog({
   snackbar,
   FormComponent
 }: TableDialogProps) {
-  const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
+  const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar;
 
-  const [upsertMutation] = useMutation(upsertQuery)
+  const [upsertMutation] = useMutation(upsertQuery);
 
   const formatData = (data) => {
-    const formattedData = { ...data }
+    const formattedData = { ...data };
     columns.forEach((col) => {
-      let value = data[col.id]
+      let value = data[col.id];
 
       if (col.exclude) {
-        return
+        return;
       }
 
       if (typeof col.format === 'function') {
-        value = col.format(data[col.id])
+        value = col.format(data[col.id]);
       }
 
       if (typeof value === 'string') {
-        value = value.trim()
+        value = value.trim();
       }
 
-      Object.assign(formattedData, { [col.id]: value ?? null })
-    })
-    return formattedData
-  }
+      Object.assign(formattedData, { [col.id]: value ?? null });
+    });
+    return formattedData;
+  };
 
   const onSuccess = async (data) => {
     try {
@@ -59,22 +60,22 @@ export default function TableDialog({
         where: { id: values.id ?? cuid() },
         update: formatData(data),
         create: formatData(data)
-      } as any)
+      } as any);
 
-      onShow('success', 'Sauvegardé')
-      await invalidateQuery(getQuery)
-      onClose()
+      onShow('success', 'Sauvegardé');
+      await invalidateQuery(getQuery);
+      onClose();
     } catch (err) {
       if (err.code === 'P2002') {
-        onShow('error', `${err.meta.target[0]} n'est pas unique`)
+        onShow('error', `${err.meta.target[0]} n'est pas unique`);
       } else {
-        onShow('error', err.message)
+        onShow('error', err.message);
       }
     }
-  }
+  };
 
   if (!FormComponent) {
-    return null
+    return null;
   }
 
   return (
@@ -93,5 +94,5 @@ export default function TableDialog({
 
       <Snackbar open={snackOpen} message={message} severity={severity} onClose={onSnackClose} />
     </NoSsr>
-  )
+  );
 }

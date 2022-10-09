@@ -1,30 +1,31 @@
-import { useState } from 'react'
-import { TextField } from 'mui-rff'
-import Divider from '@mui/material/Divider'
+import { useState } from 'react';
 
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import SearchUser from 'app/components/dashboard/cashing/SearchUser'
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
-import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
-import { TransferInput, TransferInputType } from 'app/components/forms/validations'
+import Divider from '@mui/material/Divider';
+import { TextField } from 'mui-rff';
+
+import SearchUser from 'app/components/dashboard/cashing/SearchUser';
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { TransferInput, TransferInputType } from 'app/components/forms/validations';
+import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData';
 
 type TransferFormProps = {
-  onSuccess: (values: TransferInputType) => void
-  onClose: () => void
-}
+  onSuccess: (values: TransferInputType) => void;
+  onClose: () => void;
+};
 
 export default function TransferForm({ onSuccess, onClose }: TransferFormProps) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const onSubmit = async (values) => {
     try {
-      await onSuccess(values)
+      await onSuccess(values);
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
-      }
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -55,5 +56,5 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
         withForm
       />
     </Form>
-  )
+  );
 }

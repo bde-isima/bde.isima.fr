@@ -1,18 +1,20 @@
-import { BlitzPage, Routes } from "@blitzjs/next";
-import { Suspense } from 'react'
-import Divider from '@mui/material/Divider'
-import ImageList from '@mui/material/ImageList'
-import Typography from '@mui/material/Typography'
+import { Suspense } from 'react';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import Market from 'app/components/hub/market/Market'
-import getHubNav from 'app/components/nav/hub/getHubNav'
-import MarketItem from 'app/components/hub/market/MarketItem'
+import Divider from '@mui/material/Divider';
+import ImageList from '@mui/material/ImageList';
+import Typography from '@mui/material/Typography';
+
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import Market from 'app/components/hub/market/Market';
+import MarketItem from 'app/components/hub/market/MarketItem';
+import getHubNav from 'app/components/nav/hub/getHubNav';
+import { useMediaQuery } from 'app/core/styles/theme';
 
 const MarketIndex: BlitzPage = () => {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
-  const FallbackComponent = [...Array(20).keys()].map((x) => <MarketItem key={x} isLoading />)
+  const FallbackComponent = [...Array(20).keys()].map((x) => <MarketItem key={x} isLoading />);
 
   return (
     <div className="flex flex-col">
@@ -28,11 +30,11 @@ const MarketIndex: BlitzPage = () => {
         </Suspense>
       </ImageList>
     </div>
-  )
-}
+  );
+};
 
-MarketIndex.suppressFirstRenderFlicker = true
-MarketIndex.authenticate = { redirectTo: Routes.Login() }
-MarketIndex.getLayout = (page) => getHubNav(page, 'Marché ZZ')
+MarketIndex.suppressFirstRenderFlicker = true;
+MarketIndex.authenticate = { redirectTo: Routes.Login() };
+MarketIndex.getLayout = (page) => getHubNav(page, 'Marché ZZ');
 
-export default MarketIndex
+export default MarketIndex;

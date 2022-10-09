@@ -1,5 +1,5 @@
 const eventSubscriptions = async (db) => {
-  const events = await db.event.findMany({ take: 2 })
+  const events = await db.event.findMany({ take: 2 });
 
   await Promise.all(
     events.map((e) =>
@@ -12,7 +12,7 @@ const eventSubscriptions = async (db) => {
         }
       })
     )
-  )
-}
+  );
+};
 
-export default eventSubscriptions
+export default eventSubscriptions;

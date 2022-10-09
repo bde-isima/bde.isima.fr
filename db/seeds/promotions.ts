@@ -4,8 +4,8 @@ const promotions = async (db) => {
       data: {
         year: i
       }
-    })
+    });
   }
-}
+};
 
-export default promotions
+export default promotions;

@@ -1,16 +1,17 @@
-import { PublicData, useAuthenticatedSession } from '@blitzjs/auth'
-import { Routes } from '@blitzjs/next'
-import { RouteUrlObject } from 'blitz'
+import { RouteUrlObject } from 'blitz';
 
-import Groups from '@mui/icons-material/GroupsTwoTone'
-import Public from '@mui/icons-material/PublicTwoTone'
-import School from '@mui/icons-material/SchoolTwoTone'
-import Fastfood from '@mui/icons-material/FastfoodTwoTone'
-import EventNote from '@mui/icons-material/EventNoteTwoTone'
-import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
-import AccountBox from '@mui/icons-material/AccountBoxTwoTone'
-import QueryStats from '@mui/icons-material/QueryStatsTwoTone'
-import CalendarToday from '@mui/icons-material/CalendarTodayTwoTone'
+import AccountBox from '@mui/icons-material/AccountBoxTwoTone';
+import CalendarToday from '@mui/icons-material/CalendarTodayTwoTone';
+import EventNote from '@mui/icons-material/EventNoteTwoTone';
+import Fastfood from '@mui/icons-material/FastfoodTwoTone';
+import Groups from '@mui/icons-material/GroupsTwoTone';
+import HowToVote from '@mui/icons-material/HowToVoteTwoTone';
+import Public from '@mui/icons-material/PublicTwoTone';
+import QueryStats from '@mui/icons-material/QueryStatsTwoTone';
+import School from '@mui/icons-material/SchoolTwoTone';
+
+import { PublicData, useAuthenticatedSession } from '@blitzjs/auth';
+import { Routes } from '@blitzjs/next';
 
 export const config = [
   {
@@ -76,36 +77,34 @@ export const config = [
     only: ['*'],
     isActive: (pathname: String) => pathname === '/dashboard/elections'
   }
-]
+];
 
 function filter(roles) {
   return config?.filter((c) => {
     return roles?.some((r) => {
-      return c.only.some((o) => o.toLowerCase() === r.toLowerCase())
-    })
-  })
+      return c.only.some((o) => o.toLowerCase() === r.toLowerCase());
+    });
+  });
 }
 
 export function useBDEConfig() {
-  const session = useAuthenticatedSession()
-  return filter(session?.roles)
+  const session = useAuthenticatedSession();
+  return filter(session?.roles);
 }
 
 export function getBDEConfigServerSide(user) {
-  return filter(user?.roles)
+  return filter(user?.roles);
 }
 
 export const redirectAuthenticatedTo =
   (route: RouteUrlObject) =>
   ({ session }: { session: PublicData }) => {
-    const only = config.find((c) => c.to === route.pathname)?.only
+    const only = config.find((c) => c.to === route.pathname)?.only;
     if (only) {
-      const isAuthorized = session.roles?.some((r) =>
-        only.some((o) => o.toLowerCase() === r.toLowerCase())
-      )
+      const isAuthorized = session.roles?.some((r) => only.some((o) => o.toLowerCase() === r.toLowerCase()));
       if (isAuthorized) {
-        return false
+        return false;
       }
     }
-    return Routes.Hub()
-  }
+    return Routes.Hub();
+  };

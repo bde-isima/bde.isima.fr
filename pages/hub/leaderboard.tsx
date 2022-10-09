@@ -1,9 +1,10 @@
-import { BlitzPage, Routes } from "@blitzjs/next";
-import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
-import getHubNav from 'app/components/nav/hub/getHubNav'
-import RecordsTable from 'app/components/hub/leaderboard/RecordsTable'
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import RecordsTable from 'app/components/hub/leaderboard/RecordsTable';
+import getHubNav from 'app/components/nav/hub/getHubNav';
 
 const Leaderboard: BlitzPage = () => {
   return (
@@ -20,11 +21,11 @@ const Leaderboard: BlitzPage = () => {
 
       <RecordsTable />
     </div>
-  )
-}
+  );
+};
 
-Leaderboard.suppressFirstRenderFlicker = true
-Leaderboard.authenticate = { redirectTo: Routes.Login() }
-Leaderboard.getLayout = (page) => getHubNav(page, 'Classement ZZ')
+Leaderboard.suppressFirstRenderFlicker = true;
+Leaderboard.authenticate = { redirectTo: Routes.Login() };
+Leaderboard.getLayout = (page) => getHubNav(page, 'Classement ZZ');
 
-export default Leaderboard
+export default Leaderboard;

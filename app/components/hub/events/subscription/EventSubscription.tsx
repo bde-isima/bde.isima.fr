@@ -1,49 +1,51 @@
-import { useAuthenticatedSession } from "@blitzjs/auth";
-import { useQuery } from "@blitzjs/rpc";
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from 'react';
 
-import { Club } from 'db'
-import { useRouter } from 'app/core/lib/router'
-import getEvent from 'app/entities/events/queries/getEvent'
-import type { EventSubscriptionWithTypedCart, EventWithTypedProducts } from 'global'
+import { Club } from 'db';
+import type { EventSubscriptionWithTypedCart, EventWithTypedProducts } from 'global';
+
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useQuery } from '@blitzjs/rpc';
+
+import { useRouter } from 'app/core/lib/router';
+import getEvent from 'app/entities/events/queries/getEvent';
 
 interface EventSubscriptionContextType {
-  event: EventWithTypedProducts & { club: Club }
-  eventSubscription: EventSubscriptionWithTypedCart
-  setQueryData: any
+  event: EventWithTypedProducts & { club: Club };
+  eventSubscription: EventSubscriptionWithTypedCart;
+  setQueryData: any;
 }
 
-const EventSubscriptionContext = createContext<EventSubscriptionContextType>({} as any)
+const EventSubscriptionContext = createContext<EventSubscriptionContextType>({} as any);
 
 export const useEventSubscription = () => {
-  return useContext(EventSubscriptionContext)
-}
+  return useContext(EventSubscriptionContext);
+};
 
 export function EventSubscriptionProvider({ children }) {
-  const { router } = useRouter()
-  const session = useAuthenticatedSession()
-  const eventId = router.query.id
+  const { router } = useRouter();
+  const session = useAuthenticatedSession();
+  const eventId = router.query.id;
 
   const [{ EventSubscription, ...data }, { setQueryData }] = useQuery(
     getEvent,
     {
       where: { id: eventId as string },
-      include: { club: true, EventSubscription: { where: { userId: session?.userId } } },
+      include: { club: true, EventSubscription: { where: { userId: session?.userId } } }
     },
     {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false
     }
-  )
+  );
 
   return (
     <EventSubscriptionContext.Provider
       value={{
         event: data as any,
         eventSubscription: EventSubscription[0],
-        setQueryData,
+        setQueryData
       }}
     >
       {children}
     </EventSubscriptionContext.Provider>
-  )
+  );
 }

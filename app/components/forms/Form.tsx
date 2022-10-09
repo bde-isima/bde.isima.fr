@@ -1,32 +1,33 @@
-import cuid from 'cuid'
-import { z } from 'zod'
-import Button from '@mui/material/Button'
-import { useEffect, useState } from 'react'
-import LoadingButton from '@mui/lab/LoadingButton'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import React, { ReactNode, PropsWithoutRef } from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
-import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form'
+import { useEffect, useState } from 'react';
+import React, { PropsWithoutRef, ReactNode } from 'react';
 
-import errorMap from './errorMap'
-import { validateZodSchema } from 'blitz'
-import { Alert } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Alert } from '@mui/material';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { validateZodSchema } from 'blitz';
+import cuid from 'cuid';
+import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form';
+import { z } from 'zod';
 
-export { FORM_ERROR } from 'final-form'
+import errorMap from './errorMap';
+
+export { FORM_ERROR } from 'final-form';
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
-  children: ReactNode
-  submitText?: string
-  title?: string
-  variant?: 'button' | 'dialog'
-  onClose?: () => void
-  onSubmit: FinalFormProps<z.infer<S>>['onSubmit']
-  initialValues?: FinalFormProps<z.infer<S>>['initialValues']
-  schema?: S
-  mutators?: any
+  children: ReactNode;
+  submitText?: string;
+  title?: string;
+  variant?: 'button' | 'dialog';
+  onClose?: () => void;
+  onSubmit: FinalFormProps<z.infer<S>>['onSubmit'];
+  initialValues?: FinalFormProps<z.infer<S>>['initialValues'];
+  schema?: S;
+  mutators?: any;
 }
 
 export function Form<S extends z.ZodType<any, any>>({
@@ -41,19 +42,19 @@ export function Form<S extends z.ZodType<any, any>>({
   onSubmit,
   ...props
 }: FormProps<S>) {
-  const formId = useState(cuid())
+  const formId = useState(cuid());
 
   useEffect(() => {
-    z.setErrorMap(errorMap)
-  }, [])
+    z.setErrorMap(errorMap);
+  }, []);
 
   return (
     <FinalForm
       initialValues={initialValues}
       validate={async (values) => {
-        const errors = await validateZodSchema(schema)(values)
+        const errors = await validateZodSchema(schema)(values);
         if (process.env.NODE_ENV === 'development') {
-          console.log(values, errors)
+          console.log(values, errors);
         }
       }}
       onSubmit={onSubmit}
@@ -128,7 +129,7 @@ export function Form<S extends z.ZodType<any, any>>({
         </>
       )}
     />
-  )
+  );
 }
 
-export default Form
+export default Form;

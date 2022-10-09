@@ -1,55 +1,52 @@
-import Image from 'next/image'
-import { useSession } from '@blitzjs/auth'
-import Fab from '@mui/material/Fab'
-import Slide from '@mui/material/Slide'
-import AppBar from '@mui/material/AppBar'
-import Dialog from '@mui/material/Dialog'
-import Toolbar from '@mui/material/Toolbar'
-import { useState, useEffect } from 'react'
-import IconButton from '@mui/material/IconButton'
-import DialogActions from '@mui/material/DialogActions'
-import useScrollTrigger from '@mui/material/useScrollTrigger'
+import { useEffect, useState } from 'react';
 
-import Menu from '@mui/icons-material/MenuTwoTone'
-import Login from '@mui/icons-material/LoginTwoTone'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
-import Account from '@mui/icons-material/AccountCircleTwoTone'
+import AppBar from '@mui/material/AppBar';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton';
+import Slide from '@mui/material/Slide';
+import Toolbar from '@mui/material/Toolbar';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
-import Mobile from './Mobile'
-import Desktop from './Desktop'
-import Link from 'app/core/lib/Link'
-import { useRouter } from 'app/core/lib/router'
-import { useMediaQuery } from 'app/core/styles/theme'
-import LoginContent from 'app/components/auth/LoginContent'
+import Account from '@mui/icons-material/AccountCircleTwoTone';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone';
+import Login from '@mui/icons-material/LoginTwoTone';
+import Menu from '@mui/icons-material/MenuTwoTone';
+
+import Image from 'next/image';
+
+import { useSession } from '@blitzjs/auth';
+
+import LoginContent from 'app/components/auth/LoginContent';
+import Link from 'app/core/lib/Link';
+import { useRouter } from 'app/core/lib/router';
+import { useMediaQuery } from 'app/core/styles/theme';
+
+import Desktop from './Desktop';
+import Mobile from './Mobile';
 
 export default function Nav() {
-  const session = useSession()
-  const { pushRoute } = useRouter()
-  const [isOnTop, setIsOnTop] = useState(
-    typeof window === 'undefined' ? true : window.scrollY === 0
-  )
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false)
+  const session = useSession();
+  const { pushRoute } = useRouter();
+  const [isOnTop, setIsOnTop] = useState(typeof window === 'undefined' ? true : window.scrollY === 0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginMenuOpen, setIsLoginMenuOpen] = useState(false);
 
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
-  const toggleDrawer = (fn: any, open: boolean) => () => fn(open)
+  const toggleDrawer = (fn: any, open: boolean) => () => fn(open);
 
-  const onScroll = () => setIsOnTop(window.scrollY === 0)
+  const onScroll = () => setIsOnTop(window.scrollY === 0);
 
   useEffect(() => {
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('onScroll', onScroll)
-  })
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('onScroll', onScroll);
+  });
 
   return (
     <Slide appear={false} direction="down" in={!useScrollTrigger()}>
-      <AppBar
-        className="h-16 justify-center"
-        elevation={Number(!isOnTop)}
-        position="fixed"
-        color="inherit"
-      >
+      <AppBar className="h-16 justify-center" elevation={Number(!isOnTop)} position="fixed" color="inherit">
         <Toolbar variant="dense">
           <Mobile
             isOpen={isMobileMenuOpen}
@@ -70,13 +67,7 @@ export default function Nav() {
           )}
 
           <Link className="mx-auto lg:ml-0" href="/">
-            <Image
-              src="/static/images/logos/logo.svg"
-              width={40}
-              height={40}
-              quality={100}
-              alt="Logo BDE ISIMA"
-            />
+            <Image src="/static/images/logos/logo.svg" width={40} height={40} quality={100} alt="Logo BDE ISIMA" />
           </Link>
 
           {!fullScreen && <Desktop />}
@@ -131,5 +122,5 @@ export default function Nav() {
         </Toolbar>
       </AppBar>
     </Slide>
-  )
+  );
 }

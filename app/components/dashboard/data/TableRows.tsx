@@ -1,25 +1,26 @@
-import Tooltip from '@mui/material/Tooltip'
-import { Dispatch, SetStateAction } from 'react'
-import TableRow from '@mui/material/TableRow'
-import Checkbox from '@mui/material/Checkbox'
-import TableCell from '@mui/material/TableCell'
-import IconButton from '@mui/material/IconButton'
+import { Dispatch, SetStateAction } from 'react';
 
-import Edit from '@mui/icons-material/EditTwoTone'
-import ContentCopy from '@mui/icons-material/ContentCopyTwoTone'
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
 
-import { stableSort, getComparator } from './sort'
-import { useTableProps } from './TablePropsProvider'
+import ContentCopy from '@mui/icons-material/ContentCopyTwoTone';
+import Edit from '@mui/icons-material/EditTwoTone';
+
+import { useTableProps } from './TablePropsProvider';
+import { getComparator, stableSort } from './sort';
 
 type TableCoreProps = {
-  rows: any[]
-  columns: any[]
-  selected: { value: any[]; set: Dispatch<SetStateAction<string[]>> }
-  onEdit?: (values: any) => void
-  handleCustomAction: (onClick: any) => (e: any) => Promise<void>
-  allowCopy?: boolean
-  actions?: any[]
-}
+  rows: any[];
+  columns: any[];
+  selected: { value: any[]; set: Dispatch<SetStateAction<string[]>> };
+  onEdit?: (values: any) => void;
+  handleCustomAction: (onClick: any) => (e: any) => Promise<void>;
+  allowCopy?: boolean;
+  actions?: any[];
+};
 
 export default function TableRows({
   rows,
@@ -28,46 +29,44 @@ export default function TableRows({
   onEdit,
   handleCustomAction,
   allowCopy,
-  actions,
+  actions
 }: TableCoreProps) {
-  const { order, orderBy } = useTableProps()
-  const isSelected = (id) => selected.value.indexOf(id) !== -1
+  const { order, orderBy } = useTableProps();
+  const isSelected = (id) => selected.value.indexOf(id) !== -1;
 
   const handleClick = (_, id) => {
-    const selectedIndex = selected.value.indexOf(id)
-    let newSelected: string[] = []
+    const selectedIndex = selected.value.indexOf(id);
+    let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected.value, id)
+      newSelected = newSelected.concat(selected.value, id);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.value.slice(1))
+      newSelected = newSelected.concat(selected.value.slice(1));
     } else if (selectedIndex === selected.value.length - 1) {
-      newSelected = newSelected.concat(selected.value.slice(0, -1))
+      newSelected = newSelected.concat(selected.value.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.value.slice(0, selectedIndex),
-        selected.value.slice(selectedIndex + 1)
-      )
+      newSelected = newSelected.concat(selected.value.slice(0, selectedIndex), selected.value.slice(selectedIndex + 1));
     }
 
-    selected.set(newSelected)
-  }
+    selected.set(newSelected);
+  };
 
   const editClick = (row) => (e) => {
-    e.stopPropagation()
-    onEdit && onEdit(row)
-  }
+    e.stopPropagation();
+    onEdit && onEdit(row);
+  };
 
   const copyClick = (row) => (e) => {
-    const { id, ...rest } = row
-    e.stopPropagation()
-    onEdit && onEdit({ ...rest })
-  }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id, ...rest } = row;
+    e.stopPropagation();
+    onEdit && onEdit({ ...rest });
+  };
 
   return stableSort(rows, getComparator(order.value, orderBy.value)).map((row, index) => {
-    const isItemSelected = isSelected(row.id)
-    const labelId = `enhanced-table-checkbox-${index}`
-    const [firstColumn, ...restColumns] = columns
+    const isItemSelected = isSelected(row.id);
+    const labelId = `enhanced-table-checkbox-${index}`;
+    const [firstColumn, ...restColumns] = columns;
 
     return (
       <TableRow
@@ -80,11 +79,7 @@ export default function TableRows({
         selected={isItemSelected}
       >
         <TableCell padding="checkbox">
-          <Checkbox
-            checked={isItemSelected}
-            inputProps={{ 'aria-labelledby': labelId }}
-            color="default"
-          />
+          <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} color="default" />
         </TableCell>
 
         <TableCell component="th" id={labelId} scope="row" align="right">
@@ -98,7 +93,7 @@ export default function TableRows({
         ))}
 
         {actions?.map((action, idx) => {
-          const { icon, tooltip, onClick, disabled } = action(row)
+          const { icon, tooltip, onClick, disabled } = action(row);
           return (
             <TableCell key={idx} align="right">
               <Tooltip title={tooltip}>
@@ -114,7 +109,7 @@ export default function TableRows({
                 </span>
               </Tooltip>
             </TableCell>
-          )
+          );
         })}
 
         {allowCopy && (
@@ -137,6 +132,6 @@ export default function TableRows({
           </TableCell>
         )}
       </TableRow>
-    )
-  })
+    );
+  });
 }

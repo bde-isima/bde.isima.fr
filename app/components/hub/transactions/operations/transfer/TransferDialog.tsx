@@ -1,21 +1,22 @@
-import NoSsr from '@mui/material/NoSsr'
-import Dialog from '@mui/material/Dialog'
-import IconButton from '@mui/material/IconButton'
-import DialogActions from '@mui/material/DialogActions'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import NoSsr from '@mui/material/NoSsr';
 
-import Close from '@mui/icons-material/CloseTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone';
 
-import Transfer from './Transfer'
-import { useMediaQuery } from 'app/core/styles/theme'
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import { useMediaQuery } from 'app/core/styles/theme';
+
+import Transfer from './Transfer';
 
 type TransferDialogProps = {
-  isOpen: boolean
-  onClose: () => void
-}
+  isOpen: boolean;
+  onClose: () => void;
+};
 
 export default function TransferDialog({ isOpen, onClose }: TransferDialogProps) {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   return (
     <NoSsr>
@@ -36,5 +37,5 @@ export default function TransferDialog({ isOpen, onClose }: TransferDialogProps)
         <Transfer onClose={onClose} />
       </Dialog>
     </NoSsr>
-  )
+  );
 }

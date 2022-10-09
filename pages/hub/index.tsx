@@ -1,21 +1,22 @@
-import { BlitzPage, Routes } from '@blitzjs/next'
-import { useState } from 'react'
+import { useState } from 'react';
 
-import News from 'app/components/hub/home/News'
-import getHubNav from 'app/components/nav/hub/getHubNav'
-import Upcoming from 'app/components/hub/events/Upcoming'
-import DiscordButton from 'app/components/hub/home/DiscordButton'
-import TopUpDialog from 'app/components/hub/transactions/operations/topUp/TopUpDialog'
-import TransactionsCard from 'app/components/hub/transactions/display/TransactionsCard'
-import HistoryDialog from 'app/components/hub/transactions/operations/history/HistoryDialog'
-import TransferDialog from 'app/components/hub/transactions/operations/transfer/TransferDialog'
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import Upcoming from 'app/components/hub/events/Upcoming';
+import DiscordButton from 'app/components/hub/home/DiscordButton';
+import News from 'app/components/hub/home/News';
+import TransactionsCard from 'app/components/hub/transactions/display/TransactionsCard';
+import HistoryDialog from 'app/components/hub/transactions/operations/history/HistoryDialog';
+import TopUpDialog from 'app/components/hub/transactions/operations/topUp/TopUpDialog';
+import TransferDialog from 'app/components/hub/transactions/operations/transfer/TransferDialog';
+import getHubNav from 'app/components/nav/hub/getHubNav';
 
 const Hub: BlitzPage = () => {
-  const [isTransferOpen, setIsTransferOpen] = useState(false)
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false)
-  const [isTopUpOpen, setIsTopUpOpen] = useState(false)
+  const [isTransferOpen, setIsTransferOpen] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isTopUpOpen, setIsTopUpOpen] = useState(false);
 
-  const toggleDialog = (fn, open) => () => fn(open)
+  const toggleDialog = (fn, open) => () => fn(open);
 
   return (
     <div
@@ -39,11 +40,11 @@ const Hub: BlitzPage = () => {
         <TopUpDialog isOpen={isTopUpOpen} onClose={toggleDialog(setIsTopUpOpen, false)} />
       </aside>
     </div>
-  )
-}
+  );
+};
 
-Hub.suppressFirstRenderFlicker = true
-Hub.authenticate = { redirectTo: Routes.Login() }
-Hub.getLayout = (page) => getHubNav(page)
+Hub.suppressFirstRenderFlicker = true;
+Hub.authenticate = { redirectTo: Routes.Login() };
+Hub.getLayout = (page) => getHubNav(page);
 
-export default Hub
+export default Hub;

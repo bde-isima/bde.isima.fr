@@ -1,35 +1,27 @@
-import frLocale from 'date-fns/locale/fr'
-import { Dispatch, SetStateAction } from 'react'
-import TextField from '@mui/material/TextField'
-import Accordion from '@mui/material/Accordion'
-import Typography from '@mui/material/Typography'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { Dispatch, SetStateAction } from 'react';
 
-import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUpTwoTone'
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import frLocale from 'date-fns/locale/fr';
+
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUpTwoTone';
 
 type HistoryFilterProps = {
-  minDate: Date
-  setMinDate: Dispatch<SetStateAction<Date | null>>
-  maxDate: Date
-  setMaxDate: Dispatch<SetStateAction<Date | null>>
-}
+  minDate: Date;
+  setMinDate: Dispatch<SetStateAction<Date | null>>;
+  maxDate: Date;
+  setMaxDate: Dispatch<SetStateAction<Date | null>>;
+};
 
-export default function HistoryFilter({
-  minDate,
-  setMinDate,
-  maxDate,
-  setMaxDate
-}: HistoryFilterProps) {
+export default function HistoryFilter({ minDate, setMinDate, maxDate, setMaxDate }: HistoryFilterProps) {
   return (
     <Accordion className="w-full" variant="outlined">
-      <AccordionSummary
-        expandIcon={<KeyboardArrowUp />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-      >
+      <AccordionSummary expandIcon={<KeyboardArrowUp />} aria-controls="panel1a-content" id="panel1a-header">
         <Typography variant="caption">Filtrer par date</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -53,5 +45,5 @@ export default function HistoryFilter({
         </LocalizationProvider>
       </AccordionDetails>
     </Accordion>
-  )
+  );
 }

@@ -1,44 +1,43 @@
-import { useAuthenticatedSession } from "@blitzjs/auth";
-import { useState } from 'react'
+import { useState } from 'react';
 
-import TopUpForm from './TopUpForm'
-import Snackbar from 'app/core/layouts/Snackbar'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import { TopUpInputType } from 'app/components/forms/validations'
+import { useAuthenticatedSession } from '@blitzjs/auth';
 
-export type PaymentMethod = 'cb' | 'lydia'
+import { TopUpInputType } from 'app/components/forms/validations';
+import Snackbar from 'app/core/layouts/Snackbar';
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+
+import TopUpForm from './TopUpForm';
+
+export type PaymentMethod = 'cb' | 'lydia';
 
 export default function TopUp() {
-  const session = useAuthenticatedSession()
-  const { open, message, severity, onShow, onClose } = useSnackbar()
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb')
+  const session = useAuthenticatedSession();
+  const { open, message, severity, onShow, onClose } = useSnackbar();
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb');
 
-  const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod)
+  const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 
   const onSuccess = (data: TopUpInputType) => {
-    const body = new FormData()
+    const body = new FormData();
 
-    body.append('amount', data.amount.toString())
-    body.append('paymentMethod', paymentMethod)
-    body.append('vendor_token', `${process.env.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN}`)
-    body.append('recipient', data.recipient)
-    body.append('message', `Recharge compte BDE +${data.amount} €`)
-    body.append('currency', 'EUR')
-    body.append('type', 'phone')
-    body.append('order_ref', `${session?.userId}-${new Date().toISOString()}`)
-    body.append(
-      'confirm_url',
-      `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.userId}`
-    )
+    body.append('amount', data.amount.toString());
+    body.append('paymentMethod', paymentMethod);
+    body.append('vendor_token', `${process.env.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN}`);
+    body.append('recipient', data.recipient);
+    body.append('message', `Recharge compte BDE +${data.amount} €`);
+    body.append('currency', 'EUR');
+    body.append('type', 'phone');
+    body.append('order_ref', `${session?.userId}-${new Date().toISOString()}`);
+    body.append('confirm_url', `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.userId}`);
 
     return fetch(`${process.env.NEXT_PUBLIC_LYDIA_API_URL}/api/request/do.json`, {
       method: 'POST',
-      body,
+      body
     })
       .then((res) => res.json())
       .then((info) => window.location.assign(info.mobile_url))
-      .catch((err) => onShow('error', err.message))
-  }
+      .catch((err) => onShow('error', err.message));
+  };
 
   return (
     <>
@@ -46,5 +45,5 @@ export default function TopUp() {
 
       <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>
-  )
+  );
 }

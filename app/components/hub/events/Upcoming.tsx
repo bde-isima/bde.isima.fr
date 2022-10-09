@@ -1,28 +1,28 @@
-import { Suspense } from 'react'
-import addDays from 'date-fns/addDays'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Tooltip from '@mui/material/Tooltip'
-import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
+import { Suspense } from 'react';
 
-import MoreVert from '@mui/icons-material/MoreVertTwoTone'
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import addDays from 'date-fns/addDays';
 
-import { useRouter } from 'app/core/lib/router'
-import Calendar from 'app/components/hub/events/Calendar'
-import CalendarCell from 'app/components/hub/events/CalendarCell'
+import MoreVert from '@mui/icons-material/MoreVertTwoTone';
 
-const today = new Date(new Date().setHours(0, 0, 0, 0))
+import Calendar from 'app/components/hub/events/Calendar';
+import CalendarCell from 'app/components/hub/events/CalendarCell';
+import { useRouter } from 'app/core/lib/router';
+
+const today = new Date(new Date().setHours(0, 0, 0, 0));
 
 export default function Upcoming() {
-  const { pushRoute } = useRouter()
+  const { pushRoute } = useRouter();
 
-  const getNextSevenDays = () => [...Array(7).keys()].map((i) => addDays(today, i))
+  const getNextSevenDays = () => [...Array(7).keys()].map((i) => addDays(today, i));
 
   const FallbackComponent = getNextSevenDays().map((date, dateIdx) => (
     <CalendarCell key={dateIdx} idx={dateIdx} date={date} fallback />
-  ))
+  ));
 
   return (
     <div className="flex flex-col">
@@ -52,5 +52,5 @@ export default function Upcoming() {
         <Typography color="textPrimary">Tous les évènements</Typography>
       </div>
     </div>
-  )
+  );
 }

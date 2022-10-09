@@ -1,31 +1,32 @@
-import Paper from '@mui/material/Paper'
-import sanitizeHtml from 'sanitize-html'
-import Dialog from '@mui/material/Dialog'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import sanitizeHtml from 'sanitize-html';
 
-import Close from '@mui/icons-material/CloseTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone';
 
-import type { CarouselItemType } from './index'
-import { useMediaQuery } from 'app/core/styles/theme'
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import { useMediaQuery } from 'app/core/styles/theme';
+
+import type { CarouselItemType } from './index';
 
 interface CarouselDialogProps {
-  open: boolean
-  onClose: () => void
+  open: boolean;
+  onClose: () => void;
 }
 
 const CarouselDialog = <ItemType extends CarouselItemType>({
   open,
   item,
-  onClose,
+  onClose
 }: CarouselDialogProps & {
-  item?: ItemType
+  item?: ItemType;
 }) => {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   return (
     <Dialog
@@ -110,29 +111,21 @@ const CarouselDialog = <ItemType extends CarouselItemType>({
                   'td',
                   'pre',
                   'iframe',
-                  'img',
+                  'img'
                 ],
                 allowedAttributes: {
                   a: ['href', 'target'],
                   img: ['src', 'alt', 'style'],
-                  iframe: [
-                    'width',
-                    'height',
-                    'src',
-                    'frameborder',
-                    'allow',
-                    'allowfullscreen',
-                    'style',
-                  ],
+                  iframe: ['width', 'height', 'src', 'frameborder', 'allow', 'allowfullscreen', 'style']
                 },
-                allowedIframeHostnames: ['www.youtube.com'],
-              }),
+                allowedIframeHostnames: ['www.youtube.com']
+              })
             }}
           />
         </DialogContentText>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default CarouselDialog
+export default CarouselDialog;

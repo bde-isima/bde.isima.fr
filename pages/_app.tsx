@@ -1,51 +1,51 @@
-import { withBlitz } from 'app/blitz-client'
-import Head from 'next/head'
-import Script from 'next/script'
-import 'app/core/styles/index.css'
+import { StrictMode, Suspense, useEffect } from 'react';
 
-import NProgress from 'nprogress'
-import type { BDEAppProps } from 'global'
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
-import { StrictMode, Suspense, useEffect } from 'react'
+import { CssBaseline } from '@mui/material';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import type { BDEAppProps } from 'global';
+import NProgress from 'nprogress';
 
-import * as gtag from 'app/core/lib/gtag'
-import packageJson from '../package.json'
-import { useRouter } from 'app/core/lib/router'
-import Splash from 'app/components/common/Splash'
-import { useTheme } from 'app/core/styles/theme'
-import { ErrorBoundary } from '@blitzjs/next'
-import { useQueryErrorResetBoundary } from '@blitzjs/rpc'
-import RootErrorFallback from 'app/core/lib/ErrorBoundary'
-import { CssBaseline } from '@mui/material'
-;({
-  appName: globalThis.appName,
-  website: globalThis.website,
-  version: globalThis.version
-} = packageJson)
+import Head from 'next/head';
+import Script from 'next/script';
+
+import { ErrorBoundary } from '@blitzjs/next';
+import { useQueryErrorResetBoundary } from '@blitzjs/rpc';
+
+import { withBlitz } from 'app/blitz-client';
+import Splash from 'app/components/common/Splash';
+import RootErrorFallback from 'app/core/lib/ErrorBoundary';
+import * as gtag from 'app/core/lib/gtag';
+import { useRouter } from 'app/core/lib/router';
+import 'app/core/styles/index.css';
+import { useTheme } from 'app/core/styles/theme';
+
+import packageJson from '../package.json';
+
+({ appName: globalThis.appName, website: globalThis.website, version: globalThis.version } = packageJson);
 
 export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
-  const theme = useTheme()
-  const { router } = useRouter()
-  const { reset } = useQueryErrorResetBoundary()
+  const theme = useTheme();
+  const { router } = useRouter();
+  const { reset } = useQueryErrorResetBoundary();
 
-  const getLayout = Component.getLayout || ((page) => page)
+  const getLayout = Component.getLayout || ((page) => page);
 
   useEffect(() => {
-    const handleRouteChangeStart = () => NProgress.start()
+    const handleRouteChangeStart = () => NProgress.start();
 
     const handleRouteChange = (url: string) => {
-      NProgress.done()
-      gtag.pageview(url)
-    }
+      NProgress.done();
+      gtag.pageview(url);
+    };
 
-    router.events.on('routeChangeStart', handleRouteChangeStart)
-    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart)
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <StrictMode>
@@ -66,10 +66,7 @@ export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
         </ThemeProvider>
       </StyledEngineProvider>
 
-      <Script
-        id="gtag"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
-      />
+      <Script id="gtag" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`} />
       <Script
         id="gtag_init"
         dangerouslySetInnerHTML={{
@@ -84,5 +81,5 @@ export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
         }}
       />
     </StrictMode>
-  )
-})
+  );
+});

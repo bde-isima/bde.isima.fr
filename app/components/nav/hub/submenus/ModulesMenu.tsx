@@ -1,24 +1,26 @@
-import { useState } from 'react'
-import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
+import { useState } from 'react';
 
-import Apps from '@mui/icons-material/AppsTwoTone'
-import HowToVote from '@mui/icons-material/HowToVoteTwoTone'
-import Extension from '@mui/icons-material/ExtensionTwoTone'
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 
-import Menu from './Menu'
-import Link from 'app/core/lib/Link'
+import Apps from '@mui/icons-material/AppsTwoTone';
+import Extension from '@mui/icons-material/ExtensionTwoTone';
+import HowToVote from '@mui/icons-material/HowToVoteTwoTone';
+
+import Link from 'app/core/lib/Link';
+
+import Menu from './Menu';
 
 export default function ModulesMenu() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const isOpen = Boolean(anchorEl)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isOpen = Boolean(anchorEl);
 
-  const handleOpen = (event) => setAnchorEl(event.currentTarget)
+  const handleOpen = (event) => setAnchorEl(event.currentTarget);
 
-  const handleClose = () => setAnchorEl(null)
+  const handleClose = () => setAnchorEl(null);
 
   return (
     <>
@@ -45,12 +47,7 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <HowToVote />
             </ListItemIcon>
-            <Typography
-              className="flex flex-grow items-center"
-              variant="subtitle2"
-              align="center"
-              color="textPrimary"
-            >
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Élections BDE
             </Typography>
           </MenuItem>
@@ -61,17 +58,12 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <Extension />
             </ListItemIcon>
-            <Typography
-              className="flex flex-grow items-center"
-              variant="subtitle2"
-              align="center"
-              color="textPrimary"
-            >
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Proposez vos extensions !
             </Typography>
           </MenuItem>
         </Link>
       </Menu>
     </>
-  )
+  );
 }

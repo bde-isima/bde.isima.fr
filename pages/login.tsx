@@ -1,8 +1,8 @@
-import LoginFallback from 'app/components/auth/LoginFallback'
+import LoginFallback from 'app/components/auth/LoginFallback';
 
 function Login() {
-  return <LoginFallback />
+  return <LoginFallback />;
 }
 
-Login.suppressFirstRenderFlicker = true
-export default Login
+Login.suppressFirstRenderFlicker = true;
+export default Login;

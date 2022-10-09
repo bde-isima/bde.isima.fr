@@ -1,12 +1,13 @@
-import Image from 'next/image'
-import Paper from '@mui/material/Paper'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-import { useMediaQuery } from 'app/core/styles/theme'
+import Image from 'next/image';
+
+import { useMediaQuery } from 'app/core/styles/theme';
 
 export default function Landing() {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   return (
     <Paper className="min-h-main relative">
@@ -30,5 +31,5 @@ export default function Landing() {
         </div>
       </Container>
     </Paper>
-  )
+  );
 }

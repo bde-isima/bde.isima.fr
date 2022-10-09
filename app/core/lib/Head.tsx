@@ -1,48 +1,21 @@
-import { useTheme } from 'app/core/styles/theme'
+import { useTheme } from 'app/core/styles/theme';
 
 export default function Head() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <>
       <meta charSet="utf-8" />
-      <meta
-        name="robots"
-        content={process.env.NEXT_PUBLIC_FRONTEND_URL === globalThis.website ? 'all' : 'none'}
-      />
+      <meta name="robots" content={process.env.NEXT_PUBLIC_FRONTEND_URL === globalThis.website ? 'all' : 'none'} />
       <meta name="description" content="Site du BDE ISIMA" key="description" />
 
-      <link
-        rel="preload"
-        href="/fonts/Graphik.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
+      <link rel="preload" href="/fonts/Graphik.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="manifest" href="/manifest.json" />
 
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/static/images/favicons/apple-touch-icon.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="/static/images/favicons/favicon-32x32.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/static/images/favicons/favicon-16x16.png"
-      />
-      <link
-        rel="mask-icon"
-        href="/static/images/favicons/safari-pinned-tab.svg"
-        color={theme.palette.primary.main}
-      />
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicons/apple-touch-icon.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png" />
+      <link rel="mask-icon" href="/static/images/favicons/safari-pinned-tab.svg" color={theme.palette.primary.main} />
 
       <meta name="msapplication-TileColor" content={theme.palette.primary.main} />
       <meta name="theme-color" content={theme.palette.primary.main} />
@@ -69,5 +42,5 @@ export default function Head() {
         key="og:image"
       />
     </>
-  )
+  );
 }

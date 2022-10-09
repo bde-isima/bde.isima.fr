@@ -1,9 +1,9 @@
-import { useRouter as useNextRouter } from 'next/router'
+import { useRouter as useNextRouter } from 'next/router';
 
 export const useRouter = () => {
-  const router = useNextRouter()
+  const router = useNextRouter();
 
-  const pushRoute = (path) => () => router.push(path)
+  const pushRoute = (path) => () => router.push(path);
 
-  return { router, pushRoute }
-}
+  return { router, pushRoute };
+};

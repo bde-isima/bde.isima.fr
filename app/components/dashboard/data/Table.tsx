@@ -1,43 +1,44 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import TableDialog from './TableDialog'
-import TableContainer from './TableContainer'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import { TablePropsProvider } from './TablePropsProvider'
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+
+import TableContainer from './TableContainer';
+import TableDialog from './TableDialog';
+import { TablePropsProvider } from './TablePropsProvider';
 
 type TableProps = {
-  title: string
-  columns: any[]
-  queryKey: string
-  getQuery: any
-  queryArgs?: any
-  upsertQuery: any
-  deleteQuery: any
-  allowCopy?: boolean
-  actions?: any[]
-  onExport?: (rowData: any) => void
-  FormComponent?: (props: unknown) => JSX.Element
-}
+  title: string;
+  columns: any[];
+  queryKey: string;
+  getQuery: any;
+  queryArgs?: any;
+  upsertQuery: any;
+  deleteQuery: any;
+  allowCopy?: boolean;
+  actions?: any[];
+  onExport?: (rowData: any) => void;
+  FormComponent?: (props: unknown) => JSX.Element;
+};
 
 export default function Table(props: TableProps) {
-  const snackbar = useSnackbar()
-  const [open, setOpen] = useState(false)
-  const [values, setValues] = useState<Object | null>(null)
+  const snackbar = useSnackbar();
+  const [open, setOpen] = useState(false);
+  const [values, setValues] = useState<Object | null>(null);
 
   const onAdd = () => {
-    setValues({})
-    setOpen(true)
-  }
+    setValues({});
+    setOpen(true);
+  };
 
   const onEdit = (values) => {
-    setValues(values)
-    setOpen(true)
-  }
+    setValues(values);
+    setOpen(true);
+  };
 
   const onDialogClose = () => {
-    setValues(null)
-    setOpen(false)
-  }
+    setValues(null);
+    setOpen(false);
+  };
 
   return (
     <TablePropsProvider>
@@ -50,15 +51,9 @@ export default function Table(props: TableProps) {
         />
 
         {props.FormComponent && (
-          <TableDialog
-            open={open}
-            values={values}
-            snackbar={snackbar}
-            onClose={onDialogClose}
-            {...props}
-          />
+          <TableDialog open={open} values={values} snackbar={snackbar} onClose={onDialogClose} {...props} />
         )}
       </div>
     </TablePropsProvider>
-  )
+  );
 }

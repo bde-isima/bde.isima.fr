@@ -1,26 +1,26 @@
-import { TextField, Checkboxes } from 'mui-rff'
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
+import { Candidate } from 'db';
+import { Checkboxes, TextField } from 'mui-rff';
 
-import { Candidate } from 'db'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { VoteInput, VoteInputType } from 'app/components/forms/validations'
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { VoteInput, VoteInputType } from 'app/components/forms/validations';
 
 type VoteFormProps = {
-  initialValues?: Candidate | null
-  onSuccess: (values: VoteInputType) => void
-  onClose: () => void
-}
+  initialValues?: Candidate | null;
+  onSuccess: (values: VoteInputType) => void;
+  onClose: () => void;
+};
 
 export default function VoteForm(props: VoteFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -40,7 +40,7 @@ export default function VoteForm(props: VoteFormProps) {
         candidateId: props.initialValues?.id,
         isNull: props.initialValues === null,
         isBlank: props.initialValues === undefined,
-        approve: false,
+        approve: false
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -53,14 +53,14 @@ export default function VoteForm(props: VoteFormProps) {
         data={{
           label: (
             <Typography variant="caption">
-              En cochant cette case, je reconnais que je suis en accord avec la procédure de vote et
-              que celui-ci est définitif.
+              En cochant cette case, je reconnais que je suis en accord avec la procédure de vote et que celui-ci est
+              définitif.
             </Typography>
           ),
-          value: 'approve',
+          value: 'approve'
         }}
         color="primary"
       />
     </Form>
-  )
+  );
 }

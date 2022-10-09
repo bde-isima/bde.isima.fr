@@ -1,13 +1,15 @@
-import Image from 'next/image'
-import { useQuery } from '@blitzjs/rpc'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Event as EventDb } from 'db';
 
-import { Event as EventDb } from 'db'
-import EventsItem from 'app/components/hub/events/EventsItem'
-import getEvents from 'app/entities/events/queries/getEvents'
+import Image from 'next/image';
 
-const today = new Date(new Date().setHours(0, 0, 0, 0))
+import { useQuery } from '@blitzjs/rpc';
+
+import EventsItem from 'app/components/hub/events/EventsItem';
+import getEvents from 'app/entities/events/queries/getEvents';
+
+const today = new Date(new Date().setHours(0, 0, 0, 0));
 
 export default function Events() {
   const [{ events }] = useQuery(
@@ -20,18 +22,13 @@ export default function Events() {
       include: { club: true }
     },
     { refetchOnWindowFocus: false }
-  )
+  );
 
   return (
     <>
       {events.length === 0 && (
         <Grid container item alignContent="center" direction="column">
-          <Image
-            src="/static/images/illustrations/NoData.svg"
-            width={300}
-            height={300}
-            alt="Aucune donnée"
-          />
+          <Image src="/static/images/illustrations/NoData.svg" width={300} height={300} alt="Aucune donnée" />
 
           <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
             Aucun événement à venir !
@@ -43,5 +40,5 @@ export default function Events() {
         <EventsItem key={idx} event={event as EventDb & { club: { image: string | null } }} />
       ))}
     </>
-  )
+  );
 }

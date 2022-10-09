@@ -1,39 +1,42 @@
-import Link from 'next/link'
-import Tab from '@mui/material/Tab'
-import List from '@mui/material/List'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import AppBar from '@mui/material/AppBar'
-import Button from '@mui/material/Button'
-import Drawer from '@mui/material/Drawer'
-import TabContext from '@mui/lab/TabContext'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import { cloneElement, useMemo, useState } from 'react'
+import { cloneElement, useMemo, useState } from 'react';
 
-import { useBDEConfig } from './bde-config'
-import { useClubsConfig } from './clubs-config'
-import { useRouter } from 'app/core/lib/router'
-import { useTheme, useMediaQuery } from 'app/core/styles/theme'
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Tab from '@mui/material/Tab';
+
+import Link from 'next/link';
+
+import { useRouter } from 'app/core/lib/router';
+import { useMediaQuery, useTheme } from 'app/core/styles/theme';
+
+import { useBDEConfig } from './bde-config';
+import { useClubsConfig } from './clubs-config';
 
 export default function Desktop() {
-  const { router } = useRouter()
-  const bdeConfig = useBDEConfig()
-  const clubsConfig = useClubsConfig()
+  const { router } = useRouter();
+  const bdeConfig = useBDEConfig();
+  const clubsConfig = useClubsConfig();
 
-  const theme = useTheme()
-  const fullScreen = useMediaQuery('md')
+  const theme = useTheme();
+  const fullScreen = useMediaQuery('md');
 
-  const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`)
+  const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`);
 
-  const handleChange = (_, newValue: string) => setValue(newValue)
+  const handleChange = (_, newValue: string) => setValue(newValue);
 
   const Items = ({ config }) =>
     useMemo(
       () =>
         config.map((obj) => {
-          const isActive = obj.isActive(router.asPath, window.location.hash)
+          const isActive = obj.isActive(router.asPath, window.location.hash);
 
           return (
             <Link key={obj.text} href={obj.to}>
@@ -59,10 +62,10 @@ export default function Desktop() {
                 </ListItem>
               </Button>
             </Link>
-          )
+          );
         }),
       [config]
-    )
+    );
 
   return (
     <>
@@ -76,18 +79,8 @@ export default function Desktop() {
                 indicatorColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
                 aria-label="Nav"
               >
-                <Tab
-                  classes={{ root: 'min-w-[50%]' }}
-                  label="BDE"
-                  value="0"
-                  disabled={!bdeConfig.length}
-                />
-                <Tab
-                  classes={{ root: 'min-w-[50%]' }}
-                  label="Clubs"
-                  value="1"
-                  disabled={!clubsConfig.length}
-                />
+                <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />
+                <Tab classes={{ root: 'min-w-[50%]' }} label="Clubs" value="1" disabled={!clubsConfig.length} />
               </TabList>
             </AppBar>
 
@@ -110,5 +103,5 @@ export default function Desktop() {
         </Drawer>
       )}
     </>
-  )
+  );
 }

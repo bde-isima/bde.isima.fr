@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Skeleton from '@mui/material/Skeleton'
-import ImageListItem from '@mui/material/ImageListItem'
-import ImageListItemBar from '@mui/material/ImageListItemBar'
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Skeleton from '@mui/material/Skeleton';
+import { Article } from 'db';
 
-import { Article } from 'db'
+import Image from 'next/image';
 
 type MarketItemProps = {
-  article?: Article | null
-  isLoading?: boolean
-}
+  article?: Article | null;
+  isLoading?: boolean;
+};
 
 export default function MarketItem({ article, isLoading }: MarketItemProps) {
   return (
@@ -16,13 +16,7 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
       {isLoading ? (
         <Skeleton variant="rectangular" width="100%" height={200} animation="wave" />
       ) : (
-        <Image
-          className="rounded-lg"
-          src={article?.image!}
-          layout="fill"
-          objectFit="cover"
-          alt={article?.name}
-        />
+        <Image className="rounded-lg" src={article?.image!} layout="fill" objectFit="cover" alt={article?.name} />
       )}
       <ImageListItemBar
         className="rounded-b-lg"
@@ -34,13 +28,9 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
           )
         }
         subtitle={
-          isLoading ? (
-            <Skeleton width="100%" animation="wave" />
-          ) : (
-            `Non-cotisant • ${article?.price.toFixed(2)}€`
-          )
+          isLoading ? <Skeleton width="100%" animation="wave" /> : `Non-cotisant • ${article?.price.toFixed(2)}€`
         }
       />
     </ImageListItem>
-  )
+  );
 }

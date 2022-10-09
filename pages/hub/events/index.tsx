@@ -1,15 +1,17 @@
-import { BlitzPage, Routes } from "@blitzjs/next";
-import { Suspense } from 'react'
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
+import { Suspense } from 'react';
 
-import Events from 'app/components/hub/events/Events'
-import getHubNav from 'app/components/nav/hub/getHubNav'
-import EventsItem from 'app/components/hub/events/EventsItem'
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import Events from 'app/components/hub/events/Events';
+import EventsItem from 'app/components/hub/events/EventsItem';
+import getHubNav from 'app/components/nav/hub/getHubNav';
 
 const EventsIndex: BlitzPage = () => {
-  const FallbackComponent = [...Array(4).keys()].map((x) => <EventsItem key={x} isLoading />)
+  const FallbackComponent = [...Array(4).keys()].map((x) => <EventsItem key={x} isLoading />);
 
   return (
     <div className="flex flex-col">
@@ -27,11 +29,11 @@ const EventsIndex: BlitzPage = () => {
         </Suspense>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-EventsIndex.suppressFirstRenderFlicker = true
-EventsIndex.authenticate = { redirectTo: Routes.Login() }
-EventsIndex.getLayout = (page) => getHubNav(page, 'Events ZZ')
+EventsIndex.suppressFirstRenderFlicker = true;
+EventsIndex.authenticate = { redirectTo: Routes.Login() };
+EventsIndex.getLayout = (page) => getHubNav(page, 'Events ZZ');
 
-export default EventsIndex
+export default EventsIndex;

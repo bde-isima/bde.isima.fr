@@ -1,15 +1,15 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const LoginInput = z.object({
   identifier: z.string()
-})
-export type LoginInputType = z.infer<typeof LoginInput>
+});
+export type LoginInputType = z.infer<typeof LoginInput>;
 
 export const LoginWithCallbackInput = z.object({
   identifier: z.string(),
   callbackUrl: z.string().url()
-})
-export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>
+});
+export type LoginWithCallbackInputType = z.infer<typeof LoginWithCallbackInput>;
 
 export const TransferInput = z.object({
   amount: z.number().positive(),
@@ -17,35 +17,33 @@ export const TransferInput = z.object({
   receiver: z.object({
     id: z.string()
   })
-})
-export type TransferInputType = z.infer<typeof TransferInput>
+});
+export type TransferInputType = z.infer<typeof TransferInput>;
 
 export const AdminTransferInput = z.object({
   amount: z.number(),
   description: z.string().max(255).optional().nullable()
-})
-export type AdminTransferInputType = z.infer<typeof AdminTransferInput>
+});
+export type AdminTransferInputType = z.infer<typeof AdminTransferInput>;
 
 export const TopUpInput = z.object({
   amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' }),
-  recipient: z
-    .string()
-    .regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: 'Numéro invalide' })
-})
-export type TopUpInputType = z.infer<typeof TopUpInput>
+  recipient: z.string().regex(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, { message: 'Numéro invalide' })
+});
+export type TopUpInputType = z.infer<typeof TopUpInput>;
 
 export const ContactInput = z.object({
   subject: z.string().max(255),
   email: z.string().max(255),
   message: z.string().min(200)
-})
-export type ContactInputType = z.infer<typeof ContactInput>
+});
+export type ContactInputType = z.infer<typeof ContactInput>;
 
 export const FeedbackInput = z.object({
   subject: z.string().max(255),
   message: z.string().min(100)
-})
-export type FeedbackInputType = z.infer<typeof FeedbackInput>
+});
+export type FeedbackInputType = z.infer<typeof FeedbackInput>;
 
 export const SettingsInput = z
   .object({
@@ -60,8 +58,8 @@ export const SettingsInput = z
       .optional()
       .nullable()
   })
-  .partial()
-export type SettingsInputType = z.infer<typeof SettingsInput>
+  .partial();
+export type SettingsInputType = z.infer<typeof SettingsInput>;
 
 export const ClubInput = z
   .object({
@@ -82,8 +80,8 @@ export const ClubInput = z
     instagramURL: z.string().url().optional().nullable(),
     customURL: z.string().url().optional().nullable()
   })
-  .partial()
-export type ClubInputType = z.infer<typeof ClubInput>
+  .partial();
+export type ClubInputType = z.infer<typeof ClubInput>;
 
 export const ArticleInput = z
   .object({
@@ -101,8 +99,8 @@ export const ArticleInput = z
     member_price: z.number().positive(),
     is_enabled: z.boolean().optional()
   })
-  .partial()
-export type ArticleInputType = z.infer<typeof ArticleInput>
+  .partial();
+export type ArticleInputType = z.infer<typeof ArticleInput>;
 
 export const PartnerInput = z
   .object({
@@ -118,8 +116,8 @@ export const PartnerInput = z
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable()
   })
-  .partial()
-export type PartnerInputType = z.infer<typeof PartnerInput>
+  .partial();
+export type PartnerInputType = z.infer<typeof PartnerInput>;
 
 export const PromotionInput = z
   .object({
@@ -128,8 +126,8 @@ export const PromotionInput = z
     fb_group_id: z.number().optional().nullable(),
     list_email: z.string().max(255).optional().nullable()
   })
-  .partial()
-export type PromotionInputType = z.infer<typeof PromotionInput>
+  .partial();
+export type PromotionInputType = z.infer<typeof PromotionInput>;
 
 export const UserInput = z
   .object({
@@ -153,8 +151,8 @@ export const UserInput = z
     is_member: z.boolean(),
     is_enabled: z.boolean()
   })
-  .partial()
-export type UserInputType = z.infer<typeof UserInput>
+  .partial();
+export type UserInputType = z.infer<typeof UserInput>;
 
 export const EventInput = z
   .object({
@@ -203,8 +201,8 @@ export const EventInput = z
       })
     )
   })
-  .partial()
-export type EventInputType = z.infer<typeof EventInput>
+  .partial();
+export type EventInputType = z.infer<typeof EventInput>;
 
 export const EventSubscriptionInput = z
   .object({
@@ -229,13 +227,13 @@ export const EventSubscriptionInput = z
       })
     )
   })
-  .partial()
-export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>
+  .partial();
+export type EventSubscriptionInputType = z.infer<typeof EventSubscriptionInput>;
 
 export const AddSubscriptionInput = z.object({
   subscriber: z.object({ id: z.string() }).partial()
-})
-export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>
+});
+export type AddSubscriptionInputType = z.infer<typeof AddSubscriptionInput>;
 
 export const ElectionInput = z
   .object({
@@ -254,8 +252,8 @@ export const ElectionInput = z
       })
     )
   })
-  .deepPartial()
-export type ElectionInputType = z.infer<typeof ElectionInput>
+  .deepPartial();
+export type ElectionInputType = z.infer<typeof ElectionInput>;
 
 export const VoteInput = z
   .object({
@@ -267,5 +265,5 @@ export const VoteInput = z
       message: 'Veuillez accepter'
     })
   })
-  .partial()
-export type VoteInputType = z.infer<typeof VoteInput>
+  .partial();
+export type VoteInputType = z.infer<typeof VoteInput>;

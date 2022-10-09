@@ -1,11 +1,8 @@
-import { resolver } from "@blitzjs/rpc";
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type GetVoteRequestsInput = Pick<
-  Prisma.VoteRequestFindManyArgs,
-  'include' | 'where' | 'orderBy' | 'skip' | 'take'
->
+type GetVoteRequestsInput = Pick<Prisma.VoteRequestFindManyArgs, 'include' | 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(
   resolver.authorize(['*']),
@@ -16,17 +13,17 @@ export default resolver.pipe(
       orderBy,
       take,
       skip
-    })
+    });
 
-    const count = await db.voteRequest.count({ where })
-    const hasMore = typeof take === 'number' ? skip + take < count : false
-    const nextPage = hasMore ? { take, skip: skip + take! } : null
+    const count = await db.voteRequest.count({ where });
+    const hasMore = typeof take === 'number' ? skip + take < count : false;
+    const nextPage = hasMore ? { take, skip: skip + take! } : null;
 
     return {
       voteRequests,
       nextPage,
       hasMore,
       count
-    }
+    };
   }
-)
+);

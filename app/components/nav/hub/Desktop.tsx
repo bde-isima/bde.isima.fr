@@ -1,15 +1,16 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
-import Dashboard from '@mui/icons-material/DashboardTwoTone'
+import Dashboard from '@mui/icons-material/DashboardTwoTone';
 
-import config from './config'
-import DesktopMenuItem from 'app/components/nav/hub/DesktopMenuItem'
-import { useBDEConfig } from 'app/components/nav/dashboard/bde-config'
-import { useClubsConfig } from 'app/components/nav/dashboard/clubs-config'
+import { useBDEConfig } from 'app/components/nav/dashboard/bde-config';
+import { useClubsConfig } from 'app/components/nav/dashboard/clubs-config';
+import DesktopMenuItem from 'app/components/nav/hub/DesktopMenuItem';
+
+import config from './config';
 
 export default function Desktop() {
-  const bdeConfig = useBDEConfig()
-  const clubsConfig = useClubsConfig()
+  const bdeConfig = useBDEConfig();
+  const clubsConfig = useClubsConfig();
 
   return useMemo(
     () => (
@@ -24,12 +25,12 @@ export default function Desktop() {
               icon: <Dashboard />,
               text: 'DASHBOARD',
               to: '/dashboard',
-              isActive: (pathname: String, hash: String) => pathname === '/dashboard',
+              isActive: (pathname: String, _hash: String) => pathname === '/dashboard'
             }}
           />
         )}
       </>
     ),
     [bdeConfig.length, clubsConfig.length]
-  )
+  );
 }

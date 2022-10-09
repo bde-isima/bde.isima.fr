@@ -1,13 +1,14 @@
-import Image from "next/image";
-import { BlitzPage, Routes } from "@blitzjs/next";
+import Image from 'next/image';
 
-import Table from 'app/components/dashboard/data/Table'
-import getPartners from 'app/entities/partners/queries/getPartners'
-import PartnerForm from 'app/components/dashboard/partners/PartnerForm'
-import upsertPartner from 'app/entities/partners/mutations/upsertPartner'
-import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
-import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
-import deleteManyPartners from 'app/entities/partners/mutations/deleteManyPartners'
+import { BlitzPage, Routes } from '@blitzjs/next';
+
+import Table from 'app/components/dashboard/data/Table';
+import PartnerForm from 'app/components/dashboard/partners/PartnerForm';
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config';
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav';
+import deleteManyPartners from 'app/entities/partners/mutations/deleteManyPartners';
+import upsertPartner from 'app/entities/partners/mutations/upsertPartner';
+import getPartners from 'app/entities/partners/queries/getPartners';
 
 const Partners: BlitzPage = () => {
   return (
@@ -20,13 +21,13 @@ const Partners: BlitzPage = () => {
       deleteQuery={deleteManyPartners}
       FormComponent={PartnerForm}
     />
-  )
-}
+  );
+};
 
-Partners.suppressFirstRenderFlicker = true
-Partners.authenticate = { redirectTo: Routes.Login() }
-Partners.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Partners())
-Partners.getLayout = (page) => getDashboardNav(page, 'Gestion des partenaires')
+Partners.suppressFirstRenderFlicker = true;
+Partners.authenticate = { redirectTo: Routes.Login() };
+Partners.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Partners());
+Partners.getLayout = (page) => getDashboardNav(page, 'Gestion des partenaires');
 
 const columns = [
   {
@@ -34,25 +35,19 @@ const columns = [
     headerName: 'Photo',
     render: (row) =>
       row.image && (
-        <Image
-          className="ml-auto rounded-full"
-          src={row.image}
-          width={40}
-          height={40}
-          alt={`Photo de ${row.name}`}
-        />
-      ),
+        <Image className="ml-auto rounded-full" src={row.image} width={40} height={40} alt={`Photo de ${row.name}`} />
+      )
   },
   {
     id: 'name',
     headerName: 'Nom',
-    searchCriteria: 'contains',
+    searchCriteria: 'contains'
   },
   {
     id: 'description',
     headerName: 'Description',
-    searchCriteria: 'contains',
-  },
-]
+    searchCriteria: 'contains'
+  }
+];
 
-export default Partners
+export default Partners;

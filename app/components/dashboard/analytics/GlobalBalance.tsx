@@ -1,19 +1,20 @@
-import { useQuery } from "@blitzjs/rpc";
-import Typography from '@mui/material/Typography'
-import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from 'victory'
+import Typography from '@mui/material/Typography';
+import { VictoryAxis, VictoryChart, VictoryPie, VictoryTheme } from 'victory';
 
-import { useTheme } from 'app/core/styles/theme'
-import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance'
+import { useQuery } from '@blitzjs/rpc';
+
+import { useTheme } from 'app/core/styles/theme';
+import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance';
 
 export default function GlobalBalance() {
-  const theme = useTheme()
-  const [data] = useQuery(getAggregatedBalance, {})
+  const theme = useTheme();
+  const [data] = useQuery(getAggregatedBalance, {});
 
-  const [negatives, positives] = [data?.negatives || 0, data?.positives || 0]
+  const [negatives, positives] = [data?.negatives || 0, data?.positives || 0];
 
-  const total = negatives + positives
-  const negRatio = (negatives * 100) / total
-  const posRatio = (positives * 100) / total
+  const total = negatives + positives;
+  const negRatio = (negatives * 100) / total;
+  const posRatio = (positives * 100) / total;
 
   return (
     <div className="flex flex-col h-full">
@@ -27,17 +28,17 @@ export default function GlobalBalance() {
           animate={{ duration: 300 }}
           data={[
             { x: `${negatives} négatifs`, y: negRatio },
-            { x: `${positives} positifs`, y: posRatio },
+            { x: `${positives} positifs`, y: posRatio }
           ]}
         />
         <VictoryAxis
           style={{
             axis: { stroke: 'transparent' },
             ticks: { stroke: 'transparent' },
-            tickLabels: { fill: 'transparent' },
+            tickLabels: { fill: 'transparent' }
           }}
         />
       </VictoryChart>
     </div>
-  )
+  );
 }

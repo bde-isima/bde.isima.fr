@@ -1,35 +1,35 @@
-import Card from '@mui/material/Card'
-import List from '@mui/material/List'
-import Grow from '@mui/material/Grow'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import ButtonGroup from '@mui/material/ButtonGroup'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import CircularProgress from '@mui/material/CircularProgress'
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+import Grow from '@mui/material/Grow';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import { CartItem, Option } from 'global';
 
-import Close from '@mui/icons-material/CloseTwoTone'
-import Check from '@mui/icons-material/CheckTwoTone'
-import AddCircle from '@mui/icons-material/AddCircleTwoTone'
-import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone';
+import Check from '@mui/icons-material/CheckTwoTone';
+import Close from '@mui/icons-material/CloseTwoTone';
+import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone';
 
-import { CartItem, Option } from 'global'
-import PaymentMethods from './PaymentMethods'
-import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription';
+
+import PaymentMethods from './PaymentMethods';
 
 type DesktopProps = {
-  total: number
-  subscribing: boolean
-  onSubscribe: () => void
-  unsubscribing: boolean
-  onUnsubscribe: () => void
-  onQuantityChange: (cartItem: CartItem, value: number) => () => void
-}
+  total: number;
+  subscribing: boolean;
+  onSubscribe: () => void;
+  unsubscribing: boolean;
+  onUnsubscribe: () => void;
+  onQuantityChange: (cartItem: CartItem, value: number) => () => void;
+};
 
 export default function Desktop({
   total,
@@ -39,7 +39,7 @@ export default function Desktop({
   onUnsubscribe,
   onQuantityChange
 }: DesktopProps) {
-  const { event, eventSubscription } = useEventSubscription()
+  const { event, eventSubscription } = useEventSubscription();
 
   return (
     <div className="w-11/12 mt-4 hidden md:block">
@@ -81,8 +81,7 @@ export default function Desktop({
           {eventSubscription?.cart.map((cartItem: CartItem, idx: number) => {
             const price =
               cartItem.quantity *
-              (cartItem.price +
-                (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
+              (cartItem.price + (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0));
             return (
               <Grow key={idx} in>
                 <ListItem dense disableGutters>
@@ -115,7 +114,7 @@ export default function Desktop({
                   <ListItemText className="text-right m-4" primary={`${price.toFixed(2)} €`} />
                 </ListItem>
               </Grow>
-            )
+            );
           })}
 
           <Divider />
@@ -133,5 +132,5 @@ export default function Desktop({
 
       <CardActions>{event.products.length > 0 && <PaymentMethods />}</CardActions>
     </div>
-  )
+  );
 }

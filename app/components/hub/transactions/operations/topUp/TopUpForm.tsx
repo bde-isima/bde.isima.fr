@@ -1,28 +1,30 @@
-import Image from 'next/image'
-import Button from '@mui/material/Button'
-import { TextField } from 'mui-rff'
-import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { TextField } from 'mui-rff';
 
-import { PaymentMethod } from './TopUp'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
-import { TopUpInput, TopUpInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { TopUpInput, TopUpInputType } from 'app/components/forms/validations';
+
+import { PaymentMethod } from './TopUp';
 
 type TopUpFormProps = {
-  onSuccess: (values: TopUpInputType) => void
-  beforeSubmit: (paymentMethod: PaymentMethod) => () => void
-}
+  onSuccess: (values: TopUpInputType) => void;
+  beforeSubmit: (paymentMethod: PaymentMethod) => () => void;
+};
 
 export default function TopUpForm(props: TopUpFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
         [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
-      }
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -35,12 +37,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       }}
       onSubmit={onSubmit}
     >
-      <EnhancedTextField
-        type="number"
-        name="amount"
-        label="Montant"
-        inputProps={{ min: 5, max: 1000, step: 0.01 }}
-      />
+      <EnhancedTextField type="number" name="amount" label="Montant" inputProps={{ min: 5, max: 1000, step: 0.01 }} />
       <TextField type="tel" name="recipient" label="Numéro de téléphone" />
 
       <div className="flex justify-center">
@@ -55,13 +52,7 @@ export default function TopUpForm(props: TopUpFormProps) {
         </Button>
 
         <Button type="submit" onClick={props.beforeSubmit('lydia')}>
-          <Image
-            src="/static/images/logos/lydia.svg"
-            width={100}
-            height={25}
-            alt="Lydia logo"
-            quality={100}
-          />
+          <Image src="/static/images/logos/lydia.svg" width={100} height={25} alt="Lydia logo" quality={100} />
         </Button>
       </div>
 
@@ -69,5 +60,5 @@ export default function TopUpForm(props: TopUpFormProps) {
         Si vous rencontrez un problème lors de votre rechargement, contactez un membre BDE
       </Typography>
     </Form>
-  )
+  );
 }

@@ -1,19 +1,21 @@
-import Image from 'next/image'
-import Divider from '@mui/material/Divider'
-import ImageList from '@mui/material/ImageList'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import ImageListItem from '@mui/material/ImageListItem'
-import ImageListItemBar from '@mui/material/ImageListItemBar'
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Typography from '@mui/material/Typography';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
-import Link from 'app/core/lib/Link'
-import github from 'public/static/images/previews/github.png'
-import githubIcon from 'public/static/images/logos/github.png'
+import Image from 'next/image';
+
+import Link from 'app/core/lib/Link';
+
+import githubIcon from 'public/static/images/logos/github.png';
+import github from 'public/static/images/previews/github.png';
 
 export default function News() {
-  const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener')
+  const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener');
 
   return (
     <div className="flex flex-col">
@@ -29,7 +31,7 @@ export default function News() {
           onClick={openNewWindow('https://github.com/bde-isima/bde.isima.fr')}
         >
           <Image
-            className="rounded-2xl border-solid border-[1px] border-gray-300"
+            className="rounded-2xl border border-solid border-gray-300"
             src={github}
             alt="Coup de neuf pour le site"
             placeholder="blur"
@@ -39,9 +41,7 @@ export default function News() {
 
           <ImageListItemBar
             sx={{
-              background:
-                'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
-                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
+              background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
             }}
             className="transition-opacity duration-500 opacity-0 group-hover:opacity-100 rounded-b-2xl"
             title={
@@ -66,5 +66,5 @@ export default function News() {
         </ImageListItem>
       </ImageList>
     </div>
-  )
+  );
 }

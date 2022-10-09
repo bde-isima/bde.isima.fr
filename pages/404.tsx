@@ -1,14 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Fab from '@mui/material/Fab'
-import Typography from '@mui/material/Typography'
+import Fab from '@mui/material/Fab';
+import Typography from '@mui/material/Typography';
 
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone';
 
-import Link from 'app/core/lib/Link'
+import Head from 'next/head';
+import Image from 'next/image';
+
+import Link from 'app/core/lib/Link';
 
 function Page404() {
-  const title = '404: Page non trouvée'
+  const title = '404: Page non trouvée';
 
   return (
     <>
@@ -17,13 +18,7 @@ function Page404() {
       </Head>
 
       <div className="flex flex-col min-h-main justify-center items-center">
-        <Image
-          src="/static/images/illustrations/NotFound.svg"
-          width={500}
-          height={500}
-          alt={title}
-          quality={100}
-        />
+        <Image src="/static/images/illustrations/NotFound.svg" width={500} height={500} alt={title} quality={100} />
 
         <Typography variant="h4" paragraph color="textPrimary">
           {title}
@@ -43,8 +38,8 @@ function Page404() {
         </Link>
       </div>
     </>
-  )
+  );
 }
 
-Page404.suppressFirstRenderFlicker = true
-export default Page404
+Page404.suppressFirstRenderFlicker = true;
+export default Page404;

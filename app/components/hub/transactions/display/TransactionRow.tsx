@@ -1,29 +1,30 @@
-import { Suspense } from 'react'
-import { format } from 'date-fns'
-import Tooltip from '@mui/material/Tooltip'
-import Skeleton from '@mui/material/Skeleton'
-import Typography from '@mui/material/Typography'
-import Grid, { GridSize } from '@mui/material/Grid'
+import { Suspense } from 'react';
 
-import TrendingUp from '@mui/icons-material/TrendingUpTwoTone'
-import TrendingDown from '@mui/icons-material/TrendingDownTwoTone'
+import Grid, { GridSize } from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { format } from 'date-fns';
+import { Transaction } from 'db';
 
-import { Transaction } from 'db'
-import TransactionAvatar from './TransactionAvatar'
+import TrendingDown from '@mui/icons-material/TrendingDownTwoTone';
+import TrendingUp from '@mui/icons-material/TrendingUpTwoTone';
+
+import TransactionAvatar from './TransactionAvatar';
 
 type ColumnType = {
-  visible: boolean
-  size?: GridSize
-}
+  visible: boolean;
+  size?: GridSize;
+};
 
 type TransactionProps = {
-  values: Transaction
-  type: ColumnType
-  description: ColumnType
-  amount: ColumnType
-  prevBalance: ColumnType
-  dense?: boolean
-}
+  values: Transaction;
+  type: ColumnType;
+  description: ColumnType;
+  amount: ColumnType;
+  prevBalance: ColumnType;
+  dense?: boolean;
+};
 
 export default function TransactionRow({
   values,
@@ -31,9 +32,9 @@ export default function TransactionRow({
   description,
   amount,
   prevBalance,
-  dense = false,
+  dense = false
 }: TransactionProps) {
-  const isPositive = values.type === 'CREDIT'
+  const isPositive = values.type === 'CREDIT';
 
   return (
     <Grid className={dense ? 'my-1' : 'my-2'} container>
@@ -59,14 +60,7 @@ export default function TransactionRow({
       )}
 
       {description.visible && (
-        <Grid
-          container
-          item
-          xs={description.size}
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <Grid container item xs={description.size} direction="column" justifyContent="center" alignItems="center">
           <Tooltip title={dense ? `${values.description || 'Aucune description'}` : ''}>
             <div className={`${dense ? 'w-32' : 'w-full'} flex flex-col overflow-x-hidden`}>
               <Typography variant="caption" align="left" noWrap={dense}>
@@ -99,5 +93,5 @@ export default function TransactionRow({
         </Grid>
       )}
     </Grid>
-  )
+  );
 }

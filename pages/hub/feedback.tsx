@@ -1,20 +1,21 @@
-import { useAuthenticatedSession } from '@blitzjs/auth'
-import { useMutation } from '@blitzjs/rpc'
-import { BlitzPage, Routes } from '@blitzjs/next'
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
 
-import Snackbar from 'app/core/layouts/Snackbar'
-import getHubNav from 'app/components/nav/hub/getHubNav'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import feedback from 'app/entities/users/mutations/feedback'
-import FeedbackForm from 'app/components/hub/feedback/FeedbackForm'
-import { FeedbackInputType } from 'app/components/forms/validations'
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { BlitzPage, Routes } from '@blitzjs/next';
+import { useMutation } from '@blitzjs/rpc';
+
+import { FeedbackInputType } from 'app/components/forms/validations';
+import FeedbackForm from 'app/components/hub/feedback/FeedbackForm';
+import getHubNav from 'app/components/nav/hub/getHubNav';
+import Snackbar from 'app/core/layouts/Snackbar';
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+import feedback from 'app/entities/users/mutations/feedback';
 
 const Feedback: BlitzPage = () => {
-  const session = useAuthenticatedSession()
-  const { open, message, severity, onShow, onClose } = useSnackbar()
+  const session = useAuthenticatedSession();
+  const { open, message, severity, onShow, onClose } = useSnackbar();
 
-  const [sendFeedback] = useMutation(feedback)
+  const [sendFeedback] = useMutation(feedback);
 
   const onSuccess = (data: FeedbackInputType) => {
     return sendFeedback({
@@ -22,8 +23,8 @@ const Feedback: BlitzPage = () => {
       from: `${session?.lastname} ${session?.firstname} (${session?.email})`
     })
       .then(() => onShow('success', 'Envoyé'))
-      .catch((err) => onShow('error', err.message))
-  }
+      .catch((err) => onShow('error', err.message));
+  };
 
   return (
     <div className="p-4">
@@ -48,11 +49,11 @@ const Feedback: BlitzPage = () => {
 
       <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </div>
-  )
-}
+  );
+};
 
-Feedback.suppressFirstRenderFlicker = true
-Feedback.authenticate = { redirectTo: Routes.Login() }
-Feedback.getLayout = (page) => getHubNav(page, "Retours d'expérience")
+Feedback.suppressFirstRenderFlicker = true;
+Feedback.authenticate = { redirectTo: Routes.Login() };
+Feedback.getLayout = (page) => getHubNav(page, "Retours d'expérience");
 
-export default Feedback
+export default Feedback;

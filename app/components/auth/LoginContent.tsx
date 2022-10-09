@@ -1,8 +1,9 @@
-import Image from 'next/image'
-import Typography from '@mui/material/Typography'
-import DialogContent from '@mui/material/DialogContent'
+import DialogContent from '@mui/material/DialogContent';
+import Typography from '@mui/material/Typography';
 
-import LoginForm from './LoginForm'
+import Image from 'next/image';
+
+import LoginForm from './LoginForm';
 
 export default function LoginContent() {
   return (
@@ -27,5 +28,5 @@ export default function LoginContent() {
 
       <LoginForm />
     </DialogContent>
-  )
+  );
 }

@@ -1,11 +1,8 @@
-import { resolver } from "@blitzjs/rpc";
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type GetEventsInput = Pick<
-  Prisma.EventFindManyArgs,
-  'include' | 'where' | 'orderBy' | 'skip' | 'take'
->
+type GetEventsInput = Pick<Prisma.EventFindManyArgs, 'include' | 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(
   resolver.authorize(),
@@ -16,17 +13,17 @@ export default resolver.pipe(
       include,
       take,
       skip
-    })
+    });
 
-    const count = await db.event.count({ where })
-    const hasMore = typeof take === 'number' ? skip + take < count : false
-    const nextPage = hasMore ? { take, skip: skip + take! } : null
+    const count = await db.event.count({ where });
+    const hasMore = typeof take === 'number' ? skip + take < count : false;
+    const nextPage = hasMore ? { take, skip: skip + take! } : null;
 
     return {
       events,
       nextPage,
       hasMore,
       count
-    }
+    };
   }
-)
+);

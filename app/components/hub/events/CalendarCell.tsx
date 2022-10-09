@@ -1,26 +1,21 @@
-import { isSameDay } from 'date-fns'
-import Grid from '@mui/material/Grid'
-import Skeleton from '@mui/material/Skeleton'
-import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
+import { isSameDay } from 'date-fns';
 
-import CalendarChip from 'app/components/hub/events/CalendarChip'
+import CalendarChip from 'app/components/hub/events/CalendarChip';
 
 type CalendarCellProps = {
-  idx: number
-  date: Date
-  events?: any[]
-  fallback?: boolean
-}
+  idx: number;
+  date: Date;
+  events?: any[];
+  fallback?: boolean;
+};
 
-export default function CalendarCell({
-  idx,
-  date,
-  events = [],
-  fallback = false
-}: CalendarCellProps) {
+export default function CalendarCell({ idx, date, events = [], fallback = false }: CalendarCellProps) {
   return (
     <Grid
-      className="p-2 min-h-100 border-solid border-[1px] border-gray-300"
+      className="p-2 min-h-100 border border-solid border-gray-300"
       item
       container
       xs={idx === 6 ? 12 : 6}
@@ -46,5 +41,5 @@ export default function CalendarCell({
         )
       )}
     </Grid>
-  )
+  );
 }

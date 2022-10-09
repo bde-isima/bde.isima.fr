@@ -6,7 +6,7 @@
   "scripts": {
     "build": "blitz build",
     "dev": "blitz dev",
-    "format": "prettier --write \"**/*.ts\"",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
     "lint": "eslint **/*.{ts,tsx} --fix",
     "migrate": "prisma db push",
     "postinstall": "husky install",
@@ -19,12 +19,24 @@
     "seed": "ts-node db/seeds/index.ts"
   },
   "prettier": {
-    "semi": false,
-    "trailingComma": "none",
-    "singleQuote": true,
-    "printWidth": 100,
     "bracketSpacing": true,
-    "tabWidth": 2
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "importOrder": [
+      "^react$",
+      "<THIRD_PARTY_MODULES>",
+      "^@mui/icons-material/(.*)$",
+      "^next/(.*)$",
+      "^@blitzjs/(.*)$",
+      "^app/(.*)$",
+      "^pages/(.*)$",
+      "^public/(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true
   },
   "dependencies": {
     "@blitzjs/auth": "2.0.0-beta.4",
@@ -69,6 +81,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/node": "^16",
     "@types/nodemailer": "^6.4.6",
     "@types/react": "^18.0.21",

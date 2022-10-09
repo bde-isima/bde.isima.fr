@@ -1,49 +1,50 @@
-import { BlitzPage, Routes } from '@blitzjs/next'
-import { useMutation, invalidateQuery } from '@blitzjs/rpc'
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
-import Check from '@mui/icons-material/CheckTwoTone'
-import Euro from '@mui/icons-material/EuroTwoTone'
+import Check from '@mui/icons-material/CheckTwoTone';
+import Euro from '@mui/icons-material/EuroTwoTone';
 
-import Snackbar from 'app/core/layouts/Snackbar'
-import Table from 'app/components/dashboard/data/Table'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import getEvents from 'app/entities/events/queries/getEvents'
-import upsertEvent from 'app/entities/events/mutations/upsertEvent'
-import updateEvent from 'app/entities/events/mutations/updateEvent'
-import EventStatus from 'app/components/dashboard/events/EventStatus'
-import checkoutEvent from 'app/entities/events/mutations/checkoutEvent'
-import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav'
-import deleteManyEvents from 'app/entities/events/mutations/deleteManyEvents'
-import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config'
+import { BlitzPage, Routes } from '@blitzjs/next';
+import { invalidateQuery, useMutation } from '@blitzjs/rpc';
 
-const today = new Date()
+import Table from 'app/components/dashboard/data/Table';
+import EventStatus from 'app/components/dashboard/events/EventStatus';
+import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config';
+import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav';
+import Snackbar from 'app/core/layouts/Snackbar';
+import checkoutEvent from 'app/entities/events/mutations/checkoutEvent';
+import deleteManyEvents from 'app/entities/events/mutations/deleteManyEvents';
+import updateEvent from 'app/entities/events/mutations/updateEvent';
+import upsertEvent from 'app/entities/events/mutations/upsertEvent';
+import getEvents from 'app/entities/events/queries/getEvents';
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+
+const today = new Date();
 
 const Events: BlitzPage = () => {
-  const { open, message, severity, onShow, onClose } = useSnackbar()
+  const { open, message, severity, onShow, onClose } = useSnackbar();
 
-  const [updateEvnt] = useMutation(updateEvent)
-  const [checkoutEvnt] = useMutation(checkoutEvent)
+  const [updateEvnt] = useMutation(updateEvent);
+  const [checkoutEvnt] = useMutation(checkoutEvent);
 
   const approve = (rowData) => async () => {
     try {
-      await updateEvnt({ where: { id: rowData.id }, data: { status: 'ACCEPTED' } })
-      onShow('success', 'Approuvé')
-      await invalidateQuery(getEvents)
+      await updateEvnt({ where: { id: rowData.id }, data: { status: 'ACCEPTED' } });
+      onShow('success', 'Approuvé');
+      await invalidateQuery(getEvents);
     } catch (err) {
-      onShow('error', err.message)
+      onShow('error', err.message);
     }
-  }
+  };
 
   const checkout = (rowData) => async () => {
     try {
-      await checkoutEvnt({ where: { id: rowData.id } })
-      onShow('success', 'Encaissé')
-      await invalidateQuery(getEvents)
+      await checkoutEvnt({ where: { id: rowData.id } });
+      onShow('success', 'Encaissé');
+      await invalidateQuery(getEvents);
     } catch (err) {
-      onShow('error', err.message)
+      onShow('error', err.message);
     }
-  }
+  };
 
   return (
     <>
@@ -78,21 +79,20 @@ const Events: BlitzPage = () => {
             icon: <Euro />,
             tooltip: 'Encaisser',
             onClick: checkout,
-            disabled:
-              rowData.status !== 'ACCEPTED' || new Date() < new Date(rowData.subscriptions_end_at)
+            disabled: rowData.status !== 'ACCEPTED' || new Date() < new Date(rowData.subscriptions_end_at)
           })
         ]}
       />
 
       <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>
-  )
-}
+  );
+};
 
-Events.suppressFirstRenderFlicker = true
-Events.authenticate = { redirectTo: Routes.Login() }
-Events.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Events())
-Events.getLayout = (page) => getDashboardNav(page, 'Gestion des événements')
+Events.suppressFirstRenderFlicker = true;
+Events.authenticate = { redirectTo: Routes.Login() };
+Events.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Events());
+Events.getLayout = (page) => getDashboardNav(page, 'Gestion des événements');
 
 const columns = [
   {
@@ -125,6 +125,6 @@ const columns = [
     id: 'max_subscribers',
     headerName: 'Nombre max de participants'
   }
-]
+];
 
-export default Events
+export default Events;

@@ -1,30 +1,27 @@
-import Grid from '@mui/material/Grid'
-import arrayMutators from 'final-form-arrays'
+import Grid from '@mui/material/Grid';
+import arrayMutators from 'final-form-arrays';
+import { EventSubscriptionWithTypedCart } from 'global';
 
-import { EventSubscriptionWithTypedCart } from 'global'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import {
-  EventSubscriptionInput,
-  EventSubscriptionInputType,
-} from 'app/components/forms/validations'
-import SubscriptionEditCard from 'app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard'
+import SubscriptionEditCard from 'app/components/dashboard/clubs/dashboard/event/manager/list/edit/SubscriptionEditCard';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { EventSubscriptionInput, EventSubscriptionInputType } from 'app/components/forms/validations';
 
 type SubscriptionFormProps = {
-  subscription: EventSubscriptionWithTypedCart
-  onStopEdit: () => void
-  onSuccess: (values) => void
-}
+  subscription: EventSubscriptionWithTypedCart;
+  onStopEdit: () => void;
+  onSuccess: (values) => void;
+};
 
 export default function SubscriptionForm(props: SubscriptionFormProps) {
   const onSubmit = async (values: EventSubscriptionInputType) => {
     try {
-      return props.onSuccess(values)
+      return props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Grid container item justifyContent="center" xs={12} md={4}>
@@ -42,9 +39,9 @@ export default function SubscriptionForm(props: SubscriptionFormProps) {
             options: i.options?.map((o) => ({
               name: o.name,
               description: o.description,
-              price: o.price,
-            })),
-          })),
+              price: o.price
+            }))
+          }))
         }}
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
@@ -53,5 +50,5 @@ export default function SubscriptionForm(props: SubscriptionFormProps) {
         <SubscriptionEditCard {...props} />
       </Form>
     </Grid>
-  )
+  );
 }

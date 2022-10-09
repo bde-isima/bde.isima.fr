@@ -1,4 +1,4 @@
-import MUIMenu, { MenuProps as MUIMenuProps } from '@mui/material/Menu'
+import MUIMenu, { MenuProps as MUIMenuProps } from '@mui/material/Menu';
 
 function Menu({ id, anchorEl, open, onClose, children }: MUIMenuProps) {
   return (
@@ -17,7 +17,7 @@ function Menu({ id, anchorEl, open, onClose, children }: MUIMenuProps) {
             width: 32,
             height: 32,
             ml: -0.5,
-            mr: 1,
+            mr: 1
           },
           '&:before': {
             content: '""',
@@ -29,16 +29,16 @@ function Menu({ id, anchorEl, open, onClose, children }: MUIMenuProps) {
             height: 10,
             bgcolor: 'background.paper',
             transform: 'translateY(-50%) rotate(45deg)',
-            zIndex: 0,
-          },
-        },
+            zIndex: 0
+          }
+        }
       }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
       {children}
     </MUIMenu>
-  )
+  );
 }
 
-export default Menu
+export default Menu;

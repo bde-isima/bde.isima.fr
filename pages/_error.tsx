@@ -1,15 +1,16 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Fab from '@mui/material/Fab'
-import Typography from '@mui/material/Typography'
+import Fab from '@mui/material/Fab';
+import Typography from '@mui/material/Typography';
 
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone';
 
-import Link from 'app/core/lib/Link'
+import Head from 'next/head';
+import Image from 'next/image';
+
+import Link from 'app/core/lib/Link';
 
 function Page500({ statusCode }) {
-  const errorCode = 500
-  const title = "Oops, quelque chose s'est mal passé"
+  const errorCode = 500;
+  const title = "Oops, quelque chose s'est mal passé";
 
   return (
     <>
@@ -20,13 +21,7 @@ function Page500({ statusCode }) {
       </Head>
 
       <div className="flex flex-col min-h-main justify-center items-center">
-        <Image
-          src="static/images/illustrations/ServerError.svg"
-          width={500}
-          height={500}
-          alt={title}
-          quality={100}
-        />
+        <Image src="static/images/illustrations/ServerError.svg" width={500} height={500} alt={title} quality={100} />
 
         <Typography variant="h4" paragraph>
           {title}
@@ -46,13 +41,13 @@ function Page500({ statusCode }) {
         </Link>
       </div>
     </>
-  )
+  );
 }
 
 export const getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404
-  return { statusCode }
-}
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
 
-Page500.suppressFirstRenderFlicker = true
-export default Page500
+Page500.suppressFirstRenderFlicker = true;
+export default Page500;

@@ -1,11 +1,12 @@
-import { useMemo } from 'react'
-import { frFR } from '@mui/material/locale'
-import type { Breakpoint } from '@mui/system'
-import useMUIMediaQuery from '@mui/material/useMediaQuery'
-import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+import { useMemo } from 'react';
+
+import { frFR } from '@mui/material/locale';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import useMUIMediaQuery from '@mui/material/useMediaQuery';
+import type { Breakpoint } from '@mui/system';
 
 export function useTheme() {
-  const prefersDarkMode = useMUIMediaQuery('(prefers-color-scheme: dark)')
+  const prefersDarkMode = useMUIMediaQuery('(prefers-color-scheme: dark)');
 
   return useMemo(
     () =>
@@ -38,10 +39,10 @@ export function useTheme() {
         )
       ),
     [prefersDarkMode]
-  )
+  );
 }
 
 export function useMediaQuery(breakpoint: Breakpoint) {
-  const theme = useTheme()
-  return useMUIMediaQuery(theme.breakpoints.down(breakpoint))
+  const theme = useTheme();
+  return useMUIMediaQuery(theme.breakpoints.down(breakpoint));
 }

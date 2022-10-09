@@ -1,8 +1,8 @@
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
 
 const events = async (db) => {
-  const club = await db.club.findFirst()
-  const today = new Date(new Date().setHours(0, 0, 0, 0))
+  const club = await db.club.findFirst();
+  const today = new Date(new Date().setHours(0, 0, 0, 0));
 
   const groupOptions = [
     {
@@ -37,7 +37,7 @@ const events = async (db) => {
         }
       ]
     }
-  ]
+  ];
 
   for (let i = 2; i < 7; ++i) {
     await db.event.create({
@@ -45,11 +45,7 @@ const events = async (db) => {
         name: faker.lorem.words(),
         description: faker.lorem.sentence(),
         takes_place_at: new Date(today.getFullYear(), today.getMonth(), today.getDate() + i),
-        subscriptions_end_at: new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() + i - 1
-        ),
+        subscriptions_end_at: new Date(today.getFullYear(), today.getMonth(), today.getDate() + i - 1),
         status: 'ACCEPTED',
         max_subscribers: 1,
         club: { connect: { id: club?.id } },
@@ -68,8 +64,8 @@ const events = async (db) => {
           }
         ]
       }
-    })
+    });
   }
-}
+};
 
-export default events
+export default events;
