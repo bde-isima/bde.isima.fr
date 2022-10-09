@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
 import { format } from 'date-fns'
 
 import db, { Prisma } from 'db'
@@ -9,7 +9,7 @@ type UpdateEventInput = Pick<Prisma.EventUpdateArgs, 'where'>
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
   async ({ where }: UpdateEventInput) => {
-    const event = await db.event.findUnique({ where, rejectOnNotFound: true })
+    const event = await db.event.findUniqueOrThrow({ where })
 
     const eventSubscriptions = await db.eventSubscription.findMany({
       where: { eventId: where.id },

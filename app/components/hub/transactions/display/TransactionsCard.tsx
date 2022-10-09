@@ -1,9 +1,9 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
 import { Suspense } from 'react'
 import Card from '@mui/material/Card'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
-import { useAuthenticatedSession } from 'blitz'
 import Typography from '@mui/material/Typography'
 import ButtonGroup from '@mui/material/ButtonGroup'
 

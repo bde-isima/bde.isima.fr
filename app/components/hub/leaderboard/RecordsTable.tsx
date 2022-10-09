@@ -20,26 +20,24 @@ export default function RecordsTable() {
   ))
 
   return (
-    <Card className="p-4">
-      <TableContainer className="md:overflow-hidden" aria-label="Tableau des records">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Photo</TableCell>
-              <TableCell align="right">Article</TableCell>
-              <TableCell align="right">Nombre d&apos;unités</TableCell>
-              <TableCell align="right">Nom d&apos;utilisateur</TableCell>
-              <TableCell align="right">Votre score</TableCell>
-            </TableRow>
-          </TableHead>
+    <TableContainer className="md:overflow-hidden" aria-label="Tableau des records">
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Photo</TableCell>
+            <TableCell align="right">Article</TableCell>
+            <TableCell align="right">Nombre d&apos;unités</TableCell>
+            <TableCell align="right">Nom d&apos;utilisateur</TableCell>
+            <TableCell align="right">Votre score</TableCell>
+          </TableRow>
+        </TableHead>
 
-          <TableBody>
-            <Suspense fallback={FallbackComponent}>
-              <Records />
-            </Suspense>
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Card>
+        <TableBody>
+          <Suspense fallback={FallbackComponent}>
+            <Records />
+          </Suspense>
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }

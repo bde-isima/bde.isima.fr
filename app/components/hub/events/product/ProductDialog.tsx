@@ -66,11 +66,11 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
                 ...restProduct,
                 quantity,
                 comment,
-                options: selectedOptions,
-              } as CartItem,
-            ],
-          },
-        ],
+                options: selectedOptions
+              } as CartItem
+            ]
+          }
+        ]
       }),
       { refetch: false }
     )
@@ -110,7 +110,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
           <ProductComment product={product} onChange={onCommentChange} />
         </DialogContent>
 
-        <DialogActions className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-4">
           <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
             <RemoveCircle />
           </IconButton>
@@ -120,10 +120,10 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
           <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
             <AddCircle />
           </IconButton>
-        </DialogActions>
+        </div>
 
         <DialogActions>
-          <Button aria-label="Annuler" onClick={onClose} color="inherit">
+          <Button aria-label="Annuler" onClick={onClose} variant="outlined" color="primary">
             Annuler
           </Button>
           <Button

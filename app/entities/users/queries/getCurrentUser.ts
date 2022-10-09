@@ -1,4 +1,5 @@
-import { Ctx, resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
+import { Ctx } from 'blitz'
 
 import db, { Prisma } from 'db'
 
@@ -11,10 +12,9 @@ export default resolver.pipe(
       return null
     }
 
-    return await db.user.findUnique({
+    return await db.user.findUniqueOrThrow({
       where: { id: session.userId },
-      include,
-      rejectOnNotFound: true
+      include
     })
   }
 )

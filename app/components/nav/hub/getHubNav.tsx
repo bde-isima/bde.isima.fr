@@ -1,4 +1,4 @@
-import { Head } from 'blitz'
+import Head from "next/head";
 import Container from '@mui/material/Container'
 
 import Nav from 'app/components/nav/hub/Nav'

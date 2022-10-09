@@ -14,7 +14,7 @@ export default function AdminTransferForm({ onSuccess }: AdminTransferFormProps)
       await onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -25,8 +25,8 @@ export default function AdminTransferForm({ onSuccess }: AdminTransferFormProps)
       title="Transférer de l'argent"
       schema={AdminTransferInput}
       initialValues={{
-        amount: undefined,
-        description: undefined,
+        amount: 0,
+        description: ''
       }}
       onSubmit={onSubmit}
       autoComplete="off"

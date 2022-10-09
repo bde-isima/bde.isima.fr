@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 
 import MarketItem from 'app/components/hub/market/MarketItem'
 import getArticles from 'app/entities/articles/queries/getArticles'

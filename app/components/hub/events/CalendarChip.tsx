@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import Grid from '@mui/material/Grid'
 import Chip from '@mui/material/Chip'
 import Avatar from '@mui/material/Avatar'
@@ -40,10 +40,10 @@ export default function CalendarChip({ event }: CalendarCellProps) {
         avatar={
           event?.club?.image ? (
             <Image
-              className="rounded-full"
+              className="rounded-full w-10 h-10"
               src={event.club.image}
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               alt={`Logo ${event.club.name}`}
             />
           ) : (

@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import { useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'

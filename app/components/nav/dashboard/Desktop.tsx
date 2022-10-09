@@ -1,4 +1,4 @@
-import { Link } from 'blitz'
+import Link from 'next/link'
 import Tab from '@mui/material/Tab'
 import List from '@mui/material/List'
 import TabList from '@mui/lab/TabList'
@@ -45,7 +45,7 @@ export default function Desktop() {
                 <ListItem dense disableGutters>
                   <ListItemIcon>
                     {cloneElement(obj.icon, {
-                      className: `${isActive ? 'text-white' : undefined} rounded-full`,
+                      className: `${isActive ? 'text-white' : undefined} rounded-full`
                     })}
                   </ListItemIcon>
 
@@ -53,7 +53,7 @@ export default function Desktop() {
                     secondary={obj.text}
                     secondaryTypographyProps={{
                       color: isActive ? 'secondary' : 'textPrimary',
-                      noWrap: true,
+                      noWrap: true
                     }}
                   />
                 </ListItem>
@@ -77,13 +77,13 @@ export default function Desktop() {
                 aria-label="Nav"
               >
                 <Tab
-                  classes={{ root: 'min-w-1/2' }}
+                  classes={{ root: 'min-w-[50%]' }}
                   label="BDE"
                   value="0"
                   disabled={!bdeConfig.length}
                 />
                 <Tab
-                  classes={{ root: 'min-w-1/2' }}
+                  classes={{ root: 'min-w-[50%]' }}
                   label="Clubs"
                   value="1"
                   disabled={!clubsConfig.length}

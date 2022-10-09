@@ -1,4 +1,5 @@
-import { Image, useQuery } from 'blitz'
+import Image from "next/image";
+import { useQuery } from "@blitzjs/rpc";
 
 import getUserPublicData from 'app/entities/users/queries/getUserPublicData'
 

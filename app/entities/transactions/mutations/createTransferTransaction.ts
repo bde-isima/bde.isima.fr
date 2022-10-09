@@ -1,4 +1,5 @@
-import { Ctx, resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
+import { Ctx } from 'blitz'
 
 import db, { Prisma } from 'db'
 
@@ -23,14 +24,12 @@ export default resolver.pipe(
       throw new Error("Vous ne pouvez pas vous envoyer de l'argent")
     }
 
-    const receiverUser = await db.user.findUnique({
-      where: { id: data?.user?.connect?.id },
-      rejectOnNotFound: true
+    const receiverUser = await db.user.findUniqueOrThrow({
+      where: { id: data?.user?.connect?.id }
     })
 
-    const emitterUser = await db.user.findUnique({
-      where: { id: data?.emitter?.connect?.id },
-      rejectOnNotFound: true
+    const emitterUser = await db.user.findUniqueOrThrow({
+      where: { id: data?.emitter?.connect?.id }
     })
 
     if (amount > emitterUser.balance) {

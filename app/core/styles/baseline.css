@@ -42,6 +42,13 @@ img {
   -ms-user-select: none;
 }
 
+.form > * + * {
+  margin-top: 1rem !important;
+}
+.form > .MuiTabPanel-root > * {
+  margin-top: 1rem !important;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

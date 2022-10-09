@@ -1,5 +1,6 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useQuery } from "@blitzjs/rpc";
 import addDays from 'date-fns/addDays'
-import { useQuery, useAuthenticatedSession } from 'blitz'
 
 import getEvents from 'app/entities/events/queries/getEvents'
 import CalendarCell from 'app/components/hub/events/CalendarCell'

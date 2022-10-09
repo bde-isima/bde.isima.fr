@@ -1,4 +1,6 @@
-import { RouteUrlObject, PublicData, Routes, useAuthenticatedSession } from 'blitz'
+import { PublicData, useAuthenticatedSession } from '@blitzjs/auth'
+import { Routes } from '@blitzjs/next'
+import { RouteUrlObject } from 'blitz'
 
 import Groups from '@mui/icons-material/GroupsTwoTone'
 import Public from '@mui/icons-material/PublicTwoTone'
@@ -16,64 +18,64 @@ export const config = [
     text: 'EVENTS',
     to: '/dashboard/events',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/events',
+    isActive: (pathname: String) => pathname === '/dashboard/events'
   },
   {
     icon: <QueryStats />,
     text: 'STATISTIQUES',
     to: '/dashboard/analytics',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/analytics',
+    isActive: (pathname: String) => pathname === '/dashboard/analytics'
   },
   {
     icon: <Groups />,
     text: 'CLUBS',
     to: '/dashboard/clubs',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/clubs',
+    isActive: (pathname: String) => pathname === '/dashboard/clubs'
   },
   {
     icon: <Fastfood />,
     text: 'MARCHÉ',
     to: '/dashboard/articles',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/articles',
+    isActive: (pathname: String) => pathname === '/dashboard/articles'
   },
   {
     icon: <AccountBox />,
     text: 'MEMBRES',
     to: '/dashboard/users',
     only: ['*'],
-    isActive: (pathname: String) => pathname === '/dashboard/users',
+    isActive: (pathname: String) => pathname === '/dashboard/users'
   },
   {
     icon: <Public />,
     text: 'PARTENAIRES',
     to: '/dashboard/partners',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/partners',
+    isActive: (pathname: String) => pathname === '/dashboard/partners'
   },
   {
     icon: <CalendarToday />,
     text: 'PLANNING',
     to: '/dashboard/planning',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/planning',
+    isActive: (pathname: String) => pathname === '/dashboard/planning'
   },
   {
     icon: <School />,
     text: 'PROMOTIONS',
     to: '/dashboard/promotions',
     only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/promotions',
+    isActive: (pathname: String) => pathname === '/dashboard/promotions'
   },
   {
     icon: <HowToVote />,
     text: 'CAMPAGNES',
     to: '/dashboard/elections',
     only: ['*'],
-    isActive: (pathname: String) => pathname === '/dashboard/elections',
-  },
+    isActive: (pathname: String) => pathname === '/dashboard/elections'
+  }
 ]
 
 function filter(roles) {

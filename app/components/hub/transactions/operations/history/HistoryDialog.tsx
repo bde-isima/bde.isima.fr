@@ -1,7 +1,7 @@
+import { useAuthenticatedSession } from "@blitzjs/auth";
 import { useState } from 'react'
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
-import { useAuthenticatedSession } from 'blitz'
 import IconButton from '@mui/material/IconButton'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'

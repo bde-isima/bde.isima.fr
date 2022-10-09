@@ -1,18 +1,11 @@
-import {
-  ErrorComponent,
-  ErrorFallbackProps,
-  AuthorizationError,
-  AuthenticationError,
-  useQueryErrorResetBoundary,
-  ErrorBoundary as BlitzErrorBoundary,
-} from 'blitz'
+import { ErrorComponent, ErrorFallbackProps } from '@blitzjs/next'
 
 import LoginFallback from 'app/components/auth/LoginFallback'
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
-  if (error instanceof AuthenticationError) {
+  if (error.name === 'AuthenticationError') {
     return <LoginFallback />
-  } else if (error instanceof AuthorizationError) {
+  } else if (error.name === 'AuthorizationError') {
     return (
       <ErrorComponent
         statusCode={error.statusCode}
@@ -26,14 +19,4 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   }
 }
 
-function ErrorBoundary({ children }) {
-  const errorResetBoundary = useQueryErrorResetBoundary()
-
-  return (
-    <BlitzErrorBoundary FallbackComponent={RootErrorFallback} onReset={errorResetBoundary.reset}>
-      {children}
-    </BlitzErrorBoundary>
-  )
-}
-
-export default ErrorBoundary
+export default RootErrorFallback

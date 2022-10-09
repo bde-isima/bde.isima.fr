@@ -25,6 +25,7 @@ export default function TransferDialog({ isOpen, onClose }: TransferDialogProps)
         keepMounted
         fullScreen={fullScreen}
         TransitionComponent={SlideTransition}
+        fullWidth
       >
         <DialogActions>
           <IconButton onClick={onClose} aria-label="Fermer" size="large">

@@ -3,11 +3,10 @@ import { Dispatch, SetStateAction } from 'react'
 import TextField from '@mui/material/TextField'
 import Accordion from '@mui/material/Accordion'
 import Typography from '@mui/material/Typography'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUpTwoTone'
 
@@ -22,7 +21,7 @@ export default function HistoryFilter({
   minDate,
   setMinDate,
   maxDate,
-  setMaxDate,
+  setMaxDate
 }: HistoryFilterProps) {
   return (
     <Accordion className="w-full" variant="outlined">
@@ -34,7 +33,7 @@ export default function HistoryFilter({
         <Typography variant="caption">Filtrer par date</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
           <div className="flex flex-col md:flex-row">
             <DateTimePicker
               renderInput={(props) => <TextField className="m-2" {...props} />}

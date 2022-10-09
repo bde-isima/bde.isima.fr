@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from 'blitz'
+import { useQuery, useMutation } from '@blitzjs/rpc'
 import { VariableSizeGrid } from 'react-window'
 import TextField from '@mui/material/TextField'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -36,7 +36,7 @@ const innerElementType = forwardRef(
       style={{
         ...style,
         paddingLeft: GUTTER_SIZE,
-        paddingTop: GUTTER_SIZE,
+        paddingTop: GUTTER_SIZE
       }}
       {...rest}
     />
@@ -64,12 +64,13 @@ export default function Catalog({ user, onTransactionComplete }) {
 
   const onChange = (event) => setSearchArticleInput(event.target.value)
 
-  const onUndo = () => {
-    deleteT({ where: { id: previousTransaction as string } }).then(() => {
+  const onUndo = async () => {
+    if (previousTransaction) {
+      await deleteT({ where: { id: previousTransaction } })
       setPreviousTransaction(null)
       onShow('warning', 'Vente annulée')
       onTransactionComplete()
-    })
+    }
   }
 
   const onSnackClose = () => {

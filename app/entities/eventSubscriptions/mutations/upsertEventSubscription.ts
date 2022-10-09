@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
 
 import db, { Prisma } from 'db'
 import { assertArrayNonEmpty } from 'app/core/utils/assert'
@@ -11,9 +11,8 @@ type upsertEventSubscriptionInput = Pick<
 export default resolver.pipe(
   resolver.authorize(),
   async ({ where, create, update }: upsertEventSubscriptionInput) => {
-    const event = await db.event.findUnique({
-      where: { id: create.event?.connect?.id },
-      rejectOnNotFound: true
+    const event = await db.event.findUniqueOrThrow({
+      where: { id: create.event?.connect?.id }
     })
 
     if (event.products.length > 0) {

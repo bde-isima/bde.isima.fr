@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
 
 import db, { Prisma } from 'db'
 
@@ -7,10 +7,9 @@ type DeleteTransactionInput = Pick<Prisma.TransactionDeleteArgs, 'where'>
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
   async ({ where }: DeleteTransactionInput) => {
-    const transaction = await db.transaction.findUnique({
+    const transaction = await db.transaction.findUniqueOrThrow({
       where,
-      include: { user: { include: { userStats: true } } },
-      rejectOnNotFound: true
+      include: { user: { include: { userStats: true } } }
     })
 
     if (!transaction.articleId) {

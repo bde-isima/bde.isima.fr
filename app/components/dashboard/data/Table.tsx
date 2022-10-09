@@ -1,5 +1,4 @@
-import { ReactNode, useState } from 'react'
-import Paper from '@mui/material/Paper'
+import { useState } from 'react'
 
 import TableDialog from './TableDialog'
 import TableContainer from './TableContainer'
@@ -42,7 +41,7 @@ export default function Table(props: TableProps) {
 
   return (
     <TablePropsProvider>
-      <Paper className="w-full mb-4">
+      <div className="w-full mb-4">
         <TableContainer
           snackbar={snackbar}
           onAdd={onAdd}
@@ -59,7 +58,7 @@ export default function Table(props: TableProps) {
             {...props}
           />
         )}
-      </Paper>
+      </div>
     </TablePropsProvider>
   )
 }

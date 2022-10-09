@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import { Select } from 'mui-rff'
 import MenuItem from '@mui/material/MenuItem'
 

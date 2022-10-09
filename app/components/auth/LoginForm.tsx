@@ -1,12 +1,12 @@
+import { useMutation } from '@blitzjs/rpc'
 import { useState } from 'react'
 import { TextField } from 'mui-rff'
 import Typography from '@mui/material/Typography'
-import { useMutation, AuthenticationError } from 'blitz'
 
 import { useRouter } from 'app/core/lib/router'
 import login from 'app/entities/auth/mutations/login'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { LoginInput, LoginInputType } from 'app/components/forms/validations'
+import { LoginInput } from 'app/components/forms/validations'
 
 export default function LoginForm() {
   const { router } = useRouter()
@@ -19,15 +19,15 @@ export default function LoginForm() {
         ...values,
         callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${
           router.route === '/login' ? '/hub' : router.asPath
-        }`,
+        }`
       }).then((res) => setMessage(res))
     } catch (error) {
-      if (error instanceof AuthenticationError) {
+      if (error.name === 'AuthenticationError') {
         return { [FORM_ERROR]: 'Identifiants incorrects' }
       } else {
         return {
           [FORM_ERROR]:
-            'Sorry, we had an unexpected error. Please try again. - ' + JSON.stringify(error),
+            'Sorry, we had an unexpected error. Please try again. - ' + JSON.stringify(error)
         }
       }
     }

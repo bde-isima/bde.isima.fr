@@ -1,4 +1,4 @@
-import { useMutation } from 'blitz'
+import { useMutation } from "@blitzjs/rpc";
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'

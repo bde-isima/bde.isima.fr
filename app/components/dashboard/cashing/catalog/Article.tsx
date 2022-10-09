@@ -1,4 +1,5 @@
-import { Image, useMutation } from 'blitz'
+import Image from "next/image";
+import { useMutation } from "@blitzjs/rpc";
 import Skeleton from '@mui/material/Skeleton'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'

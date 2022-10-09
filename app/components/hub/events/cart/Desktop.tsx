@@ -37,12 +37,12 @@ export default function Desktop({
   onSubscribe,
   unsubscribing,
   onUnsubscribe,
-  onQuantityChange,
+  onQuantityChange
 }: DesktopProps) {
   const { event, eventSubscription } = useEventSubscription()
 
   return (
-    <Card className="w-11/12 mt-4" sx={{ display: { xs: 'none', md: 'block' } }}>
+    <div className="w-11/12 mt-4 hidden md:block">
       <CardActions className="p-0">
         <ButtonGroup className="w-full" aria-label="Inscription/Désinscription">
           {eventSubscription?.id && (
@@ -132,6 +132,6 @@ export default function Desktop({
       </CardContent>
 
       <CardActions>{event.products.length > 0 && <PaymentMethods />}</CardActions>
-    </Card>
+    </div>
   )
 }

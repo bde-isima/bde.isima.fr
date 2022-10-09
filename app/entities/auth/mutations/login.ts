@@ -1,5 +1,5 @@
+import { resolver } from "@blitzjs/rpc";
 import cuid from 'cuid'
-import { resolver } from 'blitz'
 
 import db from 'db'
 import { mail } from 'mail'

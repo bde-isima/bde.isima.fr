@@ -6,8 +6,12 @@ const colors = {
 }
 
 module.exports = {
-  content: ['app/**/*.{ts,tsx}'],
+  content: ['{app,pages}/**/*.{ts,tsx}'],
   important: true,
+  // important: '#__next',
+  corePlugins: {
+    preflight: false
+  },
   theme: {
     extend: {
       screens: {
@@ -37,15 +41,9 @@ module.exports = {
         ...theme('colors'),
         ...colors
       }),
-      minWidth: {
-        '1/2': '50%'
-      },
       minHeight: {
         100: '100px',
         main: 'calc(100vh - 64px)'
-      },
-      maxHeight: {
-        card: 345
       }
     }
   }

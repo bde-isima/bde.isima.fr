@@ -32,13 +32,11 @@ export default function Upcoming() {
 
       <Divider className="m-4" />
 
-      <Paper className="mx-4" square>
-        <Grid container>
-          <Suspense fallback={FallbackComponent}>
-            <Calendar />
-          </Suspense>
-        </Grid>
-      </Paper>
+      <Grid className="px-4" container>
+        <Suspense fallback={FallbackComponent}>
+          <Calendar />
+        </Suspense>
+      </Grid>
 
       <div className="flex items-center mt-4">
         <Tooltip title="Plus">

@@ -1,12 +1,10 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import Button from '@mui/material/Button'
 import { TextField } from 'mui-rff'
 import Typography from '@mui/material/Typography'
 
 import { PaymentMethod } from './TopUp'
-import lydia from 'public/static/images/logos/lydia.svg'
 import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import mastercard from 'public/static/images/logos/mastercard.svg'
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
 import { TopUpInput, TopUpInputType } from 'app/components/forms/validations'
 
@@ -21,7 +19,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -33,7 +31,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       schema={TopUpInput}
       initialValues={{
         amount: 5,
-        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined,
+        recipient: process.env.NODE_ENV === 'development' ? '+33621491838' : undefined
       }}
       onSubmit={onSubmit}
     >
@@ -47,11 +45,23 @@ export default function TopUpForm(props: TopUpFormProps) {
 
       <div className="flex justify-center">
         <Button type="submit" onClick={props.beforeSubmit('cb')}>
-          <Image src={mastercard} width={100} height={25} alt="Mastercard logo" quality={100} />
+          <Image
+            src="/static/images/logos/mastercard.svg"
+            width={100}
+            height={25}
+            alt="Mastercard logo"
+            quality={100}
+          />
         </Button>
 
         <Button type="submit" onClick={props.beforeSubmit('lydia')}>
-          <Image src={lydia} width={100} height={25} alt="Lydia logo" quality={100} />
+          <Image
+            src="/static/images/logos/lydia.svg"
+            width={100}
+            height={25}
+            alt="Lydia logo"
+            quality={100}
+          />
         </Button>
       </div>
 

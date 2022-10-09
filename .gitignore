@@ -6,6 +6,7 @@ node_modules
 .pnp.*
 .npm
 web_modules/
+.swc
 
 # blitz
 /.blitz/
@@ -27,7 +28,7 @@ blitz-log.log
 
 # Build artifacts
 public/sw.js
-public/workbox-*
+public/workbox-*.js
 
 # Logs
 logs

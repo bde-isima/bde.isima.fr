@@ -21,7 +21,7 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
       await onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -34,8 +34,8 @@ export default function TransferForm({ onSuccess, onClose }: TransferFormProps) 
       onClose={onClose}
       schema={TransferInput}
       initialValues={{
-        amount: undefined,
-        description: undefined,
+        amount: 0,
+        description: ''
       }}
       onSubmit={onSubmit}
       autoComplete="off"

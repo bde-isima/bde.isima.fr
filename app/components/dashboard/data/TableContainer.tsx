@@ -1,8 +1,8 @@
+import { useMutation, invalidateQuery } from '@blitzjs/rpc'
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
-import { useMutation, invalidateQuery } from 'blitz'
 import { useState, ReactNode, Suspense } from 'react'
 import TablePagination from '@mui/material/TablePagination'
 import MuiTableContainer from '@mui/material/TableContainer'
@@ -73,13 +73,14 @@ export default function TableContainer(props: TableProps) {
   }
 
   const handleDeleteAllClick = async () => {
-    await deleteMutation({ where: { id: { in: selected } } } as any)
-      .then(() => {
-        setSelected([])
-        snackbar.onShow('success', 'Supprimé(s)')
-        invalidateQuery(getQuery)
-      })
-      .catch((err) => snackbar.onShow('error', err.message))
+    try {
+      await deleteMutation({ where: { id: { in: selected } } } as any)
+      setSelected([])
+      snackbar.onShow('success', 'Supprimé(s)')
+      await invalidateQuery(getQuery)
+    } catch (err) {
+      snackbar.onShow('error', err.message)
+    }
   }
 
   const handleExportAllClick = onExport

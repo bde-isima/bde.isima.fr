@@ -1,14 +1,13 @@
-import { resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
 
 import db, { Prisma } from 'db'
 
 type GetResultsInput = Pick<Prisma.ElectionFindUniqueArgs, 'where'>
 
 export default resolver.pipe(resolver.authorize(['*']), async ({ where }: GetResultsInput) => {
-  const election = await db.election.findUnique({
+  const election = await db.election.findUniqueOrThrow({
     where,
-    include: { candidates: true },
-    rejectOnNotFound: true
+    include: { candidates: true }
   })
 
   const results: any = await db.vote.groupBy({

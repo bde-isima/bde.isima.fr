@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -10,7 +10,6 @@ import Mobile from './Mobile'
 import Desktop from './Desktop'
 import Link from 'app/core/lib/Link'
 import { useMediaQuery } from 'app/core/styles/theme'
-import logo from 'public/static/images/logos/logo.svg'
 import AccountMenu from 'app/components/nav/hub/submenus/AccountMenu'
 import ModulesMenu from 'app/components/nav/hub/submenus/ModulesMenu'
 
@@ -45,7 +44,7 @@ export default function Nav() {
               <div className="flex mr-4">
                 <Image
                   className="rounded-full"
-                  src={logo}
+                  src="/static/images/logos/logo.svg"
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"

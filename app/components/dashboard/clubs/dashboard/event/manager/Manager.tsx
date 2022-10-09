@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
 import TabContext from '@mui/lab/TabContext'

@@ -1,4 +1,4 @@
-import { Head } from 'blitz'
+import Head from "next/head";
 
 import Nav from 'app/components/nav/hub/Nav'
 import Desktop from 'app/components/nav/dashboard/Desktop'

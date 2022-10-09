@@ -1,4 +1,4 @@
-import { useMutation } from 'blitz'
+import { useMutation } from "@blitzjs/rpc";
 
 import { User } from 'db'
 import Snackbar from 'app/core/layouts/Snackbar'

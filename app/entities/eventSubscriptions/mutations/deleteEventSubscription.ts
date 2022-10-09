@@ -1,14 +1,14 @@
-import { Ctx, resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
+import { Ctx } from 'blitz'
 
 import db, { Prisma } from 'db'
 
 type DeleteEventSubscriptionInput = Pick<Prisma.EventSubscriptionDeleteArgs, 'where'>
 
 export default resolver.pipe(async ({ where }: DeleteEventSubscriptionInput, ctx: Ctx) => {
-  const eventSubscription = await db.eventSubscription.findUnique({
+  const eventSubscription = await db.eventSubscription.findUniqueOrThrow({
     where,
-    include: { event: { include: { club: true } } },
-    rejectOnNotFound: true
+    include: { event: { include: { club: true } } }
   })
 
   // If the request is done by another person than the subscriber, check for admin rights

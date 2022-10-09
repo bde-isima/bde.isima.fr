@@ -1,4 +1,4 @@
-import { resolver } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
 
 import db, { Prisma } from 'db'
 
@@ -9,9 +9,8 @@ type CreateTransactionInput = {
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
   async ({ data }: CreateTransactionInput) => {
-    const user = await db.user.findUnique({
-      where: { id: data?.user?.connect?.id },
-      rejectOnNotFound: true
+    const user = await db.user.findUniqueOrThrow({
+      where: { id: data?.user?.connect?.id }
     })
 
     const amount = Math.abs(data.amount)

@@ -48,7 +48,7 @@ export interface EventSubscriptionWithTypedCart extends Omit<EventSubscription, 
   cart: CartItem[]
 }
 
-declare module 'blitz' {
+declare module '@blitzjs/auth' {
   export interface Ctx extends DefaultCtx {
     session: SessionContext
   }

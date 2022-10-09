@@ -1,5 +1,4 @@
-import Paper from '@mui/material/Paper'
-import { useAuthenticatedSession } from 'blitz'
+import { useAuthenticatedSession } from '@blitzjs/auth'
 import { useState, lazy, Suspense } from 'react'
 
 import { User } from 'db'
@@ -26,7 +25,7 @@ export default function SearchUserForm() {
   return (
     <>
       {session?.roles.some((x) => x.toLowerCase() === 'bde' || x === '*') && (
-        <Paper className="w-full md:w-80 p-4 mb-4">
+        <div className="w-full md:w-80 p-4 mb-4">
           <Form onSubmit={() => {}} autoComplete="off">
             <SearchUser
               name="user"
@@ -42,7 +41,7 @@ export default function SearchUserForm() {
           <Suspense fallback={null}>
             <CashingDialog user={selected} onSelection={onDialogSelection} onClear={onClear} />
           </Suspense>
-        </Paper>
+        </div>
       )}
     </>
   )

@@ -1,4 +1,5 @@
-import { useMutation, invalidateQuery, useAuthenticatedSession } from 'blitz'
+import { useAuthenticatedSession } from '@blitzjs/auth'
+import { useMutation, invalidateQuery } from '@blitzjs/rpc'
 
 import TransferForm from './TransferForm'
 import Snackbar from 'app/core/layouts/Snackbar'
@@ -17,21 +18,25 @@ export default function Transfer({ onClose }: TransferProps) {
   const [createTransaction] = useMutation(createTransferTransaction)
   const { open, message, severity, onShow, onClose: onSnackClose } = useSnackbar()
 
-  const onSuccess = (data: TransferInputType) => {
-    return createTransaction({
-      data: {
-        amount: data.amount,
-        description: data.description,
-        user: { connect: { id: data.receiver.id } },
-        emitter: { connect: { id: session?.userId } },
-      },
-    })
-      .then(() => {
-        onShow('success', 'Envoyé')
-        invalidateQuery(getCurrentUser)
-        invalidateQuery(getTransactions)
+  const onSuccess = async (data: TransferInputType) => {
+    try {
+      const transaction = await createTransaction({
+        data: {
+          amount: data.amount,
+          description: data.description,
+          user: { connect: { id: data.receiver.id } },
+          emitter: { connect: { id: session?.userId } }
+        }
       })
-      .catch((err) => onShow('error', err.message))
+
+      onShow('success', 'Envoyé')
+      await invalidateQuery(getCurrentUser)
+      await invalidateQuery(getTransactions)
+
+      return transaction
+    } catch (err) {
+      onShow('error', err.message)
+    }
   }
 
   return (

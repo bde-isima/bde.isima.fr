@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import { useMutation, invalidateQuery } from '@blitzjs/rpc'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
@@ -5,7 +7,6 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { Image, useMutation, invalidateQuery } from 'blitz'
 
 import Add from '@mui/icons-material/AddTwoTone'
 
@@ -15,7 +16,6 @@ import SubscriptionCard from './SubscriptionCard'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import type { EventSubscriptionWithTypedCart } from 'global'
 import AddSubscriptionDialog from './add/AddSubscriptionDialog'
-import noData from 'public/static/images/illustrations/NoData.svg'
 import { AddSubscriptionInputType } from 'app/components/forms/validations'
 import getEventSubscriptions from 'app/entities/eventSubscriptions/queries/getEventSubscriptions'
 import createEventSubscription from 'app/entities/eventSubscriptions/mutations/createEventSubscription'
@@ -30,7 +30,7 @@ type SubscriptionsListProps = {
 
 export default function SubscriptionsList({
   event,
-  eventSubscriptions = [],
+  eventSubscriptions = []
 }: SubscriptionsListProps) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selected, setSelected] = useState<any>(null)
@@ -46,19 +46,20 @@ export default function SubscriptionsList({
   const onAdd = () => setIsAddSubscriptionOpen(true)
 
   const onAddSuccess = async (data: AddSubscriptionInputType) => {
-    await createSub({
-      data: {
-        payment_method: 'BDE',
-        cart: [],
-        event: { connect: { id: event?.id } },
-        user: { connect: { id: data.subscriber.id } },
-      },
-    })
-      .then(() => {
-        onShow('success', 'Ajoutée')
-        invalidateQuery(getEventSubscriptions)
+    try {
+      await createSub({
+        data: {
+          payment_method: 'BDE',
+          cart: [],
+          event: { connect: { id: event?.id } },
+          user: { connect: { id: data.subscriber.id } }
+        }
       })
-      .catch((err) => onShow('error', err.message))
+      onShow('success', 'Ajoutée')
+      await invalidateQuery(getEventSubscriptions)
+    } catch (err) {
+      onShow('error', err.message)
+    }
   }
 
   const onStopAdd = () => setIsAddSubscriptionOpen(false)
@@ -69,17 +70,18 @@ export default function SubscriptionsList({
   }
 
   const onEditSuccess = async (data) => {
-    await updateSub({
-      where: { id: selected?.id },
-      data,
-    })
-      .then(() => {
-        setSelected(null)
-        setIsEditMode(false)
-        onShow('success', 'Sauvegardée')
-        invalidateQuery(getEventSubscriptions)
+    try {
+      await updateSub({
+        where: { id: selected?.id },
+        data
       })
-      .catch((err) => onShow('error', err.message))
+      setSelected(null)
+      setIsEditMode(false)
+      onShow('success', 'Sauvegardée')
+      await invalidateQuery(getEventSubscriptions)
+    } catch (err) {
+      onShow('error', err.message)
+    }
   }
 
   const onStopEdit = () => {
@@ -89,13 +91,14 @@ export default function SubscriptionsList({
 
   const onDelete = async () => {
     setAnchorEl(null)
-    await deleteSub({ where: { id: selected?.id } })
-      .then(() => {
-        setSelected(null)
-        onShow('success', 'Supprimée')
-        invalidateQuery(getEventSubscriptions)
-      })
-      .catch((err) => onShow('error', err.message))
+    try {
+      await deleteSub({ where: { id: selected?.id } })
+      setSelected(null)
+      onShow('success', 'Supprimée')
+      await invalidateQuery(getEventSubscriptions)
+    } catch (err) {
+      onShow('error', err.message)
+    }
   }
 
   const onMenuClick = (target, subscription) => {
@@ -127,7 +130,12 @@ export default function SubscriptionsList({
 
       {eventSubscriptions.length === 0 && (
         <div className="flex flex-col justify-center items-center">
-          <Image src={noData} width={300} height={300} alt="Aucune donnée" />
+          <Image
+            src="/static/images/illustrations/NoData.svg"
+            width={300}
+            height={300}
+            alt="Aucune donnée"
+          />
           <Typography variant="subtitle2" gutterBottom>
             Aucun inscrit
           </Typography>

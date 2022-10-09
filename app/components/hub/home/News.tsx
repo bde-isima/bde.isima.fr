@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import Divider from '@mui/material/Divider'
 import ImageList from '@mui/material/ImageList'
 import IconButton from '@mui/material/IconButton'
@@ -41,7 +41,7 @@ export default function News() {
             sx={{
               background:
                 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
-                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
             }}
             className="transition-opacity duration-500 opacity-0 group-hover:opacity-100 rounded-b-2xl"
             title={

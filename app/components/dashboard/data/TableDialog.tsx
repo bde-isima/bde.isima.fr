@@ -1,7 +1,7 @@
+import { useMutation, invalidateQuery } from '@blitzjs/rpc'
 import cuid from 'cuid'
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
-import { useMutation, invalidateQuery } from 'blitz'
 
 import Snackbar from 'app/core/layouts/Snackbar'
 import SlideTransition from 'app/core/layouts/SlideTransition'
@@ -25,7 +25,7 @@ export default function TableDialog({
   getQuery,
   upsertQuery,
   snackbar,
-  FormComponent,
+  FormComponent
 }: TableDialogProps) {
   const { open: snackOpen, message, severity, onShow, onClose: onSnackClose } = snackbar
 
@@ -54,23 +54,23 @@ export default function TableDialog({
   }
 
   const onSuccess = async (data) => {
-    await upsertMutation({
-      where: { id: values.id ?? cuid() },
-      update: formatData(data),
-      create: formatData(data),
-    } as any)
-      .then(() => {
-        onShow('success', 'Sauvegardé')
-        invalidateQuery(getQuery)
-        onClose()
-      })
-      .catch((err) => {
-        if (err.code === 'P2002') {
-          onShow('error', `${err.meta.target[0]} n'est pas unique`)
-        } else {
-          onShow('error', err.message)
-        }
-      })
+    try {
+      await upsertMutation({
+        where: { id: values.id ?? cuid() },
+        update: formatData(data),
+        create: formatData(data)
+      } as any)
+
+      onShow('success', 'Sauvegardé')
+      await invalidateQuery(getQuery)
+      onClose()
+    } catch (err) {
+      if (err.code === 'P2002') {
+        onShow('error', `${err.meta.target[0]} n'est pas unique`)
+      } else {
+        onShow('error', err.message)
+      }
+    }
   }
 
   if (!FormComponent) {

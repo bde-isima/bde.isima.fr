@@ -1,4 +1,4 @@
-import { invalidateQuery } from 'blitz'
+import { invalidateQuery } from '@blitzjs/rpc'
 import NoSsr from '@mui/material/NoSsr'
 import Dialog from '@mui/material/Dialog'
 import { useSwipeable } from 'react-swipeable'
@@ -44,12 +44,12 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setValue(value > 1 ? value : value + 1),
-    onSwipedRight: () => setValue(value < 1 ? value : value - 1),
+    onSwipedRight: () => setValue(value < 1 ? value : value - 1)
   })
 
-  const onTransactionComplete = () => {
-    invalidateQuery(getUser, { where: { id: user?.id } })
-    invalidateQuery(getTransactions)
+  const onTransactionComplete = async () => {
+    await invalidateQuery(getUser, { where: { id: user?.id } })
+    await invalidateQuery(getTransactions)
   }
 
   return (

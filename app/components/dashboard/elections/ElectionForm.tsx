@@ -3,9 +3,8 @@ import { Field } from 'react-final-form'
 import frLocale from 'date-fns/locale/fr'
 import arrayMutators from 'final-form-arrays'
 import MuiTextField from '@mui/material/TextField'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 import { Election, Candidate } from 'db'
 import CandidatesForm from './CandidatesForm'
@@ -24,7 +23,7 @@ export default function ElectionForm(props: ElectionFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -41,7 +40,7 @@ export default function ElectionForm(props: ElectionFormProps) {
         () => ({
           id: props.initialValues?.id,
           candidates: props.initialValues?.candidates,
-          endDate: new Date(props.initialValues?.endDate ?? new Date()),
+          endDate: new Date(props.initialValues?.endDate ?? new Date())
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []
@@ -50,7 +49,7 @@ export default function ElectionForm(props: ElectionFormProps) {
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
         <Field name="endDate">
           {(props) => (
             <DateTimePicker

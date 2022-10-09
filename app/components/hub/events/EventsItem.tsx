@@ -1,8 +1,8 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { format } from 'date-fns'
 import Chip from '@mui/material/Chip'
 import Grid from '@mui/material/Grid'
-import MuiCard from '@mui/material/Card'
+import Card from '@mui/material/Card'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
@@ -22,7 +22,7 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
 
   return (
     <Grid container item justifyContent="center" xs={12} md={6} lg={3}>
-      <MuiCard className="flex flex-col w-full m-2">
+      <Card className="flex flex-col w-full m-2" variant="outlined">
         <CardHeader
           classes={{ content: 'overflow-hidden' }}
           avatar={
@@ -80,7 +80,7 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
             </Grid>
           </Grid>
         </CardActions>
-      </MuiCard>
+      </Card>
     </Grid>
   )
 }

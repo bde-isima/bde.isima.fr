@@ -1,4 +1,4 @@
-import { Image } from 'blitz'
+import Image from 'next/image'
 import { TextField } from 'mui-rff'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -24,7 +24,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       await props.onSuccess(values)
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -36,7 +36,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       initialValues={{
         nickname: user?.nickname,
         email: user?.email,
-        image: user?.image,
+        image: user?.image
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -55,8 +55,6 @@ export default function SettingsForm(props: SettingsFormProps) {
         fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
       <TextField type="email" name="email" label="Adresse email" />
-
-      <Divider className="m-2" />
 
       <div className="mx-auto">
         {user?.image && (
@@ -87,7 +85,7 @@ export default function SettingsForm(props: SettingsFormProps) {
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
-          ),
+          )
         }}
         fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />

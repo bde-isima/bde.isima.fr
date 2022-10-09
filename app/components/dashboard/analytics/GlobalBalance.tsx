@@ -1,4 +1,4 @@
-import { useQuery } from 'blitz'
+import { useQuery } from "@blitzjs/rpc";
 import Typography from '@mui/material/Typography'
 import { VictoryChart, VictoryPie, VictoryTheme, VictoryAxis } from 'victory'
 

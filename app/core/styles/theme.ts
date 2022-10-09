@@ -5,8 +5,19 @@ import type { Breakpoint } from '@mui/system'
 import useMUIMediaQuery from '@mui/material/useMediaQuery'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
+const isBrowser = typeof document !== 'undefined'
+
 export function createEmotionCache() {
-  return createCache({ key: 'css' })
+  let insertionPoint
+
+  if (isBrowser) {
+    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
+      'meta[name="emotion-insertion-point"]'
+    )
+    insertionPoint = emotionInsertionPoint ?? undefined
+  }
+
+  return createCache({ key: 'mui-style', insertionPoint })
 }
 
 export function useTheme() {
@@ -28,6 +39,15 @@ export function useTheme() {
               primary: { main: '#2A2E43' },
               secondary: { main: '#fff' },
               error: { main: '#C91F37' }
+            },
+            components: {
+              MuiButton: {
+                styleOverrides: {
+                  root: {
+                    borderRadius: '9999px'
+                  }
+                }
+              }
             }
           },
           frFR

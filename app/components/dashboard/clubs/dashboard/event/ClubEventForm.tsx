@@ -10,9 +10,8 @@ import Divider from '@mui/material/Divider'
 import TabContext from '@mui/lab/TabContext'
 import arrayMutators from 'final-form-arrays'
 import MuiTextField from '@mui/material/TextField'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 import { Event } from 'db'
 import ProductsForm from './ProductsForm'
@@ -39,11 +38,11 @@ export default function ClubEventForm(props: ClubEventFormProps) {
     try {
       await props.onSuccess({
         ...values,
-        max_subscribers: parseInt(values.max_subscribers) || null,
+        max_subscribers: parseInt(values.max_subscribers) || null
       })
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
       }
     }
   }
@@ -71,11 +70,11 @@ export default function ClubEventForm(props: ClubEventFormProps) {
               options: go.options?.map((o) => ({
                 name: o.name,
                 description: o.description,
-                price: o.price,
-              })),
-            })),
+                price: o.price
+              }))
+            }))
           }))
-        : [],
+        : []
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -114,7 +113,7 @@ export default function ClubEventForm(props: ClubEventFormProps) {
 
           <Divider className="m-2" />
 
-          <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
             <Field name="takes_place_at">
               {(props) => (
                 <DateTimePicker

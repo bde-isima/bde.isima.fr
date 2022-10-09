@@ -1,6 +1,5 @@
 import cuid from 'cuid'
 import { z } from 'zod'
-import { validateZodSchema } from 'blitz'
 import Button from '@mui/material/Button'
 import { useEffect, useState } from 'react'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -12,6 +11,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form'
 
 import errorMap from './errorMap'
+import { validateZodSchema } from 'blitz'
+import { Alert } from '@mui/material'
 
 export { FORM_ERROR } from 'final-form'
 
@@ -57,17 +58,14 @@ export function Form<S extends z.ZodType<any, any>>({
       }}
       onSubmit={onSubmit}
       mutators={mutators}
+      validateOnBlur
       render={({ handleSubmit, submitting, pristine, invalid, submitError }) => (
         <>
           {variant === 'button' && (
             <form onSubmit={handleSubmit} className="form w-full flex flex-col" {...props}>
               {children}
 
-              {submitError && (
-                <div role="alert" style={{ color: 'red' }}>
-                  {submitError}
-                </div>
-              )}
+              {submitError && <Alert severity="error">{submitError}</Alert>}
 
               {submitText && (
                 <LoadingButton
@@ -100,18 +98,14 @@ export function Form<S extends z.ZodType<any, any>>({
                   {...props}
                 >
                   {children}
+
+                  {submitError && <Alert severity="error">{submitError}</Alert>}
                 </form>
               </DialogContent>
 
               {submitText && (
                 <DialogActions>
-                  {submitError && (
-                    <div role="alert" style={{ color: 'red' }}>
-                      {submitError}
-                    </div>
-                  )}
-
-                  <Button onClick={onClose} aria-label="Annuler" color="inherit">
+                  <Button onClick={onClose} aria-label="Annuler" variant="outlined" color="primary">
                     Annuler
                   </Button>
 
@@ -131,15 +125,6 @@ export function Form<S extends z.ZodType<any, any>>({
               )}
             </>
           )}
-
-          <style global jsx>{`
-            .form > * + * {
-              margin-top: 1rem !important;
-            }
-            .form > .MuiTabPanel-root > * {
-              margin-top: 1rem !important;
-            }
-          `}</style>
         </>
       )}
     />

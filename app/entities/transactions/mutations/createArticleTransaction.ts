@@ -1,5 +1,5 @@
+import { resolver } from '@blitzjs/rpc'
 import cuid from 'cuid'
-import { resolver } from 'blitz'
 
 import db, { Prisma } from 'db'
 
@@ -12,15 +12,13 @@ export default resolver.pipe(
   async ({ data }: CreateTransactionInput) => {
     const { userId, articleId, description } = data
 
-    const receiverUser = await db.user.findUnique({
+    const receiverUser = await db.user.findUniqueOrThrow({
       where: { id: userId },
-      include: { userStats: true },
-      rejectOnNotFound: true
+      include: { userStats: true }
     })
 
-    const article = await db.article.findUnique({
-      where: { id: articleId! },
-      rejectOnNotFound: true
+    const article = await db.article.findUniqueOrThrow({
+      where: { id: articleId! }
     })
 
     const amount = receiverUser.is_member ? article.member_price : article.price

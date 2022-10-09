@@ -1,4 +1,5 @@
-import { Image, useQuery } from 'blitz'
+import Image from 'next/image'
+import { useQuery } from '@blitzjs/rpc'
 import Badge from '@mui/material/Badge'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
@@ -10,19 +11,19 @@ import getAnalytic from 'app/entities/analytic/queries/getAnalytic'
 
 export default function Records() {
   const [user] = useCurrentUser({
-    include: { userStats: true },
+    include: { userStats: true }
   })
 
   const [leaderboard] = useQuery(getAnalytic, {
-    where: { tag: 'leaderboard' },
+    where: { tag: 'leaderboard' }
   })
 
   return (
     <>
-      {(leaderboard as any)?.data?.map((row) => {
+      {(leaderboard as any)?.data?.map((row, index) => {
         const score = (user as any)?.userStats?.articlesStats[row.articleId] ?? 0
         return (
-          <TableRow key={row.articleName}>
+          <TableRow key={index}>
             <TableCell align="right">
               {row.articleImage && (
                 <Image

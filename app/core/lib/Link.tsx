@@ -11,15 +11,14 @@ const Anchor = styled('a')({})
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
-    Omit<NextLinkProps, 'href' | 'as'> {
+    Omit<NextLinkProps, 'href' | 'as' | 'onClick' | 'onMouseEnter' | 'onTouchStart'> {
   to: NextLinkProps['href']
   linkAs?: NextLinkProps['as']
-  href?: NextLinkProps['href']
 }
 
 export const NextLinkComposed = React.forwardRef<HTMLAnchorElement, NextLinkComposedProps>(
   function NextLinkComposed(props, ref) {
-    const { to, linkAs, href, replace, scroll, shallow, prefetch, locale, ...other } = props
+    const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } = props
 
     return (
       <NextLink
@@ -62,7 +61,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props,
   const { router } = useRouter()
   const pathname = typeof href === 'string' ? href : href.pathname
   const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === pathname && activeClassName,
+    [activeClassName]: router.pathname === pathname && activeClassName
   })
 
   const isExternal =

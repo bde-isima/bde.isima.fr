@@ -16,35 +16,31 @@ function getLeader(users: UserWithStats[], article: Article): any {
   return leader
 }
 
-;(async () => {
-  const articles = await db.article.findMany({
-    where: { is_enabled: true }
-  })
+const articles = await db.article.findMany({
+  where: { is_enabled: true }
+})
 
-  const users = await db.user.findMany({
-    where: { is_enabled: true },
-    include: { userStats: true }
-  })
+const users = await db.user.findMany({
+  where: { is_enabled: true },
+  include: { userStats: true }
+})
 
-  const data = articles.map((a) => {
-    const leader = getLeader(users, a)
-    return {
-      articleId: a.id,
-      articleImage: a.image,
-      articleName: a.name,
-      unitsNb: leader ? leader.userStats.articlesStats[a.id] : 0,
-      leaderName: leader ? leader?.nickname ?? `${leader.lastname} ${leader.firstname}` : null,
-      leaderImage: leader ? leader?.image : null
-    }
-  })
+const data = articles.map((a) => {
+  const leader = getLeader(users, a)
+  return {
+    articleId: a.id,
+    articleImage: a.image,
+    articleName: a.name,
+    unitsNb: leader ? leader.userStats.articlesStats[a.id] : 0,
+    leaderName: leader ? leader?.nickname ?? `${leader.lastname} ${leader.firstname}` : null,
+    leaderImage: leader ? leader?.image : null
+  }
+})
 
-  const analytic = await db.analytic.upsert({
-    create: { tag, data },
-    update: { data },
-    where: { tag }
-  })
+await db.analytic.upsert({
+  create: { tag, data },
+  update: { data },
+  where: { tag }
+})
 
-  db.$disconnect()
-
-  return analytic
-})()
+await db.$disconnect()
