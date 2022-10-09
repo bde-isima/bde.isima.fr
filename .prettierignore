@@ -2,5 +2,9 @@
 .env*
 *.ico
 *.lock
+.devcontainer
+.github
+.husky
 .next
-.blitz
+docs
+release
