@@ -1,8 +1,4 @@
-/// <reference types="react/experimental" />
-/// <reference types="react-dom/experimental" />
-
 import type { AppProps, AppProps } from 'blitz'
-import type { EmotionCache } from '@emotion/react'
 import type { ReactElement, ReactNode } from 'react'
 
 import { User, Event, EventSubscription } from 'db'
@@ -10,7 +6,6 @@ import { User, Event, EventSubscription } from 'db'
 import { DefaultCtx, SessionContext, SimpleRolesIsAuthorized } from 'blitz'
 
 export type BDEAppProps = AppProps & {
-  emotionCache?: EmotionCache
   Component: NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
   }

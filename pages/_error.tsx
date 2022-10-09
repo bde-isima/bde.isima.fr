@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 
-import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
 
 import Link from 'app/core/lib/Link'
 
@@ -38,7 +38,7 @@ function Page500({ statusCode }) {
 
         <Link href="/">
           <Fab variant="extended" aria-label="Retour à l'accueil" color="primary">
-            <ArrowLeft className="mr-2" color="secondary" />
+            <KeyboardArrowLeftIcon className="mr-2" color="secondary" />
             <Typography variant="subtitle2" color="secondary">
               Revenir à l&apos;accueil
             </Typography>

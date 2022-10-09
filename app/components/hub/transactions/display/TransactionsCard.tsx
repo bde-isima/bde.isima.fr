@@ -1,4 +1,4 @@
-import { useAuthenticatedSession } from "@blitzjs/auth";
+import { useAuthenticatedSession } from '@blitzjs/auth'
 import { Suspense } from 'react'
 import Card from '@mui/material/Card'
 import Badge from '@mui/material/Badge'
@@ -23,7 +23,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
   ))
 
   return (
-    <Card className="py-6 px-4 rounded-md rounded-b-none" square>
+    <Card className="py-6 px-4 rounded-md rounded-b-none" variant="outlined">
       <div className="flex flex-col justify-center items-center">
         <Suspense fallback={<Skeleton width="60%" height={55} />}>
           <Balance getQuery={getCurrentUser} />

@@ -1,24 +1,8 @@
 import { useMemo } from 'react'
-import createCache from '@emotion/cache'
 import { frFR } from '@mui/material/locale'
 import type { Breakpoint } from '@mui/system'
 import useMUIMediaQuery from '@mui/material/useMediaQuery'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
-
-const isBrowser = typeof document !== 'undefined'
-
-export function createEmotionCache() {
-  let insertionPoint
-
-  if (isBrowser) {
-    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
-      'meta[name="emotion-insertion-point"]'
-    )
-    insertionPoint = emotionInsertionPoint ?? undefined
-  }
-
-  return createCache({ key: 'mui-style', insertionPoint })
-}
 
 export function useTheme() {
   const prefersDarkMode = useMUIMediaQuery('(prefers-color-scheme: dark)')

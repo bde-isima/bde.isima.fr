@@ -12,7 +12,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import Menu from '@mui/icons-material/MenuTwoTone'
 import Login from '@mui/icons-material/LoginTwoTone'
-import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
 import Account from '@mui/icons-material/AccountCircleTwoTone'
 
 import Mobile from './Mobile'
@@ -121,7 +121,7 @@ export default function Nav() {
                   aria-label="Retour"
                   size="large"
                 >
-                  <ArrowLeft />
+                  <KeyboardArrowLeftIcon />
                 </IconButton>
               </DialogActions>
 

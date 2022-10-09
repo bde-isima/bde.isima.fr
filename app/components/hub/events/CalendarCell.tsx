@@ -16,11 +16,11 @@ export default function CalendarCell({
   idx,
   date,
   events = [],
-  fallback = false,
+  fallback = false
 }: CalendarCellProps) {
   return (
     <Grid
-      className="p-2 min-h-100 border border-gray-300"
+      className="p-2 min-h-100 border-solid border-[1px] border-gray-300"
       item
       container
       xs={idx === 6 ? 12 : 6}

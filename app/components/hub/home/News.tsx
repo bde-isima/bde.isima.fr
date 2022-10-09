@@ -9,8 +9,8 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
 
 import Link from 'app/core/lib/Link'
-import tictactrip from 'public/static/images/previews/tictactrip.png'
-import tictactripIcon from 'public/static/images/logos/tictactrip.svg'
+import github from 'public/static/images/previews/github.png'
+import githubIcon from 'public/static/images/logos/github.png'
 
 export default function News() {
   const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener')
@@ -18,7 +18,7 @@ export default function News() {
   return (
     <div className="flex flex-col">
       <Typography align="left" variant="h6" color="textPrimary">
-        Nouveautés !
+        Actualités
       </Typography>
 
       <Divider className="m-4" />
@@ -26,12 +26,12 @@ export default function News() {
       <ImageList className="grid grid-cols-1 mx-4" sx={{ transform: 'translateZ(0)' }} gap={16}>
         <ImageListItem
           className="group flex justify-center items-center drop-shadow-xl rounded-2xl xyz-in hover:cursor-pointer h-64"
-          onClick={openNewWindow('https://www.tictactrip.eu/?partnerId=WB-ASSO-ISIMA-CLERMONT')}
+          onClick={openNewWindow('https://github.com/bde-isima/bde.isima.fr')}
         >
           <Image
-            className="rounded-2xl"
-            src={tictactrip}
-            alt="Partenariat Tictactrip"
+            className="rounded-2xl border-solid border-[1px] border-gray-300"
+            src={github}
+            alt="Coup de neuf pour le site"
             placeholder="blur"
             layout="fill"
             objectFit="cover"
@@ -46,10 +46,8 @@ export default function News() {
             className="transition-opacity duration-500 opacity-0 group-hover:opacity-100 rounded-b-2xl"
             title={
               <div className="flex items-center">
-                <Image src={tictactripIcon} alt="Partenariat Tictactrip" />
-                <Typography className="ml-4">
-                  Des économies toute l&apos;année en réservant sur Tictactrip
-                </Typography>
+                <Image src={githubIcon} alt="Coup de neuf pour le site" />
+                <Typography className="ml-4">Coup de neuf pour le site</Typography>
               </div>
             }
             actionIcon={

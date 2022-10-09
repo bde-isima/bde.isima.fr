@@ -5,7 +5,6 @@ import 'app/core/styles/index.css'
 
 import NProgress from 'nprogress'
 import type { BDEAppProps } from 'global'
-import { CacheProvider } from '@emotion/react'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { StrictMode, Suspense, useEffect } from 'react'
 
@@ -13,25 +12,18 @@ import * as gtag from 'app/core/lib/gtag'
 import packageJson from '../package.json'
 import { useRouter } from 'app/core/lib/router'
 import Splash from 'app/components/common/Splash'
-import { createEmotionCache, useTheme } from 'app/core/styles/theme'
+import { useTheme } from 'app/core/styles/theme'
 import { ErrorBoundary } from '@blitzjs/next'
 import { useQueryErrorResetBoundary } from '@blitzjs/rpc'
 import RootErrorFallback from 'app/core/lib/ErrorBoundary'
 import { CssBaseline } from '@mui/material'
-
-const clientSideEmotionCache = createEmotionCache()
-
 ;({
   appName: globalThis.appName,
   website: globalThis.website,
   version: globalThis.version
 } = packageJson)
 
-export default withBlitz(function App({
-  Component,
-  emotionCache = clientSideEmotionCache,
-  pageProps
-}: BDEAppProps) {
+export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
   const theme = useTheme()
   const { router } = useRouter()
   const { reset } = useQueryErrorResetBoundary()
@@ -57,7 +49,6 @@ export default withBlitz(function App({
 
   return (
     <StrictMode>
-      {/* <CacheProvider value={emotionCache}> */}
       <Head>
         <meta
           name="viewport"
@@ -92,7 +83,6 @@ export default withBlitz(function App({
         `
         }}
       />
-      {/* </CacheProvider> */}
     </StrictMode>
   )
 })

@@ -25,10 +25,6 @@ module.exports = {
       transitionProperty: {
         width: 'width'
       },
-      backgroundImage: () => ({
-        background: 'url(/static/images/illustrations/Background.svg)',
-        mobileBackground: 'url(/static/images/illustrations/MobileBackground.svg)'
-      }),
       backgroundColor: (theme) => ({
         ...theme('colors'),
         ...colors

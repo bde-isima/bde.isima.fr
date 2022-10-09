@@ -3,20 +3,17 @@ import Image from 'next/image'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 
-import ArrowLeft from '@mui/icons-material/ArrowLeftTwoTone'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone'
 
 import Link from 'app/core/lib/Link'
 
 function Page404() {
-  const statusCode = 404
-  const title = 'Page non trouvée'
+  const title = '404: Page non trouvée'
 
   return (
     <>
       <Head>
-        <title>
-          {statusCode}: {title}
-        </title>
+        <title>{title}</title>
       </Head>
 
       <div className="flex flex-col min-h-main justify-center items-center">
@@ -38,7 +35,7 @@ function Page404() {
 
         <Link href="/">
           <Fab variant="extended" aria-label="Retour à l'accueil" color="primary">
-            <ArrowLeft className="mr-2" color="secondary" />
+            <KeyboardArrowLeftIcon className="mr-2" color="secondary" />
             <Typography variant="subtitle2" color="secondary">
               Revenir à l&apos;accueil
             </Typography>

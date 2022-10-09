@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image'
 import Paper from '@mui/material/Paper'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -17,6 +17,7 @@ export default function Landing() {
         objectFit="cover"
         alt="Fond d'écran"
         quality={100}
+        priority
       />
       <Container className="mt-16 py-0 flex flex-col">
         <div className="flex flex-col justify-center mt-12">
