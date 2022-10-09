@@ -17,7 +17,7 @@ type TableProps = {
   allowCopy?: boolean
   actions?: any[]
   onExport?: (rowData: any) => void
-  FormComponent?: ReactNode
+  FormComponent?: (props: unknown) => JSX.Element
 }
 
 export default function Table(props: TableProps) {

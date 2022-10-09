@@ -7,7 +7,7 @@ services:
     build:
       context: .
       args:
-        # Update 'VARIANT' to pick an LTS version of Node.js: 16, 14, 12.
+        # Update 'VARIANT' to pick an LTS version of Node.js: 18, 16, 14, 12.
         # Append -bullseye or -buster to pin to an OS version.
         # Use -bullseye variants on local arm64/Apple Silicon.
         VARIANT: 16-bullseye
@@ -35,7 +35,7 @@ services:
 
   db:
     container_name: bde_isima_pg
-    image: postgres:14.1-alpine
+    image: postgres:14-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres

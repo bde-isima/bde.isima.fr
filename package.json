@@ -35,7 +35,7 @@
     "@mui/lab": "^5.0.0-alpha.88",
     "@mui/material": "^5.8.6",
     "@prisma/client": "^4.0.0",
-    "blitz": "^0.45.4",
+    "blitz": "^0.45.5",
     "cuid": "^2.1.8",
     "date-fns": "^2.28.0",
     "filefy": "^0.1.11",
@@ -69,9 +69,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",
-    "@types/node": "^16.11.42",
+    "@types/node": "^16",
     "@types/nodemailer": "^6.4.4",
-    "@types/react": "^18.0.14",
+    "@types/react": "18.0.1",
     "autoprefixer": "^10.4.7",
     "critters": "^0.0.16",
     "eslint": "^8.19.0",
@@ -86,7 +86,7 @@
     "ts-node": "^10.8.1"
   },
   "engines": {
-    "node": "16.x"
+    "node": ">=16"
   },
   "engineStrict": true,
   "lint-staged": {

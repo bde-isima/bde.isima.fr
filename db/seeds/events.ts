@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
 const events = async (db) => {
   const club = await db.club.findFirst()

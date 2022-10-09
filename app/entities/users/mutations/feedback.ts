@@ -14,7 +14,7 @@ export default resolver.pipe(
     try {
       await mail.send({
         subject: from,
-        to: `${process.env.SMTP_USER}+${subject.trim()}@gmail.com`,
+        to: `bde.isima.webmaster+${subject.trim()}@gmail.com`,
         view: 'feedback',
         variables: {
           subject: from,

@@ -23,7 +23,7 @@ type TableProps = {
   deleteQuery: any
   allowCopy?: boolean
   onExport?: (rowData: any) => void
-  FormComponent?: ReactNode
+  FormComponent?: (props: unknown) => JSX.Element
   actions?: any[]
   onAdd: () => void
   onEdit?: (values) => void
@@ -42,7 +42,7 @@ export default function TableContainer(props: TableProps) {
     FormComponent,
     actions = [],
     onAdd,
-    onEdit,
+    onEdit
   } = props
   const [data, setData] = useState({})
   const rows = data[queryKey] ?? []

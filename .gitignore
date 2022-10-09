@@ -25,6 +25,10 @@ blitz-log.log
 *.envrc
 *.env
 
+# Build artifacts
+public/sw.js
+public/workbox-*
+
 # Logs
 logs
 *.log

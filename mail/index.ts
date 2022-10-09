@@ -16,7 +16,7 @@ export const mail = {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
       auth: {
-        user: `${process.env.SMTP_USER}@gmail.com`,
+        user: 'bde.isima.webmaster@gmail.com',
         pass: process.env.SMTP_PASSWORD
       }
     }
@@ -26,7 +26,7 @@ export const mail = {
     try {
       return mailTransport.sendMail({
         to,
-        from: process.env.SMTP_FROM,
+        from: 'bde.isima.webmaster@gmail.com',
         subject,
         html: compileView({
           subject,
