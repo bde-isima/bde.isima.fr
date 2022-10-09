@@ -13,22 +13,26 @@ on:
 
 jobs:
   branch_check:
-    - name: Get environment from branch
-        id: branch_check
+    name: 'Check current branch to determine environment 👀'
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: branch_check
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "::set-output name=env_name::production"
           else
-             echo "::set-output name=env_name::staging"
+            echo "::set-output name=env_name::staging"
           fi
-  outputs:
-    env_name: ${{ steps.branch_check.outputs.env_name }}
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }}
 
   release:
     name: 'Build and push image 🔨🚀'
     runs-on: ubuntu-latest
+    needs: branch_check
     environment:
-      name: ${{ needs.build.outputs.env_name }}
+      name: ${{ needs.branch_check.outputs.env_name }}
 
     steps:
       - name: Checkout
@@ -60,6 +64,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/bde-isima/${{ needs.build.outputs.env_name }}:latest
+          tags: ghcr.io/bde-isima/${{ needs.branch_check.outputs.env_name }}:latest
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
