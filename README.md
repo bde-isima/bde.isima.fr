@@ -14,8 +14,7 @@ It is separated in three different sections:
 
 # 📝 Prerequisites for local development
 
-- Docker Desktop 2.0+
-- Docker Compose v1
+- Docker Desktop 2.0+ or Docker Engine with `docker-compose-plugin`
 
 If using **Visual Code**:
 
@@ -32,7 +31,7 @@ With **Visual Code** (Easiest solution):
 For non-VSCode users:
 
 ```bash
-$ docker-compose -f .devcontainer/docker-compose.yml up   # To launch the Docker services
+$ docker compose -f .devcontainer/docker-compose.yml up   # To launch the Docker services
 $ docker exec -it bde_isima /bin/bash                     # To connect to the main Docker container and run commands in it
 ```
 
