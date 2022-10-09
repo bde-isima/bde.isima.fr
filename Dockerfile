@@ -48,7 +48,6 @@ COPY --chown=node:node --from=build /usr/src/app/.env /usr/src/app/.env
 COPY --chown=node:node --from=build /usr/src/app/.next /usr/src/app/.next
 COPY --chown=node:node --from=build /usr/src/app/public /usr/src/app/public
 COPY --chown=node:node --from=build /usr/src/app/package.json /usr/src/app/package.json
-COPY --chown=node:node --from=build /usr/src/app/.blitz.config.compiled.js /usr/src/app/.blitz.config.compiled.js
 
 CMD blitz prisma db push \
   && dumb-init yarn start
