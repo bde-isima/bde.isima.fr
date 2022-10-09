@@ -25,7 +25,7 @@ export default function News() {
 
       <ImageList className="grid grid-cols-1 mx-4" sx={{ transform: 'translateZ(0)' }} gap={16}>
         <ImageListItem
-          className="group flex justify-center items-center drop-shadow-xl rounded-2xl xyz-in hover:cursor-pointer h-64"
+          className="group flex justify-center items-center rounded-2xl xyz-in hover:cursor-pointer h-64"
           onClick={openNewWindow('https://github.com/bde-isima/bde.isima.fr')}
         >
           <Image
