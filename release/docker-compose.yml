@@ -14,6 +14,7 @@ services:
     depends_on:
       - bde_app
       - bde_app_dev
+      - bde_pgadmin
     ports:
       - 80:80
       - 443:443
@@ -22,27 +23,19 @@ services:
     container_name: bde_app
     image: ghcr.io/bde-isima/bde.isima.fr/main:latest
     restart: always
-    working_dir: /usr/app
-    volumes:
-      - ./bde.isima.fr:/usr/app
     networks:
       - bde_isima_net
     depends_on:
       - bde_postgres
-    command: yarn start
 
   bde_app_dev:
     container_name: bde_app_dev
     image: ghcr.io/bde-isima/bde.isima.fr/staging:latest
     restart: always
-    working_dir: /usr/app
-    volumes:
-      - ./bde.dev.isima.fr:/usr/app
     networks:
       - bde_isima_net
     depends_on:
       - bde_postgres
-    command: yarn start
 
   bde_postgres:
     container_name: bde_postgres
@@ -51,6 +44,9 @@ services:
     env_file:
       - .env
     volumes:
+      - type: bind
+        source: ./.env
+        target: /docker-entrypoint-initdb.d/.env
       - ./databases:/docker-entrypoint-initdb.d
       - bde_data:/var/lib/postgresql/data
     networks:
@@ -60,9 +56,6 @@ services:
     container_name: bde_pgadmin
     image: dpage/pgadmin4
     restart: always
-    ports:
-      - 8443:443
-      - 8080:80
     env_file:
       - .env
     volumes:
