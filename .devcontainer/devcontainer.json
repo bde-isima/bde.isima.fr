@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/javascript-node-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Node.js version
+{
+  "name": "bde-isima",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "bde_isima",
+  "workspaceFolder": "/workspace",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.trimTrailingWhitespace": true
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-azuretools.vscode-docker",
+    "mikestead.dotenv",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "graphql.vscode-graphql",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+    "mgmcdermott.vscode-language-babel",
+    "prisma.prisma",
+    "shardulm94.trailing-spaces",
+    "bradlc.vscode-tailwindcss"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    3000
+  ],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "yarn"
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  // "remoteUser": "node"
+}

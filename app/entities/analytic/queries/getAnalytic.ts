@@ -1,9 +1,9 @@
-import { resolver } from 'blitz'
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type FindUniqueAnalyticInput = Pick<Prisma.AnalyticFindUniqueArgs, 'where'>
+type FindUniqueAnalyticInput = Pick<Prisma.AnalyticFindUniqueArgs, 'where'>;
 
 export default resolver.pipe(resolver.authorize(), async ({ where }: FindUniqueAnalyticInput) => {
-  return await db.analytic.findFirst({ where, rejectOnNotFound: true })
-})
+  return await db.analytic.findFirstOrThrow({ where });
+});

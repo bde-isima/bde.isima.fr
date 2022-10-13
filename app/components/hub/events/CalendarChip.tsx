@@ -1,20 +1,21 @@
-import { Image } from 'blitz'
-import Grid from '@mui/material/Grid'
-import Chip from '@mui/material/Chip'
-import Avatar from '@mui/material/Avatar'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
+import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
-import Check from '@mui/icons-material/CheckTwoTone'
+import Check from '@mui/icons-material/CheckTwoTone';
 
-import { useRouter } from 'app/core/lib/router'
+import Image from 'next/image';
+
+import { useRouter } from 'app/core/lib/router';
 
 type CalendarCellProps = {
-  event: any
-}
+  event: any;
+};
 
 export default function CalendarChip({ event }: CalendarCellProps) {
-  const { pushRoute } = useRouter()
+  const { pushRoute } = useRouter();
 
   return (
     <Grid item container xs={12} justifyContent="center">
@@ -40,10 +41,10 @@ export default function CalendarChip({ event }: CalendarCellProps) {
         avatar={
           event?.club?.image ? (
             <Image
-              className="rounded-full"
+              className="rounded-full w-10 h-10"
               src={event.club.image}
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               alt={`Logo ${event.club.name}`}
             />
           ) : (
@@ -53,5 +54,5 @@ export default function CalendarChip({ event }: CalendarCellProps) {
         onClick={pushRoute(`/hub/events/${event.id}`)}
       />
     </Grid>
-  )
+  );
 }

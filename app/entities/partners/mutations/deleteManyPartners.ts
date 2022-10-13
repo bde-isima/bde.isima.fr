@@ -1,12 +1,9 @@
-import { resolver } from 'blitz'
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type DeleteManyPartnerInput = Pick<Prisma.PartnerDeleteManyArgs, 'where'>
+type DeleteManyPartnerInput = Pick<Prisma.PartnerDeleteManyArgs, 'where'>;
 
-export default resolver.pipe(
-  resolver.authorize(['*', 'bde']),
-  async ({ where }: DeleteManyPartnerInput) => {
-    return await db.partner.deleteMany({ where })
-  }
-)
+export default resolver.pipe(resolver.authorize(['*', 'bde']), async ({ where }: DeleteManyPartnerInput) => {
+  return await db.partner.deleteMany({ where });
+});

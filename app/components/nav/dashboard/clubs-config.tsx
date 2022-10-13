@@ -1,7 +1,11 @@
-import Avatar from '@mui/material/Avatar'
-import { useQuery, Image, useAuthenticatedSession } from 'blitz'
+import Avatar from '@mui/material/Avatar';
 
-import getClubs from 'app/entities/clubs/queries/getClubs'
+import Image from 'next/image';
+
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useQuery } from '@blitzjs/rpc';
+
+import getClubs from 'app/entities/clubs/queries/getClubs';
 
 function createConfig(clubs, user) {
   return clubs
@@ -15,17 +19,17 @@ function createConfig(clubs, user) {
       text: x.name.toUpperCase(),
       to: `/dashboard/${x.name.toLowerCase()}`,
       role: x.name,
-      isActive: (pathname: String) => pathname === `/dashboard/${x.name.toLowerCase()}`,
-    }))
+      isActive: (pathname: String) => pathname === `/dashboard/${x.name.toLowerCase()}`
+    }));
 }
 
 export function useClubsConfig() {
-  const session = useAuthenticatedSession()
-  const [{ clubs }] = useQuery(getClubs, {})
+  const session = useAuthenticatedSession();
+  const [{ clubs }] = useQuery(getClubs, {});
 
-  return createConfig(clubs, session)
+  return createConfig(clubs, session);
 }
 
 export function getClubsConfigServerSide(clubs, user) {
-  return createConfig(clubs, user)
+  return createConfig(clubs, user);
 }

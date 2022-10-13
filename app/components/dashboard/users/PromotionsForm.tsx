@@ -1,11 +1,12 @@
-import { useQuery } from 'blitz'
-import { Select } from 'mui-rff'
-import MenuItem from '@mui/material/MenuItem'
+import MenuItem from '@mui/material/MenuItem';
+import { Select } from 'mui-rff';
 
-import getPromotions from 'app/entities/promotions/queries/getPromotions'
+import { useQuery } from '@blitzjs/rpc';
+
+import getPromotions from 'app/entities/promotions/queries/getPromotions';
 
 export default function PromotionsForm() {
-  const [{ promotions }] = useQuery(getPromotions, {})
+  const [{ promotions }] = useQuery(getPromotions, {});
 
   return (
     <Select
@@ -21,5 +22,5 @@ export default function PromotionsForm() {
         </MenuItem>
       ))}
     </Select>
-  )
+  );
 }

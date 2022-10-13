@@ -1,7 +1,8 @@
-import { Head } from 'blitz'
-import Container from '@mui/material/Container'
+import Container from '@mui/material/Container';
 
-import Nav from 'app/components/nav/hub/Nav'
+import Head from 'next/head';
+
+import Nav from 'app/components/nav/hub/Nav';
 
 export default function getHubNav(Component, title = 'Hub ZZ') {
   return (
@@ -13,5 +14,5 @@ export default function getHubNav(Component, title = 'Hub ZZ') {
       <Nav />
       {Component}
     </Container>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { resolver } from 'blitz'
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type GetPromotionsInput = Pick<Prisma.PromotionFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>
+type GetPromotionsInput = Pick<Prisma.PromotionFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
@@ -11,18 +11,18 @@ export default resolver.pipe(
       where,
       orderBy,
       take,
-      skip,
-    })
+      skip
+    });
 
-    const count = await db.promotion.count({ where })
-    const hasMore = typeof take === 'number' ? skip + take < count : false
-    const nextPage = hasMore ? { take, skip: skip + take! } : null
+    const count = await db.promotion.count({ where });
+    const hasMore = typeof take === 'number' ? skip + take < count : false;
+    const nextPage = hasMore ? { take, skip: skip + take! } : null;
 
     return {
       promotions,
       nextPage,
       hasMore,
-      count,
-    }
+      count
+    };
   }
-)
+);

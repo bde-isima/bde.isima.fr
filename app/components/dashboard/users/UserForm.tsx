@@ -1,48 +1,50 @@
-import { Image } from 'blitz'
-import { Suspense } from 'react'
-import Tab from '@mui/material/Tab'
-import TabList from '@mui/lab/TabList'
-import { useMemo, useState } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Divider from '@mui/material/Divider'
-import TabContext from '@mui/lab/TabContext'
-import { TextField, Switches } from 'mui-rff'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Suspense } from 'react';
+import { useMemo, useState } from 'react';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import AppBar from '@mui/material/AppBar';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Tab from '@mui/material/Tab';
+import { User } from 'db';
+import { Switches, TextField } from 'mui-rff';
 
-import { User } from 'db'
-import { useTheme } from 'app/core/styles/theme'
-import TabPanel from 'app/core/layouts/TabPanel'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import RolesForm from 'app/components/dashboard/users/RolesForm'
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
-import PromotionsForm from 'app/components/dashboard/users/PromotionsForm'
-import { UserInput, UserInputType } from 'app/components/forms/validations'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
+
+import Image from 'next/image';
+
+import PromotionsForm from 'app/components/dashboard/users/PromotionsForm';
+import RolesForm from 'app/components/dashboard/users/RolesForm';
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { UserInput, UserInputType } from 'app/components/forms/validations';
+import TabPanel from 'app/core/layouts/TabPanel';
+import { useTheme } from 'app/core/styles/theme';
 
 type UserFormProps = {
-  initialValues: User | null
-  onSuccess: (values: UserInputType) => void
-  onClose: () => void
-}
+  initialValues: User | null;
+  onSuccess: (values: UserInputType) => void;
+  onClose: () => void;
+};
 
 export default function UserForm(props: UserFormProps) {
-  const theme = useTheme()
-  const [value, setValue] = useState('0')
+  const theme = useTheme();
+  const [value, setValue] = useState('0');
 
-  const handleChange = (_, newValue: string) => setValue(newValue)
+  const handleChange = (_, newValue: string) => setValue(newValue);
 
   const onSubmit = async (values: UserInputType) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   const initialValues = useMemo(
     () => ({
@@ -57,11 +59,11 @@ export default function UserForm(props: UserFormProps) {
       roles: props.initialValues?.roles || [],
       promotionId: props.initialValues?.promotionId,
       is_member: props.initialValues?.id ? props.initialValues?.is_member : false,
-      is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
+      is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
-  )
+  );
 
   return (
     <Form
@@ -117,7 +119,7 @@ export default function UserForm(props: UserFormProps) {
                     <OpenInNew />
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
 
@@ -127,16 +129,9 @@ export default function UserForm(props: UserFormProps) {
 
           <Divider className="m-2" />
 
-          {props.initialValues?.id && (
-            <EnhancedTextField type="number" name="card" label="N° de carte" />
-          )}
+          {props.initialValues?.id && <EnhancedTextField type="number" name="card" label="N° de carte" />}
           <TextField type="email" name="email" label="Email" />
-          <EnhancedTextField
-            type="number"
-            name="balance"
-            label="Solde"
-            inputProps={{ step: 0.01 }}
-          />
+          <EnhancedTextField type="number" name="balance" label="Solde" inputProps={{ step: 0.01 }} />
 
           <Divider className="m-2" />
 
@@ -146,17 +141,9 @@ export default function UserForm(props: UserFormProps) {
             </Suspense>
           </div>
 
-          <Switches
-            name="is_member"
-            data={{ label: 'Cotisant', value: 'is_member' }}
-            color="primary"
-          />
+          <Switches name="is_member" data={{ label: 'Cotisant', value: 'is_member' }} color="primary" />
 
-          <Switches
-            name="is_enabled"
-            data={{ label: 'Activé', value: 'is_enabled' }}
-            color="primary"
-          />
+          <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
         </TabPanel>
 
         <TabPanel className="p-0" value="1">
@@ -168,5 +155,5 @@ export default function UserForm(props: UserFormProps) {
         </TabPanel>
       </TabContext>
     </Form>
-  )
+  );
 }

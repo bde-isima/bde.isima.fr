@@ -1,40 +1,42 @@
-import { useState } from 'react'
-import Grid from '@mui/material/Grid'
-import List from '@mui/material/List'
-import Button from '@mui/material/Button'
-import AppBar from '@mui/material/AppBar'
-import Dialog from '@mui/material/Dialog'
-import Toolbar from '@mui/material/Toolbar'
-import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import CircularProgress from '@mui/material/CircularProgress'
+import { useState } from 'react';
 
-import Check from '@mui/icons-material/CheckTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
-import AddCircle from '@mui/icons-material/AddCircleTwoTone'
-import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
-import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone'
-import RemoveShoppingCart from '@mui/icons-material/RemoveShoppingCartTwoTone'
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { CartItem, Option } from 'global';
 
-import { CartItem, Option } from 'global'
-import PaymentMethods from './PaymentMethods'
-import SlideTransition from 'app/core/layouts/SlideTransition'
-import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone';
+import Check from '@mui/icons-material/CheckTwoTone';
+import Close from '@mui/icons-material/CloseTwoTone';
+import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone';
+import RemoveShoppingCart from '@mui/icons-material/RemoveShoppingCartTwoTone';
+import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone';
+
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription';
+import SlideTransition from 'app/core/layouts/SlideTransition';
+
+import PaymentMethods from './PaymentMethods';
 
 type MobileProps = {
-  total: number
-  subscribing: boolean
-  onSubscribe: () => void
-  unsubscribing: boolean
-  onUnsubscribe: () => void
-  onQuantityChange: (cartItem: CartItem, value: number) => () => void
-}
+  total: number;
+  subscribing: boolean;
+  onSubscribe: () => void;
+  unsubscribing: boolean;
+  onUnsubscribe: () => void;
+  onQuantityChange: (cartItem: CartItem, value: number) => () => void;
+};
 
 export default function Mobile({
   total,
@@ -42,12 +44,12 @@ export default function Mobile({
   onSubscribe,
   unsubscribing,
   onUnsubscribe,
-  onQuantityChange,
+  onQuantityChange
 }: MobileProps) {
-  const [open, setOpen] = useState(false)
-  const { event, eventSubscription } = useEventSubscription()
+  const [open, setOpen] = useState(false);
+  const { event, eventSubscription } = useEventSubscription();
 
-  const handleOpenChange = (value) => () => setOpen(value)
+  const handleOpenChange = (value) => () => setOpen(value);
 
   return (
     <AppBar
@@ -107,13 +109,7 @@ export default function Mobile({
         TransitionComponent={SlideTransition}
       >
         <DialogActions>
-          <IconButton
-            className="m-2"
-            edge="end"
-            onClick={handleOpenChange(false)}
-            aria-label="Réduire"
-            size="large"
-          >
+          <IconButton className="m-2" edge="end" onClick={handleOpenChange(false)} aria-label="Réduire" size="large">
             <Close />
           </IconButton>
         </DialogActions>
@@ -129,8 +125,7 @@ export default function Mobile({
             {eventSubscription.cart.map((cartItem: CartItem, idx: number) => {
               const price =
                 cartItem.quantity *
-                (cartItem.price +
-                  (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0))
+                (cartItem.price + (cartItem.options?.reduce((acc: number, o: Option) => acc + o.price, 0) || 0));
               return (
                 <ListItem key={idx} dense>
                   <ListItemIcon>
@@ -161,7 +156,7 @@ export default function Mobile({
 
                   <ListItemText className="text-right" primary={`${price.toFixed(2)} €`} />
                 </ListItem>
-              )
+              );
             })}
 
             {event.products.length > 0 && eventSubscription.cart.length === 0 && (
@@ -183,10 +178,7 @@ export default function Mobile({
             <Divider className="m-2" />
 
             <ListItem>
-              <ListItemText
-                primary="Moyen de paiement"
-                secondary="Le prélèvement n'est pas immédiat."
-              />
+              <ListItemText primary="Moyen de paiement" secondary="Le prélèvement n'est pas immédiat." />
             </ListItem>
 
             <ListItem>{event.products.length > 0 && <PaymentMethods />}</ListItem>
@@ -206,11 +198,7 @@ export default function Mobile({
                   aria-label="Se désinscrire"
                   color="inherit"
                 >
-                  {unsubscribing ? (
-                    <CircularProgress size={25} color="inherit" />
-                  ) : (
-                    'Se désinscrire'
-                  )}
+                  {unsubscribing ? <CircularProgress size={25} color="inherit" /> : 'Se désinscrire'}
                 </Button>
               </div>
             )}
@@ -218,5 +206,5 @@ export default function Mobile({
         </DialogContent>
       </Dialog>
     </AppBar>
-  )
+  );
 }

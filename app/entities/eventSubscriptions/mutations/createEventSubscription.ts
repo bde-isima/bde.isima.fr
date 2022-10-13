@@ -1,36 +1,32 @@
-import { Ctx, resolver } from 'blitz'
+import { Ctx } from 'blitz';
+import db, { Prisma } from 'db';
 
-import db, { Prisma } from 'db'
+import { resolver } from '@blitzjs/rpc';
 
-type CreateEventSubscriptionInput = Pick<Prisma.EventSubscriptionCreateArgs, 'data'>
+type CreateEventSubscriptionInput = Pick<Prisma.EventSubscriptionCreateArgs, 'data'>;
 
-export default resolver.pipe(
-  resolver.authorize(),
-  async ({ data }: CreateEventSubscriptionInput, ctx: Ctx) => {
-    const event = await db.event.findUnique({
-      where: { id: data.event?.connect?.id },
-      include: { club: true },
-      rejectOnNotFound: true,
-    })
+export default resolver.pipe(resolver.authorize(), async ({ data }: CreateEventSubscriptionInput, ctx: Ctx) => {
+  const event = await db.event.findUniqueOrThrow({
+    where: { id: data.event?.connect?.id },
+    include: { club: true }
+  });
 
-    ctx.session.$authorize(['*', 'bde', event.club.name])
+  ctx.session.$authorize(['*', 'bde', event.club.name]);
 
-    const user = await db.user.findUnique({
-      where: { id: data.user?.connect?.id },
-      rejectOnNotFound: true,
-    })
+  const user = await db.user.findUniqueOrThrow({
+    where: { id: data.user?.connect?.id }
+  });
 
-    const existingSub = await db.eventSubscription.findFirst({
-      where: {
-        eventId: event.id,
-        userId: user.id,
-      },
-    })
-
-    if (existingSub) {
-      throw new Error('Déjà inscrit')
+  const existingSub = await db.eventSubscription.findFirst({
+    where: {
+      eventId: event.id,
+      userId: user.id
     }
+  });
 
-    return await db.eventSubscription.create({ data })
+  if (existingSub) {
+    throw new Error('Déjà inscrit');
   }
-)
+
+  return await db.eventSubscription.create({ data });
+});

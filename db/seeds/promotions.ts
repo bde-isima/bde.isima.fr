@@ -2,10 +2,10 @@ const promotions = async (db) => {
   for (let i = 2015; i < 2020; ++i) {
     await db.promotion.create({
       data: {
-        year: i,
-      },
-    })
+        year: i
+      }
+    });
   }
-}
+};
 
-export default promotions
+export default promotions;

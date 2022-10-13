@@ -1,14 +1,14 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker';
 
 const transactions = async (db) => {
-  let prevBalance = 0
-  const article = await db.article.findFirst()
-  const emitter = await db.user.findFirst()
+  let prevBalance = 0;
+  const article = await db.article.findFirst();
+  const emitter = await db.user.findFirst();
 
   if (article) {
     // Article transaction
     for (let i = 0; i < 10; ++i) {
-      const amount = parseFloat(faker.finance.amount())
+      const amount = parseFloat(faker.finance.amount());
 
       await db.transaction.create({
         data: {
@@ -17,20 +17,20 @@ const transactions = async (db) => {
           type: 'DEBIT',
           user: { connect: { id: '123456789' } },
           prevBalance,
-          article: { connect: { id: article.id } },
-        },
-      })
+          article: { connect: { id: article.id } }
+        }
+      });
 
-      prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
+      prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount;
     }
   } else {
-    throw new Error('No article found')
+    throw new Error('No article found');
   }
 
   if (emitter) {
     // Normal transaction DEBIT + CREDIT
     for (let i = 0; i < 50; ++i) {
-      const amount = parseFloat(faker.finance.amount())
+      const amount = parseFloat(faker.finance.amount());
 
       await db.transaction.create({
         data: {
@@ -39,15 +39,15 @@ const transactions = async (db) => {
           type: i % 2 === 0 ? 'CREDIT' : 'DEBIT',
           ...(i % 2 === 0 ? { emitter: { connect: { id: emitter.id } } } : {}),
           user: { connect: { id: '123456789' } },
-          prevBalance,
-        },
-      })
+          prevBalance
+        }
+      });
 
-      prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount
+      prevBalance = i % 2 === 0 ? prevBalance + amount : prevBalance - amount;
     }
   } else {
-    throw new Error('No emitter found')
+    throw new Error('No emitter found');
   }
-}
+};
 
-export default transactions
+export default transactions;

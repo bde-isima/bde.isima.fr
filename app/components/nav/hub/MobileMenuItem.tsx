@@ -1,21 +1,22 @@
-import { cloneElement } from 'react'
-import Button from '@mui/material/Button'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@mui/material/ListItemIcon'
+import { cloneElement } from 'react';
 
-import Link from 'app/core/lib/Link'
-import { useRouter } from 'app/core/lib/router'
+import Button from '@mui/material/Button';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
+import Link from 'app/core/lib/Link';
+import { useRouter } from 'app/core/lib/router';
 
 type MobileMenuItemProps = {
-  item: any
-  onClose: () => void
-}
+  item: any;
+  onClose: () => void;
+};
 
 export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
-  const { router } = useRouter()
+  const { router } = useRouter();
 
-  const isActive = item.isActive(router.asPath, window.location.hash)
+  const isActive = item.isActive(router.asPath, window.location.hash);
 
   return (
     <Link href={item.to}>
@@ -37,5 +38,5 @@ export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
         </ListItem>
       </Button>
     </Link>
-  )
+  );
 }

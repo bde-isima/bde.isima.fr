@@ -1,21 +1,21 @@
-import Checkbox from '@mui/material/Checkbox'
-import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
-import MUITableHead from '@mui/material/TableHead'
-import TableSortLabel from '@mui/material/TableSortLabel'
+import Checkbox from '@mui/material/Checkbox';
+import TableCell from '@mui/material/TableCell';
+import MUITableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
 
 type TableHeadProps = {
-  columns: any[]
-  onSelectAllClick: (event) => void
-  order: 'desc' | 'asc'
-  orderBy: string
-  numSelected: number
-  rowCount: number
-  onRequestSort: (_, property) => void
-  actions?: any[]
-  allowCopy?: boolean
-  onEdit?: (values: any) => void
-}
+  columns: any[];
+  onSelectAllClick: (event) => void;
+  order: 'desc' | 'asc';
+  orderBy: string;
+  numSelected: number;
+  rowCount: number;
+  onRequestSort: (_, property) => void;
+  actions?: any[];
+  allowCopy?: boolean;
+  onEdit?: (values: any) => void;
+};
 
 export default function TableHead({
   columns,
@@ -27,9 +27,9 @@ export default function TableHead({
   onRequestSort,
   actions,
   allowCopy,
-  onEdit,
+  onEdit
 }: TableHeadProps) {
-  const createSortHandler = (property) => (event) => onRequestSort(event, property)
+  const createSortHandler = (property) => (event) => onRequestSort(event, property);
 
   return (
     <MUITableHead>
@@ -59,13 +59,11 @@ export default function TableHead({
 
         <TableCell
           align="right"
-          colSpan={
-            (actions?.length ?? 0) + Number(Boolean(allowCopy)) + Number(Boolean(onEdit)) + 1
-          }
+          colSpan={(actions?.length ?? 0) + Number(Boolean(allowCopy)) + Number(Boolean(onEdit)) + 1}
         >
           Actions
         </TableCell>
       </TableRow>
     </MUITableHead>
-  )
+  );
 }

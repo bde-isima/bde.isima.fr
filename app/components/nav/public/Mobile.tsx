@@ -1,32 +1,35 @@
-import { Image } from 'blitz'
-import { useSession } from 'blitz'
-import Fab from '@mui/material/Fab'
-import { cloneElement } from 'react'
-import List from '@mui/material/List'
-import Button from '@mui/material/Button'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import { cloneElement } from 'react';
 
-import Login from '@mui/icons-material/LoginTwoTone'
-import Account from '@mui/icons-material/AccountCircleTwoTone'
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-import config from './config'
-import Link from 'app/core/lib/Link'
-import { useRouter } from 'app/core/lib/router'
-import logo from 'public/static/images/logos/logo.svg'
+import Account from '@mui/icons-material/AccountCircleTwoTone';
+import Login from '@mui/icons-material/LoginTwoTone';
+
+import Image from 'next/image';
+
+import { useSession } from '@blitzjs/auth';
+
+import Link from 'app/core/lib/Link';
+import { useRouter } from 'app/core/lib/router';
+
+import config from './config';
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
-  const session = useSession()
-  const { router, pushRoute } = useRouter()
+  const session = useSession();
+  const { router, pushRoute } = useRouter();
 
-  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const ItemsList = () => (
     <>
       {config.map((obj) => {
-        const isActive = obj.isActive(router.asPath, window.location.hash)
+        const isActive = obj.isActive(router.asPath, window.location.hash);
 
         return (
           <Link key={obj.text} href={obj.to}>
@@ -48,10 +51,10 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
               </ListItem>
             </Button>
           </Link>
-        )
+        );
       })}
     </>
-  )
+  );
 
   return (
     <SwipeableDrawer
@@ -70,7 +73,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
               <div className="m-2 mr-4">
                 <Image
                   className="rounded-full"
-                  src={logo}
+                  src="/static/images/logos/logo.svg"
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"
@@ -85,22 +88,12 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
 
           <div className="m-3 flex justify-center">
             {session.userId ? (
-              <Fab
-                variant="extended"
-                onClick={pushRoute('/hub')}
-                aria-label="Mon compte"
-                color="primary"
-              >
+              <Fab variant="extended" onClick={pushRoute('/hub')} aria-label="Mon compte" color="primary">
                 <Account className="mr-2" />
                 MON COMPTE
               </Fab>
             ) : (
-              <Fab
-                variant="extended"
-                onClick={onLoginRequested}
-                aria-label="Se connecter"
-                color="primary"
-              >
+              <Fab variant="extended" onClick={onLoginRequested} aria-label="Se connecter" color="primary">
                 <Login className="mr-2" />
                 SE CONNECTER
               </Fab>
@@ -109,12 +102,9 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
         </List>
 
         <ListItem>
-          <ListItemText
-            secondary={`Version ${globalThis.version}`}
-            secondaryTypographyProps={{ align: 'center' }}
-          />
+          <ListItemText secondary={`Version ${globalThis.version}`} secondaryTypographyProps={{ align: 'center' }} />
         </ListItem>
       </div>
     </SwipeableDrawer>
-  )
+  );
 }

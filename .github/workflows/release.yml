@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths-ignore:
+      - '.devcontainer/**'
+      - '.husky/**'
+      - 'docs/**'
+      - 'release/**'
+
+jobs:
+  branch_check:
+    name: 'Check current branch to determine environment 👀'
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: branch_check
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "::set-output name=env_name::production"
+          else
+            echo "::set-output name=env_name::staging"
+          fi
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }}
+
+  release:
+    name: 'Build and push image 🔨🚀'
+    runs-on: ubuntu-latest
+    needs: branch_check
+    environment:
+      name: ${{ needs.branch_check.outputs.env_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_NODE_ENV: production
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          envkey_SESSION_SECRET_KEY: ${{ secrets.SESSION_SECRET_KEY }}
+          envkey_LYDIA_API_VENDOR_ID: ${{ secrets.LYDIA_API_VENDOR_ID }}
+          envkey_NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
+          envkey_NEXT_PUBLIC_LYDIA_API_URL: ${{ secrets.NEXT_PUBLIC_LYDIA_API_URL }}
+          envkey_NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN: ${{ secrets.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN }}
+          envkey_NEXT_PUBLIC_GA_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GA_TRACKING_ID }}
+          envkey_SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          envkey_SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          envkey_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push container image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/bde-isima/bde.isima.fr/${{ needs.branch_check.outputs.env_name }}:latest
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}

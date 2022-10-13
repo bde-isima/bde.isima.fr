@@ -1,14 +1,14 @@
-import nodemailer from 'nodemailer'
-import SMTPTransport from 'nodemailer/lib/smtp-transport'
+import nodemailer from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
-import { compileView } from './views'
+import { compileView } from './views';
 
 type MailParams = {
-  subject: string
-  to: string
-  view: string
-  variables: object
-}
+  subject: string;
+  to: string;
+  view: string;
+  variables: object;
+};
 
 export const mail = {
   send: async ({ subject, to, view, variables }: MailParams) => {
@@ -16,26 +16,26 @@ export const mail = {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
       auth: {
-        user: `${process.env.SMTP_USER}@gmail.com`,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    }
+        user: 'bde.isima.webmaster@gmail.com',
+        pass: process.env.SMTP_PASSWORD
+      }
+    };
 
-    const mailTransport = nodemailer.createTransport(mailConfig)
+    const mailTransport = nodemailer.createTransport(mailConfig);
 
     try {
       return mailTransport.sendMail({
         to,
-        from: process.env.SMTP_FROM,
+        from: 'bde.isima.webmaster@gmail.com',
         subject,
         html: compileView({
           subject,
           view,
-          variables,
-        }),
-      })
+          variables
+        })
+      });
     } catch (e) {
-      console.error(e?.response?.body || e)
+      console.error(e?.response?.body || e);
     }
-  },
-}
+  }
+};

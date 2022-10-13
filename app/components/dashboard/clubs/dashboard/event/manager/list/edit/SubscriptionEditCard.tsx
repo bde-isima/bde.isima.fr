@@ -1,38 +1,38 @@
-import { Select } from 'mui-rff'
-import MuiCard from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import { useForm } from 'react-final-form'
-import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
-import FormGroup from '@mui/material/FormGroup'
-import FormLabel from '@mui/material/FormLabel'
-import IconButton from '@mui/material/IconButton'
-import CardHeader from '@mui/material/CardHeader'
-import Typography from '@mui/material/Typography'
-import FormControl from '@mui/material/FormControl'
-import { FieldArray } from 'react-final-form-arrays'
-import CircularProgress from '@mui/material/CircularProgress'
+import Button from '@mui/material/Button';
+import MuiCard from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import { Select } from 'mui-rff';
+import { useForm } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 
-import Add from '@mui/icons-material/AddTwoTone'
-import Check from '@mui/icons-material/CheckTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
+import Add from '@mui/icons-material/AddTwoTone';
+import Check from '@mui/icons-material/CheckTwoTone';
+import Close from '@mui/icons-material/CloseTwoTone';
 
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 
 type EditCardProps = {
-  subscription: any
-  onStopEdit: () => void
-}
+  subscription: any;
+  onStopEdit: () => void;
+};
 
 export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
-  const form = useForm()
-  const { submitting } = form.getState()
+  const form = useForm();
+  const { submitting } = form.getState();
 
-  const onSubmit = () => form.submit()
+  const onSubmit = () => form.submit();
 
-  const onAddItem = (name) => () => form.mutators.push(name, undefined)
+  const onAddItem = (name) => () => form.mutators.push(name, undefined);
 
-  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx)
+  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx);
 
   return (
     <MuiCard className="w-full flex flex-col">
@@ -42,11 +42,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         title={`${subscription.user.firstname} ${subscription.user.lastname}`}
         titleTypographyProps={{ variant: 'subtitle2' }}
         subheader={
-          <Select
-            name="payment_method"
-            label="Paiement par"
-            formControlProps={{ margin: 'normal' }}
-          >
+          <Select name="payment_method" label="Paiement par" formControlProps={{ margin: 'normal' }}>
             <MenuItem value="BDE">BDE</MenuItem>
             <MenuItem value="LYF">LYF</MenuItem>
             <MenuItem value="CASH">LIQUIDE</MenuItem>
@@ -55,21 +51,11 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         subheaderTypographyProps={{ className: 'flex flex-grow items-end', variant: 'caption' }}
         action={
           <div className="flex">
-            <IconButton
-              aria-label="Annuler"
-              onClick={onStopEdit}
-              disabled={submitting}
-              size="large"
-            >
+            <IconButton aria-label="Annuler" onClick={onStopEdit} disabled={submitting} size="large">
               <Close />
             </IconButton>
 
-            <IconButton
-              aria-label="Sauvegarder"
-              disabled={submitting}
-              onClick={onSubmit}
-              size="large"
-            >
+            <IconButton aria-label="Sauvegarder" disabled={submitting} onClick={onSubmit} size="large">
               {submitting ? <CircularProgress size={25} color="inherit" /> : <Check />}
             </IconButton>
           </div>
@@ -81,10 +67,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
           <>
             {fields.map((cartItemName, cartItemIdx) => (
               <>
-                <div
-                  key={cartItemIdx}
-                  className="relative flex flex-col p-4 m-4 border border-gray-200"
-                >
+                <div key={cartItemIdx} className="relative flex flex-col p-4 m-4 border border-solid border-gray-200">
                   <IconButton
                     className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
                     onClick={onDeleteItem('cart', cartItemIdx)}
@@ -164,10 +147,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
                                     />
                                     <IconButton
                                       className="m-2"
-                                      onClick={onDeleteItem(
-                                        `${cartItemName}.options`,
-                                        cartItemOptionIdx
-                                      )}
+                                      onClick={onDeleteItem(`${cartItemName}.options`, cartItemOptionIdx)}
                                       aria-label="Supprimer"
                                       size="small"
                                     >
@@ -213,5 +193,5 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         )}
       </FieldArray>
     </MuiCard>
-  )
+  );
 }

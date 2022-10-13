@@ -1,24 +1,26 @@
-import { Autocomplete } from 'mui-rff'
-import TextField from '@mui/material/TextField'
-import { useQuery, useAuthenticatedSession } from 'blitz'
-import { useState, Dispatch, SetStateAction } from 'react'
-import MuiAutocomplete from '@mui/material/Autocomplete'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Dispatch, SetStateAction, useState } from 'react';
 
-import { User } from 'db'
+import MuiAutocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import { User } from 'db';
+import { Autocomplete } from 'mui-rff';
+
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useQuery } from '@blitzjs/rpc';
 
 type SearchUserProps = {
-  className?: string
-  name: string
-  label: string
-  value?: User | null
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
-  onSelection?: (event: any, newValue: User | null) => void
-  getQuery: any
-  disableSelf?: boolean
-  withForm?: boolean
-}
+  className?: string;
+  name: string;
+  label: string;
+  value?: User | null;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  onSelection?: (event: any, newValue: User | null) => void;
+  getQuery: any;
+  disableSelf?: boolean;
+  withForm?: boolean;
+};
 
 export default function SearchUser({
   className = '',
@@ -30,21 +32,17 @@ export default function SearchUser({
   onSelection,
   getQuery,
   disableSelf = false,
-  withForm = false,
+  withForm = false
 }: SearchUserProps) {
-  const session = useAuthenticatedSession()
-  const [options, setOptions] = useState<User[]>([])
-  const loading = open && options.length === 0
+  const session = useAuthenticatedSession();
+  const [options, setOptions] = useState<User[]>([]);
+  const loading = open && options.length === 0;
 
-  const toggleOpen = (value) => () => setOpen(value)
+  const toggleOpen = (value) => () => setOpen(value);
 
-  const onSuccess = ({ users }) => setOptions(users)
+  const onSuccess = ({ users }) => setOptions(users);
 
-  useQuery(
-    getQuery,
-    { where: { is_enabled: true } },
-    { suspense: false, onSuccess, enabled: loading }
-  )
+  useQuery(getQuery, { where: { is_enabled: true } }, { suspense: false, onSuccess, enabled: loading });
 
   const props = {
     className,
@@ -59,9 +57,7 @@ export default function SearchUser({
     isOptionEqualToValue: (option: User, value: User) => option.id === value.id,
     getOptionLabel: (option: User) =>
       option
-        ? `${option.card} - ${option.lastname} ${option.firstname} ${
-            option.nickname ? `(${option.nickname})` : ''
-          }`
+        ? `${option.card} - ${option.lastname} ${option.firstname} ${option.nickname ? `(${option.nickname})` : ''}`
         : '',
     renderInput: (params) => (
       <TextField
@@ -74,15 +70,15 @@ export default function SearchUser({
               {loading ? <CircularProgress color="inherit" size={20} /> : null}
               {params.InputProps.endAdornment}
             </>
-          ),
+          )
         }}
       />
-    ),
-  }
+    )
+  };
 
   if (withForm) {
-    return <Autocomplete name={name} label={label} {...props} />
+    return <Autocomplete name={name} label={label} {...props} />;
   }
 
-  return <MuiAutocomplete value={value} {...props} />
+  return <MuiAutocomplete value={value} {...props} />;
 }

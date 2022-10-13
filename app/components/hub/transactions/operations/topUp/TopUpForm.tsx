@@ -1,14 +1,13 @@
-import { Image } from 'blitz'
-import Button from '@mui/material/Button'
-import { TextField } from 'mui-rff'
-import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-import { PaymentMethod } from './TopUp'
-import lyf from 'public/static/images/logos/lyf.svg'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import mastercard from 'public/static/images/logos/mastercard.svg'
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
-import { TopUpInput, TopUpInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { TopUpInput, TopUpInputType } from 'app/components/forms/validations';
+
+import { PaymentMethod } from './TopUp';
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void
@@ -45,11 +44,17 @@ export default function TopUpForm(props: TopUpFormProps) {
 
       <div className="flex justify-center">
         <Button type="submit" onClick={props.beforeSubmit('cb')}>
-          <Image src={mastercard} width={100} height={25} alt="Mastercard logo" quality={100} />
+          <Image
+            src="/static/images/logos/mastercard.svg"
+            width={100}
+            height={25}
+            alt="Mastercard logo"
+            quality={100}
+          />
         </Button>
 
         <Button type="submit" onClick={props.beforeSubmit('lyf')}>
-          <Image src={lyf} width={100} height={25} alt="Lyf logo" quality={100} />
+          <Image src="/static/images/logos/lyf.svg" width={100} height={25} alt="Lyf logo" quality={100} />
         </Button>
       </div>
 

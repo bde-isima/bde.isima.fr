@@ -1,23 +1,24 @@
-import { SyntheticEvent } from 'react'
-import IconButton from '@mui/material/IconButton'
-import Alert, { AlertColor } from '@mui/material/Alert'
-import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar'
+import { SyntheticEvent } from 'react';
 
-import Undo from '@mui/icons-material/UndoTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
+import Alert, { AlertColor } from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import MuiSnackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import Close from '@mui/icons-material/CloseTwoTone';
+import Undo from '@mui/icons-material/UndoTwoTone';
+
+import SlideTransition from 'app/core/layouts/SlideTransition';
 
 type SnackbarProps = {
-  className?: string
-  open: boolean
-  loading?: boolean
-  message: string
-  severity: AlertColor
-  anchorOrigin?: SnackbarOrigin
-  onClose: (event: SyntheticEvent | MouseEvent, reason?: string | undefined) => void
-  onUndo?: (() => void) | undefined
-}
+  className?: string;
+  open: boolean;
+  loading?: boolean;
+  message: string;
+  severity: AlertColor;
+  anchorOrigin?: SnackbarOrigin;
+  onClose: (event: SyntheticEvent | MouseEvent, reason?: string | undefined) => void;
+  onUndo?: (() => void) | undefined;
+};
 
 export default function Snackbar({
   className = '',
@@ -27,7 +28,7 @@ export default function Snackbar({
   severity,
   anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
   onClose,
-  onUndo,
+  onUndo
 }: SnackbarProps) {
   return (
     <MuiSnackbar
@@ -60,5 +61,5 @@ export default function Snackbar({
         {message}
       </Alert>
     </MuiSnackbar>
-  )
+  );
 }

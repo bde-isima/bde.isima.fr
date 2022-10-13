@@ -1,24 +1,25 @@
-import { useField, FieldProps } from 'react-final-form'
-import { ShowErrorFunc, showErrorOnChange } from 'mui-rff'
-import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from '@mui/material'
+import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from '@mui/material';
+import { ShowErrorFunc, showErrorOnChange } from 'mui-rff';
+import { FieldProps, useField } from 'react-final-form';
 
 export type EnhancedTextFieldProps = Partial<Omit<MuiTextFieldProps, 'type' | 'onChange'>> & {
-  name: string
-  type?: 'text' | 'password' | 'email' | 'number'
-  fieldProps?: Partial<FieldProps<any, any>>
-  showError?: ShowErrorFunc
-}
+  name: string;
+  type?: 'text' | 'password' | 'email' | 'number';
+  fieldProps?: Partial<FieldProps<any, any>>;
+  showError?: ShowErrorFunc;
+};
 
 export default function EnhancedTextField(props: EnhancedTextFieldProps) {
-  const { name, type, fieldProps, required, inputProps, helperText, ...rest } = props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { name, type, fieldProps, required, inputProps, helperText, ...rest } = props;
 
   const { input, meta } = useField(name, {
     formatOnBlur: true,
-    parse: props.type === 'number' ? Number : undefined,
-  })
+    parse: props.type === 'number' ? Number : undefined
+  });
 
-  const { error, submitError } = meta
-  const isError = showErrorOnChange({ meta })
+  const { error, submitError } = meta;
+  const isError = showErrorOnChange({ meta });
 
   return (
     <MuiTextField
@@ -31,5 +32,5 @@ export default function EnhancedTextField(props: EnhancedTextFieldProps) {
       {...input}
       {...rest}
     />
-  )
+  );
 }

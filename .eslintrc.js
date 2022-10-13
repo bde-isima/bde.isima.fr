@@ -1,7 +1,24 @@
 module.exports = {
-  extends: ['blitz'],
+  extends: [require.resolve('@blitzjs/next/eslint')],
   rules: {
-    'jsx-a11y/anchor-has-content': 'off',
-    'no-restricted-imports': ['error', { patterns: ['@mui/*/*/*', '!@mui/material/test-utils/*'] }],
-  },
-}
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_'
+      }
+    ],
+    quotes: [
+      'error',
+      'single',
+      {
+        avoidEscape: true
+      }
+    ],
+    'sort-imports': [
+      'error',
+      {
+        ignoreDeclarationSort: true
+      }
+    ]
+  }
+};

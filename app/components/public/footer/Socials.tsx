@@ -1,8 +1,8 @@
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Grid';
 
-import Twitter from '@mui/icons-material/Twitter'
-import Facebook from '@mui/icons-material/Facebook'
-import Instagram from '@mui/icons-material/Instagram'
+import Facebook from '@mui/icons-material/Facebook';
+import Instagram from '@mui/icons-material/Instagram';
+import Twitter from '@mui/icons-material/Twitter';
 
 export default function Socials() {
   return (
@@ -32,5 +32,5 @@ export default function Socials() {
         <Instagram className="m-4 text-primary dark:text-secondary" />
       </a>
     </Grid>
-  )
+  );
 }

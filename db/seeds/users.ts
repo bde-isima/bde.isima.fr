@@ -1,7 +1,7 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker';
 
 const users = async (db) => {
-  const promotion = await db.promotion.findFirst()
+  const promotion = await db.promotion.findFirst();
 
   //User to log in with
   await db.user.create({
@@ -10,14 +10,14 @@ const users = async (db) => {
       lastname: 'Lenoir',
       firstname: 'Adrien',
       nickname: faker.name.findName(),
-      image: faker.image.imageUrl(100, 100, undefined, false, true),
+      image: faker.image.imageUrl(100, 100, undefined, true),
       email: 'adrien.lenoir42440@gmail.com',
       card: 941,
       balance: 0,
       roles: '*',
-      promotionId: promotion.id,
-    },
-  })
+      promotionId: promotion.id
+    }
+  });
 
   await db.user.create({
     data: {
@@ -40,14 +40,14 @@ const users = async (db) => {
         lastname: faker.name.lastName(),
         firstname: faker.name.firstName(),
         nickname: faker.name.findName(),
-        image: faker.image.imageUrl(100, 100, undefined, false, true),
+        image: faker.image.imageUrl(100, 100, undefined, true),
         email: faker.internet.email(),
         card: faker.datatype.number(),
         balance: parseFloat(faker.finance.amount()),
-        promotionId: promotion.id,
-      },
-    })
+        promotionId: promotion.id
+      }
+    });
   }
-}
+};
 
-export default users
+export default users;

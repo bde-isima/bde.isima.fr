@@ -1,10 +1,10 @@
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-import { useMediaQuery } from 'app/core/styles/theme'
+import { useMediaQuery } from 'app/core/styles/theme';
 
 export default function HistoryHeader() {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   return (
     <Grid container>
@@ -25,5 +25,5 @@ export default function HistoryHeader() {
         </Typography>
       </Grid>
     </Grid>
-  )
+  );
 }

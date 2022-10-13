@@ -1,20 +1,15 @@
-import Typography from '@mui/material/Typography'
-import TimelineDot from '@mui/lab/TimelineDot'
-import TimelineItem from '@mui/lab/TimelineItem'
-import TimelineContent from '@mui/lab/TimelineContent'
-import TimelineSeparator from '@mui/lab/TimelineSeparator'
-import TimelineConnector from '@mui/lab/TimelineConnector'
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import Typography from '@mui/material/Typography';
 
 export default function HowItWorksItem({ leftText, ItemIcon, title, rightText }) {
   return (
     <TimelineItem>
-      <TimelineOppositeContent
-        className="my-auto mx-0"
-        align="right"
-        variant="subtitle1"
-        color="textSecondary"
-      >
+      <TimelineOppositeContent className="my-auto mx-0" align="right" variant="subtitle1" color="textSecondary">
         {leftText}
       </TimelineOppositeContent>
       <TimelineSeparator>
@@ -27,5 +22,5 @@ export default function HowItWorksItem({ leftText, ItemIcon, title, rightText })
         <Typography variant="caption">{rightText}</Typography>
       </TimelineContent>
     </TimelineItem>
-  )
+  );
 }

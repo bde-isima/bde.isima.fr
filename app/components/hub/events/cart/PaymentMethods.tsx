@@ -1,17 +1,17 @@
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import ButtonGroup from '@mui/material/ButtonGroup'
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { EventSubscriptionWithTypedCart } from 'global';
 
-import LocalAtm from '@mui/icons-material/LocalAtmTwoTone'
-import CreditCard from '@mui/icons-material/CreditCardTwoTone'
-import PhoneAndroid from '@mui/icons-material/PhoneAndroidTwoTone'
+import CreditCard from '@mui/icons-material/CreditCardTwoTone';
+import LocalAtm from '@mui/icons-material/LocalAtmTwoTone';
+import PhoneAndroid from '@mui/icons-material/PhoneAndroidTwoTone';
 
-import { EventSubscriptionWithTypedCart } from 'global'
-import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription';
 
 export default function PaymentMethods() {
-  const { eventSubscription, setQueryData } = useEventSubscription()
+  const { eventSubscription, setQueryData } = useEventSubscription();
 
   const onPaymentMethodChange = (payment_method) => () => {
     setQueryData(
@@ -20,13 +20,13 @@ export default function PaymentMethods() {
         EventSubscription: [
           {
             ...(EventSubscription[0] as EventSubscriptionWithTypedCart),
-            payment_method,
-          },
-        ],
+            payment_method
+          }
+        ]
       }),
       { refetch: false }
-    )
-  }
+    );
+  };
 
   return (
     <ButtonGroup className="w-full" aria-label="Méthodes de paiement">
@@ -69,5 +69,5 @@ export default function PaymentMethods() {
         </Button>
       </Tooltip>
     </ButtonGroup>
-  )
+  );
 }

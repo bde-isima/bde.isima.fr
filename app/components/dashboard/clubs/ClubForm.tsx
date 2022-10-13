@@ -1,31 +1,32 @@
-import { Image } from 'blitz'
-import { TextField } from 'mui-rff'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Club } from 'db';
+import { TextField } from 'mui-rff';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
-import { Club } from 'db'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { ClubInput, ClubInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { ClubInput, ClubInputType } from 'app/components/forms/validations';
 
 type ClubFormProps = {
-  initialValues: Club | null
-  onSuccess: (values: ClubInputType) => void
-  onClose: () => void
-}
+  initialValues: Club | null;
+  onSuccess: (values: ClubInputType) => void;
+  onClose: () => void;
+};
 
 export default function ClubForm(props: ClubFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -42,7 +43,7 @@ export default function ClubForm(props: ClubFormProps) {
         facebookURL: props.initialValues?.facebookURL,
         twitterURL: props.initialValues?.twitterURL,
         instagramURL: props.initialValues?.instagramURL,
-        customURL: props.initialValues?.customURL,
+        customURL: props.initialValues?.customURL
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -76,7 +77,7 @@ export default function ClubForm(props: ClubFormProps) {
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
-          ),
+          )
         }}
       />
 
@@ -91,5 +92,5 @@ export default function ClubForm(props: ClubFormProps) {
       <TextField type="text" name="instagramURL" label="Instagram" />
       <TextField type="text" name="customURL" label="Site web" />
     </Form>
-  )
+  );
 }

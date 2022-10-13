@@ -1,14 +1,10 @@
-import { useQuery } from 'blitz'
+import { useQuery } from '@blitzjs/rpc';
 
-import MarketItem from 'app/components/hub/market/MarketItem'
-import getArticles from 'app/entities/articles/queries/getArticles'
+import MarketItem from 'app/components/hub/market/MarketItem';
+import getArticles from 'app/entities/articles/queries/getArticles';
 
 export default function Market() {
-  const [{ articles }] = useQuery(
-    getArticles,
-    { where: { is_enabled: true } },
-    { refetchOnWindowFocus: false }
-  )
+  const [{ articles }] = useQuery(getArticles, { where: { is_enabled: true } }, { refetchOnWindowFocus: false });
 
   return (
     <>
@@ -16,5 +12,5 @@ export default function Market() {
         <MarketItem key={idx} article={article} />
       ))}
     </>
-  )
+  );
 }

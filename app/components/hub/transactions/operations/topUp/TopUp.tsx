@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAuthenticatedSession } from 'blitz'
+import { useAuthenticatedSession } from '@blitzjs/auth'
 
 import TopUpForm from './TopUpForm'
 import Snackbar from 'app/core/layouts/Snackbar'
@@ -9,11 +9,11 @@ import { TopUpInputType } from 'app/components/forms/validations'
 export type PaymentMethod = 'cb' | 'lyf'
 
 export default function TopUp() {
-  const session = useAuthenticatedSession()
-  const { open, message, severity, onShow, onClose } = useSnackbar()
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb')
+  const session = useAuthenticatedSession();
+  const { open, message, severity, onShow, onClose } = useSnackbar();
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb');
 
-  const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod)
+  const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 
   const onSuccess = (data: TopUpInputType) => {
     const body = new URLSearchParams()
@@ -23,7 +23,7 @@ export default function TopUp() {
 
     return fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topup/request/${session.userId}`, {
       method: 'POST',
-      body,
+      body
     })
       .then((res) => res.json())
       .then((info) => window.location.assign(info.urlRequest))

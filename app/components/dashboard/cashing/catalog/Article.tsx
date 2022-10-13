@@ -1,18 +1,21 @@
-import { Image, useMutation } from 'blitz'
-import Skeleton from '@mui/material/Skeleton'
-import ButtonBase from '@mui/material/ButtonBase'
-import Typography from '@mui/material/Typography'
+import ButtonBase from '@mui/material/ButtonBase';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction'
+import Image from 'next/image';
 
-const GUTTER_SIZE = 16
+import { useMutation } from '@blitzjs/rpc';
+
+import { useMediaQuery } from 'app/core/styles/theme';
+import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
+
+const GUTTER_SIZE = 16;
 
 export default function Article({ user, article, onClick, style }) {
-  const fullScreen = useMediaQuery('md')
-  const size = fullScreen ? 40 : 50
+  const fullScreen = useMediaQuery('md');
+  const size = fullScreen ? 40 : 50;
 
-  const [createTransaction] = useMutation(createArticleTransaction)
+  const [createTransaction] = useMutation(createArticleTransaction);
 
   const onTransaction = () => {
     onClick(() =>
@@ -20,11 +23,11 @@ export default function Article({ user, article, onClick, style }) {
         data: {
           userId: user?.id,
           articleId: article?.id,
-          description: `Achat ${article?.name}`,
-        },
+          description: `Achat ${article?.name}`
+        }
       })
-    )
-  }
+    );
+  };
 
   return (
     <div
@@ -34,7 +37,7 @@ export default function Article({ user, article, onClick, style }) {
         left: style.left + GUTTER_SIZE,
         top: style.top + GUTTER_SIZE,
         width: style.width - GUTTER_SIZE,
-        height: style.height - GUTTER_SIZE,
+        height: style.height - GUTTER_SIZE
       }}
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
@@ -51,5 +54,5 @@ export default function Article({ user, article, onClick, style }) {
         </Typography>
       </ButtonBase>
     </div>
-  )
+  );
 }

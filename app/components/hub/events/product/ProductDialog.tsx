@@ -1,58 +1,60 @@
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import { useState, useEffect } from 'react'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
+import { useEffect, useState } from 'react';
 
-import AddCircle from '@mui/icons-material/AddCircleTwoTone'
-import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone'
-import AddShoppingCart from '@mui/icons-material/AddShoppingCartTwoTone'
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { CartItem, EventSubscriptionWithTypedCart, Option, Product } from 'global';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import ProductComment from 'app/components/hub/events/product/ProductComment'
-import { Product, Option, CartItem, EventSubscriptionWithTypedCart } from 'global'
-import ProductGroupOption from 'app/components/hub/events/product/ProductGroupOption'
-import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone';
+import AddShoppingCart from '@mui/icons-material/AddShoppingCartTwoTone';
+import RemoveCircle from '@mui/icons-material/RemoveCircleTwoTone';
+
+import ProductComment from 'app/components/hub/events/product/ProductComment';
+import ProductGroupOption from 'app/components/hub/events/product/ProductGroupOption';
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription';
+import { useMediaQuery } from 'app/core/styles/theme';
 
 type ProductGroupOptionProps = {
-  product: Product
-  onClose: () => void
-}
+  product: Product;
+  onClose: () => void;
+};
 
-const types = ['exclusive', 'combinable']
+const types = ['exclusive', 'combinable'];
 
 export default function ProductDialog({ product, onClose }: ProductGroupOptionProps) {
-  const [total, setTotal] = useState(0)
-  const [quantity, setQuantity] = useState(1)
-  const [comment, setComment] = useState(null)
-  const { eventSubscription, setQueryData } = useEventSubscription()
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const [total, setTotal] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [comment, setComment] = useState(null);
+  const { eventSubscription, setQueryData } = useEventSubscription();
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   const onQuantityChange = (value: number) => () => {
     if (quantity + value > 0) {
-      setQuantity((quantity) => quantity + value)
+      setQuantity((quantity) => quantity + value);
     }
-  }
+  };
 
   const onCommentChange = (event) => {
-    setComment(event.target.value)
-  }
+    setComment(event.target.value);
+  };
 
   const addOption = (option: Option) => {
-    setSelectedOptions((selectedOptions) => [...selectedOptions, option])
-  }
+    setSelectedOptions((selectedOptions) => [...selectedOptions, option]);
+  };
 
   const removeOption = (option: Option) => {
-    setSelectedOptions((selectedOptions) => selectedOptions.filter((x) => x !== option))
-  }
+    setSelectedOptions((selectedOptions) => selectedOptions.filter((x) => x !== option));
+  };
 
   const handleAddProduct = () => {
-    const { groupOptions, ...restProduct } = product
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { groupOptions, ...restProduct } = product;
 
     setQueryData(
       ({ EventSubscription, ...oldData }) => ({
@@ -66,25 +68,22 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
                 ...restProduct,
                 quantity,
                 comment,
-                options: selectedOptions,
-              } as CartItem,
-            ],
-          },
-        ],
+                options: selectedOptions
+              } as CartItem
+            ]
+          }
+        ]
       }),
       { refetch: false }
-    )
-    onClose()
-  }
+    );
+    onClose();
+  };
 
   useEffect(() => {
-    setTotal(
-      quantity *
-        (product.price + selectedOptions.reduce((acc: number, val: Option) => acc + val.price, 0))
-    )
-  }, [product, quantity, selectedOptions])
+    setTotal(quantity * (product.price + selectedOptions.reduce((acc: number, val: Option) => acc + val.price, 0)));
+  }, [product, quantity, selectedOptions]);
 
-  product.groupOptions.sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
+  product.groupOptions.sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type));
 
   return (
     product && (
@@ -107,10 +106,10 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
             />
           ))}
 
-          <ProductComment product={product} onChange={onCommentChange} />
+          <ProductComment onChange={onCommentChange} />
         </DialogContent>
 
-        <DialogActions className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-4">
           <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
             <RemoveCircle />
           </IconButton>
@@ -120,10 +119,10 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
           <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
             <AddCircle />
           </IconButton>
-        </DialogActions>
+        </div>
 
         <DialogActions>
-          <Button aria-label="Annuler" onClick={onClose} color="inherit">
+          <Button aria-label="Annuler" onClick={onClose} variant="outlined" color="primary">
             Annuler
           </Button>
           <Button
@@ -137,5 +136,5 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
         </DialogActions>
       </Dialog>
     )
-  )
+  );
 }

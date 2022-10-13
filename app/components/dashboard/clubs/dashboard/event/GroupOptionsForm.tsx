@@ -1,25 +1,25 @@
-import { useForm } from 'react-final-form'
-import { TextField, Select } from 'mui-rff'
-import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
-import FormGroup from '@mui/material/FormGroup'
-import FormLabel from '@mui/material/FormLabel'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import FormControl from '@mui/material/FormControl'
-import { FieldArray } from 'react-final-form-arrays'
+import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import { Select, TextField } from 'mui-rff';
+import { useForm } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 
-import Add from '@mui/icons-material/AddTwoTone'
-import Close from '@mui/icons-material/CloseTwoTone'
+import Add from '@mui/icons-material/AddTwoTone';
+import Close from '@mui/icons-material/CloseTwoTone';
 
-import OptionForm from './OptionForm'
+import OptionForm from './OptionForm';
 
 export default function GroupOptionsForm() {
-  const form = useForm()
+  const form = useForm();
 
-  const onAddItem = (name) => () => form.mutators.push(name, undefined)
+  const onAddItem = (name) => () => form.mutators.push(name, undefined);
 
-  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx)
+  const onDeleteItem = (name, idx) => () => form.mutators.remove(name, idx);
 
   return (
     <FieldArray name="products">
@@ -45,7 +45,7 @@ export default function GroupOptionsForm() {
                   fields.map((groupOptionName, groupOptionIdx) => (
                     <div
                       key={groupOptionIdx}
-                      className="relative flex flex-col p-4 m-4 border border-gray-200"
+                      className="relative flex flex-col p-4 m-4 border border-solid border-gray-200"
                     >
                       <IconButton
                         className="absolute top-0 right-0 transform-gpu translate-x-1/2 -translate-y-1/2 bg-white border border-solid border-gray-200"
@@ -61,25 +61,14 @@ export default function GroupOptionsForm() {
                         <Divider className="m-2" />
 
                         <FormGroup aria-label={`Groupe n°${groupOptionIdx + 1}`}>
-                          <Select
-                            className="my-8"
-                            name={`${groupOptionName}.type`}
-                            label="Type du groupe"
-                          >
+                          <Select className="my-8" name={`${groupOptionName}.type`} label="Type du groupe">
                             <MenuItem value="exclusive">Exclusives</MenuItem>
                             <MenuItem value="combinable">Combinables</MenuItem>
                           </Select>
-                          <TextField
-                            type="text"
-                            name={`${groupOptionName}.name`}
-                            label="Nom du groupe"
-                          />
+                          <TextField type="text" name={`${groupOptionName}.name`} label="Nom du groupe" />
 
                           <FormControl className="m-3 flex flex-col" component="fieldset">
-                            <FormLabel
-                              className="flex items-center justify-evenly"
-                              component="legend"
-                            >
+                            <FormLabel className="flex items-center justify-evenly" component="legend">
                               <Typography>Options</Typography>
                               <IconButton
                                 className="m-2"
@@ -92,10 +81,7 @@ export default function GroupOptionsForm() {
                             </FormLabel>
                             <Divider className="m-2" />
 
-                            <OptionForm
-                              groupOptionName={groupOptionName}
-                              groupOptionIdx={groupOptionIdx}
-                            />
+                            <OptionForm groupOptionName={groupOptionName} groupOptionIdx={groupOptionIdx} />
                           </FormControl>
                         </FormGroup>
                       </FormControl>
@@ -119,5 +105,5 @@ export default function GroupOptionsForm() {
         ))
       }
     </FieldArray>
-  )
+  );
 }

@@ -6,6 +6,6 @@ Location: Clermont-Ferrand, France
 
 /* SITE */
 
-Last update: 2021/06/07
+Last update: 2022/10/09
 Standards: HTML5, CSS3
 Components: BlitzJS, Material UI

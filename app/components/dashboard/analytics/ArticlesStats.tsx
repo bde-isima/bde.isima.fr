@@ -1,27 +1,29 @@
-import { useState } from 'react'
-import { useQuery } from 'blitz'
-import { subDays } from 'date-fns'
-import MenuItem from '@mui/material/MenuItem'
-import Typography from '@mui/material/Typography'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryLabel } from 'victory'
+import { useState } from 'react';
 
-import { Article, Transaction } from 'db'
-import { useTheme } from 'app/core/styles/theme'
-import getArticles from 'app/entities/articles/queries/getArticles'
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
+import { subDays } from 'date-fns';
+import { Article, Transaction } from 'db';
+import { VictoryBar, VictoryChart, VictoryLabel, VictoryTheme } from 'victory';
 
-const now = new Date()
+import { useQuery } from '@blitzjs/rpc';
+
+import { useTheme } from 'app/core/styles/theme';
+import getArticles from 'app/entities/articles/queries/getArticles';
+
+const now = new Date();
 
 export default function ArticlesStats() {
-  const theme = useTheme()
-  const [period, setPeriod] = useState(31)
+  const theme = useTheme();
+  const [period, setPeriod] = useState(31);
 
   const [data] = useQuery(getArticles, {
     include: { Transaction: true },
-    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
-  })
+    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } }
+  });
 
-  const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number)
+  const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
 
   return (
     <div className="flex flex-col h-full">
@@ -43,11 +45,11 @@ export default function ArticlesStats() {
           data={data?.articles.map((a: Article & { Transaction: Transaction[] }, i: number) => ({
             x: i + 1,
             y: a.Transaction.length,
-            label: a.name,
+            label: a.name
           }))}
           labelComponent={<VictoryLabel angle={90} verticalAnchor="middle" textAnchor="end" />}
         />
       </VictoryChart>
     </div>
-  )
+  );
 }

@@ -1,31 +1,32 @@
-import { Image } from 'blitz'
-import { TextField, Switches } from 'mui-rff'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Article } from 'db';
+import { Switches, TextField } from 'mui-rff';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
-import { Article } from 'db'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import EnhancedTextField from 'app/components/forms/EnhancedTextfield'
-import { ArticleInput, ArticleInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { ArticleInput, ArticleInputType } from 'app/components/forms/validations';
 
 type ArticleFormProps = {
-  initialValues: Article | null
-  onSuccess: (values: ArticleInputType) => void
-  onClose: () => void
-}
+  initialValues: Article | null;
+  onSuccess: (values: ArticleInputType) => void;
+  onClose: () => void;
+};
 
 export default function ArticleForm(props: ArticleFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -39,7 +40,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         name: props.initialValues?.name,
         price: props.initialValues?.price,
         member_price: props.initialValues?.member_price,
-        is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true,
+        is_enabled: props.initialValues?.id ? props.initialValues?.is_enabled : true
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -73,20 +74,15 @@ export default function ArticleForm(props: ArticleFormProps) {
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
-          ),
+          )
         }}
       />
 
       <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
       <EnhancedTextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
-      <EnhancedTextField
-        type="number"
-        name="member_price"
-        label="Prix adhérent"
-        inputProps={{ step: 0.01 }}
-      />
+      <EnhancedTextField type="number" name="member_price" label="Prix adhérent" inputProps={{ step: 0.01 }} />
 
       <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
     </Form>
-  )
+  );
 }

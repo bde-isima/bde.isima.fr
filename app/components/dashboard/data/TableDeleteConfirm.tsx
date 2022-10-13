@@ -1,17 +1,17 @@
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import SlideTransition from 'app/core/layouts/SlideTransition';
 
 export default function TableDeleteConfirm({ open, onConfirm, onClose }) {
   const onConfirmation = () => {
-    onConfirm()
-    onClose()
-  }
+    onConfirm();
+    onClose();
+  };
 
   return (
     <Dialog
@@ -22,13 +22,9 @@ export default function TableDeleteConfirm({ open, onConfirm, onClose }) {
       aria-labelledby="table-delete-confirm-title"
       aria-describedby="table-delete-confirm-description"
     >
-      <DialogTitle id="table-delete-confirm-title">
-        Êtes-vous sûr d&apos;effectuer cette action ?
-      </DialogTitle>
+      <DialogTitle id="table-delete-confirm-title">Êtes-vous sûr d&apos;effectuer cette action ?</DialogTitle>
       <DialogContent>
-        <DialogContentText id="table-delete-confirm-description">
-          Toute suppression est définitive.
-        </DialogContentText>
+        <DialogContentText id="table-delete-confirm-description">Toute suppression est définitive.</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="inherit">
@@ -39,5 +35,5 @@ export default function TableDeleteConfirm({ open, onConfirm, onClose }) {
         </Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }

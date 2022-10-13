@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import Grid from '@mui/material/Grid'
+import { useState } from 'react';
 
-import { Product } from 'global'
-import ProductCard from 'app/components/hub/events/product/ProductCard'
-import ProductDialog from 'app/components/hub/events/product/ProductDialog'
-import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription'
+import Grid from '@mui/material/Grid';
+import { Product } from 'global';
+
+import ProductCard from 'app/components/hub/events/product/ProductCard';
+import ProductDialog from 'app/components/hub/events/product/ProductDialog';
+import { useEventSubscription } from 'app/components/hub/events/subscription/EventSubscription';
 
 export default function ProductsList() {
-  const { event } = useEventSubscription()
-  const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const { event } = useEventSubscription();
+  const [selectedProduct, setSelectedProduct] = useState<Product>();
 
-  const changeSelectedProduct = (value) => () => setSelectedProduct(value)
+  const changeSelectedProduct = (value) => () => setSelectedProduct(value);
 
   return (
     <Grid container spacing={5}>
@@ -18,9 +19,7 @@ export default function ProductsList() {
         <ProductCard key={productIdx} product={product} onClick={changeSelectedProduct} />
       ))}
 
-      {selectedProduct && (
-        <ProductDialog product={selectedProduct} onClose={changeSelectedProduct(null)} />
-      )}
+      {selectedProduct && <ProductDialog product={selectedProduct} onClose={changeSelectedProduct(null)} />}
     </Grid>
-  )
+  );
 }

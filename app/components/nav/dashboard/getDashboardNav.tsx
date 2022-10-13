@@ -1,8 +1,8 @@
-import { Head } from 'blitz'
+import Head from 'next/head';
 
-import Nav from 'app/components/nav/hub/Nav'
-import Desktop from 'app/components/nav/dashboard/Desktop'
-import SearchUserForm from 'app/components/dashboard/cashing/SearchUserForm'
+import SearchUserForm from 'app/components/dashboard/cashing/SearchUserForm';
+import Desktop from 'app/components/nav/dashboard/Desktop';
+import Nav from 'app/components/nav/hub/Nav';
 
 export default function getDashboardNav(Component, title = 'Dashboard ZZ') {
   return (
@@ -19,5 +19,5 @@ export default function getDashboardNav(Component, title = 'Dashboard ZZ') {
         {Component}
       </div>
     </>
-  )
+  );
 }

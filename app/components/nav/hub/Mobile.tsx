@@ -1,23 +1,25 @@
-import { Image } from 'blitz'
-import List from '@mui/material/List'
-import { useMemo, Suspense } from 'react'
-import Button from '@mui/material/Button'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Suspense, useMemo } from 'react';
 
-import Home from '@mui/icons-material/HomeTwoTone'
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-import config from './config'
-import Link from 'app/core/lib/Link'
-import logo from 'public/static/images/logos/logo.svg'
-import DashboardMobile from 'app/components/nav/dashboard/Mobile'
-import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
+import Home from '@mui/icons-material/HomeTwoTone';
+
+import Image from 'next/image';
+
+import DashboardMobile from 'app/components/nav/dashboard/Mobile';
+import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem';
+import Link from 'app/core/lib/Link';
+
+import config from './config';
 
 export default function Mobile({ isOpen, onOpen, onClose }) {
-  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const ItemsList = useMemo(
     () => (
@@ -28,7 +30,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
       </>
     ),
     [onClose]
-  )
+  );
 
   return (
     <SwipeableDrawer
@@ -47,7 +49,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
               <div className="m-2 mr-4">
                 <Image
                   className="rounded-full"
-                  src={logo}
+                  src="/static/images/logos/logo.svg"
                   width={40}
                   height={40}
                   alt="Logo BDE ISIMA"
@@ -59,46 +61,28 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
           </ListItem>
 
           <Link href="/">
-            <Button
-              className={`w-11/12 rounded-full my-1`}
-              variant="text"
-              size="small"
-              onClick={onClose}
-            >
+            <Button className={'w-11/12 rounded-full my-1'} variant="text" size="small" onClick={onClose}>
               <ListItem dense disableGutters>
                 <ListItemIcon>
                   <Home />
                 </ListItemIcon>
 
-                <ListItemText
-                  secondary="ACCUEIL"
-                  secondaryTypographyProps={{ color: 'textPrimary' }}
-                />
+                <ListItemText secondary="ACCUEIL" secondaryTypographyProps={{ color: 'textPrimary' }} />
               </ListItem>
             </Button>
           </Link>
 
           {ItemsList}
 
-          <Suspense
-            fallback={
-              <CircularProgress
-                className="mx-auto my-2 text-primary dark:text-secondary"
-                size={25}
-              />
-            }
-          >
+          <Suspense fallback={<CircularProgress className="mx-auto my-2 text-primary dark:text-secondary" size={25} />}>
             <DashboardMobile onClose={onClose} />
           </Suspense>
         </List>
 
         <ListItem>
-          <ListItemText
-            secondary={`Version ${globalThis.version}`}
-            secondaryTypographyProps={{ align: 'center' }}
-          />
+          <ListItemText secondary={`Version ${globalThis.version}`} secondaryTypographyProps={{ align: 'center' }} />
         </ListItem>
       </div>
     </SwipeableDrawer>
-  )
+  );
 }

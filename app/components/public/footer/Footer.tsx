@@ -1,23 +1,22 @@
-import { Image } from 'blitz'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-import Socials from './Socials'
-import Link from 'app/core/lib/Link'
-import uca from 'public/static/images/logos/uca.svg'
-import inp from 'public/static/images/logos/inp.svg'
-import bde from 'public/static/images/logos/logo.svg'
+import Image from 'next/image';
+
+import Link from 'app/core/lib/Link';
+
+import Socials from './Socials';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <Paper className="p-6">
       <Grid className="py-4" spacing={3} container>
         <Grid container item xs={12} md={4} justifyContent="center" alignContent="center" gap={2}>
           <Grid container item xs={12} md={6} justifyContent="center">
-            <Image src={bde} width={80} height={80} quality={100} alt="Logo BDE ISIMA" />
+            <Image src="/static/images/logos/logo.svg" width={80} height={80} quality={100} alt="Logo BDE ISIMA" />
           </Grid>
           <Grid container item xs={12} md={6} justifyContent="center" alignItems="center">
             <Typography variant="caption" align="center">
@@ -33,19 +32,11 @@ export default function Footer() {
         </Grid>
 
         <Grid container gap={6} item xs={12} md={4} justifyContent="center" alignContent="center">
-          <Image src={inp} alt="Logo de l'INP" quality={100} />
-          <Image src={uca} alt="Logo de l'UCA" quality={100} />
+          <Image src="/static/images/logos/inp.svg" width={80} height={80} alt="Logo de l'INP" quality={100} />
+          <Image src="/static/images/logos/uca.svg" width={80} height={80} alt="Logo de l'UCA" quality={100} />
         </Grid>
 
-        <Grid
-          container
-          item
-          xs={12}
-          md={4}
-          justifyContent="center"
-          alignItems="center"
-          direction="column"
-        >
+        <Grid container item xs={12} md={4} justifyContent="center" alignItems="center" direction="column">
           <Socials />
         </Grid>
 
@@ -64,5 +55,5 @@ export default function Footer() {
         </Grid>
       </Grid>
     </Paper>
-  )
+  );
 }

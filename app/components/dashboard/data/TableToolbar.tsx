@@ -1,29 +1,30 @@
-import { useState } from 'react'
-import Toolbar from '@mui/material/Toolbar'
-import Tooltip from '@mui/material/Tooltip'
-import InputBase from '@mui/material/InputBase'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
+import { useState } from 'react';
 
-import Delete from '@mui/icons-material/DeleteTwoTone'
-import Search from '@mui/icons-material/SearchTwoTone'
-import AddCircle from '@mui/icons-material/AddCircleTwoTone'
-import FileDownload from '@mui/icons-material/FileDownloadTwoTone'
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
-import { useTableProps } from './TablePropsProvider'
-import TableDeleteConfirm from './TableDeleteConfirm'
+import AddCircle from '@mui/icons-material/AddCircleTwoTone';
+import Delete from '@mui/icons-material/DeleteTwoTone';
+import FileDownload from '@mui/icons-material/FileDownloadTwoTone';
+import Search from '@mui/icons-material/SearchTwoTone';
+
+import TableDeleteConfirm from './TableDeleteConfirm';
+import { useTableProps } from './TablePropsProvider';
 
 export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport }) {
-  const { search } = useTableProps()
-  const [open, setOpen] = useState(false)
+  const { search } = useTableProps();
+  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = (value) => () => setOpen(value)
+  const handleClickOpen = (value) => () => setOpen(value);
 
   const onSearch = (e) => {
     if (e.key === 'Enter') {
-      search.set(e.target.value)
+      search.set(e.target.value);
     }
-  }
+  };
 
   return (
     <Toolbar className="pl-4 pr-2">
@@ -62,8 +63,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
           <InputBase
             placeholder="Rechercher..."
             classes={{
-              input:
-                'p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out',
+              input: 'p-2 sm:w-28 sm:focus:w-48 sm:transition sm:transition-width sm:duration-300 sm:ease-in-out'
             }}
             inputProps={{ 'aria-label': 'Rechercher' }}
             onKeyDown={onSearch}
@@ -81,5 +81,5 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
         </div>
       )}
     </Toolbar>
-  )
+  );
 }

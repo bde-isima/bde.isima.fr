@@ -1,15 +1,16 @@
-import { useMemo } from 'react'
-import Divider from '@mui/material/Divider'
+import { useMemo } from 'react';
 
-import Dashboard from '@mui/icons-material/DashboardTwoTone'
+import Divider from '@mui/material/Divider';
 
-import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem'
-import { useBDEConfig } from 'app/components/nav/dashboard/bde-config'
-import { useClubsConfig } from 'app/components/nav/dashboard/clubs-config'
+import Dashboard from '@mui/icons-material/DashboardTwoTone';
+
+import { useBDEConfig } from 'app/components/nav/dashboard/bde-config';
+import { useClubsConfig } from 'app/components/nav/dashboard/clubs-config';
+import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem';
 
 export default function Mobile({ onClose }) {
-  const bdeConfig = useBDEConfig()
-  const clubsConfig = useClubsConfig()
+  const bdeConfig = useBDEConfig();
+  const clubsConfig = useClubsConfig();
 
   const ItemsList = ({ config }) =>
     useMemo(
@@ -21,7 +22,7 @@ export default function Mobile({ onClose }) {
         </>
       ),
       [config]
-    )
+    );
 
   return (
     <>
@@ -31,7 +32,7 @@ export default function Mobile({ onClose }) {
             icon: <Dashboard />,
             text: 'DASHBOARD',
             to: '/dashboard',
-            isActive: (pathname: String, hash: String) => pathname === '/dashboard',
+            isActive: (pathname: String, _hash: String) => pathname === '/dashboard'
           }}
           onClose={onClose}
         />
@@ -45,5 +46,5 @@ export default function Mobile({ onClose }) {
 
       <ItemsList config={clubsConfig} />
     </>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 const eventSubscriptions = async (db) => {
-  const events = await db.event.findMany({ take: 2 })
+  const events = await db.event.findMany({ take: 2 });
 
   await Promise.all(
     events.map((e) =>
@@ -8,11 +8,11 @@ const eventSubscriptions = async (db) => {
           event: { connect: { id: e.id } },
           user: { connect: { id: '123456789' } },
           payment_method: 'BDE',
-          cart: [],
-        },
+          cart: []
+        }
       })
     )
-  )
-}
+  );
+};
 
-export default eventSubscriptions
+export default eventSubscriptions;

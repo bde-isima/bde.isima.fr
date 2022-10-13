@@ -1,18 +1,18 @@
-import NoSsr from '@mui/material/NoSsr'
-import Dialog from '@mui/material/Dialog'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import DialogContent from '@mui/material/DialogContent'
-import DialogActions from '@mui/material/DialogActions'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import NoSsr from '@mui/material/NoSsr';
+import Typography from '@mui/material/Typography';
 
-import Close from '@mui/icons-material/CloseTwoTone'
+import Close from '@mui/icons-material/CloseTwoTone';
 
-import { useMediaQuery } from 'app/core/styles/theme'
-import SlideTransition from 'app/core/layouts/SlideTransition'
+import SlideTransition from 'app/core/layouts/SlideTransition';
+import { useMediaQuery } from 'app/core/styles/theme';
 
 export default function Results({ results, onClose }) {
-  const fullScreen = useMediaQuery('md')
+  const fullScreen = useMediaQuery('md');
 
   return (
     <NoSsr>
@@ -45,5 +45,5 @@ export default function Results({ results, onClose }) {
         </DialogContent>
       </Dialog>
     </NoSsr>
-  )
+  );
 }

@@ -1,30 +1,31 @@
-import { Image } from 'blitz'
-import { TextField } from 'mui-rff'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Partner } from 'db';
+import { TextField } from 'mui-rff';
 
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone'
+import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
-import { Partner } from 'db'
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import { PartnerInput, PartnerInputType } from 'app/components/forms/validations'
+import Image from 'next/image';
+
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { PartnerInput, PartnerInputType } from 'app/components/forms/validations';
 
 type PartnerFormProps = {
-  initialValues: Partner | null
-  onSuccess: (values: PartnerInputType) => void
-  onClose: () => void
-}
+  initialValues: Partner | null;
+  onSuccess: (values: PartnerInputType) => void;
+  onClose: () => void;
+};
 
 export default function PartnerForm(props: PartnerFormProps) {
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
+      await props.onSuccess(values);
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -36,7 +37,7 @@ export default function PartnerForm(props: PartnerFormProps) {
         id: props.initialValues?.id,
         image: props.initialValues?.image,
         name: props.initialValues?.name,
-        description: props.initialValues?.description,
+        description: props.initialValues?.description
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -70,12 +71,12 @@ export default function PartnerForm(props: PartnerFormProps) {
                 <OpenInNew />
               </IconButton>
             </InputAdornment>
-          ),
+          )
         }}
       />
 
       <TextField type="text" name="name" label="Nom" />
       <TextField type="text" name="description" label="Description" multiline rows={10} />
     </Form>
-  )
+  );
 }

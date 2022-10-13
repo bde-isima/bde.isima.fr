@@ -1,22 +1,24 @@
-import addDays from 'date-fns/addDays'
-import { useQuery, useAuthenticatedSession } from 'blitz'
+import addDays from 'date-fns/addDays';
 
-import getEvents from 'app/entities/events/queries/getEvents'
-import CalendarCell from 'app/components/hub/events/CalendarCell'
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useQuery } from '@blitzjs/rpc';
 
-const today = new Date(new Date().setHours(0, 0, 0, 0))
+import CalendarCell from 'app/components/hub/events/CalendarCell';
+import getEvents from 'app/entities/events/queries/getEvents';
+
+const today = new Date(new Date().setHours(0, 0, 0, 0));
 
 export default function Calendar() {
-  const session = useAuthenticatedSession()
+  const session = useAuthenticatedSession();
 
   const [{ events }] = useQuery(getEvents, {
     where: {
-      AND: [{ takes_place_at: { gte: today } }, { takes_place_at: { lte: addDays(today, 7) } }],
+      AND: [{ takes_place_at: { gte: today } }, { takes_place_at: { lte: addDays(today, 7) } }]
     },
-    include: { club: true, EventSubscription: { where: { userId: session?.userId } } },
-  })
+    include: { club: true, EventSubscription: { where: { userId: session?.userId } } }
+  });
 
-  const getNextSevenDays = () => [...Array(7).keys()].map((i) => addDays(today, i))
+  const getNextSevenDays = () => [...Array(7).keys()].map((i) => addDays(today, i));
 
   return (
     <>
@@ -24,5 +26,5 @@ export default function Calendar() {
         <CalendarCell key={dateIdx} idx={dateIdx} date={date} events={events} />
       ))}
     </>
-  )
+  );
 }

@@ -1,28 +1,28 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Form, FORM_ERROR } from 'app/components/forms/Form'
-import SearchUser from 'app/components/dashboard/cashing/SearchUser'
-import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData'
-import { AddSubscriptionInput, AddSubscriptionInputType } from 'app/components/forms/validations'
+import SearchUser from 'app/components/dashboard/cashing/SearchUser';
+import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import { AddSubscriptionInput, AddSubscriptionInputType } from 'app/components/forms/validations';
+import getUsersPublicData from 'app/entities/users/queries/getUsersPublicData';
 
 type AddSubscriptionFormProps = {
-  onSuccess: (values: AddSubscriptionInputType) => void
-  onClose: () => void
-}
+  onSuccess: (values: AddSubscriptionInputType) => void;
+  onClose: () => void;
+};
 
 export default function AddSubscriptionForm(props: AddSubscriptionFormProps) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const onSubmit = async (values) => {
     try {
-      await props.onSuccess(values)
-      props.onClose()
+      await props.onSuccess(values);
+      props.onClose();
     } catch (error) {
       return {
-        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
-      }
+        [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again. - ' + error.toString()
+      };
     }
-  }
+  };
 
   return (
     <Form
@@ -43,5 +43,5 @@ export default function AddSubscriptionForm(props: AddSubscriptionFormProps) {
         withForm
       />
     </Form>
-  )
+  );
 }

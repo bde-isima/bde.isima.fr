@@ -1,16 +1,18 @@
-import { Image } from 'blitz'
-import { Suspense } from 'react'
-import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Suspense } from 'react';
 
-import { Partner } from 'db'
-import Carousel from './carousel'
-import Link from 'app/core/lib/Link'
-import getPartners from 'app/entities/partners/queries/getPartners'
-import partners from 'public/static/images/illustrations/Partners.svg'
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Partner } from 'db';
+
+import Image from 'next/image';
+
+import Link from 'app/core/lib/Link';
+import getPartners from 'app/entities/partners/queries/getPartners';
+
+import Carousel from './carousel';
 
 export default function Partners() {
   return (
@@ -24,15 +26,10 @@ export default function Partners() {
 
         <Grid container>
           <Grid container item xs={12} md={6} alignItems="center">
-            <Typography
-              className="leading-9"
-              variant="subtitle2"
-              align="justify"
-              color="textPrimary"
-            >
-              Le BDE dispose d&apos;un membre responsable des partenariats, chargé de trouver et
-              négocier des partenariats tout au long de l&apos;année afin de proposer aux élèves
-              toutes sortes d&apos;avantages (réductions, offres promotionnelles, etc ...). <br />
+            <Typography className="leading-9" variant="subtitle2" align="justify" color="textPrimary">
+              Le BDE dispose d&apos;un membre responsable des partenariats, chargé de trouver et négocier des
+              partenariats tout au long de l&apos;année afin de proposer aux élèves toutes sortes d&apos;avantages
+              (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
               Envoyez-nous un message via le{' '}
@@ -46,7 +43,7 @@ export default function Partners() {
 
           <Grid item xs={12} md={6}>
             <Image
-              src={partners}
+              src="/static/images/illustrations/Partners.svg"
               width={500}
               height={300}
               layout="responsive"
@@ -61,5 +58,5 @@ export default function Partners() {
         <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
       </Suspense>
     </div>
-  )
+  );
 }

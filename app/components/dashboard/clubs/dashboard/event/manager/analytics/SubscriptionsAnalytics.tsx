@@ -1,16 +1,13 @@
-import Card from '@mui/material/Card'
-import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
-
-import { EventSubscriptionWithTypedCart, Option, CartItem } from 'global'
+import Card from '@mui/material/Card';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import { CartItem, EventSubscriptionWithTypedCart, Option } from 'global';
 
 type SubscriptionsAnalyticsProps = {
-  eventSubscriptions: EventSubscriptionWithTypedCart[]
-}
+  eventSubscriptions: EventSubscriptionWithTypedCart[];
+};
 
-export default function SubscriptionsAnalytics({
-  eventSubscriptions = [],
-}: SubscriptionsAnalyticsProps) {
+export default function SubscriptionsAnalytics({ eventSubscriptions = [] }: SubscriptionsAnalyticsProps) {
   const revenues = (eventSubscriptions as any).reduce((acc, sub) => {
     return (
       acc +
@@ -20,12 +17,12 @@ export default function SubscriptionsAnalytics({
           cartItem.quantity *
             (cartItem.price +
               (cartItem.options?.reduce((acc: number, o: Option) => {
-                return acc + o.price
+                return acc + o.price;
               }, 0) || 0))
-        )
+        );
       }, 0)
-    )
-  }, 0)
+    );
+  }, 0);
 
   return (
     <div className="flex flex-col">
@@ -55,5 +52,5 @@ export default function SubscriptionsAnalytics({
         </Card>
       </div>
     </div>
-  )
+  );
 }
