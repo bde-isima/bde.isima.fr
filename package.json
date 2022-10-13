@@ -57,7 +57,6 @@
     "mjml": "^4.10.4",
     "mjml-react": "^2.0.0",
     "mui-rff": "^5.0.0",
-    "next-connect": "^0.10.2",
     "next-pwa": "^5.3.1",
     "nodemailer": "^6.6.5",
     "nprogress": "0.2.0",

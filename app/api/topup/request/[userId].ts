@@ -1,13 +1,11 @@
-import nextConnect from 'next-connect'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import db from 'db'
-import middleware from '../../middleware/middleware'
 import {
   makeMerchantReference,
   makeShopOrderReference,
   makeHmac,
-  generateRefillToken,
+  generateTopUpToken,
 } from '../helper'
 
 function generate_hmac(data: FormData, additionalData: string, by_credit_card: boolean): string {
@@ -81,7 +79,7 @@ function prepare_request(
   const shopReference = makeMerchantReference(card, timestamp)
   const shopOrderReference = makeShopOrderReference(card, tAmount)
 
-  const token = generateRefillToken(
+  const token = generateTopUpToken(
     {
       user_id: id,
       card,
@@ -95,7 +93,7 @@ function prepare_request(
   )
 
   const userCallbackUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/hub`
-  const additionalData = `{"callbackUrl":"${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/refill/confirm/${token}"}`
+  const additionalData = `{"callbackUrl":"${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topup/confirm/${token}"}`
 
   // Common request fields
   body.append('lang', 'fr')
@@ -137,58 +135,50 @@ function prepare_request(
   return body
 }
 
-const handler = nextConnect()
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
+    const { body, query } = req
 
-handler.use(middleware)
+    const { amount, method } = body
 
-handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { body, query } = req
+    const id = query.userId as string
+    const tAmount = parseFloat(amount)
 
-  const { amount, method } = body
+    if (Number.isNaN(tAmount) || tAmount <= 0) {
+      console.log(`Tentative rechargement d’une valeur invalide (${amount}) par ${id}`)
+      res.status(400).json({ name: 'Invalid amount' })
+    } else if (method == 'cb' || method == 'lyf') {
+      let by_credit_card = true
 
-  const id = query.userId as string
-  const tAmount = parseFloat(amount)
+      if (method == 'lyf') {
+        by_credit_card = false
+      }
 
-  if (Number.isNaN(tAmount) || tAmount <= 0) {
-    console.log(`Tentative rechargement d’une valeur invalide (${amount}) par ${id}`)
-    res.status(400).json({ name: 'Invalid amount' })
-  } else if (method == 'cb' || method == 'lyf') {
-    let by_credit_card = true
+      const user = await db.user.findUnique({ where: { id } })
 
-    if (method == 'lyf') {
-      by_credit_card = false
-    }
+      if (user) {
+        let req = prepare_request(id, user.card, tAmount, by_credit_card)
 
-    const user = await db.user.findUnique({ where: { id } })
+        let link = generate_form_get_request(
+          (by_credit_card
+            ? process.env.LYF_CREDIT_CARD_API_URL
+            : process.env.LYF_FROM_APPLICATION_API_URL)!,
+          req
+        )
 
-    if (user) {
-      let req = prepare_request(id, user.card, tAmount, by_credit_card)
-
-      let link = generate_form_get_request(
-        (by_credit_card
-          ? process.env.LYF_CREDIT_CARD_API_URL
-          : process.env.LYF_FROM_APPLICATION_API_URL)!,
-        req
-      )
-
-      console.error(
-        `La requête pour effectuer le paiement de ${amount}€ est prêt via le lien ${link}`
-      )
-      res.status(200).json({ urlRequest: link })
+        console.error(
+          `La requête pour effectuer le paiement de ${amount}€ est prêt via le lien ${link}`
+        )
+        res.status(200).json({ urlRequest: link })
+      } else {
+        console.error(`L’utilisateur ${id} est inconnu`)
+        res.status(404).json({ name: 'Unknown user' })
+      }
     } else {
-      console.error(`L’utilisateur ${id} est inconnu`)
-      res.status(404).json({ name: 'Unknown user' })
+      console.error(`Le type de requête ${method} est invalide. N’est possible que cb ou lyf`)
+      res.status(400).json({ name: 'Invalid method' })
     }
   } else {
-    console.error(`Le type de requête ${method} est invalide. N’est possible que cb ou lyf`)
-    res.status(400).json({ name: 'Invalid method' })
+    res.status(400).send('BAD REQUEST')
   }
-})
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
 }
-
-export default handler

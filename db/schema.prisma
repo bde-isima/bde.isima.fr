@@ -7,7 +7,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 // --------------------------------------
@@ -18,7 +18,7 @@ enum PaymentMethod {
   CASH
 }
 
-enum RefillMethod {
+enum TopUpMethod {
   LYF
   CREDIT_CARD
 }
@@ -93,12 +93,12 @@ model Transaction {
   updatedAt DateTime @updatedAt
 }
 
-model Refill {
+model TopUp {
   reference       String @id @unique
   order_reference String
 
   amount Int
-  method RefillMethod
+  method TopUpMethod
 
   is_validated Boolean
 
@@ -174,7 +174,7 @@ model UserStats {
   id String @id @default(cuid())
 
   user   User   @relation(fields: [userId], references: [id])
-  userId String
+  userId String @unique
 
   articlesStats Json
 

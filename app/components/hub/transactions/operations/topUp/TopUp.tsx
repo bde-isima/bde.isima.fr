@@ -16,12 +16,12 @@ export default function TopUp() {
   const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod)
 
   const onSuccess = (data: TopUpInputType) => {
-    const body = new FormData()
+    const body = new URLSearchParams()
 
     body.append('amount', `${data.amount}`)
     body.append('method', `${paymentMethod}`)
 
-    return fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/refill/request/${session.userId}`, {
+    return fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topup/request/${session.userId}`, {
       method: 'POST',
       body,
     })

@@ -27,7 +27,7 @@ export function makeHmac(elements: Array<any>, secret: BinaryLike | KeyObject): 
   return createHmac('sha1', secret).update(encoded).digest('hex')
 }
 
-export type RefillInfo = {
+export type TopUpInfo = {
   user_id: string
   card: number
   amount: number
@@ -37,13 +37,13 @@ export type RefillInfo = {
   by_credit_card: boolean
 }
 
-export function generateRefillToken(info: RefillInfo, secret: BinaryLike | KeyObject): string {
+export function generateTopUpToken(info: TopUpInfo, secret: BinaryLike | KeyObject): string {
   let ret = base64url.encode(JSON.stringify(info))
 
   return `${ret}.${createHmac('sha1', secret).update(ret).digest('hex')}`
 }
 
-export function parseRefillToken(token: string, secret: BinaryLike | KeyObject): RefillInfo | null {
+export function parseTopUpToken(token: string, secret: BinaryLike | KeyObject): TopUpInfo | null {
   let data = token.split('.')
 
   if (data.length != 2) return null
