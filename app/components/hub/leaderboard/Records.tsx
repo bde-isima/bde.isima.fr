@@ -20,6 +20,18 @@ export default function Records() {
     where: { tag: 'leaderboard' }
   });
 
+  if (leaderboard == null) {
+    return (
+      <>
+        <TableRow>
+          <TableCell align="center" colSpan={5}>
+            Aucun leaderboard ne peut être affiché
+          </TableCell>
+        </TableRow>
+      </>
+    )
+  }
+
   return (
     <>
       {(leaderboard as any)?.data?.map((row, index) => {
