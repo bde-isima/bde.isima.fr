@@ -1,4 +1,4 @@
-import { BinaryLike, createHmac, KeyObject } from 'crypto'
+import { BinaryLike, KeyObject, createHmac } from 'crypto'
 import base64url from 'base64url'
 
 export function makeMerchantReference(card: number, timestamp: number): string {

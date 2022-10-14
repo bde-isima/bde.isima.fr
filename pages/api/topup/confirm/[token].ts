@@ -1,15 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import db from 'db'
-import { parseTopUpToken, makeHmac, makeMerchantReference, makeShopOrderReference } from '../helper'
+import { makeHmac, makeMerchantReference, makeShopOrderReference, parseTopUpToken } from '../../../../app/core/utils/topup'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { body, query } = req
 
     const token = query.token as string
-
-    console.log(`Réception du jeton: ${token}`)
 
     const token_info = parseTopUpToken(token, `${process.env.SESSION_SECRET_KEY}`)
 
@@ -90,10 +88,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         reference: shopReference,
         order_reference: shopOrderReference,
-        amount: amount as number,
+        amount: +amount,
         method: token_info.by_credit_card ? 'CREDIT_CARD' : 'LYF',
         is_validated: status == 'VALIDATED',
-        timestamp: creationDate.timestamp,
+        timestamp: token_info.creation_date,
       },
     })
 

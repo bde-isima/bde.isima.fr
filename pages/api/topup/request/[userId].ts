@@ -2,13 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import db from 'db'
 import {
+  generateTopUpToken,
+  makeHmac,
   makeMerchantReference,
   makeShopOrderReference,
-  makeHmac,
-  generateTopUpToken,
-} from '../helper'
+} from '../../../../app/core/utils/topup'
 
-function generate_hmac(data: FormData, additionalData: string, by_credit_card: boolean): string {
+function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_card: boolean): string {
   let list = [data.get('lang')]
 
   let common = [
@@ -49,7 +49,7 @@ function generate_hmac(data: FormData, additionalData: string, by_credit_card: b
   return makeHmac(list, `${process.env.LYF_API_SECRET_KEY}`)
 }
 
-function generate_form_get_request(base_url: string, formData: FormData): string {
+function generate_form_get_request(base_url: string, formData: URLSearchParams): string {
   let ret = base_url
   let first = true
 
@@ -70,8 +70,8 @@ function prepare_request(
   card: number,
   amount: number,
   by_credit_card: boolean
-): FormData {
-  const body = new FormData()
+): URLSearchParams {
+  const body = new URLSearchParams()
 
   const timestamp = Math.floor(+new Date() / 1000)
   const tAmount = Math.round(amount * 100)
@@ -145,7 +145,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const tAmount = parseFloat(amount)
 
     if (Number.isNaN(tAmount) || tAmount <= 0) {
-      console.log(`Tentative rechargement d’une valeur invalide (${amount}) par ${id}`)
+      console.error(`Tentative rechargement d’une valeur invalide (${amount}) par ${id}`)
       res.status(400).json({ name: 'Invalid amount' })
     } else if (method == 'cb' || method == 'lyf') {
       let by_credit_card = true
@@ -164,10 +164,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             ? process.env.LYF_CREDIT_CARD_API_URL
             : process.env.LYF_FROM_APPLICATION_API_URL)!,
           req
-        )
-
-        console.error(
-          `La requête pour effectuer le paiement de ${amount}€ est prêt via le lien ${link}`
         )
         res.status(200).json({ urlRequest: link })
       } else {
