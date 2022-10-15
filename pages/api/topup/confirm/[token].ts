@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import db from 'db'
-import { makeHmac, makeMerchantReference, makeShopOrderReference, parseTopUpToken } from '../../../../app/core/utils/topup'
+import { makeHmac, makeMerchantReference, makeShopOrderReference, parseTopUpToken } from 'app/core/utils/topup'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    // Récupération des données
+    // Data retrieval
 
     const {
       posUuid,
@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       mac,
     } = body
 
-    // Vérification de l’autenticité des données
+    // Verification of data authenticity
 
     let test_mac = makeHmac(
       [
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    // Vérification de la cohérence des données
+    // Verification of data consistency
 
     if (
       posUuid != `${process.env.LYF_API_VENDOR_ID}` ||
@@ -75,37 +75,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    // Vérification de la présence de la requête dans l’historique
-
-    if (await db.topUp.findUnique({ where: { reference: shopReference } })) {
-      console.error(`La transaction référencée ${shopReference} a déjà été effectuée`)
-      res.status(400).send('ALREADY COMPUTED')
-    }
-
-    // Ajout de la reqête à l’historique
-
-    let create_history_future = db.topUp.create({
-      data: {
-        reference: shopReference,
-        order_reference: shopOrderReference,
-        amount: +amount,
-        method: token_info.by_credit_card ? 'CREDIT_CARD' : 'LYF',
-        is_validated: status == 'VALIDATED',
-        timestamp: token_info.creation_date,
-      },
-    })
-
-    // Vérification du status de la requête
+    // Checking the status of the request
 
     if (status == 'VALIDATED') {
-      // Ajout de l’argent à l’utilisateur
+      // Adding money to the user
       const user = await db.user.findUnique({ where: { id: token_info.user_id } })
 
       if (user != null) {
         const qAmount = amount / 100
 
         await Promise.all([
-          create_history_future,
           db.transaction.create({
             data: {
               amount: qAmount,
@@ -125,9 +104,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(500).send('UNKNOWN USER')
       }
     } else {
-      console.error('La transaction a été refusée par lyf')
-
-      await create_history_future
       res.status(200).send('OK')
     }
   } else {

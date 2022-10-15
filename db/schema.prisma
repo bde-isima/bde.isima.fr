@@ -18,11 +18,6 @@ enum PaymentMethod {
   CASH
 }
 
-enum TopUpMethod {
-  LYF
-  CREDIT_CARD
-}
-
 enum State {
   WAITING_APPROVAL
   ACCEPTED
@@ -91,18 +86,6 @@ model Transaction {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model TopUp {
-  reference       String @id @unique
-  order_reference String
-
-  amount Int
-  method TopUpMethod
-
-  is_validated Boolean
-
-  timestamp Int
 }
 
 model Article {

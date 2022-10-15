@@ -1,30 +1,20 @@
 import { BinaryLike, KeyObject, createHmac } from 'crypto'
 import base64url from 'base64url'
 
-export function makeMerchantReference(card: number, timestamp: number): string {
+export function makeMerchantReference(card: number, timestamp: number) {
   const card_prefix = card > 0 ? 'p' : 'm'
 
   return `r${card_prefix}${Math.abs(card)}t${Math.ceil(timestamp)}`
 }
 
-export function makeShopOrderReference(card: number, amount: number): string {
+export function makeShopOrderReference(card: number, amount: number) {
   const card_prefix = card > 0 ? 'p' : 'm'
 
   return `o${card_prefix}${Math.abs(card)}a${amount}`
 }
 
 export function makeHmac(elements: Array<any>, secret: BinaryLike | KeyObject): string {
-  let encoded = ''
-
-  elements.forEach((val, idx) => {
-    if (idx == 0) {
-      encoded += `${val}`
-    } else {
-      encoded += `*${val}`
-    }
-  })
-
-  return createHmac('sha1', secret).update(encoded).digest('hex')
+  return createHmac('sha1', secret).update(elements.join('*')).digest('hex')
 }
 
 export type TopUpInfo = {
@@ -37,7 +27,7 @@ export type TopUpInfo = {
   by_credit_card: boolean
 }
 
-export function generateTopUpToken(info: TopUpInfo, secret: BinaryLike | KeyObject): string {
+export function generateTopUpToken(info: TopUpInfo, secret: BinaryLike | KeyObject) {
   let ret = base64url.encode(JSON.stringify(info))
 
   return `${ret}.${createHmac('sha1', secret).update(ret).digest('hex')}`

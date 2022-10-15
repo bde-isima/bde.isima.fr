@@ -22,13 +22,11 @@ export default function Records() {
 
   if (leaderboard == null) {
     return (
-      <>
-        <TableRow>
-          <TableCell align="center" colSpan={5}>
-            Aucun leaderboard ne peut être affiché
-          </TableCell>
-        </TableRow>
-      </>
+      <TableRow>
+        <TableCell align="center" colSpan={5}>
+          Aucun classement ne peut être affiché
+        </TableCell>
+      </TableRow>
     )
   }
 
