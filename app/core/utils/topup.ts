@@ -13,27 +13,27 @@ export function makeShopOrderReference(card: number, amount: number) {
   return `o${card_prefix}${Math.abs(card)}a${amount}`
 }
 
-export function makeHmac(elements: Array<any>, secret: BinaryLike | KeyObject): string {
+export function makeHmac(elements: any[], secret: BinaryLike | KeyObject) {
   return createHmac('sha1', secret).update(elements.join('*')).digest('hex')
 }
 
 export type TopUpInfo = {
-  user_id: string
+  userId: string
   card: number
   amount: number
   reference: string
-  order_reference: string
-  creation_date: number
-  by_credit_card: boolean
+  orderReference: string
+  creationDate: number
+  byCreditCard: boolean
 }
 
 export function generateTopUpToken(info: TopUpInfo, secret: BinaryLike | KeyObject) {
-  let ret = base64url.encode(JSON.stringify(info))
+  let ret = Buffer.from(JSON.stringify(info)).toString('base64url')
 
   return `${ret}.${createHmac('sha1', secret).update(ret).digest('hex')}`
 }
 
-export function parseTopUpToken(token: string, secret: BinaryLike | KeyObject): TopUpInfo | null {
+export function parseTopUpToken(token: string, secret: BinaryLike | KeyObject) {
   let data = token.split('.')
 
   if (data.length != 2) return null
@@ -41,7 +41,7 @@ export function parseTopUpToken(token: string, secret: BinaryLike | KeyObject): 
   if (data[1] != createHmac('sha1', secret).update(data[0]).digest('hex')) return null
 
   try {
-    return JSON.parse(base64url.decode(data[0]))
+    return JSON.parse(Buffer.from(data[0], 'base64url').toString('utf8'))
   } catch {
     return null
   }

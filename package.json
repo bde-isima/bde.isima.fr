@@ -77,8 +77,7 @@
     "react-window": "^1.8.7",
     "sanitize-html": "^2.7.2",
     "victory": "^36.6.8",
-    "zod": "3.19.1",
-    "base64url": "^3.0.1"
+    "zod": "3.19.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",

@@ -6,12 +6,12 @@ import Snackbar from 'app/core/layouts/Snackbar'
 import useSnackbar from 'app/entities/hooks/useSnackbar'
 import { TopUpInputType } from 'app/components/forms/validations'
 
-export type PaymentMethod = 'cb' | 'lyf'
+export type PaymentMethod = 'credit' | 'lyf'
 
 export default function TopUp() {
   const session = useAuthenticatedSession();
   const { open, message, severity, onShow, onClose } = useSnackbar();
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit');
 
   const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 

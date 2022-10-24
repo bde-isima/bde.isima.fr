@@ -6,7 +6,7 @@ import {
   makeHmac,
   makeMerchantReference,
   makeShopOrderReference,
-} from '../../../../app/core/utils/topup'
+} from 'app/core/utils/topup'
 
 function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_card: boolean): string {
   let list = [data.get('lang')]
@@ -49,27 +49,11 @@ function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_
   return makeHmac(list, `${process.env.LYF_API_SECRET_KEY}`)
 }
 
-function generate_form_get_request(base_url: string, formData: URLSearchParams): string {
-  let ret = base_url
-  let first = true
-
-  formData.forEach((v, k) => {
-    if (first) {
-      ret += `?${k}=${encodeURIComponent(v.toString())}`
-      first = false
-    } else {
-      ret += `&${k}=${encodeURIComponent(v.toString())}`
-    }
-  })
-
-  return ret
-}
-
 function prepare_request(
   id: string,
   card: number,
   amount: number,
-  by_credit_card: boolean
+  byCreditCard: boolean
 ): URLSearchParams {
   const body = new URLSearchParams()
 
@@ -81,13 +65,13 @@ function prepare_request(
 
   const token = generateTopUpToken(
     {
-      user_id: id,
+      userId: id,
       card,
       amount: tAmount,
       reference: shopReference,
-      order_reference: shopOrderReference,
-      creation_date: timestamp,
-      by_credit_card,
+      orderReference: shopOrderReference,
+      creationDate: timestamp,
+      byCreditCard,
     },
     `${process.env.SESSION_SECRET_KEY}`
   )
@@ -110,7 +94,7 @@ function prepare_request(
   body.append('additionalDataEncoded', Buffer.from(additionalData).toString('base64'))
 
   // Method-specific fields
-  if (by_credit_card) {
+  if (byCreditCard) {
     body.append('caseNumber', '01234')
     body.append('callBackRequired', 'true')
     body.append('country', 'FR')
@@ -130,7 +114,7 @@ function prepare_request(
     body.append('enforcedIdentification', 'false')
   }
 
-  body.append('mac', generate_hmac(body, additionalData, by_credit_card))
+  body.append('mac', generate_hmac(body, additionalData, byCreditCard))
 
   return body
 }
@@ -147,7 +131,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (Number.isNaN(tAmount) || tAmount <= 0) {
       console.error(`Tentative rechargement d’une valeur invalide (${amount}) par ${id}`)
       res.status(400).json({ name: 'Invalid amount' })
-    } else if (method == 'cb' || method == 'lyf') {
+    } else if (method == 'credit' || method == 'lyf') {
       let by_credit_card = true
 
       if (method == 'lyf') {
@@ -159,12 +143,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (user) {
         let req = prepare_request(id, user.card, tAmount, by_credit_card)
 
-        let link = generate_form_get_request(
-          (by_credit_card
-            ? process.env.LYF_CREDIT_CARD_API_URL
-            : process.env.LYF_FROM_APPLICATION_API_URL)!,
-          req
-        )
+        let link = `${(by_credit_card)
+          ? process.env.LYF_CREDIT_CARD_API_URL
+          : process.env.LYF_FROM_APPLICATION_API_URL}?${req.toString()}`
+
         res.status(200).json({ urlRequest: link })
       } else {
         console.error(`L’utilisateur ${id} est inconnu`)

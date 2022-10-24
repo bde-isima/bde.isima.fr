@@ -43,7 +43,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       />
 
       <div className="flex justify-center">
-        <Button type="submit" onClick={props.beforeSubmit('cb')}>
+        <Button type="submit" onClick={props.beforeSubmit('credit')}>
           <Image
             src="/static/images/logos/mastercard.svg"
             width={100}
