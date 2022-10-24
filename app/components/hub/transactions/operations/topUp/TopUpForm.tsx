@@ -6,8 +6,7 @@ import Image from 'next/image';
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import { TopUpInput, TopUpInputType } from 'app/components/forms/validations';
-
-import { PaymentMethod } from './TopUp';
+import { PaymentMethod } from 'app/entities/transactions/mutations/requestTopUp';
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void

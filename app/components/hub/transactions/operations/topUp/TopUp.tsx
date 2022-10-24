@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import { useAuthenticatedSession } from '@blitzjs/auth'
+import { useState } from 'react';
 
-import TopUpForm from './TopUpForm'
-import Snackbar from 'app/core/layouts/Snackbar'
-import useSnackbar from 'app/entities/hooks/useSnackbar'
-import { TopUpInputType } from 'app/components/forms/validations'
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useMutation } from '@blitzjs/rpc';
 
-export type PaymentMethod = 'credit' | 'lyf'
+import { TopUpInputType } from 'app/components/forms/validations';
+import Snackbar from 'app/core/layouts/Snackbar';
+import useSnackbar from 'app/entities/hooks/useSnackbar';
+import requestTopUp, { PaymentMethod } from 'app/entities/transactions/mutations/requestTopUp';
+
+import TopUpForm from './TopUpForm';
 
 export default function TopUp() {
-  const session = useAuthenticatedSession();
-  const { open, message, severity, onShow, onClose } = useSnackbar();
+  const { open, message, severity, onClose, onShow } = useSnackbar();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit');
+  const [topUp, _] = useMutation(requestTopUp);
 
   const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 
   const onSuccess = (data: TopUpInputType) => {
-    const body = new URLSearchParams()
-
-    body.append('amount', `${data.amount}`)
-    body.append('method', `${paymentMethod}`)
-
-    return fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topup/request/${session.userId}`, {
-      method: 'POST',
-      body
-    })
-      .then((res) => res.json())
-      .then((info) => window.location.assign(info.urlRequest))
-      .catch((err) => onShow('error', err.message))
-  }
+    topUp({
+      amount: data.amount,
+      method: paymentMethod
+    }).then(
+      (url) => {
+        window.location.assign(url as string);
+      },
+      (reason) => {
+        onShow('error', reason as string);
+      }
+    );
+  };
 
   return (
     <>
@@ -36,5 +37,5 @@ export default function TopUp() {
 
       <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
     </>
-  )
+  );
 }

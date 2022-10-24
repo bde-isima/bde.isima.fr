@@ -11,10 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const token_info = parseTopUpToken(token, `${process.env.SESSION_SECRET_KEY}`);
 
-    console.log('here');
-
     if (token_info == null) {
-      console.error('Jeton de validation mal formé');
       res.status(404).send('BAD TOKEN');
       return;
     }
@@ -54,7 +51,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ).toUpperCase();
 
     if (test_mac != mac) {
-      console.error(`Le HMAC fourni est invalide. Attendu ${mac}, reçu ${test_mac}`);
       res.status(400).send('BAD MAC');
       return;
     }
