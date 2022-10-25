@@ -1,5 +1,4 @@
 import { BinaryLike, KeyObject, createHmac } from 'crypto'
-import base64url from 'base64url'
 
 export function makeMerchantReference(card: number, timestamp: number) {
   const card_prefix = card > 0 ? 'p' : 'm'
