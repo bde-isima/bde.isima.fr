@@ -13,7 +13,7 @@ import TopUpForm from './TopUpForm';
 export default function TopUp() {
   const { open, message, severity, onClose, onShow } = useSnackbar();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit');
-  const [topUp, _] = useMutation(requestTopUp);
+  const [topUp] = useMutation(requestTopUp);
 
   const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 
@@ -25,8 +25,8 @@ export default function TopUp() {
       (url) => {
         window.location.assign(url as string);
       },
-      (reason) => {
-        onShow('error', reason as string);
+      (error) => {
+        onShow('error', error.message);
       }
     );
   };

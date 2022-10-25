@@ -11,7 +11,7 @@ type RequestTopUpInput = {
 
 export type PaymentMethod = 'credit' | 'lyf';
 
-function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_card: boolean): string {
+function generateHmac(data: URLSearchParams, additionalData: string, byCreditCard: boolean): string {
   let list = [data.get('lang')];
 
   let common = [
@@ -23,7 +23,7 @@ function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_
     data.get('currency')
   ];
 
-  if (by_credit_card) {
+  if (byCreditCard) {
     list = list.concat(common);
     list = list.concat([
       data.get('onSuccess'),
@@ -52,7 +52,7 @@ function generate_hmac(data: URLSearchParams, additionalData: string, by_credit_
   return makeHmac(list, `${process.env.LYF_API_SECRET_KEY}`);
 }
 
-function prepare_request(id: string, card: number, amount: number, byCreditCard: boolean): URLSearchParams {
+function prepareRequest(id: string, card: number, amount: number, byCreditCard: boolean): URLSearchParams {
   const body = new URLSearchParams();
 
   const timestamp = Math.floor(+new Date() / 1000);
@@ -112,7 +112,7 @@ function prepare_request(id: string, card: number, amount: number, byCreditCard:
     body.append('enforcedIdentification', 'false');
   }
 
-  body.append('mac', generate_hmac(body, additionalData, byCreditCard));
+  body.append('mac', generateHmac(body, additionalData, byCreditCard));
 
   return body;
 }
@@ -124,12 +124,11 @@ export default resolver.pipe(
       throw new Error('Valeur invalide');
     }
 
-    let by_credit_card = input.method == 'credit';
-
-    let req = prepare_request(ctx.session.userId as string, ctx.session.card as number, input.amount, by_credit_card);
+    const byCreditCard = input.method == 'credit';
+    const req = prepareRequest(ctx.session.userId as string, ctx.session.card as number, input.amount, byCreditCard);
 
     return `${
-      by_credit_card ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
+      byCreditCard ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
     }?${req.toString()}`;
   }
 );

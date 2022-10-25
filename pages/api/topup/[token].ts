@@ -9,9 +9,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const token = query.token as string;
 
-    const token_info = parseTopUpToken(token, `${process.env.SESSION_SECRET_KEY}`);
+    const tokenInfo = parseTopUpToken(token, `${process.env.SESSION_SECRET_KEY}`);
 
-    if (token_info == null) {
+    if (tokenInfo == null) {
       res.status(404).send('BAD TOKEN');
       return;
     }
@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Verification of data authenticity
 
-    let test_mac = makeHmac(
+    const testMAC = makeHmac(
       [
         posUuid,
         shopReference,
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `${process.env.LYF_API_SECRET_KEY}`
     ).toUpperCase();
 
-    if (test_mac != mac) {
+    if (testMAC != mac) {
       res.status(400).send('BAD MAC');
       return;
     }
@@ -59,16 +59,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (
       posUuid != `${process.env.LYF_API_VENDOR_ID}` ||
-      shopReference != makeMerchantReference(token_info.card, token_info.creationDate) ||
-      shopOrderReference != makeShopOrderReference(token_info.card, token_info.amount) ||
-      amount != token_info.amount ||
+      shopReference != makeMerchantReference(tokenInfo.card, tokenInfo.creationDate) ||
+      shopOrderReference != makeShopOrderReference(tokenInfo.card, tokenInfo.amount) ||
+      amount != tokenInfo.amount ||
       currency != 'EUR' ||
       ['VALIDATED', 'REFUSED'].indexOf(status) <= -1
     ) {
-      console.error('Certaines données de la requête sont incohérentes par rapport au jeton');
-      console.info(`Données du jeton: ${JSON.stringify(token_info, null, 2)}`);
-      console.info(`Données de la requête: ${JSON.stringify(body, null, 2)}`);
-      console.info(`Identifiant du vendeur: ${process.env.LYF_API_VENDOR_ID}`);
       res.status(400).send('INCONSISTENT DATA');
       return;
     }
@@ -78,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (status == 'VALIDATED') {
       // Adding money to the user
 
-      const user = await db.user.findUnique({ where: { id: token_info.userId } });
+      const user = await db.user.findUnique({ where: { id: tokenInfo.userId } });
 
       if (user != null) {
         const qAmount = amount / 100;
@@ -89,12 +85,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               amount: qAmount,
               description: `Rechargement +${qAmount}€`,
               type: 'CREDIT',
-              user: { connect: { id: token_info.userId } },
+              user: { connect: { id: tokenInfo.userId } },
               prevBalance: user.balance
             }
           }),
           db.user.update({
-            where: { id: token_info.userId },
+            where: { id: tokenInfo.userId },
             data: { balance: { increment: qAmount } }
           })
         ]);
