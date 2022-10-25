@@ -30,16 +30,16 @@ export default function PaymentMethods() {
 
   return (
     <ButtonGroup className="w-full" aria-label="Méthodes de paiement">
-      <Tooltip title="Payer par LYDIA">
+      <Tooltip title="Payer par LYF">
         <Button
           className="w-full"
           startIcon={<PhoneAndroid />}
-          aria-label="Payer par LYDIA"
-          variant={eventSubscription?.payment_method === 'LYDIA' ? 'contained' : 'outlined'}
-          onClick={onPaymentMethodChange('LYDIA')}
-          color={eventSubscription?.payment_method === 'LYDIA' ? 'primary' : 'inherit'}
+          aria-label="Payer par LYF"
+          variant={eventSubscription?.payment_method === 'LYF' ? 'contained' : 'outlined'}
+          onClick={onPaymentMethodChange('LYF')}
+          color={eventSubscription?.payment_method === 'LYF' ? 'primary' : 'inherit'}
         >
-          <Typography variant="caption">LYDIA</Typography>
+          <Typography variant="caption">LYF</Typography>
         </Button>
       </Tooltip>
 

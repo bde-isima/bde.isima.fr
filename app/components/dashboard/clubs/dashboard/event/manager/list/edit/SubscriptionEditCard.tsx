@@ -44,7 +44,7 @@ export default function EditCard({ subscription, onStopEdit }: EditCardProps) {
         subheader={
           <Select name="payment_method" label="Paiement par" formControlProps={{ margin: 'normal' }}>
             <MenuItem value="BDE">BDE</MenuItem>
-            <MenuItem value="LYDIA">LYDIA</MenuItem>
+            <MenuItem value="LYF">LYF</MenuItem>
             <MenuItem value="CASH">LIQUIDE</MenuItem>
           </Select>
         }

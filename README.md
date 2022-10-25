@@ -43,7 +43,7 @@ To run the app locally, you need to have a .env at the root folder and modify th
 $ cp .env.template .env
 ```
 
-NOTE: REDACTED variables are not mandatory to run the app, only for specific features like Lydia Payments, Google Analytics, etc...
+NOTE: REDACTED variables are not mandatory to run the app, only for specific features like Google Analytics, etc...
 
 # 🚀 Start
 
