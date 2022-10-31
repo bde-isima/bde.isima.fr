@@ -1,6 +1,30 @@
 version: '3.7'
 
 services:
+  bde_watchtower:
+    container_name: bde_watchtower
+    image: containrrr/watchtower:latest
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .docker/config.json:/config.json
+
+  bde_vault:
+    container_name: bde_vault
+    image: vaultwarden/server:latest
+    restart: always
+    environment:
+      WEBSOCKET_ENABLED: "true"
+      SIGNUPS_ALLOWED: "false"
+      ADMIN_TOKEN: REDACTED
+      DOMAIN: "https://bde.isima.fr/vault"
+    volumes:
+      - ../webvault:/data
+    networks:
+      - bde_isima_net
+
   bde_nginx:
     container_name: bde_nginx
     image: nginx:1.23-alpine
