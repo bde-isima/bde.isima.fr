@@ -37,7 +37,7 @@ export default function Events() {
       )}
 
       {events.map((event, idx) => (
-        <EventsItem key={idx} event={event as EventDb & { club: { image: string | null } }} />
+        <EventsItem key={idx} event={event as EventDb & { club: { image: string | null; name: string } }} />
       ))}
     </>
   );

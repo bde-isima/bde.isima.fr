@@ -83,6 +83,8 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
     setTotal(quantity * (product.price + selectedOptions.reduce((acc: number, val: Option) => acc + val.price, 0)));
   }, [product, quantity, selectedOptions]);
 
+  if (!product.groupOptions) product.groupOptions = [];
+
   product.groupOptions.sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type));
 
   return (
