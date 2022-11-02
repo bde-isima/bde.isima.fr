@@ -66,15 +66,17 @@ export default function ClubEventForm(props: ClubEventFormProps) {
             name: i.name,
             description: i.description,
             price: i.price,
-            groupOptions: i.groupOptions.map((go) => ({
-              name: go.name,
-              type: go.type,
-              options: go.options?.map((o) => ({
-                name: o.name,
-                description: o.description,
-                price: o.price
-              }))
-            }))
+            groupOptions: i.groupOptions
+              ? i.groupOptions.map((go) => ({
+                  name: go.name,
+                  type: go.type,
+                  options: go.options?.map((o) => ({
+                    name: o.name,
+                    description: o.description,
+                    price: o.price
+                  }))
+                }))
+              : []
           }))
         : []
     }),
