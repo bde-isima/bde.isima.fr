@@ -13,7 +13,7 @@ type MarketItemProps = {
 export default function MarketItem({ article, isLoading }: MarketItemProps) {
   return (
     <ImageListItem>
-      {isLoading ? (
+      {isLoading || article?.image == null ? (
         <Skeleton variant="rectangular" width="100%" height={200} animation="wave" />
       ) : (
         <Image className="rounded-lg" src={article?.image!} layout="fill" objectFit="cover" alt={article?.name} />
