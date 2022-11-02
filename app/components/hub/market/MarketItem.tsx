@@ -14,12 +14,12 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
   return (
     <ImageListItem>
       {isLoading || article?.image == null ? (
-        <Skeleton variant="rectangular" width="100%" height={200} animation="wave" />
+        <Skeleton className="rounded-lg" variant="rectangular" width="100%" height={200} animation="wave" />
       ) : (
         <Image className="rounded-lg" src={article?.image!} layout="fill" objectFit="cover" alt={article?.name} />
       )}
       <ImageListItemBar
-        className="rounded-b-lg"
+        className="rounded-b-lg backdrop-blur-lg"
         title={
           isLoading ? (
             <Skeleton width="100%" animation="wave" />
