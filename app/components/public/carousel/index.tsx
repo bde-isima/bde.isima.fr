@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
@@ -105,7 +106,13 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
         {data[queryKey].map((item: ItemType) => (
           <Card key={item.id} className="mx-2 h-full">
             <CardActionArea className="flex flex-col h-full justify-start p-4" onClick={onOpen(item)}>
-              {item.image && <Image src={item.image} alt={`Logo ${item.name}`} width={160} height={160} />}
+              {item.image ? (
+                <Image src={item.image} alt={`Logo ${item.name}`} width={160} height={160} />
+              ) : (
+                <Avatar alt={`Logo ${item.name}`} sx={{ width: 160, height: 160 }}>
+                  {item.name}
+                </Avatar>
+              )}
 
               <CardContent className="h-24">
                 <Typography gutterBottom variant="subtitle1" component="h2">

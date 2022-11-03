@@ -27,11 +27,11 @@ export default function Contact() {
         <div className="px-2 py-8 md:p-8">
           <a id="contact" href="#contact" />
 
-          <Typography variant="h3" align="right" color="secondary" gutterBottom>
+          <Typography variant="h3" align="right" gutterBottom>
             <b>CONTACT</b>
           </Typography>
 
-          <Typography align="right" variant="subtitle2" color="secondary" gutterBottom>
+          <Typography align="right" variant="subtitle2" gutterBottom>
             Vous souhaitez prendre contact ?
           </Typography>
 
