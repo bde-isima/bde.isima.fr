@@ -52,7 +52,7 @@ const CarouselDialog = <ItemType extends CarouselItemType>({
 
       <DialogTitle id="carousel-dialog-title" className="p-0">
         <Paper
-          className="relative bg-gray-800 text-white mb-8 bg-cover bg-no-repeat bg-top h-96"
+          className="relative text-white mb-8 bg-cover bg-no-repeat bg-top h-96"
           sx={{ backgroundImage: `url(${item?.image})` }}
         >
           <div className="absolute inset-0 bg-black/30" />

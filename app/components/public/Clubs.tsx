@@ -15,7 +15,7 @@ import Carousel from './carousel';
 
 export default function Clubs() {
   return (
-    <Paper className="flex flex-col bg-primary px-2 py-8 min-h-screen">
+    <Paper className="flex flex-col px-2 py-8 min-h-screen">
       <a id="clubs" href="#clubs" />
 
       <Container>

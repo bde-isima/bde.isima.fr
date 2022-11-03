@@ -22,7 +22,7 @@ export default function Contact() {
   };
 
   return (
-    <Paper className="bg-primary min-h-screen">
+    <Paper className="min-h-screen">
       <Container className="min-h-screen">
         <div className="px-2 py-8 md:p-8">
           <a id="contact" href="#contact" />
@@ -35,7 +35,7 @@ export default function Contact() {
             Vous souhaitez prendre contact ?
           </Typography>
 
-          <Paper className="mt-4 p-4">
+          <Paper elevation={3} className="mt-4 p-4 dark:bg-blue">
             <ContactForm onSuccess={onSuccess} />
           </Paper>
 
