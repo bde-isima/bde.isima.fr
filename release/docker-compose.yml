@@ -22,7 +22,7 @@ services:
       ADMIN_TOKEN: REDACTED
       DOMAIN: "https://bde.isima.fr/vault"
     volumes:
-      - ../webvault:/data
+      - ./webvault:/data
     networks:
       - bde_isima_net
 
@@ -39,7 +39,6 @@ services:
     depends_on:
       - bde_app
       - bde_app_dev
-      - bde_pgadmin
     ports:
       - 80:80
       - 443:443
@@ -76,19 +75,6 @@ services:
       - bde_data:/var/lib/postgresql/data
     networks:
       - bde_isima_net
-
-  bde_pgadmin:
-    container_name: bde_pgadmin
-    image: dpage/pgadmin4
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - bde_pgadmin:/var/lib/pgadmin
-    networks:
-      - bde_isima_net
-    depends_on:
-      - bde_postgres
 
 volumes:
   bde_data:
