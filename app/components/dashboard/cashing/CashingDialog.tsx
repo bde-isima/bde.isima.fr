@@ -120,24 +120,9 @@ export default function CashingDialog({ user, onSelection, onClear }) {
 
             <DialogActions className="p-0">
               <BottomNavigation className="w-full" showLabels={!fullScreen} value={value} onChange={onChange}>
-                <BottomNavigationAction
-                  className="text-primary dark:text-secondary"
-                  value={0}
-                  label="Encaisser"
-                  icon={<ShoppingCart />}
-                />
-                <BottomNavigationAction
-                  className="text-primary dark:text-secondary"
-                  value={1}
-                  label="Historique"
-                  icon={<HistoryIcon />}
-                />
-                <BottomNavigationAction
-                  className="text-primary dark:text-secondary"
-                  value={2}
-                  label="Transférer"
-                  icon={<Euro />}
-                />
+                <BottomNavigationAction value={0} label="Encaisser" icon={<ShoppingCart />} />
+                <BottomNavigationAction value={1} label="Historique" icon={<HistoryIcon />} />
+                <BottomNavigationAction value={2} label="Transférer" icon={<Euro />} />
               </BottomNavigation>
             </DialogActions>
           </Dialog>

@@ -87,3 +87,9 @@ img {
   -webkit-border-radius: 100px;
   border-radius: 100px;
 }
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+    color: white !important;
+  }
+}

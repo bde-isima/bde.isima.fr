@@ -50,7 +50,7 @@ export default function Desktop({
               className="w-full h-12"
               startIcon={<Close />}
               aria-label="Se désinscrire"
-              color="inherit"
+              color="neutral"
               onClick={onUnsubscribe}
               disabled={unsubscribing || subscribing}
             >

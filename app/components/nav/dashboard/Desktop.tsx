@@ -15,7 +15,7 @@ import Tab from '@mui/material/Tab';
 import Link from 'next/link';
 
 import { useRouter } from 'app/core/lib/router';
-import { useMediaQuery, useTheme } from 'app/core/styles/theme';
+import { useMediaQuery } from 'app/core/styles/theme';
 
 import { useBDEConfig } from './bde-config';
 import { useClubsConfig } from './clubs-config';
@@ -24,8 +24,6 @@ export default function Desktop() {
   const { router } = useRouter();
   const bdeConfig = useBDEConfig();
   const clubsConfig = useClubsConfig();
-
-  const theme = useTheme();
   const fullScreen = useMediaQuery('md');
 
   const [value, setValue] = useState(`${Number(clubsConfig.some((x) => x.to === router.asPath))}`);
@@ -40,22 +38,18 @@ export default function Desktop() {
 
           return (
             <Link key={obj.text} href={obj.to}>
-              <Button
-                className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
-                variant={isActive ? 'contained' : 'text'}
-                size="small"
-              >
+              <Button className={'w-11/12 rounded-full my-1'} variant={isActive ? 'contained' : 'text'} size="small">
                 <ListItem dense disableGutters>
                   <ListItemIcon>
                     {cloneElement(obj.icon, {
-                      className: `${isActive ? 'text-white' : undefined} rounded-full`
+                      className: `${isActive ? 'text-black' : undefined} ml-1`
                     })}
                   </ListItemIcon>
 
                   <ListItemText
                     secondary={obj.text}
                     secondaryTypographyProps={{
-                      color: isActive ? 'secondary' : 'textPrimary',
+                      color: isActive ? 'black' : 'textPrimary',
                       noWrap: true
                     }}
                   />
@@ -73,12 +67,7 @@ export default function Desktop() {
         <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
           <TabContext value={value}>
             <AppBar position="static" color="inherit" elevation={0}>
-              <TabList
-                onChange={handleChange}
-                textColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
-                indicatorColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
-                aria-label="Nav"
-              >
+              <TabList onChange={handleChange} aria-label="Nav">
                 <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />
                 <Tab classes={{ root: 'min-w-[50%]' }} label="Clubs" value="1" disabled={!clubsConfig.length} />
               </TabList>

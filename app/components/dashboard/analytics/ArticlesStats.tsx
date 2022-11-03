@@ -39,8 +39,10 @@ export default function ArticlesStats() {
 
       <VictoryChart domainPadding={100}>
         <VictoryBar
-          theme={VictoryTheme.material}
-          style={{ data: { fill: theme.palette.text.primary } }}
+          style={{
+            data: { fill: theme.palette.primary.main },
+            labels: { fill: theme.palette.text.primary }
+          }}
           animate={{ duration: 300 }}
           data={data?.articles.map((a: Article & { Transaction: Transaction[] }, i: number) => ({
             x: i + 1,
