@@ -70,11 +70,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
             aria-describedby="cashing-dialog-description"
             {...handlers}
           >
-            <DialogActions className="flex flex-col">
-              <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur" size="large">
-                <Close />
-              </IconButton>
-
+            <DialogActions className="flex flex-row">
               <SearchUser
                 name="user"
                 className="w-full m-4"
@@ -86,12 +82,16 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                 setOpen={setOpen}
               />
 
-              <Suspense fallback={<Skeleton width="60%" height={55} />}>
-                <Balance getQuery={getUser} queryArgs={{ where: { id: user?.id } }} variant="h6" />
-              </Suspense>
+              <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur" size="large">
+                <Close />
+              </IconButton>
             </DialogActions>
 
             <DialogContent className="p-0 text-center">
+              <Suspense fallback={<Skeleton width="60%" height={55} />}>
+                <Balance getQuery={getUser} queryArgs={{ where: { id: user?.id } }} variant="h6" />
+              </Suspense>
+
               <TabPanel className="h-5/6 mb-14" value="0">
                 <Suspense fallback={<CircularProgress className="text-primary dark:text-secondary" size={25} />}>
                   <Catalog user={user} onTransactionComplete={onTransactionComplete} />
