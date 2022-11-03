@@ -54,7 +54,7 @@ export default function Mobile({
   return (
     <AppBar
       position="fixed"
-      color="inherit"
+      color="transparent"
       className="top-auto bottom-0"
       style={{ zIndex: open ? 1400 : 1100 }}
       sx={{ display: { md: 'none', xs: 'block' } }}

@@ -66,7 +66,7 @@ export default function Desktop() {
       {!fullScreen && (
         <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
           <TabContext value={value}>
-            <AppBar position="static" color="inherit" elevation={0}>
+            <AppBar position="static" color="transparent" elevation={0}>
               <TabList onChange={handleChange} aria-label="Nav">
                 <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />
                 <Tab classes={{ root: 'min-w-[50%]' }} label="Clubs" value="1" disabled={!clubsConfig.length} />
