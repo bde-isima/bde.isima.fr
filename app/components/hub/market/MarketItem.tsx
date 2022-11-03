@@ -8,9 +8,10 @@ import Image from 'next/image';
 type MarketItemProps = {
   article?: Article | null;
   isLoading?: boolean;
+  member?: boolean;
 };
 
-export default function MarketItem({ article, isLoading }: MarketItemProps) {
+export default function MarketItem({ article, isLoading, member }: MarketItemProps) {
   return (
     <ImageListItem>
       {isLoading || article?.image == null ? (
@@ -24,11 +25,17 @@ export default function MarketItem({ article, isLoading }: MarketItemProps) {
           isLoading ? (
             <Skeleton width="100%" animation="wave" />
           ) : (
-            `${article?.name} • ${article?.member_price.toFixed(2)}€`
+            `${article?.name} • ${member ? article?.member_price.toFixed(2) : article?.price.toFixed(2)}€`
           )
         }
         subtitle={
-          isLoading ? <Skeleton width="100%" animation="wave" /> : `Non-cotisant • ${article?.price.toFixed(2)}€`
+          isLoading ? (
+            <Skeleton width="100%" animation="wave" />
+          ) : member ? (
+            `Non-cotisant • ${article?.price.toFixed(2)}€`
+          ) : (
+            `Cotisant • ${article?.member_price.toFixed(2)}€`
+          )
         }
       />
     </ImageListItem>
