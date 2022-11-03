@@ -100,6 +100,20 @@ declare module '@mui/material/styles' {
     warning?: React.CSSProperties;
     error?: React.CSSProperties;
   }
+
+  interface Palette {
+    neutral: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    neutral: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true;
+  }
 }
 
 // Update the Typography's variant prop options

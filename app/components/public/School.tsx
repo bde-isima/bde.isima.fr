@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import Grid from '@mui/material/Grid';
@@ -28,7 +29,9 @@ export default function School() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <strong> La Commission des Titres d&apos;Ingénieurs </strong>
+                <Button>
+                  <strong>La Commission des Titres d&apos;Ingénieurs</strong>
+                </Button>
               </a>
               oblige chaque école à disposer d&apos;une vie étudiante.
               <br />
@@ -51,7 +54,7 @@ export default function School() {
 
         <div className="p-6 flex flex-col items-center">
           <Fab
-            className="mb-16"
+            className="mb-16 text-gray-900"
             href="https://www.isima.fr/"
             target="_blank"
             rel="noopener noreferrer"
@@ -59,10 +62,8 @@ export default function School() {
             aria-label="Aller sur https://www.isima.fr"
             color="primary"
           >
-            <Link className="mr-4" color="secondary" />
-            <Typography variant="caption" color="secondary">
-              www.isima.fr
-            </Typography>
+            <Link className="mr-4" />
+            Site de l’ISIMA
           </Fab>
 
           <Image

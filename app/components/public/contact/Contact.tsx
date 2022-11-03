@@ -22,20 +22,20 @@ export default function Contact() {
   };
 
   return (
-    <Paper className="bg-primary min-h-screen">
+    <Paper className="min-h-screen">
       <Container className="min-h-screen">
         <div className="px-2 py-8 md:p-8">
           <a id="contact" href="#contact" />
 
-          <Typography variant="h3" align="right" color="secondary" gutterBottom>
+          <Typography variant="h3" align="right" gutterBottom>
             <b>CONTACT</b>
           </Typography>
 
-          <Typography align="right" variant="subtitle2" color="secondary" gutterBottom>
+          <Typography align="right" variant="subtitle2" gutterBottom>
             Vous souhaitez prendre contact ?
           </Typography>
 
-          <Paper className="mt-4 p-4">
+          <Paper elevation={3} className="mt-4 p-4 dark:bg-blue">
             <ContactForm onSuccess={onSuccess} />
           </Paper>
 

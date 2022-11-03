@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { blue, orange, red } from '@mui/material/colors';
 import { frFR } from '@mui/material/locale';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import useMUIMediaQuery from '@mui/material/useMediaQuery';
@@ -14,16 +15,16 @@ export function useTheme() {
         createTheme(
           {
             typography: {
-              fontFamily: ['Graphik', 'Helvetica Neue', 'sans-serif'].join(','),
-              success: { color: '#4daf7c' },
-              warning: { color: '#2980b9' },
-              error: { color: '#C91F37' }
+              fontFamily: 'Graphik, Helvetica Neue, sans-serif'
             },
             palette: {
               mode: prefersDarkMode ? 'dark' : 'light',
-              primary: { main: '#2A2E43' },
-              secondary: { main: '#fff' },
-              error: { main: '#C91F37' }
+              primary: {
+                main: prefersDarkMode ? orange[300] : orange[500]
+              },
+              secondary: { main: blue.A400 },
+              error: { main: prefersDarkMode ? red.A100 : red.A700 },
+              neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' }
             },
             components: {
               MuiButton: {

@@ -63,7 +63,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
           <Link href="/">
             <Button className={'w-11/12 rounded-full my-1'} variant="text" size="small" onClick={onClose}>
               <ListItem dense disableGutters>
-                <ListItemIcon>
+                <ListItemIcon className="ml-1">
                   <Home />
                 </ListItemIcon>
 

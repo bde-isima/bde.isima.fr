@@ -106,7 +106,7 @@ export function Form<S extends z.ZodType<any, any>>({
 
               {submitText && (
                 <DialogActions>
-                  <Button onClick={onClose} aria-label="Annuler" variant="outlined" color="primary">
+                  <Button onClick={onClose} aria-label="Annuler" variant="text" color="neutral">
                     Annuler
                   </Button>
 

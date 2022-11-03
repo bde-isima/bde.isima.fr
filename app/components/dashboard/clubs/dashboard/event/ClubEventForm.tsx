@@ -96,14 +96,8 @@ export default function ClubEventForm(props: ClubEventFormProps) {
       autoComplete="off"
     >
       <TabContext value={value}>
-        <AppBar position="static" color="inherit" elevation={0}>
-          <TabList
-            onChange={handleChange}
-            variant="fullWidth"
-            textColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
-            indicatorColor={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
-            aria-label="Nav"
-          >
+        <AppBar position="static" color="transparent" elevation={0}>
+          <TabList onChange={handleChange} variant="fullWidth" aria-label="Nav">
             <Tab label="Infos" value="0" />
             <Tab label="Produits" value="1" />
             <Tab label="Options" value="2" />

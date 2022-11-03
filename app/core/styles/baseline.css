@@ -27,10 +27,7 @@ body,
 a:link,
 a:visited,
 a:active {
-  text-decoration: none;
-}
-
-a:hover {
+  color: unset;
   cursor: pointer;
 }
 
@@ -40,6 +37,8 @@ img {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+
+  object-fit: contain;
 }
 
 .form > * + * {
@@ -87,4 +86,10 @@ img {
   background: rgba(0, 0, 0, 0.61);
   -webkit-border-radius: 100px;
   border-radius: 100px;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+    color: white !important;
+  }
 }

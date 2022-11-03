@@ -11,6 +11,7 @@ import TableRows from './TableRows';
 
 type TableCoreProps = {
   rows: any[];
+  defaultSort?: { name: string; order: 'asc' | 'desc' };
   getQuery: any;
   queryArgs?: any;
   columns: any[];
@@ -24,9 +25,14 @@ type TableCoreProps = {
 
 export default function TableCore(props: TableCoreProps) {
   const { order, orderBy, page, search, rowsPerPage } = useTableProps();
-  const { rows, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props;
+  const { rows, defaultSort, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props;
 
   const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== 'equals');
+
+  if (defaultSort) {
+    order.value = defaultSort.order;
+    orderBy.value = defaultSort.name;
+  }
 
   const [res] = useQuery(getQuery, {
     skip: page.value * rowsPerPage,

@@ -54,7 +54,7 @@ export default function Mobile({
   return (
     <AppBar
       position="fixed"
-      color="inherit"
+      color="transparent"
       className="top-auto bottom-0"
       style={{ zIndex: open ? 1400 : 1100 }}
       sx={{ display: { md: 'none', xs: 'block' } }}
@@ -94,7 +94,7 @@ export default function Mobile({
             )}
           </Grid>
           <Grid container item xs={3} justifyContent="center" alignContent="center">
-            <Typography className="text-center" variant="caption" color="textSecondary">
+            <Typography className="text-center" variant="caption" color="textPrimary">
               {`${total} €`}
             </Typography>
           </Grid>
@@ -190,13 +190,13 @@ export default function Mobile({
                 </Typography>
 
                 <Button
-                  className="w-full text-red-600"
+                  className="w-full"
                   startIcon={<Close />}
                   variant="outlined"
                   onClick={onUnsubscribe}
                   disabled={unsubscribing || subscribing}
                   aria-label="Se désinscrire"
-                  color="inherit"
+                  color="error"
                 >
                   {unsubscribing ? <CircularProgress size={25} color="inherit" /> : 'Se désinscrire'}
                 </Button>
