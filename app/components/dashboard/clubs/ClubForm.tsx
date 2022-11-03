@@ -80,7 +80,7 @@ export default function ClubForm(props: ClubFormProps) {
         }}
       />
 
-      <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
+      <TextField type="text" name="name" label="Nom" />
       <TextField type="email" name="email" label="Adresse email" />
       <TextField type="text" name="description" label="Description" multiline rows={15} />
 
