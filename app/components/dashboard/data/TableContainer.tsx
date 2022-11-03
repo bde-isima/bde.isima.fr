@@ -18,6 +18,7 @@ import TableToolbar from './TableToolbar';
 type TableProps = {
   title: string;
   columns: any[];
+  defaultSort?: { name: string; order: 'asc' | 'desc' };
   snackbar: any;
   queryKey: string;
   getQuery: any;
