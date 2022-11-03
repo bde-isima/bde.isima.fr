@@ -78,7 +78,7 @@ export default function ArticleForm(props: ArticleFormProps) {
         }}
       />
 
-      <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
+      <TextField type="text" name="name" label="Nom" />
       <EnhancedTextField type="number" name="price" label="Prix" inputProps={{ step: 0.01 }} />
       <EnhancedTextField type="number" name="member_price" label="Prix adhérent" inputProps={{ step: 0.01 }} />
 
