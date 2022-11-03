@@ -20,7 +20,9 @@ export default function ArticlesStats() {
 
   const [data] = useQuery(getArticles, {
     include: { Transaction: true },
-    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } }
+    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
+    orderBy: { Transaction: { _count: 'desc' } },
+    take: 10
   });
 
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
