@@ -18,16 +18,12 @@ export default function EventStatus({ event }) {
   return (
     <Tooltip title={title}>
       <span>
-        {event.status === 'WAITING_APPROVAL' && <HourglassTop className="text-yellow-500" />}
+        {event.status === 'WAITING_APPROVAL' && <HourglassTop color="warning" />}
 
         {event.status === 'ACCEPTED' &&
-          (new Date() < new Date(event.subscriptions_end_at) ? (
-            <History className="text-blue-500" />
-          ) : (
-            <Check className="text-green-400" />
-          ))}
+          (new Date() < new Date(event.subscriptions_end_at) ? <History color="info" /> : <Check color="success" />)}
 
-        {event.status === 'CHECKED_OUT' && <DoneAll className="text-green-400" />}
+        {event.status === 'CHECKED_OUT' && <DoneAll color="success" />}
       </span>
     </Tooltip>
   );
