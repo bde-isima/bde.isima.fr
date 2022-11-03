@@ -12,7 +12,6 @@ const School = lazy(() => import('app/components/public/School'));
 const Partners = lazy(() => import('app/components/public/Partners'));
 const Footer = lazy(() => import('app/components/public/footer/Footer'));
 const Contact = lazy(() => import('app/components/public/contact/Contact'));
-const MessengerChat = lazy(() => import('app/components/public/MessengerChat'));
 
 const Index: BlitzPage = () => {
   return (
@@ -32,9 +31,6 @@ const Index: BlitzPage = () => {
       </Suspense>
       <Suspense fallback={null}>
         <Footer />
-      </Suspense>
-      <Suspense fallback={null}>
-        <MessengerChat />
       </Suspense>
     </>
   );
