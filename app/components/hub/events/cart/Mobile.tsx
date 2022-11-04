@@ -65,17 +65,19 @@ export default function Mobile({
             {open ? (
               <Button
                 className="w-full h-full"
-                startIcon={<Check />}
+                startIcon={event.subscriptions_end_at!.getTime() > Date.now() && <Check />}
                 variant="contained"
                 onClick={onSubscribe}
-                disabled={unsubscribing || subscribing}
+                disabled={subscribing || unsubscribing || event.subscriptions_end_at!.getTime() <= Date.now()}
                 aria-label={eventSubscription.id ? 'Modifier' : "S'inscrire"}
                 color="primary"
               >
                 {subscribing ? (
                   <CircularProgress size={25} color="secondary" />
-                ) : eventSubscription.id ? (
+                ) : eventSubscription?.id ? (
                   'Modifier'
+                ) : event.subscriptions_end_at!.getTime() <= Date.now() ? (
+                  'Les inscriptions sont closes'
                 ) : (
                   "S'inscrire"
                 )}
