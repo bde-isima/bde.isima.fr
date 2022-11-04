@@ -45,82 +45,85 @@ export default function Nav() {
   });
 
   return (
-    <Slide appear={false} direction="down" in={!useScrollTrigger()}>
-      <AppBar className="h-16 justify-center" elevation={Number(!isOnTop)} position="fixed" color="inherit">
-        <Toolbar variant="dense">
-          <Mobile
-            isOpen={isMobileMenuOpen}
-            onOpen={toggleDrawer(setIsMobileMenuOpen, true)}
-            onClose={toggleDrawer(setIsMobileMenuOpen, false)}
-            onLoginRequested={toggleDrawer(setIsLoginMenuOpen, true)}
-          />
+    <AppBar
+      className="h-16 justify-center bg-white/75 dark:bg-zinc-800/75 backdrop-blur-lg"
+      elevation={Number(!isOnTop)}
+      position="fixed"
+      color="transparent"
+    >
+      <Toolbar variant="dense">
+        <Mobile
+          isOpen={isMobileMenuOpen}
+          onOpen={toggleDrawer(setIsMobileMenuOpen, true)}
+          onClose={toggleDrawer(setIsMobileMenuOpen, false)}
+          onLoginRequested={toggleDrawer(setIsLoginMenuOpen, true)}
+        />
 
-          {fullScreen && (
-            <IconButton
-              className="text-primary dark:text-secondary"
-              aria-label="Menu"
-              onClick={toggleDrawer(setIsMobileMenuOpen, true)}
-              size="large"
-            >
-              <Menu />
-            </IconButton>
-          )}
+        {fullScreen && (
+          <IconButton
+            className="text-primary dark:text-secondary"
+            aria-label="Menu"
+            onClick={toggleDrawer(setIsMobileMenuOpen, true)}
+            size="large"
+          >
+            <Menu />
+          </IconButton>
+        )}
 
-          <Link className="mx-auto lg:ml-0" href="/">
-            <Image src="/static/images/logos/logo.svg" width={40} height={40} quality={100} alt="Logo BDE ISIMA" />
-          </Link>
+        <Link className="mx-auto lg:ml-0" href="/">
+          <Image src="/static/images/logos/logo.svg" width={40} height={40} quality={100} alt="Logo BDE ISIMA" />
+        </Link>
 
-          {!fullScreen && <Desktop />}
+        {!fullScreen && <Desktop />}
 
-          {!session.userId ? (
-            <Fab
-              className={`${!fullScreen && 'ml-4'}`}
-              variant={fullScreen ? 'circular' : 'extended'}
-              onClick={toggleDrawer(setIsLoginMenuOpen, true)}
-              aria-label="Se connecter"
-              size={fullScreen ? 'small' : 'large'}
-              color="primary"
-            >
-              <Login className={`${!fullScreen && 'mr-2'}`} />
-              {!fullScreen && 'Se connecter'}
-            </Fab>
-          ) : (
-            <Fab
-              className={`${!fullScreen && 'ml-4'}`}
-              variant={fullScreen ? 'circular' : 'extended'}
-              onClick={pushRoute('/hub')}
-              aria-label="Mon compte"
-              size={fullScreen ? 'small' : 'large'}
-              color="primary"
-            >
-              <Account className={`${!fullScreen && 'mr-2'}`} />
-              {!fullScreen && 'Mon compte'}
-            </Fab>
-          )}
+        {!session.userId ? (
+          <Fab
+            className={`${!fullScreen && 'ml-4'}`}
+            variant={fullScreen ? 'circular' : 'extended'}
+            onClick={toggleDrawer(setIsLoginMenuOpen, true)}
+            aria-label="Se connecter"
+            size={fullScreen ? 'small' : 'large'}
+            color="primary"
+          >
+            <Login className={`${!fullScreen && 'mr-2'}`} />
+            {!fullScreen && 'Se connecter'}
+          </Fab>
+        ) : (
+          <Fab
+            className={`${!fullScreen && 'ml-4'}`}
+            variant={fullScreen ? 'circular' : 'extended'}
+            onClick={pushRoute('/hub')}
+            aria-label="Mon compte"
+            size={fullScreen ? 'small' : 'large'}
+            color="primary"
+          >
+            <Account className={`${!fullScreen && 'mr-2'}`} />
+            {!fullScreen && 'Mon compte'}
+          </Fab>
+        )}
 
-          {!session.userId && (
-            <Dialog
-              open={isLoginMenuOpen}
-              fullScreen={fullScreen}
-              PaperProps={{ className: 'w-full' }}
-              onClose={toggleDrawer(setIsLoginMenuOpen, false)}
-            >
-              <DialogActions>
-                <IconButton
-                  className="mr-auto"
-                  onClick={toggleDrawer(setIsLoginMenuOpen, false)}
-                  aria-label="Retour"
-                  size="large"
-                >
-                  <KeyboardArrowLeftIcon />
-                </IconButton>
-              </DialogActions>
+        {!session.userId && (
+          <Dialog
+            open={isLoginMenuOpen}
+            fullScreen={fullScreen}
+            PaperProps={{ className: 'w-full' }}
+            onClose={toggleDrawer(setIsLoginMenuOpen, false)}
+          >
+            <DialogActions>
+              <IconButton
+                className="mr-auto"
+                onClick={toggleDrawer(setIsLoginMenuOpen, false)}
+                aria-label="Retour"
+                size="large"
+              >
+                <KeyboardArrowLeftIcon />
+              </IconButton>
+            </DialogActions>
 
-              <LoginContent />
-            </Dialog>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Slide>
+            <LoginContent />
+          </Dialog>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 }

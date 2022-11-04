@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
@@ -16,10 +17,9 @@ import Carousel from './carousel';
 
 export default function Partners() {
   return (
-    <div className="flex flex-col px-2 py-8 md:p-8 min-h-screen">
+    <Box className="bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
       <a id="partners" href="#partners" />
-
-      <Container>
+      <Container className="px-2 py-8 md:p-8">
         <Typography variant="h3" color="textPrimary" gutterBottom>
           <b>LES PARTENAIRES DU BDE</b>
         </Typography>
@@ -32,7 +32,7 @@ export default function Partners() {
               (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
-              Envoyez-nous un message via le{' '}
+              Envoyez-nous un message via le
               <Link href="/#contact">
                 <Button>
                   <strong>formulaire de contact</strong>
@@ -57,6 +57,6 @@ export default function Partners() {
       <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
         <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
       </Suspense>
-    </div>
+    </Box>
   );
 }

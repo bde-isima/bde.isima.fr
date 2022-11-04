@@ -10,7 +10,7 @@ export default function Landing() {
   const fullScreen = useMediaQuery('md');
 
   return (
-    <Paper className="min-h-screen relative">
+    <Container className="min-h-main relative">
       <a id="landing" href="#landing" />
       <Image
         src={`/static/images/illustrations/${fullScreen ? 'MobileBackground' : 'Background'}.svg`}
@@ -30,6 +30,6 @@ export default function Landing() {
           </Typography>
         </div>
       </Container>
-    </Paper>
+    </Container>
   );
 }

@@ -104,7 +104,7 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
         removeArrowOnDeviceType={['tablet', 'mobile']}
       >
         {data[queryKey].map((item: ItemType) => (
-          <Card elevation={3} key={item.id} className="mx-2 h-full">
+          <Card elevation={1} key={item.id} className="mx-2 h-full">
             <CardActionArea className="flex flex-col h-full justify-start p-4" onClick={onOpen(item)}>
               {item.image ? (
                 <Image src={item.image} alt={`Logo ${item.name}`} width={160} height={160} />

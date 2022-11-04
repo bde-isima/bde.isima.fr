@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Club } from 'db';
 
@@ -15,10 +15,9 @@ import Carousel from './carousel';
 
 export default function Clubs() {
   return (
-    <Paper className="flex flex-col px-2 py-8 min-h-screen">
+    <Box>
       <a id="clubs" href="#clubs" />
-
-      <Container>
+      <Container className="px-2 py-8 md:p-8">
         <Typography variant="h3" align="right" gutterBottom>
           <b>LES CLUBS DU BDE</b>
         </Typography>
@@ -46,10 +45,9 @@ export default function Clubs() {
           </Grid>
         </Grid>
       </Container>
-
       <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
         <Carousel<Club> getQuery={getClubs} queryKey="clubs" />
       </Suspense>
-    </Paper>
+    </Box>
   );
 }

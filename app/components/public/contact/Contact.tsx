@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -22,26 +23,22 @@ export default function Contact() {
   };
 
   return (
-    <Paper className="min-h-screen">
-      <Container className="min-h-screen">
-        <div className="px-2 py-8 md:p-8">
-          <a id="contact" href="#contact" />
+    <Box>
+      <a id="contact" href="#contact" />
+      <Container className="px-2 py-8 md:p-8">
+        <Typography variant="h3" align="right" gutterBottom>
+          <b>CONTACT</b>
+        </Typography>
 
-          <Typography variant="h3" align="right" gutterBottom>
-            <b>CONTACT</b>
-          </Typography>
+        <Typography align="right" variant="subtitle2" gutterBottom>
+          Vous souhaitez prendre contact ?
+        </Typography>
+        <Paper elevation={3} className="mt-4 p-4 dark:bg-blue">
+          <ContactForm onSuccess={onSuccess} />
+        </Paper>
 
-          <Typography align="right" variant="subtitle2" gutterBottom>
-            Vous souhaitez prendre contact ?
-          </Typography>
-
-          <Paper elevation={3} className="mt-4 p-4 dark:bg-blue">
-            <ContactForm onSuccess={onSuccess} />
-          </Paper>
-
-          <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
-        </div>
+        <Snackbar open={open} message={message} severity={severity} onClose={onClose} />
       </Container>
-    </Paper>
+    </Box>
   );
 }
