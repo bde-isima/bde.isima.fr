@@ -29,6 +29,19 @@ export function useTheme() {
               success: { main: prefersDarkMode ? green[300] : green[700] }
             },
             components: {
+              MuiAppBar: {
+                defaultProps: {
+                  color: 'transparent'
+                },
+                styleOverrides: {
+                  root: {
+                    borderLeft: 'none',
+                    borderRight: 'none',
+                    backgroundColor: 'rgb(var(--color-bl0) / 0.9)',
+                    backdropFilter: 'blur(24px)'
+                  }
+                }
+              },
               MuiButton: {
                 defaultProps: {
                   disableElevation: true

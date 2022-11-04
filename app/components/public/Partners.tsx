@@ -16,7 +16,7 @@ import Carousel from './carousel';
 
 export default function Partners() {
   return (
-    <Box className="bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+    <Box className="bg-bl1 overflow-hidden">
       <a id="partners" href="#partners" />
       <Container className="px-2 py-8 md:p-8">
         <Typography variant="h3" gutterBottom>

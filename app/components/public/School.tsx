@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 export default function School() {
   return (
-    <Box className="bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+    <Box className="bg-bl1 overflow-hidden">
       <Container>
         <a id="school" href="#school" />
 

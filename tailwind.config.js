@@ -19,7 +19,9 @@ module.exports = {
         width: 'width'
       },
       colors: {
-        primary: 'rgb(var(--color-primary) / <alpha-value>)'
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        bl0: 'rgb(var(--color-bl0) / <alpha-value>)',
+        bl1: 'rgb(var(--color-bl1) / <alpha-value>)'
       },
       backgroundColor: (theme) => theme('colors'),
       textColor: (theme) => theme('colors'),
@@ -27,6 +29,9 @@ module.exports = {
       minHeight: {
         100: '100px',
         main: 'calc(100vh - 64px)'
+      },
+      minWidth: {
+        40: '40px'
       }
     }
   }

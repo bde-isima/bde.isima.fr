@@ -40,7 +40,7 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: 'w-3/4' }}
+      PaperProps={{ className: 'w-3/4 bg-bl1/90' }}
     >
       <div className="text-center">
         <List>
