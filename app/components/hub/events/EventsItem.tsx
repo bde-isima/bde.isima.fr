@@ -32,13 +32,16 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
         styleOverrides: {
           root: {
             padding: '8px',
-            fontSize: '0.70rem'
+            fontSize: '0.70rem',
+            width: '100%'
           },
           message: {
-            padding: 0
+            padding: 0,
+            margin: 'auto 0'
           },
           icon: {
-            padding: 0
+            padding: 0,
+            marginRight: '8px'
           }
         }
       }
@@ -65,7 +68,7 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
             subheader={isLoading ? <Skeleton width="100%" animation="wave" /> : event?.description}
             subheaderTypographyProps={{ variant: 'caption', noWrap: true }}
           />
-          <CardActions className="px-4" disableSpacing>
+          <CardActions className="px-4 flex-1 items-stretch" disableSpacing>
             <Grid container alignContent="flex-start" direction="column">
               <Typography variant="caption">
                 {!isLoading && format(event?.takes_place_at!, "'Le' EEEE d MMMM yyyy à HH:mm", { locale: fr })}
@@ -79,16 +82,6 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
                         locale: fr
                       })}
                     </Alert>
-                    <Grid container item alignContent="end" direction="column" className="mt-2">
-                      <Button
-                        onClick={pushRoute(`/hub/events/${event?.id}`)}
-                        variant="contained"
-                        size="small"
-                        disabled={isLoading}
-                      >
-                        Voir
-                      </Button>
-                    </Grid>
                   </>
                 ) : event ? (
                   <Alert variant="outlined" severity="error">
@@ -101,6 +94,16 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
                 ) : (
                   <Skeleton></Skeleton>
                 )}
+              </Grid>
+              <Grid container item alignContent="end" justifyContent="end" direction="column" className="mt-2 flex-1">
+                <Button
+                  onClick={pushRoute(`/hub/events/${event?.id}`)}
+                  variant="contained"
+                  size="small"
+                  disabled={isLoading}
+                >
+                  Voir
+                </Button>
               </Grid>
             </Grid>
           </CardActions>

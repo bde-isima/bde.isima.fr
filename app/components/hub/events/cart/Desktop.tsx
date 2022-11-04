@@ -59,16 +59,18 @@ export default function Desktop({
           )}
           <Button
             className="w-full h-12"
-            startIcon={<Check />}
+            startIcon={event.subscriptions_end_at!.getTime() > Date.now() && <Check />}
             variant="contained"
             aria-label={eventSubscription?.id ? 'Modifier' : "S'inscrire"}
             onClick={onSubscribe}
-            disabled={subscribing || unsubscribing}
+            disabled={subscribing || unsubscribing || event.subscriptions_end_at!.getTime() <= Date.now()}
           >
             {subscribing ? (
               <CircularProgress size={25} color="secondary" />
             ) : eventSubscription?.id ? (
               'Modifier'
+            ) : event.subscriptions_end_at!.getTime() <= Date.now() ? (
+              'Les inscriptions sont closes'
             ) : (
               "S'inscrire"
             )}
