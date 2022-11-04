@@ -27,7 +27,7 @@ export default function Records() {
           Aucun classement ne peut être affiché
         </TableCell>
       </TableRow>
-    )
+    );
   }
 
   return (
@@ -70,7 +70,7 @@ export default function Records() {
             <TableCell align="right">
               {score >= row.unitsNb && row.unitsNb > 0 ? (
                 <Badge
-                  badgeContent={<Whatshot className="transform-gpu -translate-y-1 rotate-12 text-red-500" />}
+                  badgeContent={<Whatshot color="error" className="transform-gpu -translate-y-1 rotate-12" />}
                   component="span"
                 >
                   {score}

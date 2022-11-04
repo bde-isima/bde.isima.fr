@@ -12,7 +12,7 @@ export default function NoElections() {
         alt="Il n'y a pas d'élection BDE en cours"
       />
 
-      <Typography variant="subtitle1" color="textPrimary" align="center" paragraph>
+      <Typography variant="subtitle1" align="center" paragraph>
         Il n&apos;y a pas d&apos;élections BDE en cours
       </Typography>
     </div>

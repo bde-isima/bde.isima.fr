@@ -123,22 +123,22 @@ const Carousel = <ItemType extends CarouselItemType>({ getQuery, queryKey }: Car
               <CardActions className="flex flex-wrap justify-center" disableSpacing>
                 {item.facebookURL && (
                   <a href={item.facebookURL} onClick={stopPropagation} {...aProps('Facebook')}>
-                    <Facebook className="m-2 text-primary dark:text-secondary" />
+                    <Facebook className="m-2" />
                   </a>
                 )}
                 {item.twitterURL && (
                   <a href={item.twitterURL} onClick={stopPropagation} {...aProps('Twitter')}>
-                    <Twitter className="m-2 text-primary dark:text-secondary" />
+                    <Twitter className="m-2" />
                   </a>
                 )}
                 {item.instagramURL && (
                   <a href={item.instagramURL} onClick={stopPropagation} {...aProps('Instagram')}>
-                    <Instagram className="m-2 text-primary dark:text-secondary" />
+                    <Instagram className="m-2" />
                   </a>
                 )}
                 {item.customURL && (
                   <a href={item.customURL} onClick={stopPropagation} {...aProps('personnalisé')}>
-                    <Public className="m-2 text-primary dark:text-secondary" />
+                    <Public className="m-2" />
                   </a>
                 )}
               </CardActions>

@@ -1,10 +1,3 @@
-const colors = {
-  primary: '#2A2E43',
-  secondary: '#fff',
-  black: '#303030',
-  danger: '#C91F37'
-}
-
 module.exports = {
   content: ['{app,pages}/**/*.{ts,tsx}'],
   important: true,
@@ -25,22 +18,16 @@ module.exports = {
       transitionProperty: {
         width: 'width'
       },
-      backgroundColor: (theme) => ({
-        ...theme('colors'),
-        ...colors
-      }),
-      textColor: (theme) => ({
-        ...theme('colors'),
-        ...colors
-      }),
-      borderColor: (theme) => ({
-        ...theme('colors'),
-        ...colors
-      }),
+      colors: {
+        primary: 'rgb(var(--color-primary) / <alpha-value>)'
+      },
+      backgroundColor: (theme) => theme('colors'),
+      textColor: (theme) => theme('colors'),
+      borderColor: (theme) => theme('colors'),
       minHeight: {
         100: '100px',
         main: 'calc(100vh - 64px)'
       }
     }
   }
-}
+};

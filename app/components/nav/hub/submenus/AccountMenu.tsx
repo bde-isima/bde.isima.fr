@@ -62,7 +62,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <SettingsApplications />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
               Paramètres
             </Typography>
           </MenuItem>
@@ -73,7 +73,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <Feedback />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
               Feedback
             </Typography>
           </MenuItem>
@@ -83,7 +83,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <Logout />
           </ListItemIcon>
-          <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
+          <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
             Déconnexion
           </Typography>
         </MenuItem>

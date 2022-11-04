@@ -32,10 +32,10 @@ const Feedback: BlitzPage = () => {
         Feedback
       </Typography>
 
-      <Typography color="textSecondary" variant="caption" paragraph>
+      <Typography variant="caption" paragraph>
         Vous pouvez aussi ouvrir une issue sur le{' '}
         <a
-          className="text-blue-400"
+          className="text-primary"
           href="https://github.com/bde-isima/bde.isima.fr/issues"
           target="_blank"
           rel="noopener noreferrer"

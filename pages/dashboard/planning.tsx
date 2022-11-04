@@ -12,7 +12,7 @@ const Planning: BlitzPage = () => {
     <div className="flex flex-col place-self-center items-center">
       <Image src="/static/images/illustrations/WIP.svg" alt="Work In Progress" width={500} height={500} quality={100} />
 
-      <Typography variant="h4" color="textPrimary" paragraph>
+      <Typography variant="h4" paragraph>
         En construction
       </Typography>
     </div>

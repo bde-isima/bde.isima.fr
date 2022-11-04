@@ -39,22 +39,15 @@ export default function TransactionRow({
   return (
     <Grid className={dense ? 'my-1' : 'my-2'} container>
       {type.visible && (
-        <Grid
-          className={isPositive ? 'text-green-600' : 'text-red-700'}
-          container
-          item
-          xs={type.size}
-          justifyContent="center"
-          alignContent="center"
-        >
+        <Grid container item xs={type.size} justifyContent="center" alignContent="center">
           {!dense && values.emitterId ? (
             <Suspense fallback={<Skeleton variant="circular" width={40} height={40} />}>
               <TransactionAvatar id={values.emitterId} />
             </Suspense>
           ) : isPositive ? (
-            <TrendingUp />
+            <TrendingUp color="success" />
           ) : (
-            <TrendingDown />
+            <TrendingDown color="error" />
           )}
         </Grid>
       )}
@@ -67,7 +60,7 @@ export default function TransactionRow({
                 {values.description || 'Aucune description'}
               </Typography>
               {!dense && (
-                <Typography variant="caption" align="left" color="textSecondary">
+                <Typography variant="caption" align="left">
                   {format(values.createdAt, 'dd/MM/yyyy - HH:mm')}
                 </Typography>
               )}
@@ -78,7 +71,7 @@ export default function TransactionRow({
 
       {amount.visible && (
         <Grid container item xs={amount.size} justifyContent="center" alignItems="center">
-          <Typography className={isPositive ? 'text-green-600' : 'text-red-700'} variant="caption">
+          <Typography color={isPositive ? 'success.main' : 'error.main'} variant="caption">
             {isPositive ? '+' : '-'}
             {values.amount.toFixed(2)} €
           </Typography>
@@ -87,9 +80,7 @@ export default function TransactionRow({
 
       {prevBalance.visible && (
         <Grid container item xs={prevBalance.size} justifyContent="flex-end" alignItems="center">
-          <Typography variant="caption" color="textSecondary">
-            {values.prevBalance.toFixed(2)} €
-          </Typography>
+          <Typography variant="caption">{values.prevBalance.toFixed(2)} €</Typography>
         </Grid>
       )}
     </Grid>

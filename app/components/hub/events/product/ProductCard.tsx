@@ -17,7 +17,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
         <CardActionArea className="w-full h-full" onClick={onClick(product)}>
           <CardContent>
             <Typography variant="subtitle2">{product.name}</Typography>
-            <Typography variant="caption" color="textSecondary" component="div" gutterBottom>
+            <Typography variant="caption" component="div" gutterBottom>
               {product.description}
             </Typography>
             <Typography variant="subtitle2">{`${product.price.toFixed(2)} €`}</Typography>
