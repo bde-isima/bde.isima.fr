@@ -90,14 +90,14 @@ img {
 }
 
 :root {
-  --color-primary: 255 152 0;
+  --color-primary: 57 73 171;
   --color-bl0: 255 255 255;
   --color-bl1: 250 250 250;
 }
 
 @media screen and (prefers-color-scheme: dark) {
   :root {
-    --color-primary: 255 183 77;
+    --color-primary: 159 168 218;
     --color-bl0: 33 33 33;
     --color-bl1: 25 25 25;
   }
