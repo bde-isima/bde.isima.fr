@@ -40,13 +40,7 @@ export default function Nav() {
           <>
             <Link href="/">
               <div className="flex mr-4">
-                <Image
-                  className="rounded-full"
-                  src="/static/images/logos/logo.svg"
-                  width={40}
-                  height={40}
-                  alt="Logo BDE ISIMA"
-                />
+                <Image src="/static/images/logos/logo.svg" width={40} height={40} alt="Logo BDE ISIMA" />
               </div>
             </Link>
 
