@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { amber, blue, green, orange, red } from '@mui/material/colors';
+import { amber, blue, green, red } from '@mui/material/colors';
 import { frFR } from '@mui/material/locale';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import useMUIMediaQuery from '@mui/material/useMediaQuery';
@@ -20,7 +20,7 @@ export function useTheme() {
             palette: {
               mode: prefersDarkMode ? 'dark' : 'light',
               primary: {
-                main: prefersDarkMode ? orange[300] : orange[500]
+                main: 'rgb(var(--color-primary))'
               },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
               error: { main: prefersDarkMode ? red[300] : red[700] },
