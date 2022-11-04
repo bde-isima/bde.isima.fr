@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import AppBar from '@mui/material/AppBar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -22,7 +21,6 @@ import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import { UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
-import { useTheme } from 'app/core/styles/theme';
 
 type UserFormProps = {
   initialValues: User | null;
@@ -31,7 +29,6 @@ type UserFormProps = {
 };
 
 export default function UserForm(props: UserFormProps) {
-  const theme = useTheme();
   const [value, setValue] = useState('0');
 
   const handleChange = (_, newValue: string) => setValue(newValue);
@@ -76,12 +73,10 @@ export default function UserForm(props: UserFormProps) {
       autoComplete="off"
     >
       <TabContext value={value}>
-        <AppBar position="static" color="transparent" elevation={0}>
-          <TabList onChange={handleChange} variant="fullWidth" aria-label="Nav">
-            <Tab label="Infos" value="0" />
-            <Tab label="Rôles" value="1" />
-          </TabList>
-        </AppBar>
+        <TabList onChange={handleChange} variant="fullWidth" aria-label="Nav">
+          <Tab label="Infos" value="0" />
+          <Tab label="Rôles" value="1" />
+        </TabList>
 
         <TabPanel value="0">
           <div className="mx-auto text-center">
