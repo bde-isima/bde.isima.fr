@@ -43,12 +43,7 @@ export default function Nav() {
   });
 
   return (
-    <AppBar
-      className="h-16 justify-center bg-white/90 dark:bg-zinc-800/95 backdrop-blur-xl"
-      elevation={Number(!isOnTop)}
-      position="fixed"
-      color="transparent"
-    >
+    <AppBar className="h-16 justify-center" elevation={Number(!isOnTop)} position="fixed" color="transparent">
       <Toolbar variant="dense">
         <Mobile
           isOpen={isMobileMenuOpen}
