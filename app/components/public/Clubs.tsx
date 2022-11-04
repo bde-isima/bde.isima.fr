@@ -16,8 +16,8 @@ import Carousel from './carousel';
 export default function Clubs() {
   return (
     <Box>
-      <a id="clubs" href="#clubs" />
       <Container className="px-2 py-8 md:p-8">
+        <a id="clubs" href="#clubs" />
         <Typography variant="h3" align="right" gutterBottom>
           <b>LES CLUBS DU BDE</b>
         </Typography>
