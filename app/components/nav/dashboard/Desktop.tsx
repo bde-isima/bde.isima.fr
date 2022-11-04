@@ -37,19 +37,20 @@ export default function Desktop() {
 
           return (
             <Link key={obj.text} href={obj.to}>
-              <Button className={'w-11/12 rounded-full my-1'} variant={isActive ? 'contained' : 'text'} size="small">
+              <Button className="w-full rounded-none my-1 px-6" variant="text" size="small" fullWidth={true}>
                 <ListItem dense disableGutters>
                   <ListItemIcon>
                     {cloneElement(obj.icon, {
-                      className: `${isActive ? 'text-black' : undefined} ml-1`
+                      className: isActive ? 'text-primary' : undefined
                     })}
                   </ListItemIcon>
 
                   <ListItemText
                     secondary={obj.text}
                     secondaryTypographyProps={{
-                      color: isActive ? 'black' : 'textPrimary',
-                      noWrap: true
+                      noWrap: true,
+                      color: isActive ? 'primary' : 'textPrimary',
+                      className: isActive ? 'font-bold' : 'font-normal'
                     }}
                   />
                 </ListItem>
@@ -71,7 +72,7 @@ export default function Desktop() {
             </TabList>
 
             {bdeConfig.length > 0 && (
-              <TabPanel value="0" className="pb-14">
+              <TabPanel value="0" className="px-0 pb-14">
                 <List>
                   <Items config={bdeConfig} />
                 </List>
@@ -79,7 +80,7 @@ export default function Desktop() {
             )}
 
             {clubsConfig.length > 0 && (
-              <TabPanel value="1" className="pb-14">
+              <TabPanel value="1" className="px-0 pb-14">
                 <List>
                   <Items config={clubsConfig} />
                 </List>

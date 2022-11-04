@@ -22,32 +22,22 @@ import config from './config';
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
   const session = useSession();
-  const { router, pushRoute } = useRouter();
+  const { pushRoute } = useRouter();
 
   const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const ItemsList = () => (
     <>
       {config.map((obj) => {
-        const isActive = obj.isActive(router.asPath, window.location.hash);
-
         return (
           <Link key={obj.text} href={obj.to}>
-            <Button
-              className={'w-11/12 rounded-full my-1'}
-              variant={isActive ? 'contained' : 'text'}
-              size="small"
-              onClick={onClose}
-            >
+            <Button className="px-4 my-1" variant="text" size="small" onClick={onClose} fullWidth={true}>
               <ListItem dense disableGutters>
-                <ListItemIcon>
-                  {cloneElement(obj.icon, { className: isActive ? 'text-black' : undefined })}
+                <ListItemIcon className="min-w-40 ml-2 mr-4">
+                  {cloneElement(obj.icon, { className: 'm-auto' })}
                 </ListItemIcon>
 
-                <ListItemText
-                  secondary={obj.text}
-                  secondaryTypographyProps={{ color: isActive ? 'black' : 'textPrimary' }}
-                />
+                <ListItemText secondary={obj.text} secondaryTypographyProps={{ color: 'textPrimary' }} />
               </ListItem>
             </Button>
           </Link>
@@ -64,7 +54,7 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: 'w-3/4 bg-zinc-100/90 dark:bg-zinc-900/95 backdrop-blur-xl' }}
+      PaperProps={{ className: 'w-3/4 bg-bl1/90 backdrop-blur-xl border-y-0 border-l-0' }}
     >
       <div className="text-center">
         <List>

@@ -58,7 +58,7 @@ export default function Nav() {
           </IconButton>
         )}
 
-        <Link className="mx-auto lg:ml-0" href="/">
+        <Link className="mx-auto lg:ml-0 leading-none" href="/">
           <Image src="/static/images/logos/logo.svg" width={40} height={40} quality={100} alt="Logo BDE ISIMA" />
         </Link>
 
