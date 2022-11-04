@@ -75,7 +75,7 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
                 {event && event!.subscriptions_end_at!.getTime() > Date.now() ? (
                   <>
                     <Alert className="" variant="outlined" severity="info">
-                      {format(event?.subscriptions_end_at!, "'Les inscriptions expirent le' EEEE d MMMM yyyy à HH:mm", {
+                      {format(event?.subscriptions_end_at!, "'Les inscriptions ferment le' EEEE d MMMM yyyy à HH:mm", {
                         locale: fr
                       })}
                     </Alert>
@@ -94,7 +94,7 @@ export default function EventsItem({ event, isLoading }: EventsItemProps) {
                   <Alert variant="outlined" severity="error">
                     {format(
                       event?.subscriptions_end_at!,
-                      "'Les inscriptions sont fermées depuis le' EEEE d MMMM yyyy à HH:mm",
+                      "'Les inscriptions ont fermées le' EEEE d MMMM yyyy à HH:mm",
                       { locale: fr }
                     )}
                   </Alert>
