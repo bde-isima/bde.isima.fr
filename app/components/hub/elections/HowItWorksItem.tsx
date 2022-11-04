@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 export default function HowItWorksItem({ leftText, ItemIcon, title, rightText }) {
   return (
     <TimelineItem>
-      <TimelineOppositeContent className="my-auto mx-0" align="right" variant="subtitle1" color="textSecondary">
+      <TimelineOppositeContent className="my-auto mx-0" align="right" variant="subtitle1">
         {leftText}
       </TimelineOppositeContent>
       <TimelineSeparator>

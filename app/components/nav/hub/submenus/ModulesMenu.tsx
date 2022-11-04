@@ -25,7 +25,8 @@ export default function ModulesMenu() {
   return (
     <>
       <IconButton
-        className="mx-2 text-primary dark:text-secondary"
+        color="inherit"
+        className="mx-2"
         aria-label="Voir les modules"
         aria-owns={isOpen ? 'module-menu' : undefined}
         aria-haspopup="true"
@@ -47,7 +48,7 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <HowToVote />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
               Élections BDE
             </Typography>
           </MenuItem>
@@ -58,7 +59,7 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <Extension />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
               Proposez vos extensions !
             </Typography>
           </MenuItem>

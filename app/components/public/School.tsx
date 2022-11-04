@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import Grid from '@mui/material/Grid';
@@ -16,25 +15,24 @@ export default function School() {
         <a id="school" href="#school" />
 
         <div className="px-2 py-8 md:p-8">
-          <Typography variant="h3" color="textPrimary" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             <b>L&apos;ISIMA</b>
           </Typography>
 
           <Grid container>
             <Grid item xs={12} md={6}>
-              <Typography className="leading-9" variant="subtitle2" align="justify" color="textPrimary">
+              <Typography className="leading-9" variant="subtitle2" align="justify">
                 Le bureau des étudiants (BDE) à l&apos;ISIMA, c&apos;est une partie incontournable de la vie à
                 l&apos;école. D&apos;abord parce qu&apos;on organise pleins de soirées et d&apos;événements au cours de
-                l&apos;année mais surtout parce que le BDE est indispensable pour obtenir son diplôme à l&apos;ISIMA.
+                l&apos;année mais surtout parce que le BDE est indispensable pour obtenir son diplôme à l&apos;ISIMA.{' '}
                 <a
                   href="https://www.cti-commission.fr/fonds-documentaire/document/7/chapitre/179?a=1"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-primary"
                 >
-                  <Button color="secondary">
-                    <strong>La Commission des Titres d&apos;Ingénieurs</strong>
-                  </Button>
-                </a>
+                  <strong>La Commission des Titres d&apos;Ingénieurs</strong>
+                </a>{' '}
                 oblige chaque école à disposer d&apos;une vie étudiante.
                 <br />
                 L&apos;équipe du BDE, les membres de clubs et les autres associations présentes à l&apos;école sont donc
@@ -62,7 +60,7 @@ export default function School() {
               rel="noopener noreferrer"
               variant="extended"
               aria-label="Aller sur https://www.isima.fr"
-              color="secondary"
+              color="primary"
             >
               <Link className="mr-4" />
               Site de l’ISIMA

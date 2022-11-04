@@ -42,7 +42,7 @@ export default function Footer() {
 
         <Grid container item xs={12} direction="column">
           <Grid container item xs={12} justifyContent="center" alignItems="center">
-            <Typography className="mx-4" variant="body2" color="textSecondary" component="span">
+            <Typography className="mx-4" variant="body2" component="span">
               <b>BDE ISIMA © {currentYear}</b>
             </Typography>
             -

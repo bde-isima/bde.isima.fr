@@ -115,9 +115,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
           <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
             <RemoveCircle />
           </IconButton>
-          <Typography variant="subtitle1" color="textSecondary">
-            {quantity}
-          </Typography>
+          <Typography variant="subtitle1">{quantity}</Typography>
           <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
             <AddCircle />
           </IconButton>

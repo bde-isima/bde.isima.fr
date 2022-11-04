@@ -31,7 +31,7 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
           <Balance getQuery={getCurrentUser} />
         </Suspense>
 
-        <Typography className="my-2" variant="subtitle2" color="textSecondary" gutterBottom>
+        <Typography className="my-2" variant="subtitle2" gutterBottom>
           Solde carte n°{session.card}
         </Typography>
 

@@ -16,7 +16,7 @@ const FallbackComponent = [...Array(2).keys()].map((x) => <CandidateItem key={x}
 const ElectionsIndex: BlitzPage = () => {
   return (
     <div className="flex flex-col">
-      <Typography variant="h4" paragraph align="right" color="textPrimary">
+      <Typography variant="h4" paragraph align="right">
         Élections BDE
       </Typography>
 

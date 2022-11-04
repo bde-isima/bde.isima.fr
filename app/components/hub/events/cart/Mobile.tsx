@@ -94,7 +94,7 @@ export default function Mobile({
             )}
           </Grid>
           <Grid container item xs={3} justifyContent="center" alignContent="center">
-            <Typography className="text-center" variant="caption" color="textPrimary">
+            <Typography className="text-center" variant="caption">
               {`${total} €`}
             </Typography>
           </Grid>
@@ -185,7 +185,7 @@ export default function Mobile({
 
             {eventSubscription.id && (
               <div className="flex flex-col justify-center items-center p-3">
-                <Typography variant="body2" align="center" color="textSecondary" paragraph>
+                <Typography variant="body2" align="center" paragraph>
                   T&apos;étais pas là pour être ici ?
                 </Typography>
 

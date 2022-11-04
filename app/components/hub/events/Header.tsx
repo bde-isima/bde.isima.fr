@@ -29,17 +29,9 @@ export default function Header() {
       }
       title={
         <>
-          <Typography color="textPrimary" gutterBottom>
-            {event?.club.name.toUpperCase()}
-          </Typography>
-          <Typography color="textPrimary" variant="h6">
-            {event.name}
-          </Typography>
-          {event.description && (
-            <Typography color="textSecondary" gutterBottom>
-              {event.description}
-            </Typography>
-          )}
+          <Typography gutterBottom>{event?.club.name.toUpperCase()}</Typography>
+          <Typography variant="h6">{event.name}</Typography>
+          {event.description && <Typography gutterBottom>{event.description}</Typography>}
         </>
       }
       subheader={

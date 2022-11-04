@@ -5,9 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import Fab from '@mui/material/Fab';
 import IconButton from '@mui/material/IconButton';
-import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import Account from '@mui/icons-material/AccountCircleTwoTone';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeftTwoTone';
@@ -46,7 +44,7 @@ export default function Nav() {
 
   return (
     <AppBar
-      className="h-16 justify-center bg-white/75 dark:bg-zinc-800/75 backdrop-blur-lg"
+      className="h-16 justify-center bg-white/90 dark:bg-zinc-800/95 backdrop-blur-xl"
       elevation={Number(!isOnTop)}
       position="fixed"
       color="transparent"
@@ -60,12 +58,7 @@ export default function Nav() {
         />
 
         {fullScreen && (
-          <IconButton
-            className="text-primary dark:text-secondary"
-            aria-label="Menu"
-            onClick={toggleDrawer(setIsMobileMenuOpen, true)}
-            size="large"
-          >
+          <IconButton aria-label="Menu" onClick={toggleDrawer(setIsMobileMenuOpen, true)} size="large" color="inherit">
             <Menu />
           </IconButton>
         )}

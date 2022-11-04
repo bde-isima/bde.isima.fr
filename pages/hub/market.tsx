@@ -18,7 +18,7 @@ const MarketIndex: BlitzPage = () => {
 
   return (
     <div className="flex flex-col">
-      <Typography variant="h4" paragraph align="right" color="textPrimary">
+      <Typography variant="h4" paragraph align="right">
         Articles disponibles au BDE
       </Typography>
 

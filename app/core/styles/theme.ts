@@ -22,12 +22,11 @@ export function useTheme() {
               primary: {
                 main: prefersDarkMode ? orange[300] : orange[500]
               },
-              secondary: { main: blue.A400 },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
-              error: { main: prefersDarkMode ? red.A100 : red.A700 },
-              warning: { main: prefersDarkMode ? amber.A100 : amber.A700 },
-              info: { main: prefersDarkMode ? blue.A100 : blue.A700 },
-              success: { main: prefersDarkMode ? green.A100 : green.A700 }
+              error: { main: prefersDarkMode ? red[300] : red[700] },
+              warning: { main: prefersDarkMode ? amber[300] : amber[700] },
+              info: { main: prefersDarkMode ? blue[300] : blue[700] },
+              success: { main: prefersDarkMode ? green[300] : green[700] }
             },
             components: {
               MuiButton: {

@@ -13,7 +13,7 @@ export default function Balance({ getQuery, queryArgs = {}, variant = 'h3' }: Ba
   const balance = (user as any).balance;
 
   return (
-    <Typography className={balance >= 0 ? 'text-green-600' : 'text-red-700'} variant={variant} align="center">
+    <Typography color={balance >= 0 ? 'success.main' : 'error.main'} variant={variant} align="center">
       {balance >= 0 ? `+${balance.toFixed(2)}` : `${balance.toFixed(2)}`} €
     </Typography>
   );

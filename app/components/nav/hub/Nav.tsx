@@ -30,12 +30,7 @@ export default function Nav() {
 
         {fullScreen && (
           <div className="flex flex-grow justify-start">
-            <IconButton
-              className="text-primary dark:text-secondary"
-              aria-label="Menu"
-              onClick={toggleDrawer(true)}
-              size="large"
-            >
+            <IconButton color="inherit" aria-label="Menu" onClick={toggleDrawer(true)} size="large">
               <Menu />
             </IconButton>
           </div>

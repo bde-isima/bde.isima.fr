@@ -1,5 +1,4 @@
 import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import Image from 'next/image';

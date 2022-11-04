@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -20,23 +19,21 @@ export default function Partners() {
     <Box className="bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
       <a id="partners" href="#partners" />
       <Container className="px-2 py-8 md:p-8">
-        <Typography variant="h3" color="textPrimary" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           <b>LES PARTENAIRES DU BDE</b>
         </Typography>
 
         <Grid container>
           <Grid container item xs={12} md={6} alignItems="center">
-            <Typography className="leading-9" variant="subtitle2" align="justify" color="textPrimary">
+            <Typography className="leading-9" variant="subtitle2" align="justify">
               Le BDE dispose d&apos;un membre responsable des partenariats, chargé de trouver et négocier des
               partenariats tout au long de l&apos;année afin de proposer aux élèves toutes sortes d&apos;avantages
               (réductions, offres promotionnelles, etc ...). <br />
               <br />
               Vous êtes intéressés pour entretenir un partenariat avec nous ? <br />
-              Envoyez-nous un message via le
-              <Link href="/#contact">
-                <Button>
-                  <strong>formulaire de contact</strong>
-                </Button>
+              Envoyez-nous un message via le{' '}
+              <Link href="/#contact" className="text-primary">
+                <strong>formulaire de contact</strong>
               </Link>
             </Typography>
           </Grid>

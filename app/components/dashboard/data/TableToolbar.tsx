@@ -29,7 +29,7 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
   return (
     <Toolbar className="pl-4 pr-2">
       {numSelected > 0 ? (
-        <Typography className="sm:flex-auto flex-grow" color="textSecondary" variant="subtitle1">
+        <Typography className="sm:flex-auto flex-grow" variant="subtitle1">
           {`${numSelected} sélectionné${numSelected > 1 ? 's' : ''}`}
         </Typography>
       ) : (
