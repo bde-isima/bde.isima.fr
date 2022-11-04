@@ -16,6 +16,7 @@ web_modules/
 .now
 .blitz**
 blitz-log.log
+blitz-*-prisma-client.json
 
 # misc
 .DS_Store
