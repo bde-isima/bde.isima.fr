@@ -3,7 +3,6 @@ import { cloneElement, useMemo, useState } from 'react';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -66,12 +65,10 @@ export default function Desktop() {
       {!fullScreen && (
         <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
           <TabContext value={value}>
-            <AppBar position="static" color="transparent" elevation={0}>
-              <TabList onChange={handleChange} aria-label="Nav">
-                <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />
-                <Tab classes={{ root: 'min-w-[50%]' }} label="Clubs" value="1" disabled={!clubsConfig.length} />
-              </TabList>
-            </AppBar>
+            <TabList onChange={handleChange} aria-label="Nav">
+              <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />
+              <Tab classes={{ root: 'min-w-[50%]' }} label="Clubs" value="1" disabled={!clubsConfig.length} />
+            </TabList>
 
             {bdeConfig.length > 0 && (
               <TabPanel value="0" className="pb-14">

@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import AppBar from '@mui/material/AppBar';
 import Divider from '@mui/material/Divider';
 import Tab from '@mui/material/Tab';
 import MuiTextField from '@mui/material/TextField';
@@ -18,7 +17,6 @@ import { Field } from 'react-final-form';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import { EventInput, EventInputType } from 'app/components/forms/validations';
 import { useRouter } from 'app/core/lib/router';
-import { useTheme } from 'app/core/styles/theme';
 
 import GroupOptionsForm from './GroupOptionsForm';
 import ProductsForm from './ProductsForm';
@@ -30,7 +28,6 @@ type ClubEventFormProps = {
 };
 
 export default function ClubEventForm(props: ClubEventFormProps) {
-  const theme = useTheme();
   const { router } = useRouter();
   const [value, setValue] = useState('0');
 
@@ -96,13 +93,11 @@ export default function ClubEventForm(props: ClubEventFormProps) {
       autoComplete="off"
     >
       <TabContext value={value}>
-        <AppBar position="static" color="transparent" elevation={0}>
-          <TabList onChange={handleChange} variant="fullWidth" aria-label="Nav">
-            <Tab label="Infos" value="0" />
-            <Tab label="Produits" value="1" />
-            <Tab label="Options" value="2" />
-          </TabList>
-        </AppBar>
+        <TabList onChange={handleChange} variant="fullWidth" aria-label="Nav">
+          <Tab label="Infos" value="0" />
+          <Tab label="Produits" value="1" />
+          <Tab label="Options" value="2" />
+        </TabList>
 
         <TabPanel value="0">
           <TextField type="text" name="name" label="Nom" />
