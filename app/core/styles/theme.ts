@@ -21,7 +21,8 @@ export function useTheme() {
               mode: prefersDarkMode ? 'dark' : 'light',
               primary: {
                 main: 'rgb(var(--color-primary))'
-              },
+              	contrastText: 'rgb(rgb(—color-on-primary))'
+	      },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
               error: { main: prefersDarkMode ? red[300] : red[700] },
               warning: { main: prefersDarkMode ? amber[300] : amber[700] },

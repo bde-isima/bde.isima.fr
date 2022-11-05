@@ -54,7 +54,7 @@ export default function School() {
 
           <div className="p-6 flex flex-col items-center">
             <Fab
-              className="mb-16 text-gray-900"
+              className="mb-16"
               href="https://www.isima.fr/"
               target="_blank"
               rel="noopener noreferrer"

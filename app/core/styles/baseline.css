@@ -91,6 +91,7 @@ img {
 
 :root {
   --color-primary: 57 73 171;
+  --color-on-primary: 255 255 255;
   --color-bl0: 255 255 255;
   --color-bl1: 250 250 250;
 }
@@ -98,6 +99,7 @@ img {
 @media screen and (prefers-color-scheme: dark) {
   :root {
     --color-primary: 159 168 218;
+    --color-on-primary: 0 0 0;
     --color-bl0: 33 33 33;
     --color-bl1: 25 25 25;
   }
