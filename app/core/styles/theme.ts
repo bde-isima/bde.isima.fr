@@ -20,7 +20,7 @@ export function useTheme() {
             palette: {
               mode: prefersDarkMode ? 'dark' : 'light',
               primary: {
-                main: 'rgb(var(--color-primary))'
+                main: 'rgb(var(--color-primary))',
               	contrastText: 'rgb(rgb(—color-on-primary))'
 	      },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
