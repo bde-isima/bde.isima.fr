@@ -45,7 +45,6 @@ export default function PartnerForm(props: PartnerFormProps) {
       <div className="mx-auto">
         {props.initialValues?.id && props.initialValues?.image && (
           <Image
-            className="rounded-full"
             src={props.initialValues.image}
             width={100}
             height={100}

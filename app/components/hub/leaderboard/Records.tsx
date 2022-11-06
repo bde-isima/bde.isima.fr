@@ -38,13 +38,7 @@ export default function Records() {
           <TableRow key={index}>
             <TableCell align="right">
               {row.articleImage && (
-                <Image
-                  className="rounded-full"
-                  src={row.articleImage}
-                  width={40}
-                  height={40}
-                  alt={`Image de ${row.articleName}`}
-                />
+                <Image src={row.articleImage} width={40} height={40} alt={`Image de ${row.articleName}`} />
               )}
             </TableCell>
             <TableCell component="th" scope="row" align="right">
@@ -56,13 +50,7 @@ export default function Records() {
                 {row.leaderName}
                 {row.leaderImage && (
                   <div className="ml-2">
-                    <Image
-                      className="rounded-full"
-                      src={row.leaderImage}
-                      width={40}
-                      height={40}
-                      alt={`Image de ${row.leaderName}`}
-                    />
+                    <Image src={row.leaderImage} width={40} height={40} alt={`Image de ${row.leaderName}`} />
                   </div>
                 )}
               </div>

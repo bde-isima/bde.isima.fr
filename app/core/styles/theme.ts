@@ -42,6 +42,14 @@ export function useTheme() {
                   }
                 }
               },
+              MuiDialog: {
+                styleOverrides: {
+                  paper: {
+                    backgroundColor: 'rgb(var(--color-bl0) / 0.9)',
+                    backdropFilter: 'blur(24px)'
+                  }
+                }
+              },
               MuiButton: {
                 defaultProps: {
                   disableElevation: true
