@@ -27,7 +27,6 @@ body,
 a:link,
 a:visited,
 a:active {
-  color: unset;
   cursor: pointer;
   text-decoration: none;
 }
@@ -90,16 +89,14 @@ img {
 }
 
 :root {
-  --color-primary: 57 73 171;
-  --color-on-primary: 255 255 255;
+  --color-primary: 57 73 171; /* Indigo 600 */
   --color-bl0: 255 255 255;
   --color-bl1: 250 250 250;
 }
 
 @media screen and (prefers-color-scheme: dark) {
   :root {
-    --color-primary: 159 168 218;
-    --color-on-primary: 0 0 0;
+    --color-primary: 159 168 218; /* Indigo 200 */
     --color-bl0: 33 33 33;
     --color-bl1: 25 25 25;
   }

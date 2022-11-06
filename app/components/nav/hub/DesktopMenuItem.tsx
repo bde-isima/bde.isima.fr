@@ -16,7 +16,7 @@ export default function DesktopMenuItem({ item }: DesktopMenuItemProps) {
   return (
     <Link className="w-full" href={item.to}>
       <Button
-        color={isActive ? 'primary' : 'inherit'}
+        color={isActive ? 'primary' : 'neutral'}
         className={`w-full p-2 h-16 rounded-none ${isActive && 'border-b border-solid'}`}
         aria-label={item.text}
       >

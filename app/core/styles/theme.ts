@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { amber, blue, green, red } from '@mui/material/colors';
+import { amber, blue, green, indigo, red } from '@mui/material/colors';
 import { frFR } from '@mui/material/locale';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import useMUIMediaQuery from '@mui/material/useMediaQuery';
@@ -20,9 +20,8 @@ export function useTheme() {
             palette: {
               mode: prefersDarkMode ? 'dark' : 'light',
               primary: {
-                main: 'rgb(var(--color-primary))',
-              	contrastText: 'rgb(rgb(—color-on-primary))'
-	      },
+                main: prefersDarkMode ? indigo[200] : indigo[700]
+              },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
               error: { main: prefersDarkMode ? red[300] : red[700] },
               warning: { main: prefersDarkMode ? amber[300] : amber[700] },

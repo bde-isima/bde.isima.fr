@@ -62,7 +62,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <SettingsApplications />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Paramètres
             </Typography>
           </MenuItem>
@@ -73,7 +73,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <Feedback />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Feedback
             </Typography>
           </MenuItem>

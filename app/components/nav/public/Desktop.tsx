@@ -10,7 +10,7 @@ export default function Desktop() {
       {config.map((obj) => {
         return (
           <Link key={obj.to} href={obj.to}>
-            <Button className="p-2 h-16" color="inherit" aria-label={obj.text}>
+            <Button className="p-2 h-16" color="neutral" aria-label={obj.text}>
               {obj.icon}
               <div className="m-2">{obj.text}</div>
             </Button>

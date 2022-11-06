@@ -48,7 +48,7 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <HowToVote />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Élections BDE
             </Typography>
           </MenuItem>
@@ -59,7 +59,7 @@ export default function ModulesMenu() {
             <ListItemIcon>
               <Extension />
             </ListItemIcon>
-            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center">
+            <Typography className="flex flex-grow items-center" variant="subtitle2" align="center" color="textPrimary">
               Proposez vos extensions !
             </Typography>
           </MenuItem>
