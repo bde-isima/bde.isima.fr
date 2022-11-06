@@ -31,6 +31,10 @@ a:active {
   text-decoration: none;
 }
 
+a:not(.MuiButtonBase-root) {
+  color: unset;
+}
+
 img {
   user-select: none;
   -moz-user-select: none;
