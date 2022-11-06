@@ -33,10 +33,8 @@ function Page500({ statusCode }) {
 
         <Link href="/">
           <Fab variant="extended" aria-label="Retour à l'accueil" color="primary">
-            <KeyboardArrowLeftIcon className="mr-2" color="secondary" />
-            <Typography variant="subtitle2" color="secondary">
-              Revenir à l&apos;accueil
-            </Typography>
+            <KeyboardArrowLeftIcon className="mr-2" />
+            <Typography variant="subtitle2">Revenir à l&apos;accueil</Typography>
           </Fab>
         </Link>
       </div>

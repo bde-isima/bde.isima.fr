@@ -116,6 +116,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/CircularProgress' {
+  interface CircularProgressPropsColorOverrides {
+    neutral: true;
+  }
+}
+
 // Update the Typography's variant prop options
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {

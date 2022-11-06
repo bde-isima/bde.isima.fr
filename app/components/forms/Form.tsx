@@ -72,7 +72,7 @@ export function Form<S extends z.ZodType<any, any>>({
                 <LoadingButton
                   type="submit"
                   loading={submitting}
-                  loadingIndicator={<CircularProgress size={25} color="secondary" />}
+                  loadingIndicator={<CircularProgress size={25} color="neutral" />}
                   onClick={handleSubmit}
                   aria-label={submitText}
                   variant="contained"
@@ -114,7 +114,7 @@ export function Form<S extends z.ZodType<any, any>>({
                     type="submit"
                     form={`${formId}-dialog-form`}
                     loading={submitting}
-                    loadingIndicator={<CircularProgress size={25} color="secondary" />}
+                    loadingIndicator={<CircularProgress size={25} color="neutral" />}
                     onClick={handleSubmit}
                     aria-label={submitText}
                     variant="contained"

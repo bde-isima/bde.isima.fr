@@ -66,7 +66,7 @@ export default function Desktop({
             disabled={subscribing || unsubscribing || event.subscriptions_end_at!.getTime() <= Date.now()}
           >
             {subscribing ? (
-              <CircularProgress size={25} color="secondary" />
+              <CircularProgress size={25} color="neutral" />
             ) : eventSubscription?.id ? (
               'Modifier'
             ) : event.subscriptions_end_at!.getTime() <= Date.now() ? (
