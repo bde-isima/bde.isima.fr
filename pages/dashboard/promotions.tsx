@@ -13,6 +13,7 @@ const Promotions: BlitzPage = () => {
     <Table
       title="Promotions"
       columns={columns}
+      defaultSort={{ name: 'year', order: 'desc' }}
       queryKey="promotions"
       getQuery={getPromotions}
       upsertQuery={upsertPromotion}

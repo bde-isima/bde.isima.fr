@@ -1,3 +1,7 @@
+import Avatar from '@mui/material/Avatar';
+
+import GroupsIcon from '@mui/icons-material/Groups';
+
 import Image from 'next/image';
 
 import { BlitzPage, Routes } from '@blitzjs/next';
@@ -34,8 +38,12 @@ const columns = [
     id: 'image',
     headerName: 'Logo',
     render: (row) =>
-      row.image && (
-        <Image className="ml-auto rounded-full" src={row.image} width={40} height={40} alt={`Photo de ${row.name}`} />
+      row.image ? (
+        <Image className="ml-auto" src={row.image} width={40} height={40} alt={`Logo de ${row.name}`} />
+      ) : (
+        <Avatar className="ml-auto" alt={`Logo de ${row.name}`}>
+          <GroupsIcon />
+        </Avatar>
       )
   },
   {

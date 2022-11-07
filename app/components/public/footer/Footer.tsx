@@ -12,7 +12,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Paper className="p-6">
+    <Paper className="p-6 border-b-0 border-x-0 rounded-none">
       <Grid className="py-4" spacing={3} container>
         <Grid container item xs={12} md={4} justifyContent="center" alignContent="center" gap={2}>
           <Grid container item xs={12} md={6} justifyContent="center">
@@ -42,7 +42,7 @@ export default function Footer() {
 
         <Grid container item xs={12} direction="column">
           <Grid container item xs={12} justifyContent="center" alignItems="center">
-            <Typography className="mx-4" variant="body2" color="textSecondary" component="span">
+            <Typography className="mx-4" variant="body2" component="span">
               <b>BDE ISIMA © {currentYear}</b>
             </Typography>
             -

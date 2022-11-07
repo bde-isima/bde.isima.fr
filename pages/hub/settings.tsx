@@ -37,7 +37,7 @@ const Settings: BlitzPage = () => {
 
   return (
     <div className="p-4">
-      <Typography variant="h4" color="textPrimary" paragraph>
+      <Typography variant="h4" paragraph>
         Paramètres
       </Typography>
 

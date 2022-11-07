@@ -44,7 +44,11 @@ export default function LoginForm() {
         autoFocus
       />
 
-      <Typography className="m-2" variant={router.query.invalid && !message ? 'error' : 'success'} align="center">
+      <Typography
+        className="m-2"
+        color={router.query.invalid && !message ? 'error.main' : 'success.main'}
+        align="center"
+      >
         <b>{message || (router.query.invalid ? 'Jeton invalide' : '')}</b>
       </Typography>
     </Form>

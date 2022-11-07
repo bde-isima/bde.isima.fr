@@ -51,7 +51,6 @@ export default function ClubForm(props: ClubFormProps) {
       <div className="mx-auto">
         {props.initialValues?.id && props.initialValues?.image && (
           <Image
-            className="rounded-full"
             src={props.initialValues.image}
             width={100}
             height={100}
@@ -81,7 +80,7 @@ export default function ClubForm(props: ClubFormProps) {
         }}
       />
 
-      <TextField type="text" name="name" label="Nom" disabled={Boolean(props.initialValues?.id)} />
+      <TextField type="text" name="name" label="Nom" />
       <TextField type="email" name="email" label="Adresse email" />
       <TextField type="text" name="description" label="Description" multiline rows={15} />
 

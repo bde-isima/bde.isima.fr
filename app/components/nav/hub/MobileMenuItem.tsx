@@ -20,20 +20,18 @@ export default function MobileMenuItem({ item, onClose }: MobileMenuItemProps) {
 
   return (
     <Link href={item.to}>
-      <Button
-        className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
-        variant={isActive ? 'contained' : 'text'}
-        size="small"
-        onClick={onClose}
-      >
+      <Button className="px-4 my-1" variant="text" size="small" onClick={onClose} fullWidth={true}>
         <ListItem dense disableGutters>
-          <ListItemIcon>
-            {cloneElement(item.icon, { className: `${isActive ? 'text-white' : ''} rounded-full` })}
+          <ListItemIcon className="min-w-40 ml-2 mr-4">
+            {cloneElement(item.icon, { className: `m-auto ${isActive ? 'text-primary' : ''}` })}
           </ListItemIcon>
 
           <ListItemText
             secondary={item.text}
-            secondaryTypographyProps={{ color: isActive ? 'secondary' : 'textPrimary' }}
+            secondaryTypographyProps={{
+              color: isActive ? 'primary.main' : 'textPrimary',
+              className: isActive ? 'font-bold' : 'font-normal'
+            }}
           />
         </ListItem>
       </Button>

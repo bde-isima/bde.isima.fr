@@ -83,6 +83,8 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
     setTotal(quantity * (product.price + selectedOptions.reduce((acc: number, val: Option) => acc + val.price, 0)));
   }, [product, quantity, selectedOptions]);
 
+  if (!product.groupOptions) product.groupOptions = [];
+
   product.groupOptions.sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type));
 
   return (
@@ -113,9 +115,7 @@ export default function ProductDialog({ product, onClose }: ProductGroupOptionPr
           <IconButton onClick={onQuantityChange(-1)} aria-label="Retirer 1" size="large">
             <RemoveCircle />
           </IconButton>
-          <Typography variant="subtitle1" color="textSecondary">
-            {quantity}
-          </Typography>
+          <Typography variant="subtitle1">{quantity}</Typography>
           <IconButton onClick={onQuantityChange(1)} aria-label="Ajouter 1" size="large">
             <AddCircle />
           </IconButton>

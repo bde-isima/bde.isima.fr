@@ -17,9 +17,11 @@ import github from 'public/static/images/previews/github.png';
 export default function News() {
   const openNewWindow = (url: string) => () => window.open(url, '_blank noreferrer noopener');
 
+  // Todo: Use tailwind for link gradient
+
   return (
     <div className="flex flex-col">
-      <Typography align="left" variant="h6" color="textPrimary">
+      <Typography align="left" variant="h6">
         Actualités
       </Typography>
 
@@ -38,7 +40,6 @@ export default function News() {
             layout="fill"
             objectFit="cover"
           />
-
           <ImageListItemBar
             sx={{
               background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
@@ -54,9 +55,9 @@ export default function News() {
               <IconButton
                 className="bg-gray-700/40 text-white m-2"
                 LinkComponent={Link}
-                href="https://www.tictactrip.eu/?partnerId=WB-ASSO-ISIMA-CLERMONT"
+                href="https://github.com/bde-isima/bde.isima.fr"
                 target="_blank noreferrer noopener"
-                aria-label="Lien vers Tictactrip"
+                aria-label="Lien vers le Github du BDE"
                 size="large"
               >
                 <OpenInNew />

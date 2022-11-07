@@ -1,42 +1,34 @@
 import { useState } from 'react';
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
+import { useMutation } from '@blitzjs/rpc';
 
 import { TopUpInputType } from 'app/components/forms/validations';
 import Snackbar from 'app/core/layouts/Snackbar';
 import useSnackbar from 'app/entities/hooks/useSnackbar';
+import requestTopUp, { PaymentMethod } from 'app/entities/transactions/mutations/requestTopUp';
 
 import TopUpForm from './TopUpForm';
 
-export type PaymentMethod = 'cb' | 'lydia';
-
 export default function TopUp() {
-  const session = useAuthenticatedSession();
-  const { open, message, severity, onShow, onClose } = useSnackbar();
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cb');
+  const { open, message, severity, onClose, onShow } = useSnackbar();
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit');
+  const [topUp] = useMutation(requestTopUp);
 
   const beforeSubmit = (paymentMethod: PaymentMethod) => () => setPaymentMethod(paymentMethod);
 
   const onSuccess = (data: TopUpInputType) => {
-    const body = new FormData();
-
-    body.append('amount', data.amount.toString());
-    body.append('paymentMethod', paymentMethod);
-    body.append('vendor_token', `${process.env.NEXT_PUBLIC_LYDIA_API_VENDOR_TOKEN}`);
-    body.append('recipient', data.recipient);
-    body.append('message', `Recharge compte BDE +${data.amount} €`);
-    body.append('currency', 'EUR');
-    body.append('type', 'phone');
-    body.append('order_ref', `${session?.userId}-${new Date().toISOString()}`);
-    body.append('confirm_url', `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/confirm_payment/${session?.userId}`);
-
-    return fetch(`${process.env.NEXT_PUBLIC_LYDIA_API_URL}/api/request/do.json`, {
-      method: 'POST',
-      body
-    })
-      .then((res) => res.json())
-      .then((info) => window.location.assign(info.mobile_url))
-      .catch((err) => onShow('error', err.message));
+    topUp({
+      amount: data.amount,
+      method: paymentMethod
+    }).then(
+      (url) => {
+        window.location.assign(url as string);
+      },
+      (error) => {
+        onShow('error', error.message);
+      }
+    );
   };
 
   return (

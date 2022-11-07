@@ -53,7 +53,11 @@ export default function Catalog({ user, onTransactionComplete }) {
 
   const [deleteT] = useMutation(deleteTransaction);
 
-  const [{ articles }] = useQuery(getArticles, { where: { is_enabled: true } }, { refetchOnWindowFocus: false });
+  const [{ articles }] = useQuery(
+    getArticles,
+    { where: { is_enabled: true }, orderBy: { name: 'asc' } },
+    { refetchOnWindowFocus: false }
+  );
 
   const itemsPerRow = fullScreen ? 3 : 4;
   const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput));

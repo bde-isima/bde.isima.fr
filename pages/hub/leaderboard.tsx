@@ -9,13 +9,11 @@ import getHubNav from 'app/components/nav/hub/getHubNav';
 const Leaderboard: BlitzPage = () => {
   return (
     <div className="flex flex-col">
-      <Typography variant="h4" paragraph align="left" color="textPrimary">
+      <Typography variant="h4" paragraph align="left">
         Classement
       </Typography>
 
-      <Typography variant="caption" color="textSecondary">
-        Le classement est mis à jour chaque heure
-      </Typography>
+      <Typography variant="caption">Le classement est mis à jour chaque heure</Typography>
 
       <Divider className="m-4" />
 

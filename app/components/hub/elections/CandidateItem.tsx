@@ -32,7 +32,7 @@ export default function CandidateItem({ candidate, onSelect, isLoading }: Candid
                 />
               </div>
               <CardContent className="flex flex-grow items-center">
-                <Typography className="flex flex-grow" variant="h3" color="textSecondary">
+                <Typography className="flex flex-grow" variant="h3">
                   {isLoading ? <Skeleton width="80%" animation="wave" /> : <i>{candidate?.name}</i>}
                 </Typography>
               </CardContent>

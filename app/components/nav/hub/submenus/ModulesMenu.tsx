@@ -25,7 +25,8 @@ export default function ModulesMenu() {
   return (
     <>
       <IconButton
-        className="mx-2 text-primary dark:text-secondary"
+        color="inherit"
+        className="mx-2"
         aria-label="Voir les modules"
         aria-owns={isOpen ? 'module-menu' : undefined}
         aria-haspopup="true"

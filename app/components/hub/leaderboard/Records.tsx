@@ -20,6 +20,16 @@ export default function Records() {
     where: { tag: 'leaderboard' }
   });
 
+  if (leaderboard == null) {
+    return (
+      <TableRow>
+        <TableCell align="center" colSpan={5}>
+          Aucun classement ne peut être affiché
+        </TableCell>
+      </TableRow>
+    );
+  }
+
   return (
     <>
       {(leaderboard as any)?.data?.map((row, index) => {
@@ -28,13 +38,7 @@ export default function Records() {
           <TableRow key={index}>
             <TableCell align="right">
               {row.articleImage && (
-                <Image
-                  className="rounded-full"
-                  src={row.articleImage}
-                  width={40}
-                  height={40}
-                  alt={`Image de ${row.articleName}`}
-                />
+                <Image src={row.articleImage} width={40} height={40} alt={`Image de ${row.articleName}`} />
               )}
             </TableCell>
             <TableCell component="th" scope="row" align="right">
@@ -46,13 +50,7 @@ export default function Records() {
                 {row.leaderName}
                 {row.leaderImage && (
                   <div className="ml-2">
-                    <Image
-                      className="rounded-full"
-                      src={row.leaderImage}
-                      width={40}
-                      height={40}
-                      alt={`Image de ${row.leaderName}`}
-                    />
+                    <Image src={row.leaderImage} width={40} height={40} alt={`Image de ${row.leaderName}`} />
                   </div>
                 )}
               </div>
@@ -60,7 +58,7 @@ export default function Records() {
             <TableCell align="right">
               {score >= row.unitsNb && row.unitsNb > 0 ? (
                 <Badge
-                  badgeContent={<Whatshot className="transform-gpu -translate-y-1 rotate-12 text-red-500" />}
+                  badgeContent={<Whatshot color="error" className="transform-gpu -translate-y-1 rotate-12" />}
                   component="span"
                 >
                   {score}

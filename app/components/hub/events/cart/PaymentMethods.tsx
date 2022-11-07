@@ -30,16 +30,16 @@ export default function PaymentMethods() {
 
   return (
     <ButtonGroup className="w-full" aria-label="Méthodes de paiement">
-      <Tooltip title="Payer par LYDIA">
+      <Tooltip title="Payer par LYF">
         <Button
           className="w-full"
           startIcon={<PhoneAndroid />}
-          aria-label="Payer par LYDIA"
-          variant={eventSubscription?.payment_method === 'LYDIA' ? 'contained' : 'outlined'}
-          onClick={onPaymentMethodChange('LYDIA')}
-          color={eventSubscription?.payment_method === 'LYDIA' ? 'primary' : 'inherit'}
+          aria-label="Payer par LYF"
+          variant={eventSubscription?.payment_method === 'LYF' ? 'contained' : 'outlined'}
+          onClick={onPaymentMethodChange('LYF')}
+          color={eventSubscription?.payment_method === 'LYF' ? 'primary' : 'neutral'}
         >
-          <Typography variant="caption">LYDIA</Typography>
+          <Typography variant="caption">LYF</Typography>
         </Button>
       </Tooltip>
 
@@ -50,7 +50,7 @@ export default function PaymentMethods() {
           aria-label="Payer par carte BDE"
           variant={eventSubscription?.payment_method === 'BDE' ? 'contained' : 'outlined'}
           onClick={onPaymentMethodChange('BDE')}
-          color={eventSubscription?.payment_method === 'BDE' ? 'primary' : 'inherit'}
+          color={eventSubscription?.payment_method === 'BDE' ? 'primary' : 'neutral'}
         >
           <Typography variant="caption">BDE</Typography>
         </Button>
@@ -63,7 +63,7 @@ export default function PaymentMethods() {
           aria-label="Payer en liquide"
           variant={eventSubscription?.payment_method === 'CASH' ? 'contained' : 'outlined'}
           onClick={onPaymentMethodChange('CASH')}
-          color={eventSubscription?.payment_method === 'CASH' ? 'primary' : 'inherit'}
+          color={eventSubscription?.payment_method === 'CASH' ? 'primary' : 'neutral'}
         >
           <Typography variant="caption">LIQUIDE</Typography>
         </Button>

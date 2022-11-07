@@ -22,32 +22,22 @@ import config from './config';
 
 export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
   const session = useSession();
-  const { router, pushRoute } = useRouter();
+  const { pushRoute } = useRouter();
 
   const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const ItemsList = () => (
     <>
       {config.map((obj) => {
-        const isActive = obj.isActive(router.asPath, window.location.hash);
-
         return (
           <Link key={obj.text} href={obj.to}>
-            <Button
-              className={`${isActive && 'bg-primary'} w-11/12 rounded-full my-1`}
-              variant={isActive ? 'contained' : 'text'}
-              size="small"
-              onClick={onClose}
-            >
+            <Button className="px-4 my-1" variant="text" size="small" onClick={onClose} fullWidth={true}>
               <ListItem dense disableGutters>
-                <ListItemIcon>
-                  {cloneElement(obj.icon, { className: isActive ? 'text-white' : undefined })}
+                <ListItemIcon className="min-w-40 ml-2 mr-4">
+                  {cloneElement(obj.icon, { className: 'm-auto' })}
                 </ListItemIcon>
 
-                <ListItemText
-                  secondary={obj.text}
-                  secondaryTypographyProps={{ color: isActive ? 'secondary' : 'textPrimary' }}
-                />
+                <ListItemText secondary={obj.text} secondaryTypographyProps={{ color: 'textPrimary' }} />
               </ListItem>
             </Button>
           </Link>
@@ -64,20 +54,14 @@ export default function Mobile({ isOpen, onOpen, onClose, onLoginRequested }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: 'w-3/4' }}
+      PaperProps={{ className: 'w-3/4 bg-bl1/90 backdrop-blur-xl border-y-0 border-l-0' }}
     >
       <div className="text-center">
         <List>
           <ListItem>
             <ListItemIcon>
               <div className="m-2 mr-4">
-                <Image
-                  className="rounded-full"
-                  src="/static/images/logos/logo.svg"
-                  width={40}
-                  height={40}
-                  alt="Logo BDE ISIMA"
-                />
+                <Image src="/static/images/logos/logo.svg" width={40} height={40} alt="Logo BDE ISIMA" />
               </div>
             </ListItemIcon>
 

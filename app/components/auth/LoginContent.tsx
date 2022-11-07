@@ -9,13 +9,7 @@ export default function LoginContent() {
   return (
     <DialogContent className="flex flex-col items-center">
       <div className="m-2">
-        <Image
-          className="rounded-full"
-          src="/static/images/logos/logo.svg"
-          width={100}
-          height={100}
-          alt="Logo BDE ISIMA"
-        />
+        <Image src="/static/images/logos/logo.svg" width={100} height={100} alt="Logo BDE ISIMA" />
       </div>
 
       <Typography variant="h6" gutterBottom>

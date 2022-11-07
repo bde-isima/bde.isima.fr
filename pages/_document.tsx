@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
         <Head />
         <NextHead></NextHead>
 
-        <body className="dark:bg-black">
+        <body className="bg-bl0">
           <Main />
           <NextScript />
         </body>

@@ -9,6 +9,7 @@ import { TablePropsProvider } from './TablePropsProvider';
 type TableProps = {
   title: string;
   columns: any[];
+  defaultSort?: { name: string; order: 'asc' | 'desc' };
   queryKey: string;
   getQuery: any;
   queryArgs?: any;

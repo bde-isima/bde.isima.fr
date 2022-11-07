@@ -15,7 +15,15 @@ export default function EnhancedTextField(props: EnhancedTextFieldProps) {
 
   const { input, meta } = useField(name, {
     formatOnBlur: true,
-    parse: props.type === 'number' ? Number : undefined
+    parse:
+      props.type === 'number'
+        ? (value) => {
+            let ret = Number(value);
+
+            if (ret == 0) return '';
+            return ret;
+          }
+        : undefined
   });
 
   const { error, submitError } = meta;

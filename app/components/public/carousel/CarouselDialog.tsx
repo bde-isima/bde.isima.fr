@@ -42,7 +42,7 @@ const CarouselDialog = <ItemType extends CarouselItemType>({
       aria-describedby="carousel-dialog-description"
     >
       <IconButton
-        className="z-10 absolute top-6 right-6 bg-gray-700/40 text-white"
+        className="z-10 absolute top-6 right-6 bg-black/50 text-white"
         onClick={onClose}
         aria-label="Fermer"
         size="large"
@@ -52,12 +52,12 @@ const CarouselDialog = <ItemType extends CarouselItemType>({
 
       <DialogTitle id="carousel-dialog-title" className="p-0">
         <Paper
-          className="relative bg-gray-800 text-white mb-8 bg-cover bg-no-repeat bg-top h-96"
+          className="relative border-none text-white mb-8 bg-cover bg-no-repeat bg-top h-96"
           sx={{ backgroundImage: `url(${item?.image})` }}
         >
           <div className="absolute inset-0 bg-black/30" />
 
-          <div className="absolute bottom-0 p-6">
+          <div className="absolute bottom-0 p-6 w-full bg-gradient-to-b from-transparent to-black/90">
             <Typography component="h1" variant="h4" color="inherit" gutterBottom>
               {item?.name.toUpperCase()}
             </Typography>

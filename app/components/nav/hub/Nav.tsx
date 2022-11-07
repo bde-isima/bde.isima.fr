@@ -30,12 +30,7 @@ export default function Nav() {
 
         {fullScreen && (
           <div className="flex flex-grow justify-start">
-            <IconButton
-              className="text-primary dark:text-secondary"
-              aria-label="Menu"
-              onClick={toggleDrawer(true)}
-              size="large"
-            >
+            <IconButton color="inherit" aria-label="Menu" onClick={toggleDrawer(true)} size="large">
               <Menu />
             </IconButton>
           </div>
@@ -45,13 +40,7 @@ export default function Nav() {
           <>
             <Link href="/">
               <div className="flex mr-4">
-                <Image
-                  className="rounded-full"
-                  src="/static/images/logos/logo.svg"
-                  width={40}
-                  height={40}
-                  alt="Logo BDE ISIMA"
-                />
+                <Image src="/static/images/logos/logo.svg" width={40} height={40} alt="Logo BDE ISIMA" />
               </div>
             </Link>
 

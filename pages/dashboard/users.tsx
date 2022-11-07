@@ -39,7 +39,7 @@ const columns = [
     render: (row) =>
       row.image && (
         <Image
-          className="ml-auto rounded-full"
+          className="ml-auto"
           src={row.image}
           width={40}
           height={40}

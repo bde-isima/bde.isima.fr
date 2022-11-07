@@ -30,14 +30,14 @@ export default function Events() {
         <Grid container item alignContent="center" direction="column">
           <Image src="/static/images/illustrations/NoData.svg" width={300} height={300} alt="Aucune donnée" />
 
-          <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
+          <Typography variant="h5" align="center" gutterBottom>
             Aucun événement à venir !
           </Typography>
         </Grid>
       )}
 
       {events.map((event, idx) => (
-        <EventsItem key={idx} event={event as EventDb & { club: { image: string | null } }} />
+        <EventsItem key={idx} event={event as EventDb & { club: { image: string | null; name: string } }} />
       ))}
     </>
   );

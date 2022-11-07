@@ -1,4 +1,7 @@
+import Avatar from '@mui/material/Avatar';
 import Checkbox from '@mui/material/Checkbox';
+
+import Item from '@mui/icons-material/Fastfood';
 
 import Image from 'next/image';
 
@@ -36,8 +39,12 @@ const columns = [
     id: 'image',
     headerName: 'Logo',
     render: (row) =>
-      row.image && (
-        <Image className="ml-auto rounded-full" src={row.image} width={40} height={40} alt={`Photo de ${row.name}`} />
+      row.image ? (
+        <Image className="ml-auto" src={row.image} width={40} height={40} alt={`Photo de ${row.name}`} />
+      ) : (
+        <Avatar className="ml-auto" alt={`Photo de ${row.name}`}>
+          <Item />
+        </Avatar>
       )
   },
   {

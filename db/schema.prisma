@@ -7,14 +7,14 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 // --------------------------------------
 
 enum PaymentMethod {
   BDE
-  LYDIA
+  LYF
   CASH
 }
 

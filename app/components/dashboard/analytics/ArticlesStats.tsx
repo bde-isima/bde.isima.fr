@@ -20,7 +20,9 @@ export default function ArticlesStats() {
 
   const [data] = useQuery(getArticles, {
     include: { Transaction: true },
-    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } }
+    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
+    orderBy: { Transaction: { _count: 'desc' } },
+    take: 10
   });
 
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
@@ -39,8 +41,10 @@ export default function ArticlesStats() {
 
       <VictoryChart domainPadding={100}>
         <VictoryBar
-          theme={VictoryTheme.material}
-          style={{ data: { fill: theme.palette.text.primary } }}
+          style={{
+            data: { fill: theme.palette.primary.main },
+            labels: { fill: theme.palette.text.primary }
+          }}
           animate={{ duration: 300 }}
           data={data?.articles.map((a: Article & { Transaction: Transaction[] }, i: number) => ({
             x: i + 1,

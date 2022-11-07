@@ -1,6 +1,5 @@
 import { Suspense, useMemo } from 'react';
 
-import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,7 +13,6 @@ import Image from 'next/image';
 
 import DashboardMobile from 'app/components/nav/dashboard/Mobile';
 import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem';
-import Link from 'app/core/lib/Link';
 
 import config from './config';
 
@@ -40,41 +38,36 @@ export default function Mobile({ isOpen, onOpen, onClose }) {
       onClose={onClose}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
-      PaperProps={{ className: 'w-3/4' }}
+      PaperProps={{ className: 'w-3/4 bg-bl1/90 backdrop-blur-xl border-y-0 border-l-0' }}
     >
       <div className="text-center">
         <List>
           <ListItem>
             <ListItemIcon>
               <div className="m-2 mr-4">
-                <Image
-                  className="rounded-full"
-                  src="/static/images/logos/logo.svg"
-                  width={40}
-                  height={40}
-                  alt="Logo BDE ISIMA"
-                />
+                <Image src="/static/images/logos/logo.svg" width={40} height={40} alt="Logo BDE ISIMA" />
               </div>
             </ListItemIcon>
 
             <ListItemText primary="BDE ISIMA" />
           </ListItem>
 
-          <Link href="/">
-            <Button className={'w-11/12 rounded-full my-1'} variant="text" size="small" onClick={onClose}>
-              <ListItem dense disableGutters>
-                <ListItemIcon>
-                  <Home />
-                </ListItemIcon>
-
-                <ListItemText secondary="ACCUEIL" secondaryTypographyProps={{ color: 'textPrimary' }} />
-              </ListItem>
-            </Button>
-          </Link>
+          <MobileMenuItem
+            key="/"
+            item={{
+              to: '/',
+              icon: <Home />,
+              text: 'ACCUEIL',
+              isActive: () => {
+                false;
+              }
+            }}
+            onClose={onClose}
+          />
 
           {ItemsList}
 
-          <Suspense fallback={<CircularProgress className="mx-auto my-2 text-primary dark:text-secondary" size={25} />}>
+          <Suspense fallback={<CircularProgress className="mx-auto my-2" size={25} />}>
             <DashboardMobile onClose={onClose} />
           </Suspense>
         </List>

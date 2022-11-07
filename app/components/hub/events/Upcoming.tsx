@@ -26,7 +26,7 @@ export default function Upcoming() {
 
   return (
     <div className="flex flex-col">
-      <Typography align="left" variant="h6" color="textPrimary">
+      <Typography align="left" variant="h6">
         Évènements à venir
       </Typography>
 
@@ -49,7 +49,7 @@ export default function Upcoming() {
             <MoreVert />
           </IconButton>
         </Tooltip>
-        <Typography color="textPrimary">Tous les évènements</Typography>
+        <Typography>Tous les évènements</Typography>
       </div>
     </div>
   );

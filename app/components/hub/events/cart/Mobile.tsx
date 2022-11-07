@@ -54,7 +54,7 @@ export default function Mobile({
   return (
     <AppBar
       position="fixed"
-      color="inherit"
+      color="transparent"
       className="top-auto bottom-0"
       style={{ zIndex: open ? 1400 : 1100 }}
       sx={{ display: { md: 'none', xs: 'block' } }}
@@ -65,17 +65,19 @@ export default function Mobile({
             {open ? (
               <Button
                 className="w-full h-full"
-                startIcon={<Check />}
+                startIcon={event.subscriptions_end_at!.getTime() > Date.now() && <Check />}
                 variant="contained"
                 onClick={onSubscribe}
-                disabled={unsubscribing || subscribing}
+                disabled={subscribing || unsubscribing || event.subscriptions_end_at!.getTime() <= Date.now()}
                 aria-label={eventSubscription.id ? 'Modifier' : "S'inscrire"}
                 color="primary"
               >
                 {subscribing ? (
-                  <CircularProgress size={25} color="secondary" />
-                ) : eventSubscription.id ? (
+                  <CircularProgress size={25} color="neutral" />
+                ) : eventSubscription?.id ? (
                   'Modifier'
+                ) : event.subscriptions_end_at!.getTime() <= Date.now() ? (
+                  'Les inscriptions sont closes'
                 ) : (
                   "S'inscrire"
                 )}
@@ -94,7 +96,7 @@ export default function Mobile({
             )}
           </Grid>
           <Grid container item xs={3} justifyContent="center" alignContent="center">
-            <Typography className="text-center" variant="caption" color="textSecondary">
+            <Typography className="text-center" variant="caption">
               {`${total} €`}
             </Typography>
           </Grid>
@@ -185,18 +187,18 @@ export default function Mobile({
 
             {eventSubscription.id && (
               <div className="flex flex-col justify-center items-center p-3">
-                <Typography variant="body2" align="center" color="textSecondary" paragraph>
+                <Typography variant="body2" align="center" paragraph>
                   T&apos;étais pas là pour être ici ?
                 </Typography>
 
                 <Button
-                  className="w-full text-red-600"
+                  className="w-full"
                   startIcon={<Close />}
                   variant="outlined"
                   onClick={onUnsubscribe}
                   disabled={unsubscribing || subscribing}
                   aria-label="Se désinscrire"
-                  color="inherit"
+                  color="error"
                 >
                   {unsubscribing ? <CircularProgress size={25} color="inherit" /> : 'Se désinscrire'}
                 </Button>

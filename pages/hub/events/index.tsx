@@ -15,8 +15,8 @@ const EventsIndex: BlitzPage = () => {
 
   return (
     <div className="flex flex-col">
-      <Typography variant="h4" align="right" color="textPrimary" paragraph>
-        Évènements à venir
+      <Typography variant="h4" align="right" paragraph>
+        Événements à venir
       </Typography>
 
       <Divider className="m-4" />

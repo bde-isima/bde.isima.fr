@@ -8,27 +8,34 @@ import Image from 'next/image';
 type MarketItemProps = {
   article?: Article | null;
   isLoading?: boolean;
+  member?: boolean;
 };
 
-export default function MarketItem({ article, isLoading }: MarketItemProps) {
+export default function MarketItem({ article, isLoading, member }: MarketItemProps) {
   return (
     <ImageListItem>
-      {isLoading ? (
-        <Skeleton variant="rectangular" width="100%" height={200} animation="wave" />
+      {isLoading || article?.image == null ? (
+        <Skeleton className="rounded-lg" variant="rectangular" width="100%" height={200} animation="wave" />
       ) : (
         <Image className="rounded-lg" src={article?.image!} layout="fill" objectFit="cover" alt={article?.name} />
       )}
       <ImageListItemBar
-        className="rounded-b-lg"
+        className="rounded-b-lg backdrop-blur-lg"
         title={
           isLoading ? (
             <Skeleton width="100%" animation="wave" />
           ) : (
-            `${article?.name} • ${article?.member_price.toFixed(2)}€`
+            `${article?.name} • ${member ? article?.member_price.toFixed(2) : article?.price.toFixed(2)}€`
           )
         }
         subtitle={
-          isLoading ? <Skeleton width="100%" animation="wave" /> : `Non-cotisant • ${article?.price.toFixed(2)}€`
+          isLoading ? (
+            <Skeleton width="100%" animation="wave" />
+          ) : member ? (
+            `Non-cotisant • ${article?.price.toFixed(2)}€`
+          ) : (
+            `Cotisant • ${article?.member_price.toFixed(2)}€`
+          )
         }
       />
     </ImageListItem>

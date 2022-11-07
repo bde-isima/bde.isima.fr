@@ -42,7 +42,7 @@ export default function SettingsForm(props: SettingsFormProps) {
       onSubmit={onSubmit}
       autoComplete="off"
     >
-      <Typography variant="h6" color="textSecondary">
+      <Typography variant="h6">
         {user?.lastname} {user?.firstname} (n° {user?.card}) - {user?.is_member ? 'Cotisant' : 'Non-cotisant'}
       </Typography>
 

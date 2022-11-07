@@ -34,18 +34,14 @@ export default function SubscriptionsAnalytics({ eventSubscriptions = [] }: Subs
 
       <div className="flex justify-around">
         <Card className="flex flex-col m-2 p-4">
-          <Typography variant="subtitle1" color="textSecondary">
-            Audience engagée
-          </Typography>
+          <Typography variant="subtitle1">Audience engagée</Typography>
           <Typography variant="h6" color="inherit" gutterBottom>
             {`${eventSubscriptions.length} inscrit(s)`}
           </Typography>
         </Card>
 
         <Card className="flex flex-col m-2 p-4">
-          <Typography variant="subtitle1" color="textSecondary">
-            Recettes actuelles
-          </Typography>
+          <Typography variant="subtitle1">Recettes actuelles</Typography>
           <Typography variant="h6" color="inherit" gutterBottom>
             {`${revenues.toFixed(2)} €`}
           </Typography>
