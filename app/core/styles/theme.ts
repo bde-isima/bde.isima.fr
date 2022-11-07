@@ -20,13 +20,13 @@ export function useTheme() {
             palette: {
               mode: prefersDarkMode ? 'dark' : 'light',
               primary: {
-                main: prefersDarkMode ? indigo[200] : indigo[700]
+                main: prefersDarkMode ? indigo[200] : indigo[600]
               },
               neutral: { main: prefersDarkMode ? '#fff' : 'rgba(0,0,0,0.87)' },
-              error: { main: prefersDarkMode ? red[300] : red[700] },
-              warning: { main: prefersDarkMode ? amber[300] : amber[700] },
-              info: { main: prefersDarkMode ? blue[300] : blue[700] },
-              success: { main: prefersDarkMode ? green[300] : green[700] }
+              error: { main: prefersDarkMode ? red[300] : red[600] },
+              warning: { main: prefersDarkMode ? amber[300] : amber[600] },
+              info: { main: prefersDarkMode ? blue[300] : blue[600] },
+              success: { main: prefersDarkMode ? green[300] : green[600] }
             },
             components: {
               MuiAppBar: {
