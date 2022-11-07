@@ -13,7 +13,8 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['loremflickr.com', 'i.imgur.com']
+    domains: ['loremflickr.com', 'i.imgur.com'],
+    unoptimized: true
   },
   poweredByHeader: false,
   async headers() {
