@@ -15,7 +15,9 @@ type CalendarCellProps = {
 export default function CalendarCell({ idx, date, events = [], fallback = false }: CalendarCellProps) {
   return (
     <Grid
-      className="p-2 min-h-100 border border-solid border-gray-300"
+      className={`p-2 min-h-100 border-t ${idx >= 4 && 'border-b'} border-l ${
+        (idx == 3 || idx == 6) && 'border-r'
+      } border-0 border-solid border-bc/10`}
       item
       container
       xs={idx === 6 ? 12 : 6}

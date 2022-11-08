@@ -21,7 +21,8 @@ module.exports = {
       colors: {
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
         bl0: 'rgb(var(--color-bl0) / <alpha-value>)',
-        bl1: 'rgb(var(--color-bl1) / <alpha-value>)'
+        bl1: 'rgb(var(--color-bl1) / <alpha-value>)',
+        bc: 'rgb(var(--color-border) / <alpha-value>)'
       },
       backgroundColor: (theme) => theme('colors'),
       textColor: (theme) => theme('colors'),
