@@ -21,7 +21,6 @@ export default function SettingsForm(props: SettingsFormProps) {
 
   const onSubmit = async (values: SettingsInputType) => {
     try {
-      console.log(values);
       await props.onSuccess(values);
     } catch (error) {
       return {

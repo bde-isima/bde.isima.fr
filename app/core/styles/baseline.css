@@ -96,6 +96,8 @@ img {
   --color-primary: 57 73 171; /* Indigo 600 */
   --color-bl0: 255 255 255;
   --color-bl1: 250 250 250;
+
+  --color-border: 0 0 0;
 }
 
 @media screen and (prefers-color-scheme: dark) {
@@ -103,6 +105,8 @@ img {
     --color-primary: 159 168 218; /* Indigo 200 */
     --color-bl0: 33 33 33;
     --color-bl1: 25 25 25;
+
+    --color-border: 255 255 255;
   }
 
   body {
