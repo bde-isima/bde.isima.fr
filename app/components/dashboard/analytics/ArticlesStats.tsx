@@ -35,7 +35,7 @@ export default function ArticlesStats() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-grow justify-around content-center mb-4">
+      <div className="flex justify-around content-center mb-4">
         <Typography className="my-auto h-min" variant="h6">
           Vente d&apos;articles
         </Typography>
