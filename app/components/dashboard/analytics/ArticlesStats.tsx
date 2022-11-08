@@ -35,8 +35,10 @@ export default function ArticlesStats() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-grow justify-around">
-        <Typography variant="h6">Ventes d&apos;articles</Typography>
+      <div className="flex flex-grow justify-around content-center mb-4">
+        <Typography className="my-auto h-min" variant="h6">
+          Vente d&apos;articles
+        </Typography>
 
         <Select className="ml-auto" value={period} onChange={handleChange}>
           <MenuItem value={7}>Cette semaine</MenuItem>
