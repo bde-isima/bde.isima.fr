@@ -19,13 +19,19 @@ const now = new Date();
 export default function ArticlesStats() {
   const theme = useTheme();
   const [period, setPeriod] = useState(31);
+  const [count, setCount] = useState(10);
 
   const [data] = useQuery(getArticlesUse, {
     range: { lte: now, gte: subDays(now, period) },
-    count: 10
+    count
   });
 
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
+  const handleChangeNumber = (event: SelectChangeEvent<number>) => {
+    let count = event.target.value as number;
+
+    return setCount(count <= 0 ? 1 : count);
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -36,6 +42,13 @@ export default function ArticlesStats() {
           <MenuItem value={7}>Cette semaine</MenuItem>
           <MenuItem value={31}>Ce mois</MenuItem>
           <MenuItem value={365}>Cette année</MenuItem>
+        </Select>
+
+        <Select className="ml-2" value={count} onChange={handleChangeNumber}>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={20}>20</MenuItem>
+          <MenuItem value={50}>50</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
         </Select>
       </div>
 
