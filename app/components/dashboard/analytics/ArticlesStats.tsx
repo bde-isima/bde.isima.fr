@@ -27,11 +27,7 @@ export default function ArticlesStats() {
   });
 
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
-  const handleChangeNumber = (event: SelectChangeEvent<number>) => {
-    let count = event.target.value as number;
-
-    return setCount(count <= 0 ? 1 : count);
-  };
+  const handleChangeNumber = (event: SelectChangeEvent<number>) => setCount(Math.max(1, event.target.value as number));
 
   return (
     <div className="flex flex-col h-full">
