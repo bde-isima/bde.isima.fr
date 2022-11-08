@@ -11,7 +11,7 @@ const withPWA = require('next-pwa')({
  **/
 const config = {
   reactStrictMode: true,
-  swcMinify: true,
+  swcMinify: false,
   images: {
     domains: ['loremflickr.com', 'i.imgur.com'],
     unoptimized: true

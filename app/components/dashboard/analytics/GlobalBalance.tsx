@@ -35,7 +35,7 @@ export default function GlobalBalance() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-grow justify-between content-center mb-4">
+      <div className="flex justify-between content-center mb-4">
         <Typography className="my-auto h-min" variant="h6">
           Bilan des soldes
         </Typography>
