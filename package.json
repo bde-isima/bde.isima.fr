@@ -76,8 +76,9 @@
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.7",
     "sanitize-html": "^2.7.2",
-    "victory": "^36.6.8",
-    "zod": "3.19.1"
+    "zod": "3.19.1",
+    "react-chartjs-2": "4.3.1",
+    "chart.js": "3.9.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",

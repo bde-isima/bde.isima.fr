@@ -1,10 +1,13 @@
 import Typography from '@mui/material/Typography';
-import { VictoryAxis, VictoryChart, VictoryPie, VictoryTheme } from 'victory';
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 
 import { useQuery } from '@blitzjs/rpc';
 
 import { useTheme } from 'app/core/styles/theme';
 import getAggregatedBalance from 'app/entities/users/queries/getAggregatedBalance';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function GlobalBalance() {
   const theme = useTheme();
@@ -12,33 +15,31 @@ export default function GlobalBalance() {
 
   const [negatives, positives] = [data?.negatives || 0, data?.positives || 0];
 
-  const total = negatives + positives;
-  const negRatio = (negatives * 100) / total;
-  const posRatio = (positives * 100) / total;
-
   return (
     <div className="flex flex-col h-full">
       <Typography variant="h6">Bilan des soldes</Typography>
 
-      <VictoryChart padding={{ left: 90, top: 0, right: 90, bottom: 90 }}>
-        <VictoryPie
-          theme={VictoryTheme.material}
-          style={{ labels: { fill: theme.palette.text.primary } }}
-          colorScale={['#C91F37', '#32CD32']}
-          animate={{ duration: 300 }}
-          data={[
-            { x: `${negatives} négatifs`, y: negRatio },
-            { x: `${positives} positifs`, y: posRatio }
-          ]}
-        />
-        <VictoryAxis
-          style={{
-            axis: { stroke: 'transparent' },
-            ticks: { stroke: 'transparent' },
-            tickLabels: { fill: 'transparent' }
-          }}
-        />
-      </VictoryChart>
+      <Pie
+        className="max-h-60"
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right' as const
+            }
+          }
+        }}
+        data={{
+          labels: ['Positifs', 'Négatifs'],
+          datasets: [
+            {
+              data: [positives, negatives],
+              backgroundColor: [theme.palette.success.main, theme.palette.error.main],
+              borderColor: [theme.palette.success.dark, theme.palette.error.dark]
+            }
+          ]
+        }}
+      />
     </div>
   );
 }

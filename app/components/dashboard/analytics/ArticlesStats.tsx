@@ -3,14 +3,16 @@ import { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import { BarElement, CategoryScale, Chart as ChartJS, LinearScale, Tooltip } from 'chart.js';
 import { subDays } from 'date-fns';
-import { Article, Transaction } from 'db';
-import { VictoryBar, VictoryChart, VictoryLabel, VictoryTheme } from 'victory';
+import { Bar } from 'react-chartjs-2';
 
 import { useQuery } from '@blitzjs/rpc';
 
 import { useTheme } from 'app/core/styles/theme';
-import getArticles from 'app/entities/articles/queries/getArticles';
+import getArticlesUse from 'app/entities/articles/queries/getArticlesUse';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const now = new Date();
 
@@ -18,12 +20,12 @@ export default function ArticlesStats() {
   const theme = useTheme();
   const [period, setPeriod] = useState(31);
 
-  const [data] = useQuery(getArticles, {
-    include: { Transaction: true },
-    where: { Transaction: { some: { createdAt: { lte: now, gte: subDays(now, period) } } } },
-    orderBy: { Transaction: { _count: 'desc' } },
-    take: 10
+  const [data] = useQuery(getArticlesUse, {
+    range: { lte: now, gte: subDays(now, period) },
+    count: 10
   });
+
+  console.log(data);
 
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
 
@@ -39,21 +41,29 @@ export default function ArticlesStats() {
         </Select>
       </div>
 
-      <VictoryChart domainPadding={100}>
-        <VictoryBar
-          style={{
-            data: { fill: theme.palette.primary.main },
-            labels: { fill: theme.palette.text.primary }
-          }}
-          animate={{ duration: 300 }}
-          data={data?.articles.map((a: Article & { Transaction: Transaction[] }, i: number) => ({
-            x: i + 1,
-            y: a.Transaction.length,
-            label: a.name
-          }))}
-          labelComponent={<VictoryLabel angle={90} verticalAnchor="middle" textAnchor="end" />}
-        />
-      </VictoryChart>
+      <Bar
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }}
+        data={{
+          labels: data.map((a) => {
+            return a.article.name;
+          }),
+          datasets: [
+            {
+              data: data.map((a) => {
+                return a.count;
+              }),
+              backgroundColor: theme.palette.primary.main
+            }
+          ]
+        }}
+      />
     </div>
   );
 }
