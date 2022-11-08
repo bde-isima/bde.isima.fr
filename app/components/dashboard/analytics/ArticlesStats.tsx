@@ -58,7 +58,8 @@ export default function ArticlesStats() {
               data: data.map((a) => {
                 return a.count;
               }),
-              backgroundColor: theme.palette.primary.main
+              backgroundColor: theme.palette.primary.main,
+              borderColor: theme.palette.primary.dark
             }
           ]
         }}
