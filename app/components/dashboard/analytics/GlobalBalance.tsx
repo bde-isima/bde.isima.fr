@@ -20,7 +20,7 @@ export default function GlobalBalance() {
       <Typography variant="h6">Bilan des soldes</Typography>
 
       <Pie
-        className="max-h-60"
+        className="max-h-60 mt-auto"
         options={{
           responsive: true,
           plugins: {

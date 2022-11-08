@@ -25,8 +25,6 @@ export default function ArticlesStats() {
     count: 10
   });
 
-  console.log(data);
-
   const handleChange = (event: SelectChangeEvent<number>) => setPeriod(event.target.value as number);
 
   return (
@@ -34,7 +32,7 @@ export default function ArticlesStats() {
       <div className="flex flex-grow justify-around">
         <Typography variant="h6">Ventes d&apos;articles</Typography>
 
-        <Select value={period} onChange={handleChange}>
+        <Select className="ml-auto" value={period} onChange={handleChange}>
           <MenuItem value={7}>Cette semaine</MenuItem>
           <MenuItem value={31}>Ce mois</MenuItem>
           <MenuItem value={365}>Cette année</MenuItem>
@@ -42,6 +40,7 @@ export default function ArticlesStats() {
       </div>
 
       <Bar
+        className="mt-auto"
         options={{
           responsive: true,
           plugins: {

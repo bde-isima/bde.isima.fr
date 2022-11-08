@@ -37,7 +37,5 @@ export default resolver.pipe(resolver.authorize(), async ({ range, count }: GetA
     }
   }
 
-  console.log(articles);
-
   return articles;
 });
