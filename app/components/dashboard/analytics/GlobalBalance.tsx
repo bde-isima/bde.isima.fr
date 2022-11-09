@@ -47,7 +47,7 @@ export default function GlobalBalance() {
       </div>
 
       <Pie
-        className="max-h-60 mt-auto"
+        className="max-h-96 my-auto"
         options={{
           responsive: true,
           plugins: {

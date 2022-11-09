@@ -51,7 +51,7 @@ export default function ArticlesStats() {
       </div>
 
       <Bar
-        className="mt-auto"
+        className="my-auto"
         options={{
           responsive: true,
           plugins: {
