@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -9,8 +10,7 @@ export default function Landing() {
   const fullScreen = useMediaQuery('md');
 
   return (
-    <Container className="min-h-main relative">
-      <a id="landing" href="#landing" />
+    <Box>
       <Image
         src={`/static/images/illustrations/${fullScreen ? 'MobileBackground' : 'Background'}.svg`}
         layout="fill"
@@ -19,8 +19,9 @@ export default function Landing() {
         quality={100}
         priority
       />
-      <Container className="mt-16 py-0 flex flex-col">
-        <div className="flex flex-col justify-center mt-12">
+      <Container className="overflow-hidden min-h-screen py-0 relative">
+        <a id="landing" href="#landing" />
+        <div className="mt-28 flex flex-col justify-center">
           <Typography className="text-6xl text-center md:text-left" paragraph>
             <b>BDE ISIMA</b>
           </Typography>
@@ -29,6 +30,6 @@ export default function Landing() {
           </Typography>
         </div>
       </Container>
-    </Container>
+    </Box>
   );
 }
