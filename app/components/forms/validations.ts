@@ -27,9 +27,9 @@ export const AdminTransferInput = z.object({
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>;
 
 export const TopUpInput = z.object({
-  amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' }),
-})
-export type TopUpInputType = z.infer<typeof TopUpInput>
+  amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' })
+});
+export type TopUpInputType = z.infer<typeof TopUpInput>;
 
 export const ContactInput = z.object({
   subject: z.string().max(255),
@@ -82,6 +82,13 @@ export const ClubInput = z
   .partial();
 export type ClubInputType = z.infer<typeof ClubInput>;
 
+export const ServiceInput = z.object({
+  id: z.string().optional().nullable(),
+  startDate: z.date(),
+  endDate: z.date()
+});
+export type ServiceInputType = z.infer<typeof ServiceInput>;
+
 export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
@@ -94,6 +101,8 @@ export const ArticleInput = z
       })
       .optional()
       .nullable(),
+    quantity: z.number().positive(),
+    min_quantity: z.number().positive(),
     price: z.number().positive(),
     member_price: z.number().positive(),
     is_enabled: z.boolean().optional()

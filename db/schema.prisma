@@ -96,7 +96,8 @@ model Article {
   member_price Float
   image        String?
   is_enabled   Boolean @default(true)
-
+  quantity     Int
+  min_quantity Int
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Transaction Transaction[] @relation("TransactionArticle")
@@ -163,6 +164,16 @@ model UserStats {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id String @id @default(cuid())
+
+  createdAt DateTime      @default(now())
+  startDate DateTime
+  endDate   DateTime
+
+  participants String[]
 }
 
 model User {

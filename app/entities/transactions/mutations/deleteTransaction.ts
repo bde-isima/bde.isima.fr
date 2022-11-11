@@ -33,6 +33,11 @@ export default resolver.pipe(resolver.authorize(['*', 'bde']), async ({ where }:
       data: { balance: { [transaction.type === 'CREDIT' ? 'decrement' : 'increment']: amount } },
       where: { id: transaction.userId }
     }),
+    // Put the article back in the stock
+    db.article.update({
+      data: { quantity: { increment: 1 } },
+      where: { id: transaction.articleId }
+    }),
     //Delete transaction
     db.transaction.delete({ where })
   ]);

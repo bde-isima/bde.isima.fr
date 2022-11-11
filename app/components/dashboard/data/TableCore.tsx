@@ -27,29 +27,36 @@ export default function TableCore(props: TableCoreProps) {
   const { order, orderBy, page, search, rowsPerPage } = useTableProps();
   const { rows, defaultSort, getQuery, queryArgs, columns, actions, allowCopy, onEdit, onSuccess } = props;
 
-  const filteringColumns = columns.filter((x) => x.searchCriteria && x.searchCriteria !== 'equals');
+  const filtering = columns.filter((x) => search.value && x.searchCriteria && x.searchCriteria !== 'equals');
 
   if (defaultSort) {
     order.value = defaultSort.order;
     orderBy.value = defaultSort.name;
   }
 
+  const map = {
+    contains: {
+      // for string columns
+      contains: search.value,
+      mode: 'insensitive'
+    },
+    has: {
+      // for array columns
+      has: search.value
+    }
+  };
+
+  let or = filtering.map((x) => ({
+    [x.id]: map[x.searchCriteria]
+  }));
+
   const [res] = useQuery(getQuery, {
     skip: page.value * rowsPerPage,
     take: rowsPerPage,
-    orderBy: { [orderBy.value]: order.value },
-    ...(filteringColumns.length > 0
-      ? {
-          where: {
-            OR: filteringColumns.map((x) => ({
-              [x.id]: {
-                [x.searchCriteria]: search.value,
-                mode: 'insensitive'
-              }
-            }))
-          }
-        }
-      : {}),
+    orderBy: {
+      [orderBy.value]: order.value
+    },
+    ...(filtering.length ? { where: { OR: or } } : {}),
     ...queryArgs
   });
 

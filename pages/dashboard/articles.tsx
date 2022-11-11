@@ -53,6 +53,11 @@ const columns = [
     searchCriteria: 'contains'
   },
   {
+    id: 'quantity',
+    headerName: 'Quantité',
+    format: (value) => parseInt(value)
+  },
+  {
     id: 'price',
     headerName: 'Prix',
     format: (value) => parseFloat(value)

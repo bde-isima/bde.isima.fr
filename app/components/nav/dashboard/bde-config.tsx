@@ -1,3 +1,4 @@
+import { ShoppingBag, ShoppingBagOutlined, ShoppingBasket } from '@mui/icons-material';
 import { RouteUrlObject } from 'blitz';
 
 import AccountBox from '@mui/icons-material/AccountBoxTwoTone';
@@ -9,9 +10,6 @@ import HowToVote from '@mui/icons-material/HowToVoteTwoTone';
 import Public from '@mui/icons-material/PublicTwoTone';
 import QueryStats from '@mui/icons-material/QueryStatsTwoTone';
 import School from '@mui/icons-material/SchoolTwoTone';
-
-import { PublicData, useAuthenticatedSession } from '@blitzjs/auth';
-import { Routes } from '@blitzjs/next';
 
 export const config = [
   {
@@ -41,6 +39,13 @@ export const config = [
     to: '/dashboard/articles',
     only: ['*', 'bde'],
     isActive: (pathname: String) => pathname === '/dashboard/articles'
+  },
+  {
+    icon: <ShoppingBagOutlined />,
+    text: 'COURSES',
+    to: '/dashboard/shopping',
+    only: ['*', 'bde'],
+    isActive: (pathname: String) => pathname === '/dashboard/shopping'
   },
   {
     icon: <AccountBox />,
