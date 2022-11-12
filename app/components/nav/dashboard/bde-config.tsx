@@ -11,6 +11,8 @@ import Public from '@mui/icons-material/PublicTwoTone';
 import QueryStats from '@mui/icons-material/QueryStatsTwoTone';
 import School from '@mui/icons-material/SchoolTwoTone';
 
+import { useAuthenticatedSession } from '@blitzjs/auth';
+
 export const config = [
   {
     icon: <EventNote />,

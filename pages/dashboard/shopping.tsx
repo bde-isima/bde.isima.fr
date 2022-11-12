@@ -1,4 +1,6 @@
-import { BlitzPage, Image, Routes } from 'blitz';
+import Image from 'next/image';
+
+import { BlitzPage, Routes } from '@blitzjs/next';
 
 import ArticleForm from 'app/components/dashboard/articles/ArticleForm';
 import Table from 'app/components/dashboard/data/Table';

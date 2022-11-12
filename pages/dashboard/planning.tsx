@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { Checkbox, Typography } from '@mui/material';
-import { BlitzPage, Routes } from 'blitz';
+
+import { BlitzPage, Routes } from '@blitzjs/next';
 import { format } from 'date-fns';
 
 import Table from 'app/components/dashboard/data/Table';

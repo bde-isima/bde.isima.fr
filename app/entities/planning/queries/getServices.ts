@@ -1,5 +1,6 @@
-import { resolver } from 'blitz';
 import db, { Prisma } from 'db';
+
+import { resolver } from '@blitzjs/rpc';
 
 type GetServicesInput = Pick<Prisma.ArticleFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>;
 

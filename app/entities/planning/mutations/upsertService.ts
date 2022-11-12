@@ -1,5 +1,7 @@
-import { Ctx, resolver } from 'blitz';
+import { Ctx } from 'blitz';
 import db, { Prisma } from 'db';
+
+import { resolver } from '@blitzjs/rpc';
 
 type UpsertServiceInput = Pick<Prisma.ServiceUpsertArgs, 'where' | 'create' | 'update'>;
 
