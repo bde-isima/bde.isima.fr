@@ -64,7 +64,7 @@ export default function Desktop() {
   return (
     <>
       {!fullScreen && (
-        <Drawer open classes={{ paper: 'w-60 z-50 mt-16' }} variant="permanent">
+        <Drawer open classes={{ paper: 'w-60 z-50 mt-16 border-y-0 border-l-0' }} variant="permanent">
           <TabContext value={value}>
             <TabList onChange={handleChange} aria-label="Nav">
               <Tab classes={{ root: 'min-w-[50%]' }} label="BDE" value="0" disabled={!bdeConfig.length} />

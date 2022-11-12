@@ -24,12 +24,14 @@ export default function CalendarCell({ idx, date, events = [], fallback = false 
                   ${(idx == 1 || idx == 5) && 'md:border-r-0'}
                   ${(idx == 4 || idx == 5) && 'md:border-b'}
                   border-0
-                  border-solid
-                  border-bc/10`}
+                  border-solid`}
       item
       container
       xs={idx === 6 ? 12 : 6}
       md={idx < 4 ? 3 : 4}
+      sx={{
+        borderColor: 'divider'
+      }}
       justifyContent="center"
       alignContent="flex-start"
     >

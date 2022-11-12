@@ -30,9 +30,9 @@ const users = async (db) => {
       card: 1463,
       balance: 0,
       roles: '*',
-      promotionId: promotion.id,
-    },
-  })
+      promotionId: promotion.id
+    }
+  });
 
   for (let i = 0; i < 4; ++i) {
     await db.user.create({
