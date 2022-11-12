@@ -28,15 +28,10 @@ const Discord = createSvgIcon(
 );
 
 export default function DiscordButton() {
-  const url = process.env.NEXT_PUBLIC_DISCORD_SERVER_URL as string
+  const url = process.env.NEXT_PUBLIC_DISCORD_SERVER_URL as string;
   return (
     <Tooltip title="Rejoins le Discord du BDE !" placement="bottom" arrow>
-      <CardActionArea
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: 'inherit' }}
-      >
+      <CardActionArea href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
         <Card className="flex flex-grow justify-center rounded-b-md p-2" style={{ backgroundColor: '#7289DA' }} square>
           <Discord />
         </Card>

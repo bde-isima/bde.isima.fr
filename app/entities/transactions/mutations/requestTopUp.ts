@@ -117,18 +117,15 @@ function prepareRequest(id: string, card: number, amount: number, byCreditCard: 
   return body;
 }
 
-export default resolver.pipe(
-  resolver.authorize(),
-  async (input: RequestTopUpInput, ctx: Ctx) => {
-    if (Number.isNaN(input.amount) || input.amount <= 0 || input.amount >= 1000) {
-      throw new Error('Valeur invalide');
-    }
-
-    const byCreditCard = input.method == 'credit';
-    const req = prepareRequest(ctx.session.userId as string, ctx.session.card as number, input.amount, byCreditCard);
-
-    return `${
-      byCreditCard ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
-    }?${req.toString()}`;
+export default resolver.pipe(resolver.authorize(), async (input: RequestTopUpInput, ctx: Ctx) => {
+  if (Number.isNaN(input.amount) || input.amount <= 0 || input.amount >= 1000) {
+    throw new Error('Valeur invalide');
   }
-);
+
+  const byCreditCard = input.method == 'credit';
+  const req = prepareRequest(ctx.session.userId as string, ctx.session.card as number, input.amount, byCreditCard);
+
+  return `${
+    byCreditCard ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
+  }?${req.toString()}`;
+});

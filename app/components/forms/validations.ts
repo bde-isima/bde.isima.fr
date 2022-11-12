@@ -27,9 +27,9 @@ export const AdminTransferInput = z.object({
 export type AdminTransferInputType = z.infer<typeof AdminTransferInput>;
 
 export const TopUpInput = z.object({
-  amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' }),
-})
-export type TopUpInputType = z.infer<typeof TopUpInput>
+  amount: z.number().min(5, { message: '5€ minimum' }).max(1000, { message: '1000€ maximum' })
+});
+export type TopUpInputType = z.infer<typeof TopUpInput>;
 
 export const ContactInput = z.object({
   subject: z.string().max(255),
