@@ -1,10 +1,10 @@
 // @ts-check
-const { withBlitz } = require('@blitzjs/next')
+const { withBlitz } = require('@blitzjs/next');
 
 const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
   dest: 'public'
-})
+});
 
 /**
  * @type {import('@blitzjs/next').BlitzConfig}
@@ -32,14 +32,14 @@ const config = {
         source: '/(.*)',
         headers: securityHeaders
       }
-    ]
+    ];
   }
-}
+};
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://api-adresse.data.gouv.fr;
   frame-src https://connect.facebook.net https://www.facebook.com;
   child-src https://www.googletagmanager.com;
   style-src 'self' 'unsafe-inline';
@@ -47,7 +47,7 @@ const ContentSecurityPolicy = `
   media-src 'none';
   connect-src *;
   font-src 'self';
-`
+`;
 
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
@@ -85,6 +85,6 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()'
   }
-]
+];
 
-module.exports = withPWA(withBlitz(config))
+module.exports = withPWA(withBlitz(config));

@@ -14,6 +14,7 @@ import RolesForm from 'app/components/dashboard/users/RolesForm';
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import ImageLinkField from 'app/components/forms/ImageLinkField';
+import SearchAddress, { Address } from 'app/components/forms/SearchAddress';
 import { UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
 
@@ -46,6 +47,7 @@ export default function UserForm(props: UserFormProps) {
       nickname: props.initialValues?.nickname,
       image: props.initialValues?.image,
       email: props.initialValues?.email,
+      address: props.initialValues?.address as Address,
       card: props.initialValues?.card,
       balance: props.initialValues?.id ? props.initialValues?.balance : 0,
       roles: props.initialValues?.roles || [],
@@ -88,6 +90,8 @@ export default function UserForm(props: UserFormProps) {
 
           {props.initialValues?.id && <EnhancedTextField type="number" name="card" label="N° de carte" />}
           <TextField type="email" name="email" label="Email" />
+          <SearchAddress name="address" label="Adresse postale" />
+
           <EnhancedTextField type="number" name="balance" label="Solde" inputProps={{ step: 0.01 }} />
 
           <Divider className="m-2" />

@@ -15,7 +15,12 @@ const users = async (db) => {
       card: 941,
       balance: 0,
       roles: '*',
-      promotionId: promotion.id
+      promotionId: promotion.id,
+      address: {
+        name: faker.address.streetAddress(),
+        city: faker.address.cityName(),
+        zipcode: faker.address.zipCodeByState('FR')
+      }
     }
   });
 
@@ -30,7 +35,12 @@ const users = async (db) => {
       card: 1463,
       balance: 0,
       roles: '*',
-      promotionId: promotion.id
+      promotionId: promotion.id,
+      address: {
+        name: faker.address.streetAddress(),
+        city: faker.address.cityName(),
+        zipcode: faker.address.zipCodeByState('FR')
+      }
     }
   });
 
@@ -45,7 +55,12 @@ const users = async (db) => {
       card: 666,
       balance: 1000,
       roles: '*',
-      promotionId: promotion.id
+      promotionId: promotion.id,
+      address: {
+        name: faker.address.streetAddress(),
+        city: faker.address.cityName(),
+        zipcode: faker.address.zipCodeByState('FR')
+      }
     }
   });
 
@@ -59,7 +74,12 @@ const users = async (db) => {
         email: faker.internet.email(),
         card: faker.datatype.number(),
         balance: parseFloat(faker.finance.amount()),
-        promotionId: promotion.id
+        promotionId: promotion.id,
+        address: {
+          name: faker.address.streetAddress(),
+          city: faker.address.cityName(),
+          zipcode: faker.address.zipCodeByState('FR')
+        }
       }
     });
   }

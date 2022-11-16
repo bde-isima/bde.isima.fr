@@ -56,6 +56,14 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
+    address: z
+      .object({
+        name: z.string(),
+        zipCode: z.string().regex(/[0-9]{5}/),
+        city: z.string()
+      })
+      .optional()
+      .nullable(),
     image: ImageInput.optional().nullable()
   })
   .partial();
@@ -125,6 +133,14 @@ export const UserInput = z
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
+    address: z
+      .object({
+        name: z.string(),
+        zipCode: z.string().regex(/[0-9]{5}/),
+        city: z.string()
+      })
+      .optional()
+      .nullable(),
     card: z.number().optional().nullable(),
     balance: z.number(),
     roles: z.array(z.string()),

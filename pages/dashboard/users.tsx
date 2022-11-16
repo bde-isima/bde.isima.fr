@@ -68,6 +68,11 @@ const columns = [
     searchCriteria: 'contains'
   },
   {
+    id: 'address',
+    headerName: 'Adresse postale',
+    render: (row) => `${row.address.name} ${row.address.zipCode} ${row.address.city}`
+  },
+  {
     id: 'card',
     headerName: 'N° Carte'
   },

@@ -33,7 +33,7 @@ const config = {
 // https://securityheaders.com
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://api-adresse.data.gouv.fr;
   frame-src https://connect.facebook.net https://www.facebook.com;
   child-src https://www.googletagmanager.com;
   style-src 'self' 'unsafe-inline';
