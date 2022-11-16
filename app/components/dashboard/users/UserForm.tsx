@@ -5,20 +5,15 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import Tab from '@mui/material/Tab';
 import { User } from 'db';
 import { Switches, TextField } from 'mui-rff';
-
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
-
-import Image from 'next/image';
 
 import PromotionsForm from 'app/components/dashboard/users/PromotionsForm';
 import RolesForm from 'app/components/dashboard/users/RolesForm';
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
+import ImageLinkField from 'app/components/forms/ImageLinkField';
 import { UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
 
@@ -79,37 +74,10 @@ export default function UserForm(props: UserFormProps) {
         </TabList>
 
         <TabPanel value="0">
-          <div className="mx-auto text-center">
-            {props.initialValues?.id && props.initialValues?.image && (
-              <Image
-                className="rounded-full"
-                src={props.initialValues.image}
-                width={100}
-                height={100}
-                alt={`Image de ${props.initialValues?.lastname} ${props.initialValues?.firstname}`}
-              />
-            )}
-          </div>
-
-          <TextField
-            type="text"
+          <ImageLinkField
             name="image"
             label="URL de l'image de profil"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    href="https://imgur.com/upload"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ouvrir Imgur"
-                    size="large"
-                  >
-                    <OpenInNew />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
+            alt={`Image de ${props.initialValues?.lastname} ${props.initialValues?.firstname}`}
           />
 
           <TextField type="text" name="lastname" label="Nom" />

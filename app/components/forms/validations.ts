@@ -1,5 +1,13 @@
 import { z } from 'zod';
 
+export const ImageInput = z
+  .string()
+  .url()
+  .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+    message: "L'URL doit provenir d'Imgur"
+  });
+export type ImageInputType = z.infer<typeof ImageInput>;
+
 export const LoginInput = z.object({
   identifier: z.string()
 });
@@ -48,14 +56,7 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable()
+    image: ImageInput.optional().nullable()
   })
   .partial();
 export type SettingsInputType = z.infer<typeof SettingsInput>;
@@ -64,14 +65,7 @@ export const ClubInput = z
   .object({
     id: z.string().optional().nullable(),
     name: z.string().max(255),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable(),
+    image: ImageInput.optional().nullable(),
     email: z.string().email().max(255).optional().nullable(),
     description: z.string().max(3000).optional().nullable(),
     facebookURL: z.string().url().optional().nullable(),
@@ -93,14 +87,7 @@ export const ArticleInput = z
   .object({
     id: z.string().optional().nullable(),
     name: z.string().max(255),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable(),
+    image: ImageInput.optional().nullable(),
     quantity: z.number().positive(),
     min_quantity: z.number().positive(),
     price: z.number().positive(),
@@ -113,14 +100,7 @@ export type ArticleInputType = z.infer<typeof ArticleInput>;
 export const PartnerInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable(),
+    image: ImageInput.optional().nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable()
   })
@@ -140,14 +120,7 @@ export type PromotionInputType = z.infer<typeof PromotionInput>;
 export const UserInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable(),
+    image: ImageInput.optional().nullable(),
     lastname: z.string().max(255),
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
@@ -165,14 +138,7 @@ export type UserInputType = z.infer<typeof UserInput>;
 export const EventInput = z
   .object({
     id: z.string().optional().nullable(),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable(),
+    image: ImageInput.optional().nullable(),
     name: z.string().max(255),
     description: z.string().max(3000).optional().nullable(),
     takes_place_at: z.date(),
@@ -251,12 +217,7 @@ export const ElectionInput = z
       z.object({
         id: z.string().optional().nullable(),
         name: z.string().max(255),
-        image: z
-          .string()
-          .url()
-          .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-            message: "L'URL doit provenir d'Imgur"
-          })
+        image: ImageInput
       })
     )
   })

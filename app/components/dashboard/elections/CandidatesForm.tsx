@@ -3,7 +3,6 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { TextField } from 'mui-rff';
 import { useForm } from 'react-final-form';
@@ -11,7 +10,8 @@ import { FieldArray } from 'react-final-form-arrays';
 
 import Add from '@mui/icons-material/AddTwoTone';
 import Close from '@mui/icons-material/CloseTwoTone';
-import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
+
+import ImageLinkField from 'app/components/forms/ImageLinkField';
 
 export default function CandidatesForm() {
   const form = useForm();
@@ -47,27 +47,10 @@ export default function CandidatesForm() {
                 <Divider className="m-2" />
 
                 <FormGroup aria-label={`Candidat n°${candidateIdx + 1}`}>
-                  <TextField
-                    className="my-1"
-                    type="text"
+                  <ImageLinkField
                     name={`${candidateName}.image`}
                     label="URL de l'image du candidat"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            href="https://imgur.com/upload"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ouvrir Imgur"
-                            size="large"
-                          >
-                            <OpenInNew />
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                    helperText="Format PNG obligatoire"
+                    alt={`Image de la liste ${candidateIdx}`}
                   />
 
                   <TextField className="my-1" type="text" name={`${candidateName}.name`} label="Nom" />
