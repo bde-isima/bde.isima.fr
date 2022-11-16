@@ -42,14 +42,18 @@ export default function SearchUser({
 
   const onSuccess = ({ users }) => setOptions(users);
 
-  useQuery(getQuery, { where: { is_enabled: true } }, { suspense: false, onSuccess, enabled: loading });
+  useQuery(
+    getQuery,
+    { where: { is_enabled: true }, orderBy: { card: 'asc' } },
+    { suspense: false, onSuccess, enabled: loading }
+  );
 
   const props = {
     className,
     open,
     options,
     loading,
-    loadingText: 'Chargement des membres ...',
+    loadingText: 'Chargement des membres…',
     onChange: onSelection,
     onOpen: toggleOpen(true),
     onClose: toggleOpen(false),
