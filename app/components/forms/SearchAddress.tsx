@@ -2,14 +2,9 @@ import { useState } from 'react';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
+import { Address } from 'global';
 import { Autocomplete, ShowErrorFunc } from 'mui-rff';
 import { useField } from 'react-final-form';
-
-export type Address = {
-  name: string;
-  zipCode: string;
-  city: string;
-};
 
 type SearchAddressProps = {
   className?: string;

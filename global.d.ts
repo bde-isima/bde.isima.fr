@@ -10,6 +10,12 @@ export type BDEAppProps = AppProps & {
   };
 };
 
+export type Address = {
+  name: string;
+  zipCode: string;
+  city: string;
+};
+
 export interface Item {
   name: string;
   description: string | null;
@@ -58,6 +64,7 @@ declare module '@blitzjs/auth' {
       email: string;
       card: number;
       roles: string[];
+      address: Address;
     };
   }
 }

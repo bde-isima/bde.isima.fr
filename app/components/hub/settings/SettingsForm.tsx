@@ -1,10 +1,11 @@
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import { Address } from 'global';
 import { TextField } from 'mui-rff';
 
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import ImageLinkField from 'app/components/forms/ImageLinkField';
-import SearchAddress, { Address } from 'app/components/forms/SearchAddress';
+import SearchAddress from 'app/components/forms/SearchAddress';
 import { SettingsInput, SettingsInputType } from 'app/components/forms/validations';
 import { useCurrentUser } from 'app/entities/hooks/useCurrentUser';
 

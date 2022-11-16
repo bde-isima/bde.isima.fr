@@ -7,6 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import Tab from '@mui/material/Tab';
 import { User } from 'db';
+import { Address } from 'global';
 import { Switches, TextField } from 'mui-rff';
 
 import PromotionsForm from 'app/components/dashboard/users/PromotionsForm';
@@ -14,7 +15,7 @@ import RolesForm from 'app/components/dashboard/users/RolesForm';
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import ImageLinkField from 'app/components/forms/ImageLinkField';
-import SearchAddress, { Address } from 'app/components/forms/SearchAddress';
+import SearchAddress from 'app/components/forms/SearchAddress';
 import { UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
 
