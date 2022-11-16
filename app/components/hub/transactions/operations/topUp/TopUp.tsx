@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
 
 import { TopUpInputType } from 'app/components/forms/validations';

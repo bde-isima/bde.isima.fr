@@ -1,4 +1,5 @@
 import { Ctx } from 'blitz';
+import { Address } from 'global';
 
 import { resolver } from '@blitzjs/rpc';
 
@@ -52,7 +53,13 @@ function generateHmac(data: URLSearchParams, additionalData: string, byCreditCar
   return makeHmac(list, `${process.env.LYF_API_SECRET_KEY}`);
 }
 
-function prepareRequest(id: string, card: number, amount: number, byCreditCard: boolean): URLSearchParams {
+function prepareRequest(
+  id: string,
+  card: number,
+  amount: number,
+  byCreditCard: boolean,
+  mail_address?: Address
+): URLSearchParams {
   const body = new URLSearchParams();
 
   const timestamp = Math.floor(+new Date() / 1000);
@@ -97,10 +104,10 @@ function prepareRequest(id: string, card: number, amount: number, byCreditCard: 
     body.append('callBackRequired', 'true');
     body.append('country', 'FR');
 
-    if (process.env.NODE_ENV === 'development') {
-      body.append('address', '7 Some Street');
-      body.append('city', 'Bigcity');
-      body.append('zipCode', '01234');
+    if (mail_address) {
+      body.append('address', `${mail_address.name}`);
+      body.append('city', `${mail_address.city}`);
+      body.append('zipCode', `${mail_address.zipCode}`);
     } else {
       body.append('address', '');
       body.append('city', '');
@@ -117,18 +124,21 @@ function prepareRequest(id: string, card: number, amount: number, byCreditCard: 
   return body;
 }
 
-export default resolver.pipe(
-  resolver.authorize(),
-  async (input: RequestTopUpInput, ctx: Ctx) => {
-    if (Number.isNaN(input.amount) || input.amount <= 0 || input.amount >= 1000) {
-      throw new Error('Valeur invalide');
-    }
-
-    const byCreditCard = input.method == 'credit';
-    const req = prepareRequest(ctx.session.userId as string, ctx.session.card as number, input.amount, byCreditCard);
-
-    return `${
-      byCreditCard ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
-    }?${req.toString()}`;
+export default resolver.pipe(resolver.authorize(), async (input: RequestTopUpInput, ctx: Ctx) => {
+  if (Number.isNaN(input.amount) || input.amount <= 0 || input.amount >= 1000) {
+    throw new Error('Valeur invalide');
   }
-);
+
+  const byCreditCard = input.method == 'credit';
+  const req = prepareRequest(
+    ctx.session.userId as string,
+    ctx.session.card as number,
+    input.amount,
+    byCreditCard,
+    ctx.session.address
+  );
+
+  return `${
+    byCreditCard ? process.env.LYF_CREDIT_CARD_API_URL : process.env.LYF_FROM_APPLICATION_API_URL
+  }?${req.toString()}`;
+});
