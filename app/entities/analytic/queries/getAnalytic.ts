@@ -40,6 +40,10 @@ async function updateUserStats(tag: string) {
     };
   });
 
+  data.sort((a, b) => {
+    return b.unitsNb - a.unitsNb;
+  })
+
   await db.analytic.upsert({
     create: { tag, data },
     update: { data },
