@@ -42,6 +42,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_NODE_ENV: production
+          envkey_CONTACT_MAIL: ${{ secrets.CONTACT_MAIL }}
           envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
           envkey_SESSION_SECRET_KEY: ${{ secrets.SESSION_SECRET_KEY }}
           envkey_LYF_API_VENDOR_ID: ${{ secrets.LYF_API_VENDOR_ID }}
