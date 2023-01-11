@@ -17,6 +17,7 @@ export default function Records() {
   });
 
   const [leaderboard] = useQuery(getAnalytic, {
+    withLeaderBoard: true,
     where: { tag: 'leaderboard' }
   });
 
