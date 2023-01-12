@@ -9,7 +9,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ where, orderBy, skip = 0, take }: GetTransactionsInput, ctx: Ctx) => {
     if (ctx.session.userId !== where?.userId) {
-      ctx.session.$authorize(['*', 'bde']);
+      ctx.session.$authorize(['*', 'bde', 'listeux']);
     }
 
     const transactions = await db.transaction.findMany({

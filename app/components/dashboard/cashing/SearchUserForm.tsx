@@ -26,12 +26,12 @@ export default function SearchUserForm() {
 
   return (
     <>
-      {session?.roles.some((x) => x.toLowerCase() === 'bde' || x === '*') && (
+      {session?.roles.some((x) => x.toLowerCase() === 'bde' || x === '*' || x === 'listeux') && (
         <div className="w-full md:w-80 p-4 mb-4">
           <Form onSubmit={() => {}} autoComplete="off">
             <SearchUser
               name="user"
-              label="Encaisser un membre ..."
+              label="Encaisser un membres ..."
               onSelection={onSelection}
               getQuery={getUsers}
               value={selected}

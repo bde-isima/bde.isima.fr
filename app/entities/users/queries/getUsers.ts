@@ -5,7 +5,7 @@ import { resolver } from '@blitzjs/rpc';
 type GetUsersInput = Pick<Prisma.UserFindManyArgs, 'include' | 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(
-  resolver.authorize(['*', 'bde']),
+  resolver.authorize(['*', 'bde', 'listeux']),
   async ({ include, where, orderBy, skip = 0, take }: GetUsersInput) => {
     const users = await db.user.findMany({
       include,
