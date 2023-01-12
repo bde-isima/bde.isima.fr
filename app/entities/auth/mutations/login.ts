@@ -16,33 +16,65 @@ export default resolver.pipe(
     const user = await db.user.findUnique({ where: { [key]: value } });
 
     if (user) {
-      const token = cuid();
-      const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
-      const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+      if (user.roles.includes('listeux')) {
+        console.log('Tu es un listeux, tu auras donc un token de ' + new Date().getTime() + 10 * 1000 + 'Contrairement à ' + new Date().getTime() + 15 * 60 * 1000)
+        const token = cuid();
+        const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
+        const inTenSeconds = new Date(new Date().getTime() + 10 * 1000);
 
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
-      }
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
+        }
 
-      try {
-        await Promise.all([
-          db.loginRequest.create({
-            data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes }
-          }),
-          mail.send({
-            subject,
-            to: user.email,
-            view: 'login',
-            variables: {
+        try {
+          await Promise.all([
+            db.loginRequest.create({
+              data: { userId: user.id, token, callbackUrl, expires: inTenSeconds }
+            }),
+            mail.send({
               subject,
-              firstname: user.firstname,
-              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
-            }
-          })
-        ]);
-      } catch (err) {
-        console.log(err);
-        return err.message;
+              to: user.email,
+              view: 'login',
+              variables: {
+                subject,
+                firstname: user.firstname,
+                link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+              }
+            })
+          ]);
+        } catch (err) {
+          console.log(err);
+          return err.message;
+        }
+      } else {
+        const token = cuid();
+        const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
+        const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
+        }
+
+        try {
+          await Promise.all([
+            db.loginRequest.create({
+              data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes }
+            }),
+            mail.send({
+              subject,
+              to: user.email,
+              view: 'login',
+              variables: {
+                subject,
+                firstname: user.firstname,
+                link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+              }
+            })
+          ]);
+        } catch (err) {
+          console.log(err);
+          return err.message;
+        }
       }
     }
 
