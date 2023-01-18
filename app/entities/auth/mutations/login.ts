@@ -16,7 +16,7 @@ export default resolver.pipe(
     const user = await db.user.findUnique({ where: { [key]: value } });
 
     if (user) {
-      if (user.roles.includes('listeux')) {
+      if (user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')) {
         console.log('Tu es un listeux, tu auras donc un token de ' + new Date().getTime() + 10 * 1000 + 'Contrairement à ' + new Date().getTime() + 15 * 60 * 1000)
         const token = cuid();
         const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;

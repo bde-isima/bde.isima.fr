@@ -8,6 +8,7 @@ import { useMutation } from '@blitzjs/rpc';
 
 import { useMediaQuery } from 'app/core/styles/theme';
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
+import { useAuthenticatedSession } from '@blitzjs/auth';
 
 const GUTTER_SIZE = 16;
 
@@ -16,6 +17,7 @@ export default function Article({ user, article, onClick, style }) {
   const size = fullScreen ? 40 : 50;
 
   const [createTransaction] = useMutation(createArticleTransaction);
+  const session = useAuthenticatedSession();
 
   const onTransaction = () => {
     onClick(() =>
@@ -40,9 +42,11 @@ export default function Article({ user, article, onClick, style }) {
         height: style.height - GUTTER_SIZE
       }}
     >
+      {session?.roles.some((x) => x.toLowerCase() === 'listeux') && (
+
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
         {article.image ? (
-          <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />
+          <Image src={'https://i.imgur.com/h8TqvqH.png'} width={size} height={size} alt={`Photo ${article?.name}`} />
         ) : (
           <Skeleton variant="rectangular" width={size} height={size} animation={false} />
         )}
@@ -53,6 +57,22 @@ export default function Article({ user, article, onClick, style }) {
           {`${user?.is_member ? article?.member_price : article?.price} €`}
         </Typography>
       </ButtonBase>
+      )}
+            {session?.roles.some((x) => x.toLowerCase() === 'bde' || x === '*') && (
+<ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
+  {article.image ? (
+    <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />
+  ) : (
+    <Skeleton variant="rectangular" width={size} height={size} animation={false} />
+  )}
+  <Typography variant="caption" color="inherit" noWrap>
+    {article?.name}
+  </Typography>
+  <Typography variant="caption" color="inherit" noWrap>
+    {`${user?.is_member ? article?.member_price : article?.price} €`}
+  </Typography>
+</ButtonBase>
+)}
     </div>
   );
 }
