@@ -13,6 +13,7 @@ export default resolver.pipe(
     const card = parseInt(identifier);
     const key = Number.isNaN(card) ? 'email' : 'card';
     const value = key === 'card' ? card : identifier;
+    let expiresDate = new Date(new Date().getTime() + 15 * 60 * 1000);
 
     const user = await db.user.findUnique({ where: { [key]: value } });
 
@@ -24,6 +25,9 @@ export default resolver.pipe(
 
 
     if (user) {
+      if (user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')) {
+        expiresDate = new Date(new Date().getTime() + 15 * 1000);
+      }
       const token = cuid();
       const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
 
