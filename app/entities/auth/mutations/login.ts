@@ -32,7 +32,7 @@ export default resolver.pipe(
           db.loginRequest.create({
             data: { userId: user.id, token, callbackUrl, expires: expiresDate }
           }),
-          mail.send({
+          /*mail.send({
             subject,
             to: user.email,
             view: 'login',
@@ -41,7 +41,7 @@ export default resolver.pipe(
               firstname: user.firstname,
               link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
             }
-          })
+          })*/
         ]);
       } catch (err) {
         console.log(err);
