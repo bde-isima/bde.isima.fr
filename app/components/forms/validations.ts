@@ -1,5 +1,13 @@
 import { z } from 'zod';
 
+export const ImageInput = z
+  .string()
+  .url()
+  .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
+    message: "L'URL doit provenir d'Imgur"
+  });
+export type ImageInputType = z.infer<typeof ImageInput>;
+
 export const LoginInput = z.object({
   identifier: z.string()
 });
