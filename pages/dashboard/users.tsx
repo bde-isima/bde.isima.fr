@@ -6,6 +6,7 @@ import { BlitzPage, Routes } from '@blitzjs/next';
 
 import Table from 'app/components/dashboard/data/Table';
 import UserForm from 'app/components/dashboard/users/UserForm';
+import { Address } from 'app/components/forms/validations';
 import { redirectAuthenticatedTo } from 'app/components/nav/dashboard/bde-config';
 import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav';
 import deleteManyUsers from 'app/entities/users/mutations/deleteManyUsers';
@@ -66,6 +67,21 @@ const columns = [
     id: 'email',
     headerName: 'Email',
     searchCriteria: 'contains'
+  },
+  {
+    id: 'address',
+    headerName: 'Adresse postale',
+    render: (row) => {
+      if (row.address) {
+        try {
+          const address = Address.parse(row.address);
+          if (address) return `${address.name} ${address.zipCode} ${address.city}`;
+          else return '';
+        } catch {
+          return 'Erreurs: données incohérentes';
+        }
+      } else return '';
+    }
   },
   {
     id: 'card',

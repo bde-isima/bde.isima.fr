@@ -9,7 +9,8 @@ import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 import Image from 'next/image';
 
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
-import { SettingsInput, SettingsInputType } from 'app/components/forms/validations';
+import SearchAddress from 'app/components/forms/SearchAddress';
+import { AddressType, SettingsInput, SettingsInputType } from 'app/components/forms/validations';
 import { useCurrentUser } from 'app/entities/hooks/useCurrentUser';
 
 type SettingsFormProps = {
@@ -36,7 +37,8 @@ export default function SettingsForm(props: SettingsFormProps) {
       initialValues={{
         nickname: user?.nickname,
         email: user?.email,
-        image: user?.image
+        image: user?.image,
+        address: user?.address as AddressType
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -82,6 +84,8 @@ export default function SettingsForm(props: SettingsFormProps) {
         }}
         fieldProps={{ allowNull: true, parse: (value) => (value === '' ? null : value) }}
       />
+
+      <SearchAddress name="address" label="Adresse postale" />
     </Form>
   );
 }

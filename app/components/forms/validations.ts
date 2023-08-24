@@ -55,14 +55,7 @@ export const SettingsInput = z
   .object({
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
-    image: z
-      .string()
-      .url()
-      .regex(/https:\/\/(\w+\.)?imgur\.com\/(\S*)(\.[a-zA-Z]{3})/m, {
-        message: "L'URL doit provenir d'Imgur"
-      })
-      .optional()
-      .nullable()
+    address: Address.optional().nullable()
   })
   .partial();
 export type SettingsInputType = z.infer<typeof SettingsInput>;
@@ -150,6 +143,7 @@ export const UserInput = z
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
     email: z.string().email().max(255),
+    address: Address.optional().nullable(),
     card: z.number().optional().nullable(),
     balance: z.number(),
     roles: z.array(z.string()),
