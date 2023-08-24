@@ -57,6 +57,8 @@ export default function SettingsForm(props: SettingsFormProps) {
       />
       <TextField type="email" name="email" label="Adresse email" />
 
+      <SearchAddress name="address" label="Adresse postale" />
+
       <div className="mx-auto">
         {user?.image && (
           <Image className="rounded-full" src={user.image} width={100} height={100} alt="Image de profil" />
