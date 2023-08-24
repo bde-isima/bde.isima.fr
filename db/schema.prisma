@@ -173,7 +173,9 @@ model User {
   nickname  String?
 
   email   String @unique
-  card    Int    @unique
+  address Json?
+
+  card    Int   @unique
   balance Float
 
   roles    String[]
