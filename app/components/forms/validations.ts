@@ -1,5 +1,12 @@
 import { z } from 'zod';
 
+export const Address = z.object({
+  name: z.string(),
+  zipCode: z.string().length(5),
+  city: z.string()
+});
+export type AddressType = z.infer<typeof Address>;
+
 export const LoginInput = z.object({
   identifier: z.string()
 });
