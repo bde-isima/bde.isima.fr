@@ -171,6 +171,7 @@ model User {
   lastname  String
   firstname String
   nickname  String?
+  birthdate DateTime? @db.Date
 
   email   String @unique
   address Json?

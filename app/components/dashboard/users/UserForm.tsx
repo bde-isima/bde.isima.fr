@@ -7,9 +7,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import MuiTextField from '@mui/material/TextField';
 import Tab from '@mui/material/Tab';
 import { User } from 'db';
 import { Switches, TextField } from 'mui-rff';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { Field } from 'react-final-form';
+
+import frLocale from 'date-fns/locale/fr';
 
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
@@ -22,6 +27,7 @@ import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import SearchAddress from 'app/components/forms/SearchAddress';
 import { AddressType, UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 type UserFormProps = {
   initialValues: User | null;
@@ -44,12 +50,15 @@ export default function UserForm(props: UserFormProps) {
     }
   };
 
+  const onDateChange = (onChange) => (newDate) => onChange(newDate);
+
   const initialValues = useMemo(
     () => ({
       id: props.initialValues?.id,
       lastname: props.initialValues?.lastname,
       firstname: props.initialValues?.firstname,
       nickname: props.initialValues?.nickname,
+      birthdate: props.initialValues?.birthdate,
       image: props.initialValues?.image,
       email: props.initialValues?.email,
       address: props.initialValues?.address as AddressType,
@@ -117,6 +126,21 @@ export default function UserForm(props: UserFormProps) {
           <TextField type="text" name="lastname" label="Nom" />
           <TextField type="text" name="firstname" label="Prénom" />
           <TextField type="text" name="nickname" label="Surnom" />
+
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
+            <Field name="birthdate">
+              {(props) => (
+                <DatePicker
+                  label="Date de naissance"
+                  value={props.input.value}
+                  onChange={onDateChange(props.input.onChange)}
+                  renderInput={(tfProps) => (
+                    <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA" fullWidth />
+                  )}
+                />
+              )}
+            </Field>
+          </LocalizationProvider>
 
           <Divider className="m-2" />
 

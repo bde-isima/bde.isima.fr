@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import Checkbox from '@mui/material/Checkbox';
 
 import Image from 'next/image';
@@ -12,6 +14,13 @@ import getDashboardNav from 'app/components/nav/dashboard/getDashboardNav';
 import deleteManyUsers from 'app/entities/users/mutations/deleteManyUsers';
 import upsertUser from 'app/entities/users/mutations/upsertUser';
 import getUsers from 'app/entities/users/queries/getUsers';
+
+function calculateElapsedYears(from: Date) {
+  const elapsed = Date.now() - from.getTime();
+  const MILIS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.25;
+
+  return Math.floor(elapsed / MILIS_PER_YEAR);
+}
 
 const Users: BlitzPage = () => {
   return (
@@ -62,6 +71,11 @@ const columns = [
     id: 'nickname',
     headerName: 'Surnom',
     searchCriteria: 'contains'
+  },
+  {
+    id: 'birthdate',
+    headerName: 'Date de naissance',
+    render: (row) => (row.birthdate)? `${format(row.birthdate, 'dd/MM/yyyy')} (${calculateElapsedYears(row.birthdate)} ans)` : ''
   },
   {
     id: 'email',

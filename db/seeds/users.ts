@@ -40,6 +40,7 @@ const users = async (db) => {
         lastname: faker.name.lastName(),
         firstname: faker.name.firstName(),
         nickname: faker.name.findName(),
+        birthdate: faker.date.birthdate(),
         image: faker.image.imageUrl(100, 100, undefined, true),
         email: faker.internet.email(),
         card: faker.datatype.number(),

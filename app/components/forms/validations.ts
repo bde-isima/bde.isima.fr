@@ -142,6 +142,7 @@ export const UserInput = z
     lastname: z.string().max(255),
     firstname: z.string().max(255),
     nickname: z.string().max(255).optional().nullable(),
+    birthdate: z.date().optional().nullable(),
     email: z.string().email().max(255),
     address: Address.optional().nullable(),
     card: z.number().optional().nullable(),
