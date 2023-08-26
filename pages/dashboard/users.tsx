@@ -92,7 +92,7 @@ const columns = [
           if (address) return `${address.name} ${address.zipCode} ${address.city}`;
           else return '';
         } catch {
-          return 'Erreurs: données incohérentes';
+          return 'Erreur: données incohérentes';
         }
       } else return '';
     }

@@ -13,6 +13,7 @@ export default resolver.pipe(resolver.authorize(['*']), async ({ where, create, 
 
   if (!user) {
     create.card |= await generateCardNumber();
+    if (create.address == null) create.address = Prisma.DbNull;
     const newUser = await db.user.create({ data: create });
 
     try {
@@ -46,6 +47,7 @@ export default resolver.pipe(resolver.authorize(['*']), async ({ where, create, 
 
     return newUser;
   } else {
+    if (update.address == null) update.address = Prisma.DbNull;
     return await Promise.all([
       //Update user
       db.user.update({ where, data: update }),
