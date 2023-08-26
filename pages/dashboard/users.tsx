@@ -1,6 +1,5 @@
-import { format } from 'date-fns';
-
 import Checkbox from '@mui/material/Checkbox';
+import { format } from 'date-fns';
 
 import Image from 'next/image';
 
@@ -75,7 +74,8 @@ const columns = [
   {
     id: 'birthdate',
     headerName: 'Date de naissance',
-    render: (row) => (row.birthdate)? `${format(row.birthdate, 'dd/MM/yyyy')} (${calculateElapsedYears(row.birthdate)} ans)` : ''
+    render: (row) =>
+      row.birthdate ? `${format(row.birthdate, 'dd/MM/yyyy')} (${calculateElapsedYears(row.birthdate)} ans)` : ''
   },
   {
     id: 'email',

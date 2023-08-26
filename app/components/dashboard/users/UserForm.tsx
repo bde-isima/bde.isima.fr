@@ -7,14 +7,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import MuiTextField from '@mui/material/TextField';
 import Tab from '@mui/material/Tab';
+import MuiTextField from '@mui/material/TextField';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import frLocale from 'date-fns/locale/fr';
 import { User } from 'db';
 import { Switches, TextField } from 'mui-rff';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Field } from 'react-final-form';
-
-import frLocale from 'date-fns/locale/fr';
 
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
@@ -27,7 +27,6 @@ import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import SearchAddress from 'app/components/forms/SearchAddress';
 import { AddressType, UserInput, UserInputType } from 'app/components/forms/validations';
 import TabPanel from 'app/core/layouts/TabPanel';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 type UserFormProps = {
   initialValues: User | null;
@@ -134,9 +133,7 @@ export default function UserForm(props: UserFormProps) {
                   label="Date de naissance"
                   value={props.input.value}
                   onChange={onDateChange(props.input.onChange)}
-                  renderInput={(tfProps) => (
-                    <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA" fullWidth />
-                  )}
+                  renderInput={(tfProps) => <MuiTextField {...props} {...tfProps} helperText="JJ/MM/AAAA" fullWidth />}
                 />
               )}
             </Field>
