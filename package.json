@@ -8,7 +8,7 @@
     "dev": "blitz dev",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "lint": "eslint **/*.{ts,tsx} --fix",
-    "migrate": "prisma db push",
+    "migrate": "prisma migrate deploy",
     "postinstall": "husky install",
     "seed": "prisma migrate reset --skip-generate --skip-seed && prisma db push && prisma db seed",
     "start": "blitz start",

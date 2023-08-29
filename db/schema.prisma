@@ -29,6 +29,17 @@ enum TransactionType {
   DEBIT
 }
 
+enum HonorMemberStatut {
+  NONE
+  // The user is considered as a contributor user and can have the same benefits
+  // than them. In the case of the user is also a student or former student at
+  // ISIMA, he is considered a an active member
+  CONTRIB_LIKE
+  // The user is considered as a contributor and an active member regardless its
+  // school
+  ACTIVE_MEMBER
+}
+
 model Event {
   id String @id @default(cuid())
 
@@ -188,9 +199,10 @@ model User {
   transactions Transaction[] @relation("TransactionUser")
   userStats    UserStats?
 
-  image      String?
-  is_member  Boolean @default(false)
-  is_enabled Boolean @default(true)
+  image             String?
+  contributor_until DateTime?         @db.Date
+  honor_member      HonorMemberStatut @default(NONE)
+  is_enabled        Boolean           @default(true)
 
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
