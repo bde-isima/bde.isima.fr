@@ -9,7 +9,7 @@ const users = async (db) => {
       id: '123456789',
       lastname: 'Lenoir',
       firstname: 'Adrien',
-      nickname: faker.name.findName(),
+      nickname: faker.name.fullName({ firstName: 'Adrien', lastName: 'Lenoir' }),
       image: faker.image.imageUrl(100, 100, undefined, true),
       email: 'adrien.lenoir42440@gmail.com',
       card: 941,
@@ -39,13 +39,18 @@ const users = async (db) => {
       data: {
         lastname: faker.name.lastName(),
         firstname: faker.name.firstName(),
-        nickname: faker.name.findName(),
+        nickname: faker.name.fullName(),
         birthdate: faker.date.birthdate(),
         image: faker.image.imageUrl(100, 100, undefined, true),
         email: faker.internet.email(),
         card: faker.datatype.number(),
         balance: parseFloat(faker.finance.amount()),
-        promotionId: promotion.id
+        promotionId: promotion.id,
+        address: {
+          name: faker.address.streetAddress(),
+          zipCode: faker.address.zipCode(),
+          city: faker.address.cityName()
+        }
       }
     });
   }
