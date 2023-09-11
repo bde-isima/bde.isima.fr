@@ -113,3 +113,7 @@ img {
     color: white !important;
   }
 }
+
+.troll-colors {
+  animation: troll-colors 0.5s infinite alternate;
+}

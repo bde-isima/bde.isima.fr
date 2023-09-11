@@ -19,7 +19,7 @@ export default function Article({ user, article, onClick, style }) {
   const [createTransaction] = useMutation(createArticleTransaction);
   const session = useAuthenticatedSession();
 
-  function loadImageSrc(user): string {
+  function loadImageSrc(): string {
     if (session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
       return 'https://i.imgur.com/h8TqvqH.png';
     } else {
@@ -52,7 +52,7 @@ export default function Article({ user, article, onClick, style }) {
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
         {article.image ? (
-          <Image src={loadImageSrc(user)} width={size} height={size} alt={`Photo ${article?.name}`} />
+          <Image src={loadImageSrc()} width={size} height={size} alt={`Photo ${article?.name}`} />
         ) : (
           <Skeleton variant="rectangular" width={size} height={size} animation={false} />
         )}
