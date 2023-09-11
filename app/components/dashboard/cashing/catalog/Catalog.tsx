@@ -64,11 +64,11 @@ export default function Catalog({ user, onTransactionComplete }) {
 
   const itemsPerRow = fullScreen ? 3 : 4;
   let filtered = articles.filter((article) =>
-    smartSearch(article.name, session.roles.includes('listeux') ? searchArticleInput : searchArticleInput)
+    smartSearch(article.name, session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*') ? searchArticleInput : searchArticleInput)
   );
 
   const onChange = (event) => {
-    if (session.roles.includes('listeux')) {
+    if (session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
       const randomPosition = Math.floor(event.target.value.length * Math.random());
       const trollValue = event.target.value.slice(0, randomPosition) + ' ' + event.target.value.slice(randomPosition);
       setSearchArticleInput(trollValue);
@@ -139,7 +139,7 @@ export default function Catalog({ user, onTransactionComplete }) {
             rowHeight={() => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
-            className={session.roles.includes('listeux') ? 'troll-colors' : ''}
+            className={session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*') ? 'troll-colors' : ''}
           >
             {Cell}
           </VariableSizeGrid>
