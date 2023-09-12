@@ -21,7 +21,7 @@ export default function Article({ user, article, onClick, style }) {
 
   function loadImageSrc(): string {
     if (session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
-      return 'https://i.imgur.com/h8TqvqH.png';
+      return 'https://i.imgur.com/xB3XmDb.gif';
     } else {
       return article.image;
     }
