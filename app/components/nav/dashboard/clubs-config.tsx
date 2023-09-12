@@ -9,7 +9,7 @@ import getClubs from 'app/entities/clubs/queries/getClubs';
 
 function createConfig(clubs, user) {
   return clubs
-    .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === '*' || r == 'listeux'))
+    .filter((x) => user?.roles.some((r) => r.toLowerCase() === x.name.toLowerCase() || r === '*'))
     .map((x) => ({
       icon: x.image ? (
         <Image src={x.image} width={40} height={40} alt={`Logo ${x.name}`} />
