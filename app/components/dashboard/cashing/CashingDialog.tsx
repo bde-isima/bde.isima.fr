@@ -29,6 +29,7 @@ import getTransactions from 'app/entities/transactions/queries/getTransactions';
 import getUser from 'app/entities/users/queries/getUser';
 import getUsers from 'app/entities/users/queries/getUsers';
 import { useAuthenticatedSession } from '@blitzjs/auth';
+import { isListeux } from 'app/core/utils/isListeux';
 
 const Catalog = lazy(() => import('./catalog/Catalog'));
 const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
@@ -58,7 +59,7 @@ export default function CashingDialog({ user, onSelection, onClear }) {
   };
 
   useEffect(() => {
-    if (Boolean(user) && value == 0 && session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
+    if (Boolean(user) && value == 0 && isListeux(session)) {
       const timer = setTimeout(() => {
         onClear(true);
       }, 10000);

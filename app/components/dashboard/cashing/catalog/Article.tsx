@@ -2,7 +2,10 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import Image from 'next/image';
+import { isListeux } from '/workspace/app/core/utils/isListeux'
+
+import Image, { StaticImageData } from 'next/image';
+import Aline from '../../../../../public/static/images/illustrations/Aline.gif'
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
@@ -14,14 +17,15 @@ const GUTTER_SIZE = 16;
 
 export default function Article({ user, article, onClick, style }) {
   const fullScreen = useMediaQuery('md');
+  const session = useAuthenticatedSession();
+
   const size = fullScreen ? 40 : 50;
 
   const [createTransaction] = useMutation(createArticleTransaction);
-  const session = useAuthenticatedSession();
 
-  function loadImageSrc(): string {
-    if (session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
-      return 'https://i.imgur.com/xB3XmDb.gif';
+  function loadImageSrc(): StaticImageData {
+    if (isListeux(session)) {
+      return Aline;
     } else {
       return article.image;
     }

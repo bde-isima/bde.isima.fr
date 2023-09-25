@@ -14,6 +14,7 @@ import useSnackbar from 'app/entities/hooks/useSnackbar';
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
 
 import Article from './Article';
+import { isListeux } from 'app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 
@@ -63,12 +64,12 @@ export default function Catalog({ user, onTransactionComplete }) {
   );
 
   const itemsPerRow = fullScreen ? 3 : 4;
-  let filtered = articles.filter((article) =>
-    smartSearch(article.name, session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*') ? searchArticleInput : searchArticleInput)
+  const filtered = articles.filter((article) =>
+    smartSearch(article.name, searchArticleInput)
   );
 
   const onChange = (event) => {
-    if (session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*')) {
+    if (isListeux(session)) {
       const randomPosition = Math.floor(event.target.value.length * Math.random());
       const trollValue = event.target.value.slice(0, randomPosition) + ' ' + event.target.value.slice(randomPosition);
       setSearchArticleInput(trollValue);
@@ -139,7 +140,7 @@ export default function Catalog({ user, onTransactionComplete }) {
             rowHeight={() => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
-            className={session.roles.includes('listeux') && !session.roles.includes('bde') && !session.roles.includes('*') ? 'troll-colors' : ''}
+            className={isListeux(session) ? 'troll-colors' : ''}
           >
             {Cell}
           </VariableSizeGrid>
@@ -147,7 +148,9 @@ export default function Catalog({ user, onTransactionComplete }) {
       </AutoSizer>
 
       <Snackbar
-        className={session.roles.includes('listeux') && !session.roles.includes('*') ? 'troll-colors' : ''}
+        className={`${
+          fullScreen ? 'bottom-16 ' : ''
+        }${isListeux(session) ? 'troll-colors' : ''}`}
         open={open}
         loading={loading}
         message={message}

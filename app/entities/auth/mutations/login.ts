@@ -12,14 +12,17 @@ export default resolver.pipe(
     const card = parseInt(identifier);
     const key = Number.isNaN(card) ? 'email' : 'card';
     const value = key === 'card' ? card : identifier;
-    let expiresDate = new Date(new Date().getTime() + 15 * 60 * 1000);
 
     const user = await db.user.findUnique({ where: { [key]: value } });
 
+    const expiresDate = user
+    ? user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')
+      ? new Date(new Date().getTime() + 60 * 1000)
+      : new Date(new Date().getTime() + 15 * 60 * 1000)
+    : new Date(new Date().getTime() + 15 * 60 * 1000);
+
+
     if (user) {
-      if (user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')) {
-        expiresDate = new Date(new Date().getTime() + 60 * 1000);
-      }
       const token = cuid();
       const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
 
@@ -32,7 +35,7 @@ export default resolver.pipe(
           db.loginRequest.create({
             data: { userId: user.id, token, callbackUrl, expires: expiresDate }
           }),
-          /*mail.send({
+          mail.send({
             subject,
             to: user.email,
             view: 'login',
@@ -41,7 +44,7 @@ export default resolver.pipe(
               firstname: user.firstname,
               link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
             }
-          })*/
+          })
         ]);
       } catch (err) {
         console.log(err);
