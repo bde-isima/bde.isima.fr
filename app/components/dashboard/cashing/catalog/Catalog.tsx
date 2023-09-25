@@ -13,6 +13,7 @@ import useSnackbar from 'app/entities/hooks/useSnackbar';
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
 
 import Article from './Article';
+import { isListeux } from 'app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 

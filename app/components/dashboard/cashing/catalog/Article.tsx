@@ -2,7 +2,10 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import Image from 'next/image';
+import { isListeux } from '/workspace/app/core/utils/isListeux'
+
+import Image, { StaticImageData } from 'next/image';
+import Aline from '../../../../../public/static/images/illustrations/Aline.gif'
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';

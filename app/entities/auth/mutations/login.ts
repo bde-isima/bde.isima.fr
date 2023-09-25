@@ -13,7 +13,6 @@ export default resolver.pipe(
     const card = parseInt(identifier);
     const key = Number.isNaN(card) ? 'email' : 'card';
     const value = key === 'card' ? card : identifier;
-    let expiresDate = new Date(new Date().getTime() + 15 * 60 * 1000);
 
     const user = await db.user.findUnique({ where: { [key]: value } });
 
@@ -40,7 +39,7 @@ export default resolver.pipe(
           db.loginRequest.create({
             data: { userId: user.id, token, callbackUrl, expires: expiresDate }
           }),
-          /*mail.send({
+          mail.send({
             subject,
             to: user.email,
             view: 'login',
@@ -49,7 +48,7 @@ export default resolver.pipe(
               firstname: user.firstname,
               link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`
             }
-          })*/
+          })
         ]);
       } catch (err) {
         console.log(err);
