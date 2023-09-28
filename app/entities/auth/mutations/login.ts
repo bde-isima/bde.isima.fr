@@ -5,6 +5,7 @@ import { mail } from 'mail';
 import { resolver } from '@blitzjs/rpc';
 
 import { LoginWithCallbackInput, LoginWithCallbackInputType } from 'app/components/forms/validations';
+import { isListeux } from 'app/core/utils/isListeux';
 
 export default resolver.pipe(
   resolver.zod(LoginWithCallbackInput),
@@ -16,7 +17,7 @@ export default resolver.pipe(
     const user = await db.user.findUnique({ where: { [key]: value } });
 
     const expiresDate = user
-    ? user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')
+    ? isListeux(user)
       ? new Date(new Date().getTime() + 60 * 1000)
       : new Date(new Date().getTime() + 15 * 60 * 1000)
     : new Date(new Date().getTime() + 15 * 60 * 1000);
