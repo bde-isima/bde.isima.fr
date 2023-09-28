@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { isListeux } from '/workspace/app/core/utils/isListeux'
 
 import Image, { StaticImageData } from 'next/image';
-import Aline from '../../../../../public/static/images/illustrations/Aline.gif'
+import Aline from 'public/static/images/illustrations/Aline.gif'
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
