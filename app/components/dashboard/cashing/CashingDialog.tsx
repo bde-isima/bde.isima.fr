@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
 import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
@@ -28,6 +28,8 @@ import { useMediaQuery } from 'app/core/styles/theme';
 import getTransactions from 'app/entities/transactions/queries/getTransactions';
 import getUser from 'app/entities/users/queries/getUser';
 import getUsers from 'app/entities/users/queries/getUsers';
+import { useAuthenticatedSession } from '@blitzjs/auth';
+import { isListeux } from 'app/core/utils/isListeux';
 
 const Catalog = lazy(() => import('./catalog/Catalog'));
 const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
@@ -35,6 +37,8 @@ const History = lazy(() => import('app/components/hub/transactions/operations/hi
 
 export default function CashingDialog({ user, onSelection, onClear }) {
   const fullScreen = useMediaQuery('md');
+  const session = useAuthenticatedSession();
+
 
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
@@ -53,6 +57,15 @@ export default function CashingDialog({ user, onSelection, onClear }) {
     await invalidateQuery(getUser, { where: { id: user?.id } });
     await invalidateQuery(getTransactions);
   };
+
+  useEffect(() => {
+    if (Boolean(user) && value == 0 && isListeux(session)) {
+      const timer = setTimeout(() => {
+        onClear(true);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  });
 
   return (
     <NoSsr>

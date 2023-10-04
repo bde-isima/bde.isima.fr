@@ -2,8 +2,12 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import Image from 'next/image';
+import { isListeux } from '/workspace/app/core/utils/isListeux'
 
+import Image, { StaticImageData } from 'next/image';
+import Aline from 'public/static/images/illustrations/Aline.gif'
+
+import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
 
 import { useMediaQuery } from 'app/core/styles/theme';
@@ -13,9 +17,19 @@ const GUTTER_SIZE = 16;
 
 export default function Article({ user, article, onClick, style }) {
   const fullScreen = useMediaQuery('md');
+  const session = useAuthenticatedSession();
+
   const size = fullScreen ? 40 : 50;
 
   const [createTransaction] = useMutation(createArticleTransaction);
+
+  function loadImageSrc(): StaticImageData {
+    if (isListeux(session)) {
+      return Aline;
+    } else {
+      return article.image;
+    }
+  }
 
   const onTransaction = () => {
     onClick(() =>
@@ -42,7 +56,7 @@ export default function Article({ user, article, onClick, style }) {
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
         {article.image ? (
-          <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />
+          <Image src={loadImageSrc()} width={size} height={size} alt={`Photo ${article?.name}`} />
         ) : (
           <Skeleton variant="rectangular" width={size} height={size} animation={false} />
         )}

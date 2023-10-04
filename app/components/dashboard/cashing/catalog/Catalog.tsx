@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid } from 'react-window';
 
+import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation, useQuery } from '@blitzjs/rpc';
 
 import Snackbar from 'app/core/layouts/Snackbar';
@@ -13,6 +14,7 @@ import useSnackbar from 'app/entities/hooks/useSnackbar';
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
 
 import Article from './Article';
+import { isListeux } from 'app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 
@@ -46,6 +48,8 @@ const innerElementType = forwardRef(({ style, ...rest }: PropsWithoutRef<any>, r
 export default function Catalog({ user, onTransactionComplete }) {
   const fullScreen = useMediaQuery('md');
 
+  const session = useAuthenticatedSession();
+
   const [loading, setLoading] = useState(false);
   const [previousTransaction, setPreviousTransaction] = useState<string | null>(null);
   const [searchArticleInput, setSearchArticleInput] = useState('');
@@ -60,9 +64,19 @@ export default function Catalog({ user, onTransactionComplete }) {
   );
 
   const itemsPerRow = fullScreen ? 3 : 4;
-  const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput));
+  const filtered = articles.filter((article) =>
+    smartSearch(article.name, searchArticleInput)
+  );
 
-  const onChange = (event) => setSearchArticleInput(event.target.value);
+  const onChange = (event) => {
+    if (isListeux(session)) {
+      const randomPosition = Math.floor(event.target.value.length * Math.random());
+      const trollValue = event.target.value.slice(0, randomPosition) + ' ' + event.target.value.slice(randomPosition);
+      setSearchArticleInput(trollValue);
+    } else {
+      setSearchArticleInput(event.target.value);
+    }
+  };
 
   const onUndo = async () => {
     if (previousTransaction) {
@@ -126,6 +140,7 @@ export default function Catalog({ user, onTransactionComplete }) {
             rowHeight={() => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
+            className={isListeux(session) ? 'troll-colors' : ''}
           >
             {Cell}
           </VariableSizeGrid>
@@ -133,7 +148,9 @@ export default function Catalog({ user, onTransactionComplete }) {
       </AutoSizer>
 
       <Snackbar
-        className={fullScreen ? 'bottom-16' : ''}
+        className={`${
+          fullScreen ? 'bottom-16 ' : ''
+        }${isListeux(session) ? 'troll-colors' : ''}`}
         open={open}
         loading={loading}
         message={message}

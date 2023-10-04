@@ -5,6 +5,7 @@ import { mail } from 'mail';
 import { resolver } from '@blitzjs/rpc';
 
 import { LoginWithCallbackInput, LoginWithCallbackInputType } from 'app/components/forms/validations';
+import { isListeux } from 'app/core/utils/isListeux';
 
 export default resolver.pipe(
   resolver.zod(LoginWithCallbackInput),
@@ -15,10 +16,16 @@ export default resolver.pipe(
 
     const user = await db.user.findUnique({ where: { [key]: value } });
 
+    const expiresDate = user
+    ? isListeux(user)
+      ? new Date(new Date().getTime() + 60 * 1000)
+      : new Date(new Date().getTime() + 15 * 60 * 1000)
+    : new Date(new Date().getTime() + 15 * 60 * 1000);
+
+
     if (user) {
       const token = cuid();
       const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
-      const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
 
       if (process.env.NODE_ENV === 'development') {
         console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
@@ -27,7 +34,7 @@ export default resolver.pipe(
       try {
         await Promise.all([
           db.loginRequest.create({
-            data: { userId: user.id, token, callbackUrl, expires: inFifteenMinutes }
+            data: { userId: user.id, token, callbackUrl, expires: expiresDate }
           }),
           mail.send({
             subject,
