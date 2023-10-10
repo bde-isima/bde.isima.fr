@@ -2,16 +2,17 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import { isListeux } from '/workspace/app/core/utils/isListeux'
-
-import Image, { StaticImageData } from 'next/image';
-import Aline from 'public/static/images/illustrations/Aline.gif'
+import Image from 'next/image';
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
 
 import { useMediaQuery } from 'app/core/styles/theme';
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
+
+import Aline from 'public/static/images/illustrations/Aline.gif';
+
+import { isListeux } from '/workspace/app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 
@@ -23,12 +24,12 @@ export default function Article({ user, article, onClick, style }) {
 
   const [createTransaction] = useMutation(createArticleTransaction);
 
-  function loadImageSrc(): StaticImageData {
-    if (isListeux(session)) {
-      return Aline;
-    } else {
-      return article.image;
-    }
+  let articleImage = <Skeleton variant="rectangular" width={size} height={size} animation={false} />;
+
+  if (isListeux(session)) {
+    articleImage = <Image src={Aline} width={size} height={size} alt={`Photo ${article?.name}`} />;
+  } else if (article.image) {
+    articleImage = <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />;
   }
 
   const onTransaction = () => {
@@ -55,11 +56,7 @@ export default function Article({ user, article, onClick, style }) {
       }}
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
-        {article.image ? (
-          <Image src={loadImageSrc()} width={size} height={size} alt={`Photo ${article?.name}`} />
-        ) : (
-          <Skeleton variant="rectangular" width={size} height={size} animation={false} />
-        )}
+        {articleImage}
         <Typography variant="caption" color="inherit" noWrap>
           {article?.name}
         </Typography>

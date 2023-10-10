@@ -64,13 +64,13 @@ export const config = [
     only: ['*', 'bde'],
     isActive: (pathname: String) => pathname === '/dashboard/partners'
   },
-  {
-    icon: <CalendarToday />,
-    text: 'PLANNING',
-    to: '/dashboard/planning',
-    only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/planning'
-  },
+  // {
+  //   icon: <CalendarToday />,
+  //   text: 'PLANNING',
+  //   to: '/dashboard/planning',
+  //   only: ['*', 'bde'],
+  //   isActive: (pathname: String) => pathname === '/dashboard/planning'
+  // },
   {
     icon: <School />,
     text: 'PROMOTIONS',
