@@ -44,34 +44,35 @@ function AuthenticatePage() {
 
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-  function onAuth() {
-    validate({ token: token }).then(
-      (response) => {
-        setLoggedIn(true);
-
-        let redirectPath = '/hub';
-        if (response == 'UnknownTokenError') redirectPath = '/login?invalid=1';
-        if (response == 'ExpiredTokenError') redirectPath = '/login?invalid=2';
-
-        router.push(redirectPath).finally(() => {});
-      },
-      () => {
-        router.push('/login?invalid=3').finally(() => {});
-      }
-    );
-  }
-
-  function onCancel() {
-    invalidate({ token: token }).finally(() => {
-      router.push('/').finally(() => {});
-    });
-  }
-
   if (!loggedIn) {
     if (response == undefined) {
-      console.log('Oh no!');
       router.push('/login?invalid=1').finally(() => {});
     } else {
+      const redirectURL = response.callbackUrl;
+
+      function onAuth() {
+        validate({ token: token }).then(
+          (response) => {
+            setLoggedIn(true);
+
+            let redirectPath = redirectURL;
+            if (response == 'UnknownTokenError') redirectPath = '/login?invalid=1';
+            if (response == 'ExpiredTokenError') redirectPath = '/login?invalid=2';
+
+            router.push(redirectPath).finally(() => {});
+          },
+          () => {
+            router.push('/login?invalid=3').finally(() => {});
+          }
+        );
+      }
+
+      function onCancel() {
+        invalidate({ token: token }).finally(() => {
+          router.push('/').finally(() => {});
+        });
+      }
+
       const user = response.user;
 
       let shownName = user.nickname == null ? user.firstname : response.user.nickname!;
