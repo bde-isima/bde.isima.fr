@@ -28,7 +28,7 @@ export default resolver.pipe(
       const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
 
       if (process.env.NODE_ENV === 'development') {
-        console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
+        console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`);
       }
 
       try {
@@ -43,7 +43,7 @@ export default resolver.pipe(
             variables: {
               subject,
               firstname: user.firstname,
-              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`
             }
           })
         ]);
