@@ -62,7 +62,7 @@ function AuthenticatePage() {
             router.push(redirectPath).finally(() => {});
           },
           () => {
-            router.push('/login?invalid=3').finally(() => {});
+            router.push('/login?invalid=0').finally(() => {});
           }
         );
       }
