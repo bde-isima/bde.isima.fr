@@ -21,7 +21,7 @@ export default resolver.pipe(
       const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
 
       if (process.env.NODE_ENV === 'development') {
-        console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`);
+        console.log(`Lien de connexion: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`);
       }
 
       try {
@@ -36,7 +36,7 @@ export default resolver.pipe(
             variables: {
               subject,
               firstname: user.firstname,
-              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+              link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`
             }
           })
         ]);
