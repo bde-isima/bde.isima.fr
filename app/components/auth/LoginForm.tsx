@@ -32,6 +32,16 @@ export default function LoginForm() {
     }
   };
 
+  let errorMessage = '';
+
+  if (router.query.invalid) {
+    console.log(router.query.invalid);
+
+    if (router.query.invalid == '1') errorMessage = 'Jeton invalide';
+    else if (router.query.invalid == '2') errorMessage = 'Jeton expiré';
+    else errorMessage = 'Erreur inconnue';
+  }
+
   return (
     <Form submitText="Connexion" schema={LoginInput} initialValues={{ identifier: undefined }} onSubmit={onSubmit}>
       <TextField
@@ -49,7 +59,7 @@ export default function LoginForm() {
         color={router.query.invalid && !message ? 'error.main' : 'success.main'}
         align="center"
       >
-        <b>{message || (router.query.invalid ? 'Jeton invalide' : '')}</b>
+        <b>{message || errorMessage}</b>
       </Typography>
     </Form>
   );
