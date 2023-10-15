@@ -83,7 +83,7 @@ function AuthenticatePage() {
             <title>Bienvenue `{shownName}`</title>
           </Head>
 
-          <div className="flex flex-col items-center p-16">
+          <div className="flex flex-col items-center p-8">
             <Card className="rounded-full z-10 p-0 flex justify-center items-center">
               <Image
                 src={user.image ? user.image : DefaultUser}
@@ -101,7 +101,7 @@ function AuthenticatePage() {
                 </Typography>
 
                 <Typography className="mb-6" variant="h6">
-                  Bon retour parmis nous&nbsp;!
+                  Bon retour parmi nous&nbsp;!
                 </Typography>
 
                 <Button
