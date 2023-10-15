@@ -101,7 +101,7 @@ function AuthenticatePage() {
                 </Typography>
 
                 <Typography className="mb-6" variant="h6">
-                  Bon retour parmis nous&nbsp;!
+                  Bon retour parmi nous&nbsp;!
                 </Typography>
 
                 <Button
