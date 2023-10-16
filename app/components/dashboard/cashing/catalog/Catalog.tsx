@@ -9,12 +9,12 @@ import { useMutation, useQuery } from '@blitzjs/rpc';
 
 import Snackbar from 'app/core/layouts/Snackbar';
 import { useMediaQuery } from 'app/core/styles/theme';
+import { isListeux } from 'app/core/utils/isListeux';
 import getArticles from 'app/entities/articles/queries/getArticles';
 import useSnackbar from 'app/entities/hooks/useSnackbar';
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
 
 import Article from './Article';
-import { isListeux } from 'app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 
@@ -64,18 +64,10 @@ export default function Catalog({ user, onTransactionComplete }) {
   );
 
   const itemsPerRow = fullScreen ? 3 : 4;
-  const filtered = articles.filter((article) =>
-    smartSearch(article.name, searchArticleInput)
-  );
+  const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput));
 
   const onChange = (event) => {
-    if (isListeux(session)) {
-      const randomPosition = Math.floor(event.target.value.length * Math.random());
-      const trollValue = event.target.value.slice(0, randomPosition) + ' ' + event.target.value.slice(randomPosition);
-      setSearchArticleInput(trollValue);
-    } else {
-      setSearchArticleInput(event.target.value);
-    }
+    setSearchArticleInput(event.target.value);
   };
 
   const onUndo = async () => {
@@ -140,7 +132,7 @@ export default function Catalog({ user, onTransactionComplete }) {
             rowHeight={() => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
-            className={isListeux(session) ? 'troll-colors' : ''}
+            className={fullScreen ? 'mb-16' : ''}
           >
             {Cell}
           </VariableSizeGrid>
@@ -148,9 +140,7 @@ export default function Catalog({ user, onTransactionComplete }) {
       </AutoSizer>
 
       <Snackbar
-        className={`${
-          fullScreen ? 'bottom-16 ' : ''
-        }${isListeux(session) ? 'troll-colors' : ''}`}
+        className={fullScreen ? 'bottom-16 ' : ''}
         open={open}
         loading={loading}
         message={message}
