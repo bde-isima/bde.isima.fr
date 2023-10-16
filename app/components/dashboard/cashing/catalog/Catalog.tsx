@@ -4,12 +4,10 @@ import TextField from '@mui/material/TextField';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid } from 'react-window';
 
-import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation, useQuery } from '@blitzjs/rpc';
 
 import Snackbar from 'app/core/layouts/Snackbar';
 import { useMediaQuery } from 'app/core/styles/theme';
-import { isListeux } from 'app/core/utils/isListeux';
 import getArticles from 'app/entities/articles/queries/getArticles';
 import useSnackbar from 'app/entities/hooks/useSnackbar';
 import deleteTransaction from 'app/entities/transactions/mutations/deleteTransaction';
@@ -47,8 +45,6 @@ const innerElementType = forwardRef(({ style, ...rest }: PropsWithoutRef<any>, r
 
 export default function Catalog({ user, onTransactionComplete }) {
   const fullScreen = useMediaQuery('md');
-
-  const session = useAuthenticatedSession();
 
   const [loading, setLoading] = useState(false);
   const [previousTransaction, setPreviousTransaction] = useState<string | null>(null);
