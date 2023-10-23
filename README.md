@@ -1,7 +1,5 @@
 # 🐭 BDE ISIMA
 
-![Node version](https://img.shields.io/badge/node-16-informational.svg)
-
 The **bde.isima.fr** website is an online platform for the **BDE ISIMA** Student Union featuring a virtual wallet for the members to purchase goods that can be bought on the union's premises.
 
 The aim of this open source repository is to develop a collaborative environment allowing every contributor to improve the experience of the [website](https://bde.isima.fr/) through pull requests, by giving feedbacks via issues or just by giving ideas 💡.
