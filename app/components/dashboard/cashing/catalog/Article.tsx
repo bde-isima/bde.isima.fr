@@ -25,11 +25,14 @@ export default function Article({ user, article, onClick, style }) {
   const [createTransaction] = useMutation(createArticleTransaction);
 
   let articleImage = <Skeleton variant="rectangular" width={size} height={size} animation={false} />;
+  let articleName = '';
 
   if (isListeux(session)) {
     articleImage = <Image src={Aline} width={size} height={size} alt={`Photo ${article?.name}`} />;
+    articleName = mixLetters(article?.name)
   } else if (article.image) {
     articleImage = <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />;
+    articleName = article?.name;
   }
 
   const onTransaction = () => {
@@ -43,6 +46,15 @@ export default function Article({ user, article, onClick, style }) {
       })
     );
   };
+
+  function mixLetters(str: string): string {
+    const arr = str.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
+  }
 
   return (
     <div
@@ -58,7 +70,7 @@ export default function Article({ user, article, onClick, style }) {
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
         {articleImage}
         <Typography variant="caption" color="inherit" noWrap>
-          {article?.name}
+          {articleName}
         </Typography>
         <Typography variant="caption" color="inherit" noWrap>
           {`${user?.is_member ? article?.member_price : article?.price} €`}
