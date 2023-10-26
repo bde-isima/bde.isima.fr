@@ -4,8 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { isListeux } from '/workspace/app/core/utils/isListeux'
 
-import Image, { StaticImageData } from 'next/image';
-import Aline from '../../../../../public/static/images/illustrations/Aline.gif'
+import Image from 'next/image';
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
@@ -14,8 +13,6 @@ import { useMediaQuery } from 'app/core/styles/theme';
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
 
 import Aline from 'public/static/images/illustrations/Aline.gif';
-
-import { isListeux } from '/workspace/app/core/utils/isListeux';
 
 const GUTTER_SIZE = 16;
 

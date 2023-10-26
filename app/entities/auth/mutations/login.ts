@@ -24,9 +24,6 @@ export default resolver.pipe(
 
 
     if (user) {
-      if (user.roles.includes('listeux') && !user.roles.includes('bde') && !user.roles.includes('*')) {
-        expiresDate = new Date(new Date().getTime() + 15 * 1000);
-      }
       const token = cuid();
       const subject = `Connexion à ${process.env.NEXT_PUBLIC_FRONTEND_URL}`;
 
