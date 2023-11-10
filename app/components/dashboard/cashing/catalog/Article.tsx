@@ -2,7 +2,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import { isListeux } from '/workspace/app/core/utils/isListeux'
+import { isTroll } from '/workspace/app/core/utils/isListeux'
 
 import Image from 'next/image';
 
@@ -27,7 +27,7 @@ export default function Article({ user, article, onClick, style }) {
   let articleImage = <Skeleton variant="rectangular" width={size} height={size} animation={false} />;
   let articleName = '';
 
-  if (isListeux(session)) {
+  if (isTroll(session)) {
     articleImage = <Image src={Aline} width={size} height={size} alt={`Photo ${article?.name}`} />;
     articleName = mixLetters(article?.name)
   } else if (article.image) {
