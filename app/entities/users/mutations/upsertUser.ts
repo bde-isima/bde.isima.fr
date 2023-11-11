@@ -36,7 +36,7 @@ export default resolver.pipe(resolver.authorize(['*']), async ({ where, create, 
           variables: {
             subject,
             firstname: newUser.firstname,
-            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify-login?token=${token}`
+            link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/authenticate?token=${token}`
           }
         })
       ]);

@@ -6,7 +6,9 @@ import { useQuery } from '@blitzjs/rpc';
 import getPromotions from 'app/entities/promotions/queries/getPromotions';
 
 export default function PromotionsForm() {
-  const [{ promotions }] = useQuery(getPromotions, {});
+  const [{ promotions }] = useQuery(getPromotions, {
+    orderBy: { year: 'desc' }
+  });
 
   return (
     <Select
