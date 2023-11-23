@@ -12,7 +12,7 @@ import createArticleTransaction from 'app/entities/transactions/mutations/create
 
 import Aline from 'public/static/images/illustrations/Aline.gif';
 
-import { isTroll } from '../../../../core/utils/listeux_or_troll';
+import { isTroll } from '/workspace/app/core/utils/listeux_or_troll';
 
 const GUTTER_SIZE = 16;
 
