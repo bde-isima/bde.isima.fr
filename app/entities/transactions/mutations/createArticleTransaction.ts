@@ -7,7 +7,7 @@ type CreateTransactionInput = {
   data: Omit<Prisma.TransactionUncheckedCreateInput, 'type' | 'amount' | 'prevBalance'>;
 };
 
-export default resolver.pipe(resolver.authorize(['*', 'bde']), async ({ data }: CreateTransactionInput) => {
+export default resolver.pipe(resolver.authorize(['*', 'bde', 'listeux']), async ({ data }: CreateTransactionInput) => {
   const { userId, articleId, description } = data;
 
   const receiverUser = await db.user.findUniqueOrThrow({

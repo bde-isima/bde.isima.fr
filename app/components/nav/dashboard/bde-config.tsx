@@ -1,6 +1,7 @@
 import { RouteUrlObject } from 'blitz';
 
 import AccountBox from '@mui/icons-material/AccountBoxTwoTone';
+import AlignHorizontalLeftSharpIcon from '@mui/icons-material/AlignHorizontalLeftSharp';
 import CalendarToday from '@mui/icons-material/CalendarTodayTwoTone';
 import EventNote from '@mui/icons-material/EventNoteTwoTone';
 import Fastfood from '@mui/icons-material/FastfoodTwoTone';
@@ -14,6 +15,13 @@ import { PublicData, useAuthenticatedSession } from '@blitzjs/auth';
 import { Routes } from '@blitzjs/next';
 
 export const config = [
+  {
+    icon: <AlignHorizontalLeftSharpIcon />,
+    text: 'DASHBOARD',
+    to: '/dashboard/dashboard',
+    only: ['*', 'bde', 'listeux'],
+    isActive: (pathname: String) => pathname === '/dashboard/dashboard'
+  },
   {
     icon: <EventNote />,
     text: 'EVENTS',
@@ -56,13 +64,13 @@ export const config = [
     only: ['*', 'bde'],
     isActive: (pathname: String) => pathname === '/dashboard/partners'
   },
-  {
-    icon: <CalendarToday />,
-    text: 'PLANNING',
-    to: '/dashboard/planning',
-    only: ['*', 'bde'],
-    isActive: (pathname: String) => pathname === '/dashboard/planning'
-  },
+  // {
+  //   icon: <CalendarToday />,
+  //   text: 'PLANNING',
+  //   to: '/dashboard/planning',
+  //   only: ['*', 'bde'],
+  //   isActive: (pathname: String) => pathname === '/dashboard/planning'
+  // },
   {
     icon: <School />,
     text: 'PROMOTIONS',

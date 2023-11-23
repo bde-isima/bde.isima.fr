@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
 import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
@@ -18,6 +18,7 @@ import Euro from '@mui/icons-material/EuroTwoTone';
 import HistoryIcon from '@mui/icons-material/HistoryTwoTone';
 import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone';
 
+import { useAuthenticatedSession } from '@blitzjs/auth';
 import { invalidateQuery } from '@blitzjs/rpc';
 
 import SearchUser from 'app/components/dashboard/cashing/SearchUser';
@@ -25,6 +26,7 @@ import Balance from 'app/components/hub/transactions/display/Balance';
 import HistoryFilter from 'app/components/hub/transactions/operations/history/HistoryFilter';
 import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader';
 import { useMediaQuery } from 'app/core/styles/theme';
+import { isTroll } from 'app/core/utils/listeux_or_troll';
 import getTransactions from 'app/entities/transactions/queries/getTransactions';
 import getUser from 'app/entities/users/queries/getUser';
 import getUsers from 'app/entities/users/queries/getUsers';
@@ -35,6 +37,7 @@ const History = lazy(() => import('app/components/hub/transactions/operations/hi
 
 export default function CashingDialog({ user, onSelection, onClear }) {
   const fullScreen = useMediaQuery('md');
+  const session = useAuthenticatedSession();
 
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
@@ -53,6 +56,15 @@ export default function CashingDialog({ user, onSelection, onClear }) {
     await invalidateQuery(getUser, { where: { id: user?.id } });
     await invalidateQuery(getTransactions);
   };
+
+  useEffect(() => {
+    if (Boolean(user) && value == 0 && isTroll(session)) {
+      const timer = setTimeout(() => {
+        onClear(true);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  });
 
   return (
     <NoSsr>
