@@ -2,8 +2,6 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import { isTroll } from '/workspace/app/core/utils/isListeux'
-
 import Image from 'next/image';
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
@@ -13,6 +11,8 @@ import { useMediaQuery } from 'app/core/styles/theme';
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
 
 import Aline from 'public/static/images/illustrations/Aline.gif';
+
+import { isTroll } from '../../../../core/utils/listeux_or_troll';
 
 const GUTTER_SIZE = 16;
 
@@ -29,7 +29,7 @@ export default function Article({ user, article, onClick, style }) {
 
   if (isTroll(session)) {
     articleImage = <Image src={Aline} width={size} height={size} alt={`Photo ${article?.name}`} />;
-    articleName = mixLetters(article?.name)
+    articleName = mixLetters(article?.name);
   } else if (article.image) {
     articleImage = <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />;
     articleName = article?.name;

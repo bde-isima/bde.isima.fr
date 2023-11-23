@@ -18,6 +18,7 @@ import Euro from '@mui/icons-material/EuroTwoTone';
 import HistoryIcon from '@mui/icons-material/HistoryTwoTone';
 import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone';
 
+import { useAuthenticatedSession } from '@blitzjs/auth';
 import { invalidateQuery } from '@blitzjs/rpc';
 
 import SearchUser from 'app/components/dashboard/cashing/SearchUser';
@@ -25,11 +26,10 @@ import Balance from 'app/components/hub/transactions/display/Balance';
 import HistoryFilter from 'app/components/hub/transactions/operations/history/HistoryFilter';
 import HistoryHeader from 'app/components/hub/transactions/operations/history/HistoryHeader';
 import { useMediaQuery } from 'app/core/styles/theme';
+import { isTroll } from 'app/core/utils/listeux_or_troll';
 import getTransactions from 'app/entities/transactions/queries/getTransactions';
 import getUser from 'app/entities/users/queries/getUser';
 import getUsers from 'app/entities/users/queries/getUsers';
-import { useAuthenticatedSession } from '@blitzjs/auth';
-import { isTroll } from 'app/core/utils/isListeux';
 
 const Catalog = lazy(() => import('./catalog/Catalog'));
 const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
@@ -38,7 +38,6 @@ const History = lazy(() => import('app/components/hub/transactions/operations/hi
 export default function CashingDialog({ user, onSelection, onClear }) {
   const fullScreen = useMediaQuery('md');
   const session = useAuthenticatedSession();
-
 
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);

@@ -5,7 +5,7 @@ import { mail } from 'mail';
 import { resolver } from '@blitzjs/rpc';
 
 import { LoginWithCallbackInput, LoginWithCallbackInputType } from 'app/components/forms/validations';
-import { isListeux } from 'app/core/utils/isListeux';
+import { isListeux } from 'app/core/utils/listeux_or_troll';
 
 export default resolver.pipe(
   resolver.zod(LoginWithCallbackInput),
@@ -17,11 +17,10 @@ export default resolver.pipe(
     const user = await db.user.findUnique({ where: { [key]: value } });
 
     const expiresDate = user
-    ? isListeux(user)
-      ? new Date(new Date().getTime() + 60 * 1000)
-      : new Date(new Date().getTime() + 15 * 60 * 1000)
-    : new Date(new Date().getTime() + 15 * 60 * 1000);
-
+      ? isListeux(user)
+        ? new Date(new Date().getTime() + 60 * 1000)
+        : new Date(new Date().getTime() + 15 * 60 * 1000)
+      : new Date(new Date().getTime() + 15 * 60 * 1000);
 
     if (user) {
       const token = cuid();

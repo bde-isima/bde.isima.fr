@@ -62,9 +62,7 @@ export default function Catalog({ user, onTransactionComplete }) {
   const itemsPerRow = fullScreen ? 3 : 4;
   const filtered = articles.filter((article) => smartSearch(article.name, searchArticleInput));
 
-  const onChange = (event) => {
-    setSearchArticleInput(event.target.value);
-  };
+  const onChange = (event) => setSearchArticleInput(event.target.value);
 
   const onUndo = async () => {
     if (previousTransaction) {
@@ -128,7 +126,6 @@ export default function Catalog({ user, onTransactionComplete }) {
             rowHeight={() => (width - (GUTTER_SIZE / 2) * itemsPerRow) / itemsPerRow}
             height={height}
             width={width}
-            className={fullScreen ? 'mb-16' : ''}
           >
             {Cell}
           </VariableSizeGrid>
@@ -136,7 +133,7 @@ export default function Catalog({ user, onTransactionComplete }) {
       </AutoSizer>
 
       <Snackbar
-        className={fullScreen ? 'bottom-16 ' : ''}
+        className={fullScreen ? 'bottom-16' : ''}
         open={open}
         loading={loading}
         message={message}
