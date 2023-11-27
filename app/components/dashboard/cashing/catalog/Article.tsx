@@ -4,18 +4,36 @@ import Typography from '@mui/material/Typography';
 
 import Image from 'next/image';
 
+import { useAuthenticatedSession } from '@blitzjs/auth';
 import { useMutation } from '@blitzjs/rpc';
 
 import { useMediaQuery } from 'app/core/styles/theme';
 import createArticleTransaction from 'app/entities/transactions/mutations/createArticleTransaction';
 
+import Aline from 'public/static/images/illustrations/Aline.gif';
+
+import { isTroll } from 'app/core/utils/listeux_or_troll';
+
 const GUTTER_SIZE = 16;
 
 export default function Article({ user, article, onClick, style }) {
   const fullScreen = useMediaQuery('md');
+  const session = useAuthenticatedSession();
+
   const size = fullScreen ? 40 : 50;
 
   const [createTransaction] = useMutation(createArticleTransaction);
+
+  let articleImage = <Skeleton variant="rectangular" width={size} height={size} animation={false} />;
+  let articleName = '';
+
+  if (isTroll(session)) {
+    articleImage = <Image src={Aline} width={size} height={size} alt={`Photo ${article?.name}`} />;
+    articleName = mixLetters(article?.name);
+  } else if (article.image) {
+    articleImage = <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />;
+    articleName = article?.name;
+  }
 
   const onTransaction = () => {
     onClick(() =>
@@ -29,6 +47,15 @@ export default function Article({ user, article, onClick, style }) {
     );
   };
 
+  function mixLetters(str: string): string {
+    const arr = str.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
+  }
+
   return (
     <div
       className="overflow-hidden"
@@ -41,13 +68,9 @@ export default function Article({ user, article, onClick, style }) {
       }}
     >
       <ButtonBase className="flex flex-col w-full h-full" onClick={onTransaction}>
-        {article.image ? (
-          <Image src={article.image} width={size} height={size} alt={`Photo ${article?.name}`} />
-        ) : (
-          <Skeleton variant="rectangular" width={size} height={size} animation={false} />
-        )}
+        {articleImage}
         <Typography variant="caption" color="inherit" noWrap>
-          {article?.name}
+          {articleName}
         </Typography>
         <Typography variant="caption" color="inherit" noWrap>
           {`${user?.is_member ? article?.member_price : article?.price} €`}
