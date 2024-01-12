@@ -45,7 +45,7 @@ const Analytics: BlitzPage = () => {
 
 Analytics.suppressFirstRenderFlicker = true;
 Analytics.authenticate = { redirectTo: Routes.Login() };
-Analytics.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Planning());
+Analytics.redirectAuthenticatedTo = redirectAuthenticatedTo(Routes.Analytics());
 Analytics.getLayout = (page) => getDashboardNav(page, 'Statistiques');
 
 export default Analytics;
