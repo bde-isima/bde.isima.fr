@@ -50,6 +50,7 @@
     "@mui/x-date-pickers": "^5.0.13",
     "@prisma/client": "^4.8.1",
     "blitz": "2.0.0-beta.21",
+    "caniuse-lite": "^1.0.30001553",
     "chart.js": "3.9.1",
     "cuid": "^2.1.8",
     "date-fns": "^2.29.3",

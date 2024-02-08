@@ -30,6 +30,7 @@ import { isTroll } from 'app/core/utils/listeux_or_troll';
 import getTransactions from 'app/entities/transactions/queries/getTransactions';
 import getUser from 'app/entities/users/queries/getUser';
 import getUsers from 'app/entities/users/queries/getUsers';
+import Adherent from 'app/components/hub/transactions/display/Adherent';
 
 const Catalog = lazy(() => import('./catalog/Catalog'));
 const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
@@ -98,6 +99,10 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                 <Close />
               </IconButton>
             </DialogActions>
+
+            <Suspense fallback={<Skeleton width="50%" height={55} />}>
+                <Adherent getQuery={getUser} queryArgs={{ where: { id: user?.id } }} />
+              </Suspense>
 
             <DialogContent className="p-0 text-center">
               <Suspense fallback={<Skeleton width="60%" height={55} />}>
