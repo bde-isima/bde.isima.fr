@@ -40,9 +40,7 @@ export default function SearchUser({
 
   const toggleOpen = (value) => () => setOpen(value);
 
-  const onSuccess = ({ users }) => {
-    setOptions(users);
-  };
+  const onSuccess = ({ users }) => setOptions(users);
 
   useQuery(getQuery, { where: { is_enabled: true } }, { suspense: false, onSuccess, enabled: loading });
 
