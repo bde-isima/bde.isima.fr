@@ -1,3 +1,4 @@
+import { Checkbox } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
 import AccountBalance from '@mui/icons-material/AccountBalance';
@@ -55,6 +56,11 @@ const columns = [
     id: 'description',
     headerName: 'Description',
     searchCriteria: 'contains'
+  },
+  {
+    id: 'is_enabled',
+    headerName: 'Partenariat public',
+    render: (row) => <Checkbox checked={row.is_enabled} color="default" disabled />
   }
 ];
 

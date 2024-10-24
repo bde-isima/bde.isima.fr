@@ -127,6 +127,8 @@ model Partner {
   description String?
   image       String?
 
+  is_enabled Boolean @default(true)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
