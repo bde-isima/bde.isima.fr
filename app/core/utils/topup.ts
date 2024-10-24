@@ -1,4 +1,4 @@
-import { BinaryLike, KeyObject, createHmac } from 'crypto';
+import { BinaryLike, KeyObject, createHmac, randomBytes } from 'crypto';
 
 export function makeMerchantReference(card: number, timestamp: number) {
   const card_prefix = card > 0 ? 'p' : 'm';
@@ -12,8 +12,16 @@ export function makeShopOrderReference(card: number, amount: number) {
   return `o${card_prefix}${Math.abs(card)}a${amount}`;
 }
 
-export function makeHmac(elements: any[], secret: BinaryLike | KeyObject) {
-  return createHmac('sha1', secret).update(elements.join('*')).digest('hex');
+export function makeHmac(elements: any[], secret: BinaryLike | KeyObject, sep: string, hashAlgorithm: string) {
+  const joint = elements.join(sep);
+
+  console.debug(joint);
+
+  return createHmac(hashAlgorithm, secret).update(joint).digest('hex');
+}
+
+export function makeNonce() {
+  return randomBytes(16).toString('hex');
 }
 
 export type TopUpInfo = {

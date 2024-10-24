@@ -22,8 +22,15 @@ export default function TopUp() {
       amount: data.amount,
       method: paymentMethod
     }).then(
-      (url) => {
-        window.location.assign(url as string);
+      (res) => {
+        if (res.type == 'success') {
+          window.location.assign(res.url as string);
+        } else {
+          switch (res.errorKind) {
+            case 'internal':
+              onShow('error', 'Topup failed: internal error');
+          }
+        }
       },
       (error) => {
         onShow('error', error.message);
