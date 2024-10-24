@@ -2,7 +2,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Club } from 'db';
-import { TextField } from 'mui-rff';
+import { Switches, TextField } from 'mui-rff';
 
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
@@ -43,7 +43,8 @@ export default function ClubForm(props: ClubFormProps) {
         facebookURL: props.initialValues?.facebookURL,
         twitterURL: props.initialValues?.twitterURL,
         instagramURL: props.initialValues?.instagramURL,
-        customURL: props.initialValues?.customURL
+        customURL: props.initialValues?.customURL,
+        isPublic: props.initialValues?.isPublic
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -83,6 +84,8 @@ export default function ClubForm(props: ClubFormProps) {
       <TextField type="text" name="name" label="Nom" />
       <TextField type="email" name="email" label="Adresse email" />
       <TextField type="text" name="description" label="Description" multiline rows={15} />
+
+      <Switches name="isPublic" data={{ label: 'Public', value: 'isPublic' }} color="primary" />
 
       <Divider className="m-2" />
 
