@@ -1,16 +1,12 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import Image from 'next/image';
-
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import { TopUpInput, TopUpInputType } from 'app/components/forms/validations';
-import { PaymentMethod } from 'app/entities/transactions/mutations/requestTopUp';
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void;
-  beforeSubmit: (paymentMethod: PaymentMethod) => () => void;
 };
 
 export default function TopUpForm(props: TopUpFormProps) {
