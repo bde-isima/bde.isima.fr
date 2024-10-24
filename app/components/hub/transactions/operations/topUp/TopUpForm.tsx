@@ -32,7 +32,9 @@ export default function TopUpForm(props: TopUpFormProps) {
     >
       <EnhancedTextField type="number" name="amount" label="Montant" inputProps={{ min: 5, max: 1000, step: 0.01 }} />
 
-      <Button type="submit">Recharger</Button>
+      <Button type="submit" variant="contained">
+        Recharger
+      </Button>
 
       <Typography variant="caption" align="center">
         Si vous rencontrez un problème lors de votre rechargement, contactez un membre BDE
