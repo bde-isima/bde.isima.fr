@@ -77,7 +77,8 @@ export const ClubInput = z
     facebookURL: z.string().url().optional().nullable(),
     twitterURL: z.string().url().optional().nullable(),
     instagramURL: z.string().url().optional().nullable(),
-    customURL: z.string().url().optional().nullable()
+    customURL: z.string().url().optional().nullable(),
+    isPublic: z.boolean().optional().nullable()
   })
   .partial();
 export type ClubInputType = z.infer<typeof ClubInput>;
@@ -113,7 +114,8 @@ export const PartnerInput = z
       .optional()
       .nullable(),
     name: z.string().max(255),
-    description: z.string().max(3000).optional().nullable()
+    description: z.string().max(3000).optional().nullable(),
+    isPublic: z.boolean().optional().nullable()
   })
   .partial();
 export type PartnerInputType = z.infer<typeof PartnerInput>;

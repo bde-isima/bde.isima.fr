@@ -10,7 +10,7 @@ import { Partner } from 'db';
 import Image from 'next/image';
 
 import Link from 'app/core/lib/Link';
-import getPartners from 'app/entities/partners/queries/getPartners';
+import getPublicPartners from 'app/entities/partners/queries/getPublicPartners';
 
 import Carousel from './carousel';
 
@@ -52,7 +52,7 @@ export default function Partners() {
       </Container>
 
       <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-        <Carousel<Partner> getQuery={getPartners} queryKey="partners" />
+        <Carousel<Partner> getQuery={getPublicPartners} queryKey="partners" />
       </Suspense>
     </Box>
   );

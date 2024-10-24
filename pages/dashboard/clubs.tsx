@@ -1,3 +1,4 @@
+import { Checkbox } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -56,6 +57,11 @@ const columns = [
     id: 'email',
     headerName: 'Email',
     searchCriteria: 'contains'
+  },
+  {
+    id: 'isPublic',
+    headerName: 'Public',
+    render: (row) => <Checkbox checked={row.isPublic} color="default" disabled />
   }
 ];
 

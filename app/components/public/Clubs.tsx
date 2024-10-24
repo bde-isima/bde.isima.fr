@@ -9,7 +9,7 @@ import { Club } from 'db';
 
 import Image from 'next/image';
 
-import getClubs from 'app/entities/clubs/queries/getClubs';
+import getPublicClubs from 'app/entities/clubs/queries/getPublicClubs';
 
 import Carousel from './carousel';
 
@@ -46,7 +46,7 @@ export default function Clubs() {
         </Grid>
       </Container>
       <Suspense fallback={<CircularProgress className="mx-auto" size={25} />}>
-        <Carousel<Club> getQuery={getClubs} queryKey="clubs" />
+        <Carousel<Club> getQuery={getPublicClubs} queryKey="clubs" />
       </Suspense>
     </Box>
   );
