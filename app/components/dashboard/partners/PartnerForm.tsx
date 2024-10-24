@@ -38,7 +38,7 @@ export default function PartnerForm(props: PartnerFormProps) {
         image: props.initialValues?.image,
         name: props.initialValues?.name,
         description: props.initialValues?.description,
-        is_enabled: props.initialValues?.is_enabled
+        isPublic: props.initialValues?.isPublic
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -78,7 +78,7 @@ export default function PartnerForm(props: PartnerFormProps) {
       <TextField type="text" name="name" label="Nom" />
       <TextField type="text" name="description" label="Description" multiline rows={10} />
 
-      <Switches name="is_enabled" data={{ label: 'Activé', value: 'is_enabled' }} color="primary" />
+      <Switches name="isPublic" data={{ label: 'Public', value: 'isPublic' }} color="primary" />
     </Form>
   );
 }

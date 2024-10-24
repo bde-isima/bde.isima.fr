@@ -58,9 +58,9 @@ const columns = [
     searchCriteria: 'contains'
   },
   {
-    id: 'is_enabled',
-    headerName: 'Partenariat public',
-    render: (row) => <Checkbox checked={row.is_enabled} color="default" disabled />
+    id: 'isPublic',
+    headerName: 'Public',
+    render: (row) => <Checkbox checked={row.isPublic} color="default" disabled />
   }
 ];
 

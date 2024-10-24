@@ -6,7 +6,7 @@ type GetPartnersInput = Pick<Prisma.PartnerFindManyArgs, 'where' | 'orderBy' | '
 
 export default resolver.pipe(
   resolver.authorize(['*', 'bde']),
-  async ({ where, orderBy, skip = 0, take }: GetPartnersInput) => {
+  async ({ where, orderBy, skip = 0, take }: GetPartnersInput, _ctx) => {
     const partners = await db.partner.findMany({
       where,
       orderBy,
