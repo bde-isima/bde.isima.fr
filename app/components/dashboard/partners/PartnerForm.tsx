@@ -1,7 +1,7 @@
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Partner } from 'db';
-import { TextField } from 'mui-rff';
+import { Switches, TextField } from 'mui-rff';
 
 import OpenInNew from '@mui/icons-material/OpenInNewTwoTone';
 
@@ -37,7 +37,8 @@ export default function PartnerForm(props: PartnerFormProps) {
         id: props.initialValues?.id,
         image: props.initialValues?.image,
         name: props.initialValues?.name,
-        description: props.initialValues?.description
+        description: props.initialValues?.description,
+        isPublic: props.initialValues?.isPublic
       }}
       onSubmit={onSubmit}
       autoComplete="off"
@@ -76,6 +77,8 @@ export default function PartnerForm(props: PartnerFormProps) {
 
       <TextField type="text" name="name" label="Nom" />
       <TextField type="text" name="description" label="Description" multiline rows={10} />
+
+      <Switches name="isPublic" data={{ label: 'Public', value: 'isPublic' }} color="primary" />
     </Form>
   );
 }

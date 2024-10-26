@@ -115,6 +115,8 @@ model Club {
   instagramURL String?
   customURL    String?
 
+  isPublic Boolean @default(true)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Event     Event[]  @relation("EventClub")
@@ -126,6 +128,8 @@ model Partner {
   name        String
   description String?
   image       String?
+
+  isPublic Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
