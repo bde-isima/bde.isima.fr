@@ -25,7 +25,7 @@ const Hub: BlitzPage = () => {
     >
       <main className="flex flex-col space-y-6">
         <Alert severity="warning">
-          Du à des problèmes d&apos;implémentation, le rechargement en ligne a été temporairement désactivé. Veuillez
+          Suite à des problèmes techniques, le rechargement en ligne a été temporairement désactivé. Veuillez
           vous rapprocher d&apos;un membre du BDE afin de recharger votre compte
         </Alert>
         <News />
