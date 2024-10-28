@@ -1,16 +1,12 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import Image from 'next/image';
-
 import EnhancedTextField from 'app/components/forms/EnhancedTextfield';
 import { FORM_ERROR, Form } from 'app/components/forms/Form';
 import { TopUpInput, TopUpInputType } from 'app/components/forms/validations';
-import { PaymentMethod } from 'app/entities/transactions/mutations/requestTopUp';
 
 type TopUpFormProps = {
   onSuccess: (values: TopUpInputType) => void;
-  beforeSubmit: (paymentMethod: PaymentMethod) => () => void;
 };
 
 export default function TopUpForm(props: TopUpFormProps) {
@@ -36,21 +32,9 @@ export default function TopUpForm(props: TopUpFormProps) {
     >
       <EnhancedTextField type="number" name="amount" label="Montant" inputProps={{ min: 5, max: 1000, step: 0.01 }} />
 
-      <div className="flex justify-center">
-        <Button type="submit" onClick={props.beforeSubmit('credit')}>
-          <Image
-            src="/static/images/logos/mastercard.svg"
-            width={100}
-            height={25}
-            alt="Mastercard logo"
-            quality={100}
-          />
-        </Button>
-
-        <Button type="submit" onClick={props.beforeSubmit('lyf')}>
-          <Image src="/static/images/logos/lyf.svg" width={100} height={25} alt="Lyf logo" quality={100} />
-        </Button>
-      </div>
+      <Button type="submit" variant="contained">
+        Recharger
+      </Button>
 
       <Typography variant="caption" align="center">
         Si vous rencontrez un problème lors de votre rechargement, contactez un membre BDE

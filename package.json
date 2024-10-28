@@ -11,6 +11,7 @@
     "migrate": "prisma db push",
     "postinstall": "husky install",
     "seed": "prisma migrate reset --skip-generate --skip-seed && prisma db push && prisma db seed",
+    "prisma-generate": "prisma generate",
     "start": "blitz start",
     "studio": "blitz prisma studio"
   },
@@ -75,8 +76,9 @@
     "react-swipeable": "^7.0.0",
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.8",
+    "safe-stable-stringify": "^2.5.0",
     "sanitize-html": "^2.8.1",
-    "zod": "3.19.1"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
