@@ -51,6 +51,7 @@ jobs:
           envkey_LYF_CREDIT_CARD_API_URL: ${{ secrets.LYF_CREDIT_CARD_API_URL }}
           envkey_NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
           envkey_NEXT_PUBLIC_GA_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GA_TRACKING_ID }}
+          envkey_NEXT_PUBLIC_DISCORD_SERVER_URL: ${{ secrets.NEXT_PUBLIC_DISCORD_SERVER_URL }}
           envkey_SMTP_EMAIL: bde.isima.webmaster@gmail.com
           envkey_SMTP_USER: bde.isima.webmaster
           envkey_SMTP_HOST: ${{ secrets.SMTP_HOST }}

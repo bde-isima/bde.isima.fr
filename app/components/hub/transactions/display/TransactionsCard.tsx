@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 
-import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Card from '@mui/material/Card';
@@ -9,7 +8,6 @@ import Typography from '@mui/material/Typography';
 
 import CompareArrows from '@mui/icons-material/CompareArrowsTwoTone';
 import History from '@mui/icons-material/HistoryTwoTone';
-import LocalAtm from '@mui/icons-material/LocalAtmTwoTone';
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 
@@ -17,7 +15,7 @@ import Balance from 'app/components/hub/transactions/display/Balance';
 import RecentTransactions from 'app/components/hub/transactions/display/RecentTransactions';
 import getCurrentUser from 'app/entities/users/queries/getCurrentUser';
 
-export default function TransactionsCard({ openTransfer, openHistory, openTopUp }) {
+export default function TransactionsCard({ openTransfer, openHistory }) {
   const session = useAuthenticatedSession();
 
   const FallbackComponent = [...Array(10).keys()].map((x) => (
@@ -53,18 +51,6 @@ export default function TransactionsCard({ openTransfer, openHistory, openTopUp 
             Historique
           </Button>
         </ButtonGroup>
-
-        <Badge>
-          <Button
-            variant="outlined"
-            startIcon={<LocalAtm />}
-            aria-label="Recharger"
-            onClick={openTopUp}
-            color="inherit"
-          >
-            Recharger
-          </Button>
-        </Badge>
       </div>
     </Card>
   );
