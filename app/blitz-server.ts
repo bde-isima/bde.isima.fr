@@ -10,7 +10,6 @@ export const { gSSP, gSP, api } = setupBlitzServer({
   logger: BlitzLogger({
     minLevel: 'warn',
     colorizePrettyLogs: true,
-    prefix: ['[blite]'],
   }),
   plugins: [
     AuthServerPlugin({
