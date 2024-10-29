@@ -26,7 +26,7 @@ const users = async (db) => {
       firstname: 'Venceslas',
       nickname: 'venny',
       image: 'https://i.imgur.com/VbdBkxz.png',
-      email: 'duet.venceslas@orange.fr',
+      email: 'contact@citorva.fr',
       card: 1463,
       balance: 0,
       roles: '*',
