@@ -45,10 +45,6 @@ jobs:
           envkey_CONTACT_MAIL: ${{ secrets.CONTACT_MAIL }}
           envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
           envkey_SESSION_SECRET_KEY: ${{ secrets.SESSION_SECRET_KEY }}
-          envkey_LYF_API_VENDOR_ID: ${{ secrets.LYF_API_VENDOR_ID }}
-          envkey_LYF_API_SECRET_KEY: ${{ secrets.LYF_API_SECRET_KEY }}
-          envkey_LYF_FROM_APPLICATION_API_URL: ${{ secrets.LYF_FROM_APPLICATION_API_URL }}
-          envkey_LYF_CREDIT_CARD_API_URL: ${{ secrets.LYF_CREDIT_CARD_API_URL }}
           envkey_NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
           envkey_NEXT_PUBLIC_GA_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GA_TRACKING_ID }}
           envkey_NEXT_PUBLIC_DISCORD_SERVER_URL: ${{ secrets.NEXT_PUBLIC_DISCORD_SERVER_URL }}
