@@ -12,17 +12,32 @@ on:
       - 'release/**'
 
 jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
   branch_check:
     name: 'Check current branch to determine environment 👀'
     runs-on: ubuntu-latest
+    needs: sonarcloud
 
     steps:
       - id: branch_check
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "::set-output name=env_name::production"
+            echo "{env_name}={production}" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=env_name::staging"
+            echo "{env_name}={staging}" >> $GITHUB_OUTPUT
           fi
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
@@ -36,10 +51,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
+        uses: SpicyPizza/create-envfile@v2
         with:
           envkey_NODE_ENV: production
           envkey_CONTACT_MAIL: ${{ secrets.CONTACT_MAIL }}
@@ -55,14 +70,14 @@ jobs:
           envkey_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push container image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
