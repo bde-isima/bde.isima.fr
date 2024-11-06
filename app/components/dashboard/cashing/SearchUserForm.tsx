@@ -24,6 +24,10 @@ export default function SearchUserForm() {
 
   const onClear = () => setSelected(null);
 
+  const onDisconnect = () => {
+    console.log(selected?.id);
+  }
+
   return (
     <>
       {session?.roles.some((x) => x.toLowerCase() === 'bde' || x === '*' || x.toLowerCase() === 'listeux') && (
@@ -41,7 +45,7 @@ export default function SearchUserForm() {
           </Form>
 
           <Suspense fallback={null}>
-            <CashingDialog user={selected} onSelection={onDialogSelection} onClear={onClear} />
+            <CashingDialog user={selected} onSelection={onDialogSelection} onClear={onClear} onDisconnect={onDisconnect} />
           </Suspense>
         </div>
       )}

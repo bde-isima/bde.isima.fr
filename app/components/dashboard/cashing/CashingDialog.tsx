@@ -17,6 +17,8 @@ import Close from '@mui/icons-material/CloseTwoTone';
 import Euro from '@mui/icons-material/EuroTwoTone';
 import HistoryIcon from '@mui/icons-material/HistoryTwoTone';
 import ShoppingCart from '@mui/icons-material/ShoppingCartTwoTone';
+import Logout from '@mui/icons-material/Logout';
+
 
 import { useAuthenticatedSession } from '@blitzjs/auth';
 import { invalidateQuery } from '@blitzjs/rpc';
@@ -36,7 +38,7 @@ const Catalog = lazy(() => import('./catalog/Catalog'));
 const AdminTransfer = lazy(() => import('./adminTransfer/AdminTransfer'));
 const History = lazy(() => import('app/components/hub/transactions/operations/history/History'));
 
-export default function CashingDialog({ user, onSelection, onClear }) {
+export default function CashingDialog({ user, onSelection, onClear, onDisconnect }) {
   const fullScreen = useMediaQuery('md');
   const session = useAuthenticatedSession();
 
@@ -95,6 +97,9 @@ export default function CashingDialog({ user, onSelection, onClear }) {
                 setOpen={setOpen}
               />
 
+              <IconButton onClick={onDisconnect} aria-label="Deconnecter l'utilisateur" size="large">
+                <Logout />
+              </IconButton>
               <IconButton className="ml-auto" onClick={onClear} aria-label="Fermer l'encaisseur" size="large">
                 <Close />
               </IconButton>

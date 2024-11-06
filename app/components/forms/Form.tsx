@@ -51,12 +51,12 @@ export function Form<S extends z.ZodType<any, any>>({
   return (
     <FinalForm
       initialValues={initialValues}
-      validate={async (values) => {
-        const errors = await validateZodSchema(schema)(values);
-        if (process.env.NODE_ENV === 'development') {
-          console.log(values, errors);
-        }
-      }}
+      // validate={async (values) => {
+      //   const errors = await validateZodSchema(schema)(values);
+      //   // if (process.env.NODE_ENV === 'development') {
+      //   //   console.log(values, errors);
+      //   // }
+      // }}
       onSubmit={onSubmit}
       mutators={mutators}
       validateOnBlur
