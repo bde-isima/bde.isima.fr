@@ -10,7 +10,6 @@ import MobileMenuItem from 'app/components/nav/hub/MobileMenuItem';
 
 export default function Mobile({ onClose }) {
   const bdeConfig = useBDEConfig();
-  const clubsConfig = useClubsConfig();
 
   const ItemsList = ({ config }) =>
     useMemo(
@@ -26,7 +25,7 @@ export default function Mobile({ onClose }) {
 
   return (
     <>
-      {(bdeConfig.length > 0 || clubsConfig.length > 0) && (
+      {(bdeConfig.length > 0) && (
         <MobileMenuItem
           item={{
             icon: <Dashboard />,
@@ -42,9 +41,8 @@ export default function Mobile({ onClose }) {
 
       <ItemsList config={bdeConfig} />
 
-      {clubsConfig.length > 0 && <Divider className="m-2" />}
+      {<Divider className="m-2" />}
 
-      <ItemsList config={clubsConfig} />
     </>
   );
 }
