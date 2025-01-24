@@ -38,7 +38,7 @@ export default function PartnerForm(props: PartnerFormProps) {
         image: props.initialValues?.image,
         name: props.initialValues?.name,
         description: props.initialValues?.description,
-        isPublic: props.initialValues?.isPublic
+        isPublic: props.initialValues?.isPublic ?? false
       }}
       onSubmit={onSubmit}
       autoComplete="off"
