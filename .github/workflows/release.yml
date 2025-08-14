@@ -6,7 +6,7 @@ on:
       - created
   pull_request_target:
     branches:
-      - main
+      - staging
     paths-ignore:
       - '.devcontainer/**'
       - '.husky/**'
