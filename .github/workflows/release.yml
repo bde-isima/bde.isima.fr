@@ -34,11 +34,7 @@ jobs:
     steps:
       - id: branch_check
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "env_name=production" >> $GITHUB_OUTPUT
-          else
-            echo "env_name=staging" >> $GITHUB_OUTPUT
-          fi
+          echo "env_name=production" >> $GITHUB_OUTPUT
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
 
