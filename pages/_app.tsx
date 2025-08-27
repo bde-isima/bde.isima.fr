@@ -14,7 +14,6 @@ import { useQueryErrorResetBoundary } from '@blitzjs/rpc';
 import { withBlitz } from 'app/blitz-client';
 import Splash from 'app/components/common/Splash';
 import RootErrorFallback from 'app/core/lib/ErrorBoundary';
-import * as gtag from 'app/core/lib/gtag';
 import { useRouter } from 'app/core/lib/router';
 import 'app/core/styles/index.css';
 import { useTheme } from 'app/core/styles/theme';
@@ -33,9 +32,8 @@ export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start();
 
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = (_url: string) => {
       NProgress.done();
-      gtag.pageview(url);
     };
 
     router.events.on('routeChangeStart', handleRouteChangeStart);
@@ -65,21 +63,6 @@ export default withBlitz(function App({ Component, pageProps }: BDEAppProps) {
           </ErrorBoundary>
         </ThemeProvider>
       </StyledEngineProvider>
-
-      <Script id="gtag" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`} />
-      <Script
-        id="gtag_init"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
-                page_path: window.location.pathname,
-            });
-        `
-        }}
-      />
     </StrictMode>
   );
 });
