@@ -1,9 +1,15 @@
-name: Release
+name: Nightly
 
 on:
   push:
-    tags:
-      - 'v1.**'
+    branches:
+      - staging
+    paths-ignore:
+      - '.devcontainer/**'
+      - '.zed/**'
+      - '.husky/**'
+      - 'docs/**'
+      - 'release/**'
 
 jobs:
   # sonarcloud:
@@ -22,9 +28,9 @@ jobs:
   release:
     name: 'Build and push image 🔨🚀'
     runs-on: ubuntu-latest
-    needs: branch_check
+    # needs: sonarcloud
     environment:
-      name: production
+      name: staging
 
     steps:
       - name: Checkout
@@ -58,6 +64,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/bde-isima/bde.isima.fr/production:latest
+          tags: ghcr.io/bde-isima/bde.isima.fr/staging:latest
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
