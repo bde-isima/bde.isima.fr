@@ -14,7 +14,29 @@ import Search from '@mui/icons-material/SearchTwoTone';
 import TableDeleteConfirm from './TableDeleteConfirm';
 import { useTableProps } from './TablePropsProvider';
 
-export default function TableToolbar({ title, numSelected, onAdd, onDelete, onExport }) {
+type TableActionProps = {
+  title: string;
+  icon: React.ReactNode;
+  action: () => void;
+};
+
+type TableToolbarProps = {
+  title: string;
+  numSelected: number;
+  onAdd?: () => void;
+  onDelete?: () => void;
+  onExport?: (rowData: any) => void;
+  actions?: TableActionProps[];
+};
+
+export default function TableToolbar({
+  title,
+  numSelected,
+  onAdd,
+  onDelete,
+  onExport,
+  actions = []
+}: TableToolbarProps) {
   const { search } = useTableProps();
   const [open, setOpen] = useState(false);
 
@@ -68,6 +90,16 @@ export default function TableToolbar({ title, numSelected, onAdd, onDelete, onEx
             inputProps={{ 'aria-label': 'Rechercher' }}
             onKeyDown={onSearch}
           />
+
+          {actions.map(({ title, icon, action }) => (
+            <>
+              <Tooltip title={title}>
+                <IconButton aria-label={title} onClick={action} size="large">
+                  {icon}
+                </IconButton>
+              </Tooltip>
+            </>
+          ))}
 
           {onAdd && (
             <div>
