@@ -67,3 +67,26 @@ jobs:
           tags: ghcr.io/bde-isima/bde.isima.fr/staging:latest
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
+
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+    - name:  Connecting via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        port: 22
+        script_stop: true # stop script on first error
+        script: |
+          docker pull -q ghcr.io/bde-isima/bde.isima.fr/staging:latest
+          if [ "$(docker ps -aq -f name=bde_app_dev)" ]; then
+          docker stop bde_app_dev && docker rm bde_app_dev
+            fi
+          docker run -d --name bde_app_dev --network ubuntu_bde_isima_net ghcr.io/bde-isima/bde.isima.fr/staging:latest 
+          docker image prune -f
+          docker exec bde_nginx nginx -s reload
+      
