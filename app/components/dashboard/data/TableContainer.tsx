@@ -28,6 +28,7 @@ type TableProps = {
   onExport?: (rowData: any) => void;
   FormComponent?: (props: unknown) => JSX.Element;
   actions?: any[];
+  globalActions?: any[];
   onAdd: () => void;
   onEdit?: (values) => void;
 };
@@ -44,6 +45,7 @@ export default function TableContainer(props: TableProps) {
     onExport,
     FormComponent,
     actions = [],
+    globalActions,
     onAdd,
     onEdit
   } = props;
@@ -124,6 +126,7 @@ export default function TableContainer(props: TableProps) {
         onAdd={FormComponent ? onAdd : undefined}
         onDelete={handleDeleteAllClick}
         onExport={handleExportAllClick}
+        actions={globalActions}
       />
 
       <MuiTableContainer className="text-center">

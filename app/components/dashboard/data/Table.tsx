@@ -17,6 +17,7 @@ type TableProps = {
   deleteQuery: any;
   allowCopy?: boolean;
   actions?: any[];
+  globalActions?: any[];
   onExport?: (rowData: any) => void;
   FormComponent?: (props: unknown) => JSX.Element;
 };
