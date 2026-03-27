@@ -5,7 +5,7 @@ import { resolver } from '@blitzjs/rpc';
 type GetClubsInput = Pick<Prisma.ClubFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'>;
 
 export default resolver.pipe(
-  resolver.authorize(),
+  resolver.authorize(['*', 'bde']),
   async ({ where, orderBy, skip = 0, take }: GetClubsInput, _ctx) => {
     const clubs = await db.club.findMany({
       where,

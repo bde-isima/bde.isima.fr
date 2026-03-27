@@ -10,7 +10,6 @@ import config from './config';
 
 export default function Desktop() {
   const bdeConfig = useBDEConfig();
-  const clubsConfig = useClubsConfig();
 
   return useMemo(
     () => (
@@ -19,7 +18,7 @@ export default function Desktop() {
           <DesktopMenuItem key={item.to} item={item} />
         ))}
 
-        {(bdeConfig.length > 0 || clubsConfig.length > 0) && (
+        {(bdeConfig.length > 0) && (
           <DesktopMenuItem
             item={{
               icon: <Dashboard />,
@@ -31,6 +30,6 @@ export default function Desktop() {
         )}
       </>
     ),
-    [bdeConfig.length, clubsConfig.length]
+    [bdeConfig.length]
   );
 }
